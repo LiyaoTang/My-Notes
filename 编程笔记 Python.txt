@@ -1,0 +1,23 @@
+1. pip/pip3使用：
+	1) cmd进入\Python\Scripts, 输入pip命令
+	2) 将\Python\Scripts 加入环境路径
+
+2. @：矩阵乘法
+	difference between *,@,multiply,dot (for matrix/ndarray)
+
+3. explicit matrix inverse computations are to be avoided for reasons of numerical stability
+	=> 用 numpy.linalg.solve()
+
+4. matrix[:,0:1] => 矩阵第一列
+	=> 前闭后开
+
+5. X = PolynomialFeatures(degree=2).fit_transform(X) => X每个features 的 2次多项式展开
+
+6. np.random.shuffle(idx) => shuffle (index of) data set
+
+
+7. 式子中改变+/- 号位置会影响精确度 => 调用opt.fmin_bfgs() 中有warning
+
+8. U,S,V = np.linalg.svd(A)
+	=>	S is 1-D array with corresponding number
+		V is matrix with row vectors being eigenvectors of A.T*A （U==V.T when A = X.T*X）
