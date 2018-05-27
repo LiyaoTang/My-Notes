@@ -6,11 +6,11 @@
 
   - Components:
 
-    ![components in a networks](F:\Networks\components in a networks.PNG) 
+    ![components in a networks](.\components in a networks.PNG) 
 
   - Example Networks:
 
-    - car key with car; sensors network withtheir controllers (either one-way or two-ways)
+    - car key with car; sensors network with their controllers (either one-way or two-ways)
 
 - Design principle:
 
@@ -20,7 +20,7 @@
 - Internet 'preferred' protocol stack
 
   - Application
-    - delivery functionality
+    - deliver functionality
   - Transport
     - ensure end-to-end performance
   - Network
@@ -36,7 +36,7 @@
 
   - Messages Encapsulation on Each Layers
 
-    ![essages encapsulation in each laye](F:\Networks\Messages encapsulation in each layer.PNG) 
+    ![essages encapsulation in each laye](.\Messages encapsulation in each layer.PNG) 
 
     - e.g. Ethernet frame's payload contains IP packet(s) 
 
@@ -54,7 +54,7 @@
 
   - Circuit switching
 
-    - Communication priented
+    - Communication oriented
 
     - Pros:
 
@@ -64,7 +64,7 @@
 
       ​	lots of waste of capacity (no sharing) & explicity resouce allocation $\Rightarrow$ expensive to scale 
 
-      ​	networks need to store state (info of connection) $\Rightarrow$ multiple single-points of failure 
+      ​	networks need to store state (info of connection) $\Rightarrow$ multiple single points of failure 
 
   - Multiplexing
 
@@ -126,17 +126,17 @@
 
       e.g.: 
 
-      ![multi-level AM](F:\Networks\multi-level AM.PNG) 
+      ![multi-level AM](.\multi-level AM.PNG) 
 
     - Phase + Amplitude Modulation:
 
       $\Rightarrow$ Constellation diagram:
 
-      ![phase-amplitude constellation diagram](F:\Networks\phase-amplitude constellation diagram.PNG) 
+      ![phase-amplitude constellation diagram](.\phase-amplitude constellation diagram.PNG) 
 
       $\Rightarrow$ Quadrature Amplitude Modulation (QAM):
 
-      ![Quadrature amplitude modulation 16](F:\Networks\Quadrature amplitude modulation 16.png) 
+      ![Quadrature amplitude modulation 16](.\Quadrature amplitude modulation 16.png) 
 
       Other Modulation:
 
@@ -221,7 +221,7 @@
 
     - Mapping Table:
 
-      ![4b-5b code](F:\Networks\4b-5b code.PNG) 
+      ![4b-5b code](.\4b-5b code.PNG) 
 
     - Features:
 
@@ -232,12 +232,15 @@
 
     - Example: 
 
-      ![Manchester Code](F:\Networks\Manchester Code.PNG) 
+      ![Manchester Code](.\Manchester Code.PNG) 
 
     - self-clocking: 
 
       1. a sync pattern in the front to denote the start (sync)
+
       2. the receiver can then identify if it is misaligned by half a bit period (prevent phase shift)
+
+         (need to have rising/failing edge in every time unit, otherwise phase shift happens) 
 
 ### Physical Layer
 
