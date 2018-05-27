@@ -205,8 +205,6 @@
     - $\displaystyle C = B\log_2 \left( 1 + \frac S N \right), \text{ where } \\ C \text{ is channel capacity in bits / seconds; } \\ B \text{ is bandwidth in Hz; } \\ S \text{ is expectation of received signal power over the bandwidth in volts}^2; \\ N \text{ is average power of noise and interference over the bandwidth in volts}^2.$
     - lowest sampling frequency of twice as the incoming signal to get a perfect reconstruction
 
-  - 
-
   - Expressing Transmission Quality
 
     - Signal:Noise Rate (SNR) = Signal Energy : Noise Energy
@@ -255,7 +253,7 @@
 
     - Soft & bendable around the corner
     - Light; Malleable; Easy to make thin wire
-    - Easy to add insulation & preotection; Reasonably robust to oxidation
+    - Easy to add insulation & protection; Reasonably robust to oxidation
 
   - Social:
 
