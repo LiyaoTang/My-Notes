@@ -200,9 +200,12 @@
 
 - Limitation in Transmission Quality:
 
-  - Shannon "Capacity Limit"
+  - Shannon–Hartley theorem (Capacity Limit)
 
-    - lowest sampling frequency of twice as the imcoming signal to get a perfect reconstruction
+    - $\displaystyle C = B\log_2 \left( 1 + \frac S N \right), \text{ where } \\ C \text{ is channel capacity in bits / seconds; } \\ B \text{ is bandwidth in Hz; } \\ S \text{ is expectation of received signal power over the bandwidth in volts}^2; \\ N \text{ is average power of noise and interference over the bandwidth in volts}^2.$
+    - lowest sampling frequency of twice as the incoming signal to get a perfect reconstruction
+
+  - 
 
   - Expressing Transmission Quality
 
@@ -210,7 +213,7 @@
 
       $\Rightarrow$ SNR in deciBel = $10 * \log_{10} (\text{Signal}/ \text{Noise})$ dB
 
-- Encoding of Bits Sequency into Bits Patterns (regardless of modulation)
+- Encoding Bits Sequence into Bits Patterns (regardless of modulation)
 
   - Key Concepts:
 
