@@ -1,4 +1,4 @@
-# Computer Networks
+# 	Computer Networks
 
 ### Networks intro
 
@@ -39,6 +39,13 @@
     ![essages encapsulation in each laye](.\Messages encapsulation in each layer.PNG) 
 
     - e.g. Ethernet frame's payload contains IP packet(s) 
+
+- Relations between Layers
+
+  - Network layer is the commander on router (may sit on switch)
+    - configure the link layer protocol...
+  - Application layer is the commander on host
+    - configure the network layer protocol...
 
 ### Information Transmission - Communication
 
@@ -285,7 +292,7 @@
     - Attenuation: 
 
       1. loss of energy (in the form of heat, light and etc.)
-      2. loss of frequency and etc...
+      2. loss of frequency and etc... 
 
 - Noise in Signalling:
 
@@ -298,15 +305,15 @@
 
   - Solving Antenna Problem
 
-    - Pretection - "Coaxical" cables
+    - Protection - "Coaxical" cables
 
-      ![coaxial cables_1](F:\Networks\coaxial cables_1.PNG) ![coaxial cables_2](F:\Networks\coaxial cables_2.PNG) 
+      ![coaxial cables_1](.\coaxial cables_1.PNG) ![coaxial cables_2](.\coaxial cables_2.PNG) 
 
       Pros: well sheilded - protection from noise & security (much less sending out), robust
 
       Cons: single RX/TX, expensive
 
-    - Spatial Division Multiplexing $\Rightarrow$ more wire in a cable
+    - Spatial Division Multiplexing $\Rightarrow$ more wire in a cable (robust)
 
       Pros: full duplex, inverse multiplexing - multiple path to share (one-to-many & many-to-one)
 
@@ -320,7 +327,7 @@
 
     - Twisting wires
 
-      ![Twisting wires](F:\Networks\Twisting wires.PNG) 
+      ![Twisting wires](.\Twisting wires.PNG) 
 
       Assumption: noise source has a direction
 
@@ -368,9 +375,9 @@
     - easy to have a shared backbone 
     - last mile exposed in the real world - insects, weathers, stealing, etc...
   - Last Mile Trad-off  (last mile also refered as local loops sometimes)
-    - cost of exchanges, distance for the final cable, quality of signal throught the wire
+    - cost of exchanges, distance for the final cable, quality of signal through the wire
 
-      ​	Note: up tp 4+ km from their exchanges
+      ​	Note: up to 4+ km from their exchanges
 
     - scalability
 
@@ -384,7 +391,7 @@
 
     - Assymetric: more on downstream performance
 
-    ![DSL](F:\Networks\DSL.PNG) 
+    ![DSL](.\DSL.PNG) 
 
     - Pros: using the existing telephone line; co-exit with POTS (plain old telephone service)
 
@@ -399,11 +406,11 @@
       3. DSLAM -> switch (decide which LAN it is in)
       4. switch -> router / switch (go to outer internet / transfer to another switch)
 
-  - NBN - National 
+  - NBN - National Broadband Networks
 
     - Spectrum in Real World
 
-      ![NBN today](F:\Networks\NBN today.PNG) 
+      ![NBN today](.\NBN today.PNG) 
 
     - Mixed-Technology
 
@@ -436,9 +443,9 @@
 
   - Oblique Light Leaks
 
-    - use another layer of glasses to reflec the light (with in a 'critical angle'), wrapped with jacket![Cladded glass fiber](F:\Networks\Cladded glass fiber.PNG) 
+    - use another layer of glasses to reflec the light (with in a 'critical angle'), wrapped with jacket![Cladded glass fiber](.\Cladded glass fiber.PNG) 
 
-      ![Reflection in fiber](F:\Networks\Reflection in fiber.PNG)  
+      ![Reflection in fiber](.\Reflection in fiber.PNG)  
 
   - Modal Distortion (varying distance for light to travel because of reflection)
 
@@ -450,21 +457,21 @@
 
       $\Rightarrow$ receiver can line up the light more easily
 
-      ![Solution to modal distortion](F:\Networks\Solution to modal distortion.PNG) 
+      ![Solution to modal distortion](.\Solution to modal distortion.PNG) 
 
     - Multi-mode vs. Single-mode (each ray = a 'mode')
 
       1. multimode fiber (MMF) step-index: more bandwidth, significant modal distortion
 
-         ![multimode step-index](F:\Networks\multimode step-index.PNG) 
+         ![multimode step-index](.\multimode step-index.PNG) 
 
       2. multimode fiber (MMF) graded-index: a few bandwidth, less modal distortion
 
-         ![multimode graded-mode](F:\Networks\multimode graded-mode.PNG) 
+         ![multimode graded-mode](.\multimode graded-mode.PNG) 
 
       3. singlemode fiber (SMF):  less bandwidth, good at travelling on long distance
 
-         ![Singlemode](F:\Networks\Singlemode.PNG) 
+         ![Singlemode](.\Singlemode.PNG) 
 
       Note: from 1. $\rightarrow$ 3. the performance increases, so does cost
 
@@ -483,7 +490,7 @@
 
     - Can be frequency dependent:
 
-      ![Freq dependent attenuation in fiber](F:\Networks\Freq dependent attenuation in fiber.PNG)  
+      ![Freq dependent attenuation in fiber](.\Freq dependent attenuation in fiber.PNG)  
 
   - Chromatic dispersion (色散): 
 
@@ -556,7 +563,7 @@
   - (G)PON Passive Optical Network
 
     - Technology used in the fiber part of the backbone, just before the last mile
-    - Comparison with active network
+    - Active network (for comparison)
       1. traffic from backbone splitted by splitters into cabinet depending on their destinations
       2. cabinet starts the last mile, sending only your info to you
     - Passive network
@@ -625,15 +632,15 @@
 
 - Transmission in Wireless: Improvements
 
-  - Transmiter & Receiver $\Rightarrow​$ Antennas
+  - Transmiter & Receiver $\Rightarrow$ Antennas
 
     - Omnidirectional (Broadcasting) antenna
 
       ​	$\Rightarrow$ broadcasting to all direction, yet poor coverage for directly under the antenna
 
-    -  Directional antenna $\Rightarrow​$ more focus
+    - Directional antenna $\Rightarrow$ more focus
 
-      ![Directional antenna](F:\Networks\Directional antenna.PNG) 
+      ![Directional antenna](.\Directional antenna.PNG) 
 
     Note: generally, $O[n]$ in size, with $n = \text{wavelength}$ 
 
@@ -682,13 +689,13 @@
     - Repeaters
     - Mixed with lined networks (link wireless to wired)
     - Coverage type
-      1. fixed vs. mobile client $\Rightarrow$ directional vs. broadcast
+      1. fixed vs. mobile client $\Rightarrow​$ directional vs. broadcast
       2. point-to-point vs. cell coverage  
     - APs networks (mobile + cell coverage) $\Rightarrow$ cell handovers
       1. negotiate with current APs to re-association (while the connection is still okay)
       2. APs aware the re-association - keep the same IP & session
       3. enter the same session with credential info
-    - Spave wireless
+    - Space wireless
       1. Forms: satellite to satellite; satellite to/from ground
       2. Handing over needed: satellite orbits
       3. Potentially high delay: long distance
@@ -744,23 +751,23 @@
 
     ​	(more time / channels / wires for the current users)
 
+    ​	e.g. random back-off on collision
+
   - Fair Access to Network
 
     - rules for trying to send
 
-
-
-  - Example Desings
+  - Example Designs
 
     - Simple Frame: need to be in synchronization
 
-      ![imple fram](F:\Networks\Simple frame.PNG) 
+      ![imple fram](.\Simple frame.PNG) 
 
     - Frame with Flag: need an escape symbol to distinguish (e.g. the "\" to denote "\n"  in C)
 
-      ![rame with fla](F:\Networks\Frame with flag.PNG) 
+      ![rame with fla](.\Frame with flag.PNG) 
 
-- MAC (Media Access Control) & Sharing
+- MAC (Media Access Control) & Sharing the Media
 
   - Address Scheme
 
@@ -816,6 +823,8 @@
       1. counting the detected collision in a relatively recent history
       2. for the $n^{\text{th}}$ collision, wait for a random number between $[0,2^n-1]$ 
 
+      $\Rightarrow$ statistical multiplexing
+
   - Access Scheme - Wireless
 
     - Problem of wireless environment
@@ -824,21 +833,21 @@
 
          $\Rightarrow$ because of limited coverage of each cell
 
-         $\Rightarrow$ different Tx can transmit to one Rx with out noticing interference
+         $\Rightarrow$ different Tx can transmit to one Rx without noticing interference
 
          $\Rightarrow$ hidden terminals: A, C are hidden from each other and can talk to B at the same time
 
-         ![idden terminal](F:\Networks\Hidden terminals.PNG) 
+         ![idden terminal](.\Hidden terminals.PNG) 
 
-      2. local Tx ( e.g. its own Tx) are much louder than remote Tx 
+      2. local Tx ( e.g. its own Tx or nearby Tx) are detected as collision
 
-         $\Rightarrow$ detect fake collision, thus wasting bandwidth
+         $\Rightarrow$ wasting bandwidth due to frequency hopping / back-up scheme
 
          $\Rightarrow$ exposed terminal: C detects collision because of B talking to A 
 
-         ![xposed terminal](F:\Networks\Exposed terminals.PNG) 
+         ![xposed terminal](.\Exposed terminals.PNG) 
 
-    - Multiple Access Collision Avoidance (MACA) - handsahe before yelling
+    - Multiple Access Collision Avoidance (MACA) - handshake before yelling
 
       1. sender: request to send (RTS), providing the frame length N
       2. anyone hears RTS stay silent for receiver's CTS
@@ -849,11 +858,11 @@
 
       $\Rightarrow$ fixing hidden terminals problem: C knows A is sending after CTS
 
-      ![idden terminals - fixe](F:\Networks\Hidden terminals - fixed.PNG) 
+      ![idden terminals - fixe](.\Hidden terminals - fixed.PNG) 
 
       $\Rightarrow$ fixing exposed terminal problem: B, C not influenced by others' CTS
 
-      ![xposed terminals - fixe](F:\Networks\Exposed terminals - fixed.PNG) 
+      ![xposed terminals - fixe](.\Exposed terminals - fixed.PNG) 
 
   - Access Scheme - Contention-free access
 
@@ -893,14 +902,16 @@
     - bluetooth, 4G, Ethernet standards ...
   - Carrier-grade LAN (service level - guaranteed performance)
     - ATM (Asynchronous Transfer Mode), GPON (Gigabit-capable Passive Optical Networks), ...
-  - Dat-center LAN (specific for high volumn, short distance)
+  - Data-center LAN (specific for high volumn, short distance)
     - FibberChannel, ...
 
 - Switches
 
-  ![witc](F:\Networks\Switch.PNG) 
+  ![witc](.\Switch.PNG) 
 
   - Learn the Address on the Air
+
+    (not all devices on the same media now $\Rightarrow$ forward message to correct place)
 
     - Recording all source address of incoming message
     - New / Unknown address:
@@ -911,7 +922,7 @@
 
     - Reasons:
 
-      1. spaicial multiplexing - more wires
+      1. spacial multiplexing - more wires
       2. redundancy
       3. short cuts
 
@@ -920,8 +931,13 @@
     - Spanning tree: disable some path $\Rightarrow$ reduce to tree architecture
 
       1. everyone think itself as root
+
       2. broadcasting & forward its current info to select a root on set-up (flooding)
+
+         deterministic selecting rules: e.g. lowest address wins
+
       3. select the shortest path from root - using hop count
+
       4. turn off ports not on the tree
 
       Compared to flooding: maintain the reduced topologies instead of the whole map
@@ -932,11 +948,11 @@
     - Separation of traffic : logically separated network on the same infrastructure
       1. protect confidential info
       2. ensure devices in communication are compatible  (computer cannot talk to phone)
-      3. easy re-configure the LAN Structure on the
+      3. easy re-configure the LAN Structure on the demand
     - Prioritization of traffic
       1. drop frames accordingly when busy  
   - Implementation
-    - Tagging the port address into groups
+    - Tagging the port address into groups on switches
     - Tagging the frames accordingly
 
 
@@ -951,17 +967,17 @@
 
 - Auto-Negotiation
 
+  - Topologies Change - devices connect / disconnect
+    - Heartbeat: device sends out a "normal link pulse" to remind the network of itself
   - Capability Negotiation
     - both ends communicate in "fast link pulse", containing requirement of:
       1. Speed
       2. Duplex
       3. Rx & Tx Detection
-  - Topologies Change - devices connect / disconnect
-    - Heatbeat: device sends out a "normal link pulse" to remind the network of me
 
 - Ethernet Frame
 
-  ![thernet fram](F:\Networks\Ethernet frame.PNG) 
+  ![thernet fram](.\Ethernet frame.PNG) 
 
   - Preamble:
     - 1-0 bits sequence 
@@ -985,12 +1001,12 @@
 
 - Protocol:
 
-  - Listening  all frameson the wire until destination is my address
+  - Listening  all frames on the wire until destination is my address
   - Can collect all frames transfering on the wire
 
 - Link Aggregation / Trunking 
 
-  ![ink aggregatio](F:\Networks\Link aggregation.PNG) 
+  ![ink aggregatio](.\Link aggregation.PNG) 
 
   - Advantages:
     - performance
@@ -1014,7 +1030,7 @@
     - Adapt power: shout louder
     - Adapt rate: slow down - e.g. 1b/10b (encoding 1 bit into 10 bits)
   - Statistical Multiplexing and Frequency Hopping ($\Leftrightarrow$ channel changing)
-    - choose the frequency to change to using statistical random method
+    - choose the frequency to change using statistical random method
   - Beam-Forming and Spaical Multiplexing
     - multiple input multiple output (MIMO) $\Rightarrow$ multiple antennas for beam-forming
 
@@ -1030,7 +1046,7 @@
 
 - Frames in WLAN
 
-  ![LAN frame](F:\Networks\WLAN frames.PNG) 
+  ![LAN frame](.\WLAN frames.PNG) 
 
   - Preamble
 
@@ -1060,7 +1076,7 @@
       1. when resending, need to tag the frame as "resending", because acknowledge may lost
       2. may delay the performance because of delay
 
-  - Association with AP
+  - Association with AP (Acess Point)
 
     - need to know:
 
@@ -1088,15 +1104,16 @@
 
   - Message - Packets
 
-    - Definition: fragments of message & smallest unit of data in the ne
-    - Reasons: use spacial multiplexing more $\Rightarrow$ more parallel
+    - Definition: fragments of message & smallest unit of data in network layer
+    - Reasons: more spacial multiplexing $\Rightarrow$ more parallel
+    - Targeted message: address in IPv4/6
 
   - Traffic Control
 
     - Optimized routing $\Rightarrow$ no order guaranteed
     - Prioritization
     - Compared with LAN:
-      1. LANs focus on similicity, instead of optimization
+      1. LANs focus on simplicity, instead of optimization
       2. Spanning Tree can NOT guarantee optimal topology
 
   - Scaling Problems
@@ -1118,7 +1135,7 @@
 
     - Minimal service level agreement $\Rightarrow$ no guarantee but best effort
 
-      (reliability provided only where it needed)
+      (reliability provided only where needed)
 
 - Router
 
@@ -1133,14 +1150,14 @@
 
       $\Rightarrow$ optimizing routing causes each router optimize its forwarding table
 
-    - Focus on packet $\Rightarrow$ packets usually arrive in different order than that of when it's sent
+    - Focus on packet $\Rightarrow$ packets usually arrive in different order than that when it's sent
 
   - Forwarding Table
 
     - packet forwarding table
 
       1. forward packet based on its destination address 
-      2. mor robust to router failure (find another path)
+      2. more robust to router failure (find another path)
       3. learn / optimize forwarding table on the fly
 
     - circuit forwarding table
@@ -1195,7 +1212,7 @@
 
       $\Rightarrow$ inter-changing of IP packet and link frames, especially address
 
-  - The Address Resolution Protocol
+  - <u>The Address Resolution Protocol</u> 
 
     - source MAC: read from local hardware
     - destination MAC:
@@ -1204,7 +1221,7 @@
     - optimizations
       1. caches the MAC address (with time-out)
       2. cache passing IP address (when others broadcast & reply)
-      3. upon connection on LAN, broadcast my IP address (MAC address in frame's address feild)
+      3. upon connection on LAN, broadcast my IP address (MAC address in frame's address field)
 
 - Allocation of Address
 
@@ -1223,9 +1240,9 @@
 
   - Traceroute
 
-    ![racerout](F:\Networks\traceroute.PNG) 
+    ![](.\traceroute.PNG) 
 
-    - Sending message with increamenting TTL
+    - Sending message with increamenting TTL (Time to Live - in hops count)
 
        $\Rightarrow$ the $i^\text{th}$ router sends back with corresponding exceptions (via control messge protocol)
 
@@ -1239,7 +1256,7 @@
 
     - packet bigger than LAN's payload $\Rightarrow$ sliced packets
 
-      ![pliced  packet](F:\Networks\Spliced  packets.PNG) 
+      ![pliced  packet](.\Spliced  packets.PNG) 
 
     - Realizing the need of slicing: 
 
@@ -1247,14 +1264,14 @@
 
     - Flags to inform the next router:
 
-      1. Identification field: key to identify a packet uniquely
-      2. Fragment offset: the offset of this packet in the original big packet
+      1. Identification field: key to identify an unique packet (which sliced packets share)
+      2. Fragment offset: the offset of this packet in the original big packet 
       3. MF: more fragment flag $\Rightarrow$ more fragment of packets after me
       4. DF: don't fragment flag $\Rightarrow$ no more fragment after me
 
     - Trasmitting sliced packets
 
-      1. <u>copy</u> IP Header, including identification  each sliced packet belongs to the original packet
+      1. <u>copy</u> IP Header, including <u>identification</u> (each sliced packet belongs to the original packet)
       2. <u>adjust</u> Length, Checksum & TTL (time to live) feilds of each sliced packet
       3. <u>set</u> fragment offset & MF/DF flags
       4. receiver re-assemble accordingly
@@ -1269,7 +1286,7 @@
 
     - Using internet control message protocol - similar to traceroute
 
-      ![TU descover](F:\Networks\MTU descovery.PNG) 
+      ![TU descover](.\MTU descovery.PNG) 
 
       $\Rightarrow$ sender send at the lowest MTU
 
@@ -1291,19 +1308,21 @@
 
       $\Rightarrow$ all routers on the path know the subscription
 
+      potential problem: states stored in network
+
 - Internet Protocol - IP
 
   - IP - v4
 
     - Protocol overview (top-left -> bottom-right)
 
-      ![Pv4 protoco](F:\Networks\IPv4 protocol.PNG) 
+      ![Pv4 protoco](.\IPv4 protocol.PNG) 
 
       ​	Note: checksum needs to be update at every router (hop counts changing)
 
     - Addressing
 
-      ![Pv4 addressin](F:\Networks\IPv4 addressing.PNG) 
+      ![Pv4 addressin](.\IPv4 addressing.PNG) 
 
       1. total length - 32 bits
 
@@ -1384,13 +1403,13 @@
       ![Pv6 protoco](.\IPv6 protocol.PNG) 
 
       1.  larger address sapce: 128-bits
-      2. ​
+      2. specific meaning in addressing scheme
 
     - Addressing
 
       ![Pv6 addressin](.\IPv6 addressing.PNG) 
 
-      1. 3-bit header: 
+      1. 3-bit header: unicast, multicast or anycast (no broadcast)
       2. TLA: top level aggregator - global ISP
       3. Res: reserved
       4. NLA: next level aggregator - site
@@ -1413,7 +1432,7 @@
 
     - Definition & components: 
       1. functionality & quality (including reliability) for applications
-      2. host-to-host message
+      2. host-to-host & port-to-port message, for application use
 
   - Main Services
 
@@ -1431,7 +1450,7 @@
   - Service Types
 
     - Reliability:
-      1. reliable: packet loss repaired at transport layer
+      1. reliable: segments loss repaired at transport layer
       2. unreliable: reliability offload to applications
     - Communication froms:
       1. messages: self-contained command and response 
@@ -1478,21 +1497,21 @@
   - Options
 
     - Maximum segment size
-    - Window sacle - upon window is full will acknowledegement sent
+    - Window scale - upon window is full will acknowledegement sent
     - Time stamp
     - Selective acknowledgement - advanced acknowledgement
 
   - Reliability
 
-    - Important components: sequency number, acknowledegement
+    - Important components: sequence number, acknowledegement
 
     - Sequence number: byte count in a stream (in $\text{mod }n$ space) $\Rightarrow$ can be used as relative time stamp
 
       ​	Note: does NOT start from 0 $\Rightarrow$ security reason
 
-    - Acknowledgements: with sliding windows with size $w$  & selective repeat
+    - Acknowledgements: with sliding windows of size $w$  & selective repeat
 
-      $\Rightarrow$ more parallel
+      $\Rightarrow$ more parallel (size $w$ depends on bandwidth and delay)
 
       1. <u>sender</u> 
 
@@ -1506,7 +1525,7 @@
 
          ​		ACK received segments
 
-         ​		request missing segments - which is in gap of segments stream & the future
+         ​		request missing segments - which is in the gap of segments stream & the future
 
       3. Pros: no need to suspend on every segment $\Rightarrow$ more parallel
 
@@ -1527,13 +1546,13 @@
 
     - source & destination IP addresses
     - source & destination ports
-    - protocol
+    - transport layer protocol (TCP/UDP)
 
   - Socket API:
 
-    ![ocket AP](F:/Networks/socket%20APL.PNG) 
+    ![ocket AP](./socket%20APL.PNG) 
 
-    - Note: * = potential blocking calls 
+    - Note: * denotes potential blocking calls 
 
   - NAPT (Network Address and Port Translation)
 
@@ -1564,9 +1583,9 @@
 
   - Negotiation procedure
 
-    ![equest IP addres](F:\Networks\Request IP address.PNG) 
+    ![equest IP addres](.\Request IP address.PNG) 
 
-    - Need to broadcast to discover
+    - need to broadcast to discover
 
     - need to request the IP address after being offered 
 
@@ -1642,7 +1661,7 @@
 
   - Example
 
-    ![NS heirarchical tre](F:\Networks\DNS%20heirarchical%20tree.PNG)
+    ![NS heirarchical tre](.\DNS%20heirarchical%20tree.PNG)
 
   - Resolving the IP address (Resolution)
 
@@ -1671,7 +1690,7 @@
       can change the cache in router - man-in-the-middle
 
       1. make a query by yourself; 
-      2. draft a reply, including a valid source address & guess the ID (enumeration will do);
+      2. draft a reply, including a valid source address & guess the query's ID (enumeration will do);
       3. (router usually check only destination addr, matching ID, is it answering query)
 
     - More security: signature, public-private keys, ...
@@ -1682,7 +1701,7 @@
 
     - Dynamic DNS - NAPT
 
-      1. register a DNS name on DNS server for my host $\Rightarrow$ server handle the address change
+      1. register a DNS name on DNS server for my host $\Rightarrow$ server handle public IP address change
       2. host address change: local IP address (private address) change $\Rightarrow$ router port change
       3. message sent to me will find the right port through DNS (DNS will query my router)
 
@@ -1691,8 +1710,8 @@
   - Focus
 
     - Deliver associated content
-    - Linking related content on the web, instead of fetching everything to local
-    - Light weight (initially designed) - used with UDP as transport layer sometimes
+    - Linking semantic related content on the web, instead of fetching everything to local
+    - Light weight (initially designed) - used with UDP together as a transport layer sometimes
 
   - URI vs. URL:
 
@@ -1790,7 +1809,7 @@
 
       2. Proxy level - proxy cache ($\Leftrightarrow$ caching proxy)
 
-         ​	cache on routers on local LAN - closer to client
+         ​	cache on routers / local LAN - closer to client
 
          ​	share the cache in the LAN - enable security check & policies
 
