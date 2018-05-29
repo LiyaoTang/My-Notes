@@ -1824,3 +1824,157 @@
         2. cache before the request $\Rightarrow$ as a way of sharing distributed servers
 
            ![ache - content distribution networ](.\Cache - content distribution network.PNG)  
+
+### Real-Time Network
+
+- Real-Time Definition
+
+  - Task-specific
+    - predictability
+    - logical correctness
+  - Trade-off (in network environment)
+    - timeliness (delay) vs. reliability (loss)
+    - general option:
+      1. TCP with CDN (content distribution network) $\Rightarrow$ more overhead (delay), more reliable 
+      2. UDP with interactive control $\Rightarrow$ low overhead (delay), less reliable
+
+- Challenge:
+
+  - Dynamic Network Environment
+
+    - best-effort service (by default)
+      1. <u>variable</u> delay
+      2. loss
+
+    $\Rightarrow$ NOT predictable, regarding both timeliness and quality
+
+  - Limited Choice
+
+    - Internet is not the best choice, but maybe the only choice
+
+- Network Delay
+
+  - Ideal Dealy
+
+    - Distribution :
+
+      ![](./Dealy-ideal_dist.png) 
+
+    - Delay in real-time sequence:
+
+      ![](./Delay-ideal_seq.png) 
+
+  - Realistic Delay
+
+    - Distribution:
+
+      ![](./Delay-real_dist.png) 
+
+    - Delay in real-time sequence:
+
+      ![](./Delay-real_seq.png) 
+
+  - Manage Delay
+
+    - Buffer: Timimg requirement with hard-deadline
+
+      1. in distribution
+
+         ![](./Delay-buf_dist.png)  
+
+      2. in real-time sequence
+
+         ![](./Delay-buf_seq.png)  
+
+      3. buffer size trade-off
+
+         big buffer 	$\Rightarrow$ more tolerant to jitter, greater delay
+
+         small buffer 	$\Rightarrow$ less tolerant to jitter, less delay
+
+    - Retransmission
+
+      1. overhead: 
+
+         ​	transmission of request or time-out ACK round-trip time
+
+         ​	packet transmission time
+
+         ​	queuing delay
+
+         ​	more buffer
+
+      2. caching: router / other clients re-transmit
+
+         e.g. in multicast, listener may re-transmit, insdeat of the sender
+
+    - Elastic buffer: adapting buffer
+
+      1. stretch if delay is heacy 
+      2. shrink in good network condition
+
+    - Error correction
+
+      1. enable interpolation between packet
+
+      2. adaptive forward error correction: sending a compressed back-up of previous packet
+
+         e.g. ![](./Forward error correction.png), where colour denotes content in packet
+
+    - Parallel-transmission:
+
+      ​	several copies in different quality (normal, low, lower, ...) $\Rightarrow$ redundancy 
+
+      ​	(better than nothing)
+
+- Real-time Transport Protocol (RTP) - Network Layer
+
+  - Packet
+
+    ![](./RTP msg.png) 
+
+    - usually is a payload of UDP (sometimes TCP)
+    - reliability: sequency number
+    - timing: timestamp
+    - multiple sources sync/async: contributing source Id, sync source Id
+
+- RTP Control Protocol (RTCP)
+
+  - Bi-directional Communication
+    - out-of-band  (on different port than RTP)
+    - negotiation between senders & receivers (report their status)
+  - Monitoring & Assisting
+    - connection status: heartbeat, connection/disconnection
+    - others: measure distance with rount-trip-time, can be used for re-transmission request
+
+- Real-time Session - Video Conference
+
+  - Network Structure
+    - many to many $\Rightarrow$ multiple sites, multiple media streams
+  - Procedure
+    - establish calls: Session Initiation Protocol (SIP)
+    - negotiate details: Session Description Protocol
+    - delivery media: RTP + RTCP
+    - playout content: bufferes & applications
+
+- Session Initiation Protocol (SIP)
+
+  - Ability
+
+    - establish and tear down calls - not noly for video
+
+  - Signalling - over TCP and UDP
+
+    ![](./SIP-signalling.png)  
+
+- Real Time Streaming Protocol
+
+  - Ability
+    - manage one-way media transmission $\Rightarrow$ more tolerant to delay (content already generated)
+    - establishes a streaming session and negotiates media transport
+
+- Other Alternative Protocols:
+
+  - HTTP
+    - reason: get through firewall, many extensions
+    - HTML5 with video player built-in

@@ -4,9 +4,9 @@
 
 - Definition
 
-  - logical correctness
+  - Logical correctness
     - accuracy of result is with respect to specification
-  - predictable timing 
+  - Predictable timing 
     - the time of result delivery is with respect to specification
 
 - Typical characteristics:
@@ -314,7 +314,7 @@
 
 - Overview
 
-  ![signal chain processing](F:\Real-Time and Embedded System\signal chain processing.PNG) 
+  ![signal chain processing](.\signal chain processing.PNG) 
 
 - Processing Steps:
 
@@ -358,7 +358,7 @@
 
   - Low sampling frequency results in wrongly observed signal
 
-    ![Aliasing Problem](F:\Real-Time and Embedded System\Aliasing Problem.PNG)  
+    ![Aliasing Problem](.\Aliasing Problem.PNG)  
 
   - Nyquist Criterion
 
@@ -402,11 +402,11 @@
 
   - Idea Measurement & Error
 
-    ![Ideal measurement](F:\Real-Time and Embedded System\Ideal measurement.PNG)  
+    ![Ideal measurement](.\Ideal measurement.PNG)  
 
   - Realistic Measurement & Error
 
-    ![Actual measurement](F:\Real-Time and Embedded System\Actual measurement.PNG) 
+    ![Actual measurement](.\Actual measurement.PNG) 
 
 #### 3. Interface Example - A/D Converters
 
@@ -483,7 +483,7 @@
 
   - Table for Comparison
 
-    ![Converters AD matrix](F:\Real-Time and Embedded System\Converters AD matrix.PNG) 
+    ![Converters AD matrix](.\Converters AD matrix.PNG) 
 
 #### 3. Micor-controller
 
@@ -503,7 +503,7 @@
 
     - Access: through dual-ported RAM (atomicity from harware support) 
 
-    ![TPU (accessed via dual-ported RAM)](F:\Real-Time and Embedded System\TPU (accessed via dual-ported RAM).PNG) 
+    ![TPU (accessed via dual-ported RAM)](.\TPU (accessed via dual-ported RAM).PNG) 
 
 #### 4. Handling Device (More in Scheduling)
 
@@ -557,17 +557,17 @@
 
   - Guarantee with a 'resolution' and 'accuracy' of time
 
-    ![Time in programming language](F:\Real-Time and Embedded System\Time in programming language.PNG) 
+    ![Time in programming language](.\Time in programming language.PNG) 
 
   - Actual Error in Timing
 
     - Delay / Delay until statement (interrupt to initiate task switch & inform scheduler)
 
-      ![Actual delay of delay statement](F:\Real-Time and Embedded System\Actual delay of delay statement.PNG)  
+      ![Actual delay of delay statement](.\Actual delay of delay statement.PNG)  
 
     - 'Time' interrupt (interrupt to perform context switch)
 
-      ![Actual delay of timer interrupt](F:\Real-Time and Embedded System\Actual delay of timer interrupt.PNG)   
+      ![Actual delay of timer interrupt](.\Actual delay of timer interrupt.PNG)   
 
     $\boldsymbol \Rightarrow$ Only absolute delays & timers are allowed in strict real-time system
 
@@ -591,19 +591,19 @@
 
     - when task created
 
-      ![Common timing attributes when task created](F:\Real-Time and Embedded System\Common timing attributes when task created.PNG) 
+      ![Common timing attributes when task created](.\Common timing attributes when task created.PNG) 
 
     - when task activated
 
-      ![Common timing attributes when task activated](F:\Real-Time and Embedded System\Common timing attributes when task activated.PNG) 
+      ![Common timing attributes when task activated](.\Common timing attributes when task activated.PNG) 
 
     - when task terminated
 
-      ![Common timing attributes when task terminated](F:\Real-Time and Embedded System\Common timing attributes when task terminated.PNG) 
+      ![Common timing attributes when task terminated](.\Common timing attributes when task terminated.PNG) 
 
   -  Timing Attributes for Temporal Scope & Deadline
 
-    ![Common timing attributes for timing scope and deadline](F:\Real-Time and Embedded System\Common timing attributes for timing scope and deadline.PNG) 
+    ![Common timing attributes for timing scope and deadline](.\Common timing attributes for timing scope and deadline.PNG) 
 
   - Timing constraint in Languages
 
@@ -615,7 +615,7 @@
   - Approach for Time-unbound Primitives
 
     - Exclude them
-    - Expand them tp become individually safe (mandatory timeout)
+    - Expand them to become individually safe (mandatory timeout)
     - Tag the code with additional constrains and Enable full pre-runtime analysis
 
 - Staisfying Timing Requirement
@@ -740,7 +740,7 @@
 
   - Exception Forms
 
-    ![Ada exception mechanism](F:\Real-Time and Embedded System\Ada exception mechanism.PNG) 
+    ![Ada exception mechanism](.\Ada exception mechanism.PNG) 
 
   - Exception Granularity -  block level
 
@@ -801,7 +801,7 @@
 
     $\Rightarrow$ client task (task calling for the atomic action) can invovle in atomic action (at least partially)
 
-    ![Nested atomic action](F:\Real-Time and Embedded System\Nested atomic action.PNG) 
+    ![Nested atomic action](.\Nested atomic action.PNG) 
 
 - Atomic Action Failure
 
@@ -885,7 +885,7 @@
 
   - Routine for Asynchronous Transfer (select-abort)
 
-    ![Ada asynchronous transfer of control (select-abort)](F:\Real-Time and Embedded System\Ada asynchronous transfer of control (select-abort).PNG) 
+    ![Ada asynchronous transfer of control (select-abort)](.\Ada asynchronous transfer of control (select-abort).PNG) 
 
   - Exception Handling in select-abort block
 
@@ -982,7 +982,7 @@
 
       ​	$\Rightarrow$ cannot simulate the hardware support purely by software
 
-    ![sync message passing simulated by async](F:\Real-Time and Embedded System\sync message passing simulated by async.PNG) 
+    ![sync message passing simulated by async](.\sync message passing simulated by async.PNG) 
 
 - Asynchronous Message Passing
 
@@ -1000,7 +1000,7 @@
 
     - intermediate hot stand-by process as buffer (with its own sender & receiver)
 
-    ![asyc message simulated by sync](F:\Real-Time and Embedded System\asyc message simulated by sync.PNG) 
+    ![asyc message simulated by sync](.\asyc message simulated by sync.PNG) 
 
 
 - Remote Invocation
@@ -1011,13 +1011,13 @@
     - Sender passes parameters and keep blocked when receiver excutes local procedure
     - Receiver passes result back and release both processes
 
-    ![Remote invocation](F:\Real-Time and Embedded System\Remote invocation.PNG) 
+    ![Remote invocation](.\Remote invocation.PNG) 
 
   - Simulated by Asyncchronous Message Passing
 
     - Simulate two synchronous message passing (never actually synchronized)
 
-    ![Remote invocation simulated by async](F:\Real-Time and Embedded System\Remote invocation simulated by async.PNG) 
+    ![Remote invocation simulated by async](.\Remote invocation simulated by async.PNG) 
 
 - Message Type
 
@@ -1063,7 +1063,7 @@
 
     - avoid unnecessary task swtiches
 
-      ![Scheduling in RT](F:\Real-Time and Embedded System\Scheduling in RT.PNG) 
+      ![Scheduling in RT](.\Scheduling in RT.PNG) 
 
   - In Non Real-Time
 
@@ -1071,7 +1071,7 @@
 
     - user-assigned priority usually ignored
 
-      ![Scheduling in non RT](F:\Real-Time and Embedded System\Scheduling in non RT.PNG) 
+      ![Scheduling in non RT](.\Scheduling in non RT.PNG) 
 
 - Assumptions of Real-Time Scheduling
 
@@ -1117,7 +1117,7 @@
 
   - if $U \leq 1$ $\Rightarrow$ bounded by cycle time $T_i$, as $D_i=T_i$  
 
-    ![Worst-case response time - EDF](F:\Real-Time and Embedded System\Worst-case response time - EDF.PNG) 
+    ![Worst-case response time - EDF](.\Worst-case response time - EDF.PNG) 
 
   - Recurrent form (general) - for task $j$ released at time $a$ 
 
@@ -1718,13 +1718,13 @@
 
   - Factors Impacting Software Diversity
 
-    ![N-version programming impact on software diversity](F:\Real-Time and Embedded System\N-version programming impact on software diversity.PNG)
+    ![N-version programming impact on software diversity](.\N-version programming impact on software diversity.PNG)
 
   - Example: "The six-language project"
 
     - Testing result of different version
 
-      ![Result from six-lanuage project](F:\Real-Time and Embedded System\Result from six-lanuage project.PNG) 
+      ![Result from six-lanuage project](.\Result from six-lanuage project.PNG) 
 
       $\Rightarrow$ 	3-version & 5-version have lower failure rate than the "golden master"
 
