@@ -2117,10 +2117,51 @@
 
       ​	PUBREC: receiver ack that it receives application message 
 
-      ​	PUBREL: sender ack that it knows the receival, to release receiver
+      ​	PUBREL: sender ack that it knows the receival, stop sending application message
 
-      ​	PUBCOMP: receiver ack that it knows sender knows the receival (ensure PUBREL received)
+      ​	PUBCOMP: receiver ack that it knows the stop(ensure PUBREL received)
 
-  - ​
+      PUBREL, PUBCOMP: wrap around QoS level 1
 
-- ​
+      $\Rightarrow$ ensure application message presented only once (after the protocol ends)
+
+  - States in MQTT 
+
+    - retained message: 
+      1. report the default/latest status when receiver subsribe on the topic
+      2. only one retained message allowed per topic
+    - last will message 
+      1. provided to broker at connection / when alive (a normal message with flag)
+      2. pushed to topic when ungracefully disconntect detected (no new message after a timeout)
+    - clean session
+      1. flagged on connection
+
+      2. not clean $\Rightarrow$ broker keeps all messages (QoS 1, 2) for you, when you dropped off
+
+         ​		\Rightarrow huge burden on broker
+
+      3. clean $\Rightarrow$ treated as brand new client
+
+  - Security
+
+    - username-password, client ID, etc...
+    - certificates, signature, encrypted connection, etc...
+
+- MQTT Use Case - Smart Home
+
+
+    - Sensors
+
+        - each publish to a state topic, regularly
+    - Controllable Devices
+
+        - each subsribes to one or more state / command topic(s)
+    - Controllers
+
+        - each publish to one or more command topic(s)
+
+  $\Rightarrow$ devices not directly controlled by controllers
+
+  - $\Rightarrow$ enable more Flexibility:
+    - rule machine: given X (is published), do Y
+    - state machine: combine rules, store states, note changes
