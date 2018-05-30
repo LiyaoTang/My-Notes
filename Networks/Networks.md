@@ -1465,7 +1465,13 @@
   - Comparison
 
     - TCP: many features, able to negotiate
+      1. large content transfer
+      2. longer, more complex sessions
+      3. reliable
     - UDP: enhanced packet
+      1. short messages, light server touch
+      2. simple request-response transaction
+      3. unreliable, yet compensated by ARQ (Automatic Repeat Request)
 
     ![CP vs UD](.\TCP vs UDP.PNG) 
 
@@ -1827,10 +1833,10 @@
 
 ### Real-Time Network
 
-- Real-Time Definition
+- Goal & Real-Time Definition
 
-  - Task-specific
-    - predictability
+  - Task-specific Requirement
+    - predictability, regarding both timing and result
     - logical correctness
   - Trade-off (in network environment)
     - timeliness (delay) vs. reliability (loss)
@@ -1927,13 +1933,13 @@
 
       ​	(better than nothing)
 
-- Real-time Transport Protocol (RTP) - Network Layer
+- Real-time Transport Protocol (RTP) - Application Layer
 
-  - Packet
+  - Message
 
     ![](./RTP msg.png) 
 
-    - usually is a payload of UDP (sometimes TCP)
+    - usually runs over UDP (sometimes TCP)
     - reliability: sequency number
     - timing: timestamp
     - multiple sources sync/async: contributing source Id, sync source Id
@@ -1978,3 +1984,51 @@
   - HTTP
     - reason: get through firewall, many extensions
     - HTML5 with video player built-in
+
+### Internet of Thing (IoT)
+
+- Goal & Definition
+
+  - Connect Independent Devices
+    - ranging from small (sensors, controllers) to large (house, vehicles)
+
+- Challenge & Requirement & Principle
+
+  - Scale: 
+
+    - large number
+
+      $\Rightarrow$ no limit on devices (addresses) and relationships (connections), but on messages 
+
+      ​	(to avoid swamping networks)
+
+  - Power 
+
+    - small device with limited power
+
+      $\Rightarrow$ do smart thing elsewhere; focus on minimal power needs (e.g. RF, solar etc.)
+
+  - Networking 
+
+    - low power with remote location and widely distributed
+
+      $\Rightarrow$ more efficient transmission (limit its need), assisted by neighbour (mesh networks) 
+
+
+  - Timeliness
+
+    - real-time appllication 
+
+      $\Rightarrow$ short message, distributed quickly
+
+  - Robusteness - Reliability
+
+    - reliable function with limited aid
+
+      $\Rightarrow$ add on demand, as lightweight as possible
+
+- Design
+
+  - ​
+
+- ​
