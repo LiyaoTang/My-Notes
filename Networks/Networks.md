@@ -2029,6 +2029,98 @@
 
 - Design
 
+  - Publication - Subscription
+
+    - separate messages publishing and consuming
+
+      $\Rightarrow$ allow for any type/number of sources&consumers
+
+      $\Rightarrow$ interface between them
+
+  - Broker (server)
+
+    - lightweight, flexible, open
+    - a buffer for intercahnge
+    - interface for consumers & sources
+
+- Message Queueing Telemetry Transport (MQTT)
+
+  - Publication-Subscription Design
+
+    - temporal "database" for key-value pair (which deletes data as fast as it can) 
+    - usually over TCP 
+
+  - Topics
+
+    - denoting the clients of a message
+
+      $\Rightarrow$ broker multicasts message to clients subsribing the topic
+
+    - notation of topic
+
+      1. / for topic level separator (subtopic, ...)
+
+      2. wildcards: # for all subsequent topics; + for any possible topic for one level
+
+         E.g. Sensors/# $\Rightarrow$ all sensors, anywhere
+
+    - special topic: \$SYS/# $\Rightarrow$ system information of the broker
+
+  - Sources
+
+    - publish messages under your topics
+
+      $\Rightarrow$ build your own database (denoted by topics and their sub-topics), with your own data-type
+
+  - Consumers
+
+    - subsrcibe to particular topics
+
+      $\Rightarrow$ topic may not currently exist (has no message for it)
+
+      ​	(apparently, need to agree on the message type with publisher beforehand)
+
+  - Message
+
+    ![](./MQTT-msg.png) 
+
+    - Message type: 16 in total, CONNECT, DISCONNECT, ACK, ...
+    - QoS:  quality of servuce, of (0,1,2)
+    - Dup: denotes if the message is duplicate
+
+  - MQTT Service over QoS Level
+
+    - level 0 (default) - at most once
+
+      1. sender pushes message, and then discards the message
+      2. receiver either receives or not (messages dropped on the way)
+
+    - level 1 - at least once
+
+      1. sender stores application message and assigns an ID to it 
+      2. sender sends message and waits for PUBACK (Publish Ack)
+      3. receiver receives and responds with PUBACK (with the ID)
+      4. sender discards message
+
+      Note:  sender resends the message after a timeout, till it receives PUBACK
+
+    - level 2 - exactly once
+
+      1. sender stores application message and assigns an ID to it
+      2. sender sends message and waits for PUBREC (Publish Received)
+      3. receiver receives and responds with PUBREC, waiting for PUBREL (Publish Release)
+      4. sender responds with PUBREL, waiting for PUBCOMP (Publish Complete)
+      5. receiver responds with PUBCOMP
+      6. sender discards message
+
+      Note: the protocol (either sender or receiver) re-send current message after a timeout
+
+      ​	PUBREC: receiver ack that it receives application message 
+
+      ​	PUBREL: sender ack that it knows the receival, to release receiver
+
+      ​	PUBCOMP: receiver ack that it knows sender knows the receival (ensure PUBREL received)
+
   - ​
 
 - ​
