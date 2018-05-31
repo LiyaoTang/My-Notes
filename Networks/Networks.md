@@ -1212,7 +1212,7 @@
 
       $\Rightarrow$ inter-changing of IP packet and link frames, especially address
 
-  - <u>The Address Resolution Protocol</u> 
+  - <u>The Address Resolution Protocol</u> (ARP)
 
     - source MAC: read from local hardware
     - destination MAC:
@@ -2150,18 +2150,55 @@
 - MQTT Use Case - Smart Home
 
 
-    - Sensors
+  - Sensors
+    - each publish to a state topic, regularly
+  - Controllable Devices
 
-        - each publish to a state topic, regularly
-    - Controllable Devices
+      - each subsribes to one or more state / command topic(s)
+  - Controllers
 
-        - each subsribes to one or more state / command topic(s)
-    - Controllers
-
-        - each publish to one or more command topic(s)
+      - each publish to one or more command topic(s)
 
   $\Rightarrow$ devices not directly controlled by controllers
 
   - $\Rightarrow$ enable more Flexibility:
     - rule machine: given X (is published), do Y
     - state machine: combine rules, store states, note changes
+
+### Routing in Real World
+
+- Overview
+  - Routing 
+    - unicast routing $\Rightarrow$ multicast and etc. are based on this
+    - distinction in forwarding vs. routing
+    - global scale (beyond ARP)
+
+  - Timescales of Activities (regarding routing)
+
+    ![](./Diff time in routing.png)  
+
+  - Expectations
+
+    ![](./Expectation in routing.png) 
+
+  - Ideal Routing
+
+    - de-centralized $\Rightarrow$ distributed system
+    - alike nodes $\Rightarrow$ use same protocol, run same codes at same time
+    - learning ability $\Rightarrow$ learn through traffic & messages exchanges with neighbours
+    - robust $\Rightarrow$ deal with router, link, message failures
+
+- Best Route
+
+  - Various Measures
+    - latency (delay)
+    - bandwidth (speed)
+    - cost (money)
+    - hops count (forwarding)
+  - Assumption
+    - ignores link congestion
+    - ignores router load
+
+- 
+
+- 
