@@ -2190,7 +2190,7 @@
 
 - Best Route
 
-  - Various Measures
+  - Various Measures for "Distance"
     - latency (delay)
     - bandwidth (speed)
     - cost (money)
@@ -2199,6 +2199,179 @@
     - ignores link congestion
     - ignores router load
 
-- 
+- Sink Tree ($\Leftrightarrow$ Source Tree)
 
-- 
+  - Union of all shortest paths between one node and all other nodes
+
+- Shortest-path Routing
+
+  - Distance Vector
+
+    - calculate source tree in a distributed fashion
+
+    - forwarding table 
+
+      1. distance to neighbour
+      2. distance of neighbour to every destination (their source trees)
+
+    - $\Rightarrow$ Distributed Bellman-Ford
+
+      1. nodes only know costs to their neighbours, initially
+      2. nodes only communicate with their neighbours
+
+      $\Rightarrow$ node broadcasts to neighbour of its current table till no more update (calculates on the fly)
+
+    - potential issue: count-to-infinity problem (when update under node failure)
+
+      ​	e.g. ![](./Distance vector loop.png): B sees a path to A through C, which will send back B...
+
+      $\Rightarrow$ do NOT advertize route back to its source (where you learn)
+
+  - Link State
+
+    - calculate source tree & maintain topology
+
+    - fowarding table
+
+      1. network topology
+      2. distance to neoghbour & source tree for each neighbour (calculated from topology)
+
+    - $\Rightarrow$ Dijkstra (BFS with first-ordered queue)
+
+      1. complete topology required to be known at each node before the start 
+      2. for each node: $\mathcal O (E+V\log V), $ where $E$ is number of edges, $V$ of vertices (based on heap)
+      3. nodes only know costs to their neighbours, initially
+      4. nodes only communicate with their neighbours
+
+      $\Rightarrow$ node passes the topology info (till no more update); and then calculate locally 
+
+      ​	(though can calculate on fly as well)
+
+      $\Rightarrow$ change in the view:  broadcast and re-calculate
+
+    - potential issue: replicated computation (on each node), yet effective 
+
+  - Comparison
+
+    ![](./Routing cmp.png) 
+
+    Note: Distance Vector will flood the network at the start as well...
+
+    ​	scalability: enterprises level still (not scale regarding global scale)
+
+- Equal Cost Multipath routing (ECMP)
+
+  - Overview
+    - an extension for flexibility, instead of protocol/algorithm
+    - allow for multiple paths between A and B $\Rightarrow$ better redundancy, performance
+  - Shortest Route
+    - a set of paths, instead of a path
+    - sink/source acyclic graph, instead of tree
+  - ECMP Forwarding: Choosing Path
+    - random $\Rightarrow$ balancing load, afraid of jitter
+    - based on relation $\Rightarrow$ rules enabled based on packet info (destination, source, etc.)
+    - based on flow $\Rightarrow$  flow identifier in IPv6, less balanced, more predictable (same for 2.)
+
+- Hierarchical Routing
+
+  - Goal
+
+    - attempt scaling problem: routing tables, routing computing, fowarding tables, etc.
+
+  - Aggregation
+
+    - LAN prefixes aggregated already $\Rightarrow$ whole LAN as one host (node)
+    - aggregate group of subnets into a larger subnet
+    - geographical aggregation $\Rightarrow$ desginated gateways 
+
+    $\Rightarrow$ internal complexity hidden, thus shorter tables
+
+    $\Rightarrow$ cons: no longer the shortest path
+
+- Policy-Based Routing (Routing Policies)
+
+  - Internet Overview
+
+    ![](./Plicy-internet.png) 
+
+    - multiple ISPs inter-connected via Internet Exchange Point (IXP)
+    - business-oriented 
+
+  - Layer 8+
+
+    - money, politics, security, religion, ...
+
+    $\Rightarrow$ policies upon all layers
+
+  - Shortest Path in Reality
+
+    ![](./Routing shortest path reality.png) 
+
+    - shortest path is only local priority
+
+    - global priority: get out of my business as quickly as possible $\Rightarrow$ use others bandwidth 
+
+      $\Rightarrow$ sub-optimal path & asymmetric path
+
+  - Common Policies
+
+    - Transiting
+
+      ![](./Routing policy transiting.png) 
+
+      $\Rightarrow$ customer pays for traffic between ISP's network and outer internet
+
+    - Peering
+
+      ![](./Routing policy peering.png) 
+
+      $\Rightarrow$ free traffic between ISP's and its peers' network $\Rightarrow$ mutual benefit
+
+- Border Gateway Protocol (BGP)
+
+  - Goal
+
+    - separation of interior routing protocols and exterior routing protocols 
+
+      $\Rightarrow$ intra-domain vs. inter-domain
+
+      $\Rightarrow$ maintain a globally distributed system (Internet)
+
+    - destignation of border router (gateway)
+
+    - aggregation all nodes within an 'autonomous system' (AS) - domain/region
+
+  - Advertisement through Path Vector
+
+    - path vector
+
+      1. IP prefix
+      2. next hop (highly aggregated node, usually an ISP)
+      3. path: list of AS's to transit through (no distance indications)
+
+    - Example: advertising host $C$ 
+
+      ![](./Routing BGP advertisment.png) 
+
+      1. extend the path (list of AS's) while advertising, so that each gateway knows
+
+      2.  BGP only advertises to border gateway (inside path decided locally) 
+
+      3. BGP advertises to available paths, based on policy 
+
+         ​	e.g. offer peering to some, while transiting to others
+
+      4. after finished: multiple paths available - can be chosen based on pure human reasons 
+
+  - Business Example in BGP
+
+    ![](./Routing BGP business exp.png) 
+
+    - transiting 
+      1. AS 1 sells to AS 2,3,4
+      2. AS 2 sells to customer A, when it communicating with C
+    - peering: AS 2 $\leftrightarrow$ AS 3; AS 3 $\leftrightarrow$ AS 4
+
+  - ​
+
+- ​
