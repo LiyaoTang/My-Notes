@@ -73,6 +73,8 @@
 
       ​	networks need to store state (info of connection) $\Rightarrow$ multiple single points of failure 
 
+      ​	hard to recover from failure
+
   - Multiplexing
 
     - Spatial division multiplexing - (more wires)
@@ -1502,8 +1504,9 @@
 
   - Options
 
+    - Ports 
     - Maximum segment size
-    - Window scale - upon window is full will acknowledegement sent
+    - Window scale - for selective repeat
     - Time stamp
     - Selective acknowledgement - advanced acknowledgement
 
@@ -2372,6 +2375,207 @@
       2. AS 2 sells to customer A, when it communicating with C
     - peering: AS 2 $\leftrightarrow$ AS 3; AS 3 $\leftrightarrow$ AS 4
 
-  - ​
 
-- ​
+### Flow Control and Congestion
+
+- Sliding Window (sender) - Selective Repeat (receiver)
+  - Sliding Window (sender)
+    - allow upto $w$ outstanding segments not ACKed
+    - a timer per unACKed segment $\Rightarrow$ resend separately
+  - Selective Repeat (receiver)
+    - buffer many segments (store whatever received)
+    - ACK received segments; require missing segments at the same time
+
+  $\Rightarrow$ network oriented: optimized to keep network full
+
+- Receiver Sliding Window ($\Leftrightarrow$ Flow Control Window)
+
+  - Transport Layer
+
+    - receives segments from network
+    - appends it to application buffer till its full & wait for application
+    - calculate the available slot left in buffer ($\Rightarrow$ windoe size $win$ for flow control window) 
+    - report its window size $win$ to sender
+
+  - Application Layer
+
+    - call recv() to read from buffer (release space in buffer)
+
+  - Communication with Two Windows
+
+    ![](./Flow-control 2 windows comm.png) 
+
+- Congestion 
+
+  - Potential Causes
+
+    - too many input to same destination (on routers/switches)
+
+      ![](./congestion causes.png) 
+
+      1. outgoing link at a fixed clock rate
+      2. limited buffer $\Rightarrow$ loss when overflow
+
+  - Goodput
+
+    - throughput at application level
+
+      $\Rightarrow$ number of useful information delivered by network to a destination per unit of time 
+
+  - Collapse
+
+    ![](./congestion collapse.png) 
+
+    - Causes:
+      1. loss appears when approaching the capacity
+      2. TCP requests to re-transmit
+      3. new messages held back at senders - busy resending old messages & causing more traffic
+
+  - Sensing the Congestion
+
+    $\Rightarrow$ signal from network:
+
+    ![](./congestion network signal.png) 
+
+- Manage Capacity
+
+  - Focus
+
+    - efficent use of total capacity
+    - fair allocation of total capacity
+
+  - Multiplexing
+
+    - works in Link layer $\Rightarrow$ due to back-off scheme
+    - no high-level control $\Rightarrow$ sender (application on TCP protocol) just flood the network...
+
+  - Max-Min Fairness
+
+    - goal: maximize the minimum & share the rest $\Rightarrow$ pareto optimality
+
+    - adapt over time: detect starts of a sender and adapt to the share
+
+    - example:
+
+      ![](./congestion maxmin fair.png) 
+
+      1. bottle-neck: B,C,D using $\frac 1 3 $ of R4-R5 link
+      2. $\Rightarrow$ A can have $\frac 2 3 $ of R2-R3 link
+
+- Adapting Over Time
+
+  - Types
+    - open/closed loop
+      1. open: reserve circuit in advance 
+      2. closed: adjust based on feedback (loss, etc.)
+    - host/network driven
+      1. host: host adapt
+      2. network: network policying, strong control yet inflexible
+    - rate/window based
+      1. rate: set the rate of sending
+      2. window: watch for the (flow control window) window size
+
+- Additive Increase Multiple Decrease (AIMD) in TCP
+
+  - Type:
+
+    - closed-loop, host-driven, window-based
+
+  - Collabration across Layers
+
+    - network layer: provide feedback
+    - transport layer: adapt the sending behaviour
+
+  - Behaviour over Time - Sawtooth
+
+    - slowly increase (baby step) to probe the network
+    - quickly decrease (halves) to avoid congestion (when detecting packet loss)
+
+    $\Rightarrow$ essentially mimicing the approaching towards parato optimality
+
+    ![](congestion%20AIMD%20sawtooth.png) 
+
+  - Features
+
+    - converges to a fair and efficient allocation (when all hosts run it)
+    - effective, simple (no burden on network)
+
+- Implementing AIMD
+
+  - ACK clocking process:
+
+    - procedure
+      1. burst in the beginning, due to the high speed link $\Rightarrow$ router's buffer copes temporarily
+      2. buffer drain after sender matches the ACK rate (slows down)
+    - gain
+      1. ACK rate reflects the bottle neck in the route $\Rightarrow$ low speed link gets exposed
+      2. traffic becomes steady stream
+
+    ![](congestion%20AIMD%20ACK%20clocking.png)  
+
+  - Congestion Window (CWND)
+
+    - similar to sender sliding window, denotes the number of outstanding packets (not ACKed)
+    - sensitive to congestion $\Rightarrow$ adapt according to congestion
+
+  - Slow Start with Additive Increase
+
+    - procedure
+      1. start slow, e.g. CWDN	size 1
+      2. increasing fast - double the size $\Rightarrow$ exponential increase
+      3. additive increase after overshoot $\Rightarrow$ additive increase from $\frac 1 2$ capacity 
+    - gain
+      1. probe the capacity faster
+         1. stay within the comfort zoon longer (slow-start threshold - maximal capacity of CWND size)
+
+    ![](./congestion AIMD slowstart.png) 
+
+  - Fast Retransmit
+
+    - procedure
+      1. sender detect (the 3rd) duplicate in its received ACK of a segment 
+
+         $\Rightarrow$ something get through (due to CWDN), yet lose the next one
+
+      2. re-send that next segment (assume only 1 segment lost)
+
+    - gain
+
+      1. maintain the ACK clocking 
+
+         (if wait for time-out $\Rightarrow$ CWDN may full $\Rightarrow$ no ACK $\Rightarrow$ restart all the way from ACK clocking)
+
+  - Fast Recovery
+
+    - procedure
+      1. detect congestion (loss), multiple decrease (halves the CWDN size)
+
+      2. assume everything is okay except for that single segment 
+
+         (no need for assuming given selective repeat)
+
+      3. continue with the latest sent segment (smooth the window up)
+    - gain
+      1. recover and continue on with the latest segment directly
+      2. avoid re-starting all the way from ACK clocking
+
+  - General Implementation
+
+    - ACK clocking
+    - slow start and then addictive increase
+    - AMID afterwards (with fast retransmit & fast recovery)
+
+- Beyond AMID in TCP
+
+  - Explicit Congestion Notification
+    - router notifies receiver its buffer getting full
+    - receiver ACK with a flag
+    - sender adjust
+  - Quality of Service 
+    - tag on packet based on packet type
+  - Software Defined Network
+    - application require & set up its own network environment
+  - etc...
+
+  $\Rightarrow$ managing packetsrandomly running through a network $\Rightarrow$ non-trivial
+
