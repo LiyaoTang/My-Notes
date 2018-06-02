@@ -1284,7 +1284,7 @@
       2. more potential internal packet loss
       3. security issue (injection within packet)
 
-  - Avoiding fragment in IP $\Rightarrow$ path MTU discovery
+  - Avoiding Fragment in IP $\Rightarrow$ Path MTU Discovery
 
     - Using internet control message protocol - similar to traceroute
 
@@ -2579,3 +2579,27 @@
 
   $\Rightarrow$ managing packetsrandomly running through a network $\Rightarrow$ non-trivial
 
+
+### Network Monitoring
+
+- Overview
+  - Goal
+    - capacity & usage
+    - congestion info (places, level, ...)
+    - harware / software status
+    - changes / update
+    - quality of service (application satisfied?)
+  - Perspectives
+    - within my administrative domain $\Rightarrow$ monitoring directly
+    - Beyond my administrative domain $\Rightarrow$ info shared by others
+  - Feedback from Network
+    - Explicit Congestion Notification (ECN)
+    - Internet Control Management Protocols (traceroute, ping...)
+    - ACK from TCP
+    - Application monitoring
+- Simple Network Monitoring Protocol (SNMP)
+  - Design Principle
+    - Lightweight
+    - ​
+  - ​
+- ​
