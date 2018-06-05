@@ -653,7 +653,7 @@
 
   - Smarter to Deal with Environment
 
-    - Frequency hopping ($\Leftrightarrow$ channel changing)
+    - Frequency hopping ($\Leftrightarrow​$ channel changing)
 
       1. detect traffic jam (lost / wrong messages)
 
@@ -1024,7 +1024,7 @@
     - Active back-up: use one path till broken
     - Random: randomly choose
 
-##### LAN - Wireless LAN: WLAN
+##### LAN - Wireless LAN (WLAN)
 
 - Interference
 
@@ -1954,7 +1954,7 @@
     - negotiation between senders & receivers (report their status)
   - Monitoring & Assisting
     - connection status: heartbeat, connection/disconnection
-    - others: measure distance with rount-trip-time, can be used for re-transmission request
+    - others: measure distance with round-trip-time, can be used for re-transmission request
 
 - Real-time Session - Video Conference
 
@@ -2088,7 +2088,7 @@
     ![](./MQTT-msg.png) 
 
     - Message type: 16 in total, CONNECT, DISCONNECT, ACK, ...
-    - QoS:  quality of servuce, of (0,1,2)
+    - QoS:  quality of service, of (0,1,2)
     - Dup: denotes if the message is duplicate
 
   - MQTT Service over QoS Level
@@ -2152,21 +2152,20 @@
 
 - MQTT Use Case - Smart Home
 
+    - Sensors
+      - each publish to a state topic, regularly
+    - Controllable Devices
 
-  - Sensors
-    - each publish to a state topic, regularly
-  - Controllable Devices
+        - each subsribes to one or more state / command topic(s)
+    - Controllers
 
-      - each subsribes to one or more state / command topic(s)
-  - Controllers
+        - each publish to one or more command topic(s)
 
-      - each publish to one or more command topic(s)
+    $\Rightarrow$ devices not directly controlled by controllers
 
-  $\Rightarrow$ devices not directly controlled by controllers
-
-  - $\Rightarrow$ enable more Flexibility:
-    - rule machine: given X (is published), do Y
-    - state machine: combine rules, store states, note changes
+    - $\Rightarrow$ enable more Flexibility:
+      - rule machine: given X (is published), do Y
+      - state machine: combine rules, store states, note changes
 
 ### Routing in Real World
 
@@ -2583,6 +2582,7 @@
 ### Network Monitoring
 
 - Overview
+
   - Goal
     - capacity & usage
     - congestion info (places, level, ...)
@@ -2597,9 +2597,403 @@
     - Internet Control Management Protocols (traceroute, ping...)
     - ACK from TCP
     - Application monitoring
-- Simple Network Monitoring Protocol (SNMP)
+
+- Simple Network Monitoring Protocol (SNMP) - Application Layer
+
   - Design Principle
-    - Lightweight
-    - ​
-  - ​
-- ​
+
+    - lightweight $\Rightarrow$ no extra burden
+    - portable $\Rightarrow$ operate on various platform (sitches, routers, APs, servers, etc.)
+    - helpful $\Rightarrow$ able to fix things
+    - scalable $\Rightarrow$ global monitoring, extensible
+    - interactive $\Rightarrow$ queries/response on demand
+
+  - Components
+
+    - SNMP agents $\Rightarrow$ software on the target maintaing the status and info
+
+      (use proxies to talk to non-SNMP devices)
+
+    - SNMP managers $\Rightarrow$ application contacting agents for management / queries
+
+    - Management Information Bases (MIBs) $\Rightarrow$ describe the database
+
+    - SNMP protocol
+
+    ![](./SNMP component.png) 
+
+  - SNMP Agent
+
+    - counters, gauge, timer since start-up, strings
+      1. counter e.g. packets on an interface
+      2. gauge e.g. memory/disk space usage 
+    - light queries / command interface
+
+    $\Rightarrow$ no calculation / rate / history on the device (maintained at remote monitor)
+
+    $\Rightarrow$ no pressure, basic information (yet manager may need to ask frequently)
+
+    ![](./SNMP agent.png) 
+
+  - SNMP Proxy
+
+    - interface for monitoring device without SNMP software (re-present report)
+
+  - SNMP Manager
+
+    ![](./SNMP manager.png) 
+
+  - SNMP Protocol
+
+    - over UDP $\Rightarrow$ lightweight
+    - client-server model (where servers are agents)
+
+    ![](./SNMP protocol.png) 
+
+  - SNMP Messages
+
+    - connectionless $\Rightarrow$ request ID for session
+
+    - requests
+
+      1. get / set
+
+      2. trap $\Rightarrow$ a notification from agent to manager, triggered by events at the agent 
+
+         (including connect/drop, expected/unexpected restart, neighbour drop ...)
+
+      $\Rightarrow$ written in standardised language: ASN.1
+
+    - message
+
+      ![](./SNMP message.png)  
+
+  - SNMP Management Information Bases (MIB )
+
+    - design structure - ASN.1(Abstract Syntax Notation One)
+
+      1. DNS structure - tree hierarchy for levels of object identifier (OID)
+
+         $\Rightarrow$ pros: aggregation benefit & scalability
+
+      2. OIDs for global uniqueness (a node in tree), associated with human-readable names
+
+      3. MIB objects: identified by OID, essentially a variable (with its meta data)
+
+    ![](./SNMP ASN1.png) 
+
+    - functino of MIB: 
+
+      1. map index of OID (leaves in the tree) $\rightarrow$ a variable with its meta data
+      2. associate leaves with their description, access permission, type, etc. 
+      3. offer traversing function to offer a table
+
+      example: MIB object (with an OID of 1.3.6.1.2.1.4.6)
+
+      ![](./SNMP mib exp.png) 
+
+  - Security 
+
+    - message level
+
+      1. offers: message integrity, authentication & privacy (encryption)
+      2. provide different level of security (3 levels) 
+
+    - proxies level
+
+      1. a limited view & queries - limited info
+
+      2. beacons: multicast to get information from a set of devices on network
+
+         (the information are shared - public info)
+
+### Network Security
+
+- Overview
+
+  - Layers
+    - across all layers
+      1. physical link: directly intrefered by cutting, tapping or snooping
+      2. network / transmission: packets/segments are not trustable
+      3. application: flaw in design/code etc.
+  - Risk Management
+    - risk & threat
+      1. design & code flaws
+      2. human flaws
+    - consequence of risk vs. effort to remove risk
+    - encryption - hide the content
+    - integrity - confirm message not changed on its way
+    - authautication - confirm message from expected source
+
+- Encription
+
+  - Symmetric - shared key
+    - both ends knows the key & same algorithm for both ends
+    - pros: 
+      1. fast & efficient
+    - cons: 
+      1. key sharing / distribution is a weakness
+      2. same key used too heavily
+      3. attacker usually knows the algorithm
+  - Asymmetric - public/private key
+    - key pair with public key for encrypting, private key decrypting
+    - pros: 
+      1. no explicit key exchange $\Rightarrow$ easier key sharing
+    - cons: 
+      1. heavy & slow
+      2. need to trust the public key - identification
+  - General Approach
+    - share / distribute the symmetric key with
+      1. asymmetric encryption
+      2. other pathway (phone message, email, etc.)
+    - switch symmetric key regularly $\Rightarrow$ session-key
+
+- Integrity
+
+  - Signature
+
+    - a summary of message, using hash, message digit
+    - encripted by session key (after calculation)
+
+    $\Rightarrow$ ensure (encrypted) message is not changed along the way
+
+- Authentication
+
+  - Freshness
+
+    - time-stamp (time-related stamp) within the signature
+
+      $\Rightarrow$ avoid the application not accounting time (avoid replay attck e.g. keep transfering to other)
+
+  - Certification / Validation
+
+    - check the offered public key against the one registered on CA (Certificate Authorities)
+
+- Security in Layers
+
+  - Secure Socket Layer - between Application and Transport
+
+    - gain
+      1. verification of server
+      2. message exchange, with confidentiality, integrity, authentication and freshness
+    - procedure
+      1. authentication - validate related servers $\Rightarrow$ through the CA hierarchy (trust chain)
+      2. session-key sharing / distribution, using public key
+      3. start the encrypted communication
+    - cons
+      1. another layer $\Rightarrow$ flaws in code 
+      2. not used by all application
+
+  - Firewalls - across Layers
+
+    - gain
+
+      1. over the network layer $\Rightarrow$ explicitly block messages
+      2. operate at multiple places $\Rightarrow$ local host, router, gateway (NAT), modem, access point, etc.
+      3. operate at multiple layers $\Rightarrow$ network, transport, application
+
+    - types
+
+      1. stateless (basic) $\Rightarrow$ based on IP addr, port, protocol type and other policies
+
+      2. stateful $\Rightarrow$ tracking communication, rules chaning by events
+
+         e.g. allow any connection initialisation, yet timeout after idle
+
+      3. application firewall $\Rightarrow$ deep packet inspection, understand context
+
+    - two stage firewall
+
+      1. protect some more than others $\Rightarrow$ demilitarised zone
+      2. outside: light firewall (for effective access)
+      3. inside: application firewall for heavy protection
+
+      ![](./Security 2stagefirewall.png) 
+
+  - End-to-End confidentiality - Network Layer
+
+    - gain
+
+      1. islands of trust $\Rightarrow$ end-to-end / host-to-host / subnet-to-subnet confidentiality
+      2. extra protection from intermediate leak of information (can be inferred)
+
+    - deployment
+
+      1. leased line $\Rightarrow$ private path vs. expensive, hard to manage routing 
+      2. over public internet $\Rightarrow$ virtual leased line $\Rightarrow$ Virtual Private Network (VPN)
+
+    - Virtual Private Network (VPN)
+
+      1. tunnel (encapsulate) IP packets across the Internet $\Rightarrow$ IP in IP
+
+         (has actually no protection)
+
+      2. fix three points (entry, ), with internet routing in between  (vs. circuit)
+
+      3. use IP security over IP $\Rightarrow$ secure connections between end points (router/host)
+
+      ![](./Security ip in ip.png)
+
+      ​	(ESP: encapsulating security payload)
+
+    - VPN type
+
+      1. router-to-router (tunnel mode) $\Rightarrow$ transparent, NAT-friendly, with forwarding
+      2. host-to-host (transport mode) $\Rightarrow$ NAT-challenged, no forwarding (with no inner IP header)
+
+      ![](./Security VPN.png) 
+
+    - address opaqueness (hidden)
+
+      1. the destination of outer IP: where the initial IP packet appears in the network
+      2. the original address is hidden
+
+    - discovering VPN
+
+      1. unusual access pattern
+      2. well-know VPN companies list
+      3. no other means...
+
+
+  - Hardware Security
+
+    - pyhsical access to copper, fiber, wireless APs ...
+
+      1. tap the copper
+
+      2. detect energy loss in fiber
+
+      3. just monitoring around APs
+
+         e.g. host 1 $\rightarrow$ frames in secure packets $\rightarrow$ AP $\rightarrow$ frames in raw packet $\rightarrow$ host 2 
+
+    - hardware/software interface provided at network devices
+
+      1. reflect the traffic to another port, ...
+      2. SNMP agents, operating systems...
+
+  - Security in Environments
+
+      - Home Wireless Network
+
+          - typical un-open network
+
+          - client-to-AP $\Rightarrow$ preshared secret key (PSK)
+
+            1. client authenticates to AP (that it know the secret), using password
+            2. derives a session key from the password
+
+        - AP-to-client $\Rightarrow$ group temporal key (GTK)
+
+          1. key-on-key, keys over key-on-key $\Rightarrow$ involve multiple keys
+          2. includes group temporal encryption key, (AP) Tx key, (AP) Rx key, etc...
+
+          ![](Security key-on-key.png) 
+
+          Note: nonce = random number
+
+    - Enterprise Network
+
+      - pass-through authentication
+
+        1. each client has its own credential $\Rightarrow$ sending to remote server for authentication
+
+        2. using both username and password
+
+           e.g. ANU wireless
+
+- Denial of Service - beyond Encryption
+
+  - Goal
+
+    - prevent server from the target clients
+
+  - Basic Means
+
+    - resource starvation
+
+  - Attacks
+
+    - ping of death
+
+      1. an IP packet with inappropriate fragmentation tag, size
+      2. buffer overflow in system $\Rightarrow$ crash the host 
+
+      fix: better OS protection
+
+    - SYN flood
+
+      1. flooding SYN to establish connection
+      2. taking up resource on server
+
+      fix: SYN cookies $\Rightarrow$ no setup until cooresponding ACK (similar to mem allocate on linux)
+
+    - attacking application-level flaws
+
+    - spoofing
+
+      1. draft queries for someone else
+
+      fix: ingress filtering $\Rightarrow$ router check
+
+    - multiplers
+
+      1. network with hacked devices $\Rightarrow$ flooding
+      2. big responses for small request, often with spoofing
+
+  - Main Solution
+
+    - content distributed network (CDN)
+    - edge routers / attack detection
+    - upstream provider support $\Rightarrow$ filtering traffic at the source, provided by ISP
+    - ingress filtering everywhere!
+
+
+### Real-World Network Example
+
+- ArrNet 
+
+  - Overview
+    - education use 
+    - high speed within cooperators' own their own fibers (part of the fiber)
+    - rollout its own network & fault tolerance 
+
+- Infini Band for HPC
+
+  - Overview
+
+    - cost: heat of switch & cables
+
+    - topologies: fat tree (predicted latency), 3-D tours, hypercube 
+
+    - RDMA: application starts connection itself (no kernel & TCPIP stack)
+
+      $\Rightarrow$ specialized hardware needed (DMA across network) 
+
+    - link layer handles subnet distribution
+
+    - acceleration of data flow  
+
+    - centralized $\Rightarrow$ need subnet manager & agent (in device to respond to manager)
+
+    - element: channel adapter, switch, router, subnet manager
+
+- TransACT
+
+  - Overview
+
+    - Open & full-service network, service providers (video, data, voice etc.) are not threatened
+
+      $\Rightarrow$ network focus only on access, providing users with more options 
+
+    - scattered users $\Rightarrow$ last mile problem 
+
+      (fiber carries – like highway, but  not distribute to end-user – like small roads) 
+
+    - HFC  problem – coax as huge antenna (noise picked uip at joint point) 
+
+    - FTTN + xDSL solution, with constraint: 
+
+      1. XDSL performance vs. Distance curve 
+      2. bundle size allowed 
+      3. self-catered node (deal with its heat...) 
