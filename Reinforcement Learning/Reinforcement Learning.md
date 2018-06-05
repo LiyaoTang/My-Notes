@@ -1,12 +1,14 @@
 # Reinforcement Learning
 
-### Overall Structure
+### Learning Procedure
 
-![Overall Structure](F:\Reinforcement Learning\Overall Structure.jpg) 
+#### Overall Structure
+
+![Overall Structure](.\Overall Structure.jpg)  
 
 
 
-### Q-Learning
+#### Q-Learning
 
 - Basic Notation
 
@@ -52,7 +54,7 @@
   - $\displaystyle \boldsymbol \Rightarrow v_\pi(s) = \sum_a \pi(a|s) q_\pi(s,a)$ 
 
 
-### Policy Gradient
+#### Policy Gradient
 
 - Overall Structure:
 
@@ -66,7 +68,7 @@
     - compute & record gradient along the way, with advantage parameter $A_i$ for $i^\text{th}$ game
     - when all games in current batch ends, thus all $A_i$ known, update the NN
 
-    ![policy gradient structure](F:\Reinforcement Learning\policy gradient structure.png) 
+    ![policy gradient structure](.\policy gradient structure.png)  
 
 - Loss Function:
 
@@ -80,12 +82,46 @@
 
     $\begin{align} \displaystyle \nabla_\theta E_{p(x|\theta)}[f(x)] &= \nabla_\theta \sum_x p(x|\theta)f(x) \\ &= \sum_x \nabla_\theta p(x|\theta)f(x) \\ &= \sum_x p(x|\theta) \frac {\nabla_\theta p(x|\theta)} {p(x|\theta)} f(x) \\ &= \sum_x p(x|\theta) \nabla_\theta \log[ p(x|\theta) ] f(x) && \text{using } \nabla_\theta log(z) = \frac 1 z \nabla_\theta z \\ &= E_x [ f(x) \nabla_\theta log(p|\theta)] \end{align}$ 
 
-- ​
 
 
+### Multi-Agent Learning
 
+- Main Focus
 
+  - Credit Assignment
 
+    - approaches:
+
+      1. global reward - same reward for everyone
+
+      2. rewards based soley on individual behaviour
+
+      3. social reinforcement -  observation + vicarious rewards
+
+         $\Rightarrow$ spread individual rewards to others
+
+         $\Rightarrow$ balance between global and local rewards
+
+      4. ​
+
+    - ​
+
+  - Dynamics of Learning
+
+  - Modeling Other Agents
+
+- Problem Domains and Applications
+
+  - Emodied Agents
+    - cooperative navigation
+    - cooperative target observation
+  - Game Theory
+    - social delimma
+  - Real-Time Distributed Decision Making
+    - air traffic control
+    - supply chains (JSP)
+    - hierarchical multi-agent systems problems
+    - social interaction modeling
 
 
 
