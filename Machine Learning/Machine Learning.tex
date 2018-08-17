@@ -1,0 +1,35 @@
+\documentclass[oneside]{book} 
+\usepackage{paralist}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage[fleqn]{mathtools}
+
+\setlength{\mathindent}{0pt}
+
+\renewcommand{\labelitemii}{$\circ$} % itemize second level
+\renewcommand{\labelitemiii}{\tiny$\blacksquare$} % itemize third level
+
+\providecommand{\tightlist}{%
+	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+\title{Machine Learning} 
+\author{Liyao Tang}  
+
+\begin{document} 
+	\maketitle 
+	
+	\frontmatter 
+	\tableofcontents 
+	\listoffigures 
+	\listoftables 
+	
+	\mainmatter 
+	
+	\input{"./Math/Math"}
+	\input{"./Statistical Machine Learning/Machine Learning"}
+	
+	
+	\backmatter 
+
+\end{document}

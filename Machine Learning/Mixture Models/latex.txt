@@ -1,0 +1,497 @@
+\hypertarget{mixture-models}{%
+\subsubsection{Mixture Models}\label{mixture-models}}
+
+\begin{itemize}
+\item
+  Kullback-Leibler divergence
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Distance between two distributions \(p(x)\) and \(q(x)\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(\text{discret: } \displaystyle KL(q\|p) = \sum_x q(x) \ln \frac{q(x)}{p(x)} = -\sum_x q(x)\ln \frac{p(x)}{q(x)}\)
+    \item
+      \(\text{continuous: } \displaystyle KL(q\|p)=\int q(x)\ln \frac{q(x)}{p(x)}dx = -\int q(x)\ln \frac{p(x)}{q(x)}dx\)\\
+    \end{itemize}
+  \item
+    Properties
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(KL(q\|p) \ge 0\)
+    \item
+      not symmetric: \(KL(q\|p) \neq KL(p\|q)\)
+    \item
+      \(KL(q\|p) = 0 \Leftrightarrow q=p\)
+    \item
+      invariant under parameter tansformations
+    \end{itemize}
+  \end{itemize}
+\item
+  \textbf{General Expectation Maximization Algorithm} - Approach 1
+
+  \begin{itemize}
+  \item
+    Goal:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Find maximum likelihood solution for models with latent variables
+    \end{itemize}
+  \item
+    Variables:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(X\): observed variables
+    \item
+      \(Z\): latent variables
+    \item
+      \(\theta\): model parameters
+    \end{itemize}
+  \item
+    Log Likelihood:
+
+    \begin{itemize}
+    \item
+      \(\displaystyle \ln p(X|\theta)=\ln \{ \sum_Z p(X,Z|\theta) \}\)
+
+      \(\Rightarrow\) problem: \(\ln\) out of \(\text{sum} \Rightarrow\)
+      no clean math solution
+
+      ​ only \(\{X\}\) observed \(\Rightarrow\) cannot maximize
+      \(p(X,Z)\) directly, but have \(p(Z|X,\theta)\)
+    \item
+      Introduce arbitrary \(q(Z)\) and then sum over
+      \(Z,\text{ where $q(Z)$ is distribution} \small\Rightarrow \displaystyle \sum_Z q(Z)=1\)
+
+      \(\Rightarrow\)
+      \(\displaystyle \sum_Z q(Z) \ln p(X,Z|\theta) = \sum_Z q(Z) \ln p(Z|X,\theta) + \ln p(X|\theta)\)
+
+      \(\displaystyle \Rightarrow \ln p(X|\theta) = \underbrace{ \sum_Z q(Z)\ln \frac {p(X,Z|\theta)}{q(Z)} }_{\mathcal L (q,\theta)} + \underbrace{ (- \sum_Z q(Z)\ln \frac{p(Z|X,\theta)}{q(Z)}) }_{KL(q\|p)} ,\)
+
+      ​
+      \(\space \text{ where } KL(q\|p) \text{ is Kullback-Leibler divergence}\)
+    \end{itemize}
+  \item
+    \textbf{Algorithm}:
+
+    \begin{itemize}
+    \item
+      \(\text{E step:}\) fix \(\theta^{\text{old}}\), maximize lower
+      bound \(\mathcal L(q,\theta^{\text{old}})\)
+
+      \(\Rightarrow\)
+      \(\mathcal L(q,\theta^{\text{old}}) \text{ maximize when } KL(q\|p)=0 \small \text{ ( $\ln p(X|\theta)$ independent from $q(\cdot)$ ) }\)
+
+      \(\displaystyle \Rightarrow q(Z) = p(Z|X,\theta^{\text{old}})\)
+
+      ​
+      \(\text{where } p(Z|X,\theta^{\text{old}}) \text{ is posterior}\)
+    \item
+      \(\text{M step:}\) fix \(q(Z) = p(Z|X,\theta^{\text{old}})\),
+      maximize lower bound \(\mathcal L(q^{\text{old}},\theta)\)
+
+      \(\begin{align} \Rightarrow \displaystyle \theta &= \arg \max_{\theta} \ln p(X|\theta) \\&= \arg \max_{\theta} \mathcal L(q^{\text{old}},\theta) \end{align}\)
+
+      ​
+      \(\text{taking gradient w.r.t. $\theta$ will contain } q(Z) = p(Z|X,\theta^{\text{old}})\)
+    \end{itemize}
+  \item
+    Convergence:
+
+    \begin{itemize}
+    \item
+      Start by initializing \(\theta\)
+    \item
+      After \(\text{M step}:\)
+      \(\mathcal L(q^{\text{old}},\theta) > \mathcal L(q^{\text{old}},\theta^{\text{old}}) \space \land \space \theta \neq \theta^{\text{old}}\)
+      unless converged
+
+      \(\Rightarrow KL(q\|p)>0 \\ \Rightarrow \text{E step}\)
+    \end{itemize}
+  \item
+    Understanding:
+
+    \begin{itemize}
+    \item
+      \(q(\cdot):\) model to fit \(\ln p(X|\theta)\)
+    \item
+      \(\theta:\) model parameter for \(\mathcal L(q,\theta)\)
+    \item
+      blue curve is one iteration before green curve
+
+      \begin{figure}
+      \centering
+      \includegraphics{./general EM - exapmle.PNG}
+      \caption{general EM - exapmle}
+      \end{figure}
+    \end{itemize}
+  \end{itemize}
+\item
+  \textbf{General Expectation Maximization Algorithm} - Approach 2
+
+  \begin{itemize}
+  \item
+  \end{itemize}
+\item
+\end{itemize}
+
+\hypertarget{clustering---naive-k-means}{%
+\paragraph{Clustering - Naive
+K-means}\label{clustering---naive-k-means}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Input:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(K\) (num of clusters)
+  \item
+    Training set \{\(x^1,x^2,...,x^m\)\}, \(x^i \in R^n\) (drop
+    \(x_0=1\) convention), \(K<m\)
+  \end{itemize}
+\item
+  Cost function:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\displaystyle J(c^1,...,c^m,\mu_1,...,\mu_K) = \frac1m \sum^m_{i=1} ||x^i-\mu_{c^i}||^2\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(c^i= \text{index of cluster {1,2,...,K} assigned to } x^i \text{, K = num of cluster}\)
+    \item
+      \(\mu_k = \text{cluster centroid }k \text{, $\mu_k \in R^n$}\)
+    \item
+      \(\displaystyle \mu_{c^i} = \text{cluster centroid assigned to $x^i$}\)
+    \end{itemize}
+  \item
+    With \(1\text{-of-}K\) coding scheme:
+    \(\displaystyle J=\frac 1 m \sum_{i=1}^m (\sum_{k=1}^K r^i_{k}\|x^i-\mu_k\|)\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \$r\^{}i=
+      \text{1-of-K vector to denote cluster assigned to }x\^{}i,
+      r\textsuperscript{i\in\{0,1\}}K \$
+    \item
+      \(\mu_k = \text{cluster centroid }k \text{, $\mu_k \in R^n$}\)
+    \end{itemize}
+  \end{itemize}
+\item
+  Goal:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Find \(r^i,\mu_k\) to minimize \(J\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Problem: cyclic dependence between
+      \(r^i,\mu_k \Rightarrow \text{EM algorithm}\)
+    \end{itemize}
+  \end{itemize}
+\item
+  Algorithm:
+
+  \begin{itemize}
+  \item
+    Initialize K cluster centroid \(\mu_1, \mu_2,...,\mu_K \in R^n\)
+  \item
+    Repeat
+
+    \begin{itemize}
+    \item
+      for \(i=1\) to \(m\)
+      \(\small \text {(cluster assignment - E step)}\)
+
+      ​ \(c^i := \text{closest cluster centroid to } x^i\)
+    \item
+      for \(k=1\) to \(K\) \(\small \text{(move centroid - M step)}\)
+
+      ​ \(\mu_k := \text{mean of points assigned to cluster } k\)
+    \end{itemize}
+  \end{itemize}
+\item
+  Initialization: \(\small \text{(crucial for convergence)}\)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Randomly} pick \(K\) \textbf{distinct} examples and set
+    \(\mu_1,...,\mu_K\) to them
+
+    \begin{itemize}
+    \tightlist
+    \item
+      random algorithm may need to repeat multiple times to avoid local
+      optimum
+    \end{itemize}
+  \end{itemize}
+\item
+  Understanding:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cluster assignment: adjust \(c^1,...,c^m\) to minimize \(J\),
+    holding \(\mu_1,...,\mu_K\)
+  \item
+    Move centroid: adjust \(\mu_1,...\mu_K\) to minimize \(J\), holding
+    \(c^1,...,c^m\)
+  \item
+    \(J\) is \textbf{not} possible to increase if algorithm is
+    implemented correctly
+  \end{itemize}
+\item
+  Parameter \(K\):
+
+  \begin{itemize}
+  \item
+    Elbow method: plot \(J-K\) graph:
+
+    \begin{figure}
+    \centering
+    \includegraphics{./Elbow method.png}
+    \caption{Elbow method}
+    \end{figure}
+  \item
+    Consider downstream purpose
+  \end{itemize}
+\item
+  Possible Improvement:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Use triangle inequality \(\Rightarrow\) Triangle K-means
+  \item
+    Use Non-Euclidean distance \(\Rightarrow\) Kernel K-means
+    (K-medoids)
+  \item
+    Build K-D tree
+  \end{itemize}
+\end{enumerate}
+
+\hypertarget{mixture-models---generative-k-means}{%
+\paragraph{Mixture Models - Generative
+K-means}\label{mixture-models---generative-k-means}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Gaussian Mixture Model Distribution:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\displaystyle p(x) = \sum_{k=1}^K \pi_k \mathcal N (x|\mu_k,\Sigma_k)\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(\displaystyle \int p(x)dx = 1 \Rightarrow \sum_{k=1}^K\pi_k = 1\)
+    \item
+      Need to find \(\pi,\mu,\Sigma\)
+    \end{itemize}
+  \end{itemize}
+\item
+  Inroduce Latent Variable \(\mathbf z\):
+
+  \begin{itemize}
+  \item
+    \$\mathbf z \in \{0,1\}\^{}K:
+    \text{1-of-K coding scheme to denote the distribution from which $x$ is drawn}
+    \$
+  \item
+    Distribtion:
+
+    \begin{itemize}
+    \item
+      \(p(\mathbf z_k = 1) = \pi_k\)
+
+      \(\displaystyle \Rightarrow p(\mathbf z) = \prod_{k=1}^K \pi_k^{z_k}\)
+    \item
+      \(p(x|\mathbf z_k=1) = \mathcal N(x|\mu_k,\Sigma_k)\)
+
+      \(\displaystyle \Rightarrow p(x|\mathbf z) = \prod_{k=1}^K\mathcal N(x|\mu_k, \Sigma_k)^{z_k}\)
+    \item
+      \(\displaystyle p(x,\mathbf z) = \prod_{k=1}^K [\pi_k \mathcal N(x|\mu_k,\Sigma_k)]^{z_k}\)
+    \item
+      \$\displaystyle p(z\_k=1\textbar{}x) =
+      \frac{\displaystyle p(z_k=1)p(x|z_k=1)}{\displaystyle\sum_{i=1}^Kp(z_i=1)p(x|z_i=1)}
+      =\frac{\pi_k \mathcal N(x|\mu_k,\Sigma_k)}{\displaystyle \sum_{i=1}^K \pi_i \mathcal N(x|\mu_i,\Sigma_i)}
+      \$
+
+      ​ denoted as \(\gamma(z_k):\) responsibility of \(z_k\) to explain
+      the observed \(x\)
+    \end{itemize}
+  \item
+    Recover \(p(x)\): (to assert that we are on the right track)
+
+    \begin{itemize}
+    \item
+      \(\displaystyle p(x) \!= \displaystyle \sum_{\mathbf z} p(\mathbf z)p(x|\mathbf z)\)
+
+      ​
+      \(\displaystyle = \sum_{\mathbf z} \prod_{k=1}^K\pi_k^{z_k} \prod_{k=1}^K \mathcal N(x|\mu_k,\Sigma_k)^{z_k} \\ \displaystyle = \sum_{k=1}^K \pi_k \mathcal N(x|\mu_k, \Sigma_k)\)
+    \end{itemize}
+  \item
+    \(N\) data drawn \(\text{i.i.d.}\)
+
+    \begin{figure}
+    \centering
+    \includegraphics{./Mixture of Gaussians - N iid data.PNG}
+    \caption{Mixture of Gaussians - N iid data}
+    \end{figure}
+  \end{itemize}
+\item
+  Likelihood:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\displaystyle \ln p(X|\pi,\mu,\Sigma) = \sum_{n=1}^N \ln[\sum_{k=1}^K \pi_k \mathcal N(x|\mu_k,\Sigma_k)]\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(\displaystyle P(X) = \sum_Z P(X,Z) \text{, where full combination } \small \sum_{Z}\prod_{\text{each combination of }z_{1-n}} = \prod_{X}\sum_{\text{all possibility of each }x}\)
+    \end{itemize}
+  \item
+    Goal:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Find \(\pi,\mu,\Sigma\) that maximize (\(\ln\)) likelihood
+    \end{itemize}
+  \item
+    Problem:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(\ln\) does \textbf{not} apply on \(\mathcal N \Rightarrow\) does
+      \textbf{not} have neat direct math solution
+    \item
+      \(\Rightarrow\) apply \(\text{EM}\)
+    \end{itemize}
+  \end{itemize}
+\item
+  EM algorithm:
+
+  \begin{itemize}
+  \item
+    Critical points:
+
+    \begin{itemize}
+    \item
+      \(\displaystyle \frac {\partial}{\partial \mu_k} \ln p = 0 \Rightarrow 0 = \sum_{n=1}^N \underbrace{ \frac {\pi_k\mathcal N(x_n|\mu_k,\Sigma_k)}{ \sum_{i=1}^K \pi_i\mathcal N(x_n|\mu_i,\Sigma_i)} }_{\gamma(z_k)} \Sigma^{-1}(x_n-\mu_k)\)
+
+      \(\displaystyle \Rightarrow \mu_k = \frac 1 {N_k} \sum_{n=1}^N \gamma(z_k)x_n\)
+    \item
+      \(\displaystyle \frac {\partial}{\partial \Sigma_k}\ln p = 0\)
+
+      \(\displaystyle \Rightarrow \Sigma_k = \frac 1 {N_k} \sum_{n=1}^N \gamma(z_k) (x_n-\mu_k)(x_n-\mu_k)^T\)
+    \item
+      \(\displaystyle \frac \partial {\partial \pi_k} \ln p = 0\)
+
+      \(\displaystyle \Rightarrow \pi_k=\frac {N_k} N\)
+
+      ​
+      \(\small \text{where $N_k$ is the effective num of data point assigned to $k$ : $N_k=\sum_{n=1}^N \gamma(z_k)$}\)
+    \end{itemize}
+  \item
+    \(\text{E step}\): evaluate \(q(Z) = \gamma(z_k)\) using current
+    parameters \(\mu,\Sigma,\pi\)
+    \(\space\small\text{ (soft assign point to Gaussian)}\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(\displaystyle \gamma(z_k) = \frac {\pi_k\mathcal N(x|\mu_k,\Sigma_k)} {\displaystyle \sum_{i=1}^K \pi_i\mathcal N(x|\mu_i,\Sigma_i)}\)
+    \end{itemize}
+  \item
+    \(\text{M step}\): re-estimate parametes
+    \(\theta = \{\mu,\Sigma,\pi\}\) using current \(\gamma(z_k)\)
+    \(\space\small\text{ (maximize likelihood)}\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(\displaystyle \mu_k^{\text{new}} = \frac 1 {N_k} \sum_{n=1}^N\gamma(z_{nk})x_n\)
+    \item
+      \(\displaystyle \Sigma_k^{\text{new}} = \frac 1 {N_k} \sum_{n=1}^N \gamma(z_{nk}) (x_n-\mu_k^{\text{new}})(x_n-\mu_k^{\text{new}})^T\)
+    \item
+      \(\displaystyle \pi_k^{\text{new}} = \frac {N_k} N\)
+    \end{itemize}
+  \end{itemize}
+\item
+  Relation to naive K-means:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Setting \(\Sigma_k=\epsilon,\epsilon \rightarrow 0\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(\gamma(z_{nk})\) with smallest \(\|x_n-\mu_k\|^2\) goes to \(0\)
+      most slowly
+    \item
+      \(\displaystyle \Rightarrow \gamma(z_{nk}) = \begin{cases} 1 & \text{if } \|x_n-\mu_k\| < \|x_n-\mu_i\| \forall i\neq k \\ 0 & \text{otherwise} \end{cases}\)
+    \end{itemize}
+  \item
+    Reduce to naive K-means when
+    \(\Sigma_k=\epsilon,\epsilon \rightarrow 0\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(\displaystyle \lim_{\epsilon \rightarrow 0} \gamma (z_{nk}) = r_{nk} \space \Rightarrow\)
+      becomes hard assignment
+    \end{itemize}
+  \end{itemize}
+\item
+  Broad view:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Generalized to other distribution:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Mixture of Bernoulli Distributions
+    \item
+      \ldots{}
+    \end{itemize}
+  \item
+    Reducing to Naive K-means:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(\gamma(z_{nk}) = \begin{cases} 1 & \text{if }\|x_n-\mu_k\| < \|x_n-\mu_i\| & \forall i\neq k \\ 0 & \text{otherwise} \end{cases}\)
+    \end{itemize}
+  \end{itemize}
+\end{enumerate}

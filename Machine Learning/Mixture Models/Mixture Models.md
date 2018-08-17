@@ -11,7 +11,7 @@
     - $KL(q\|p) = 0 \Leftrightarrow q=p$ 
     - invariant under parameter tansformations
 
-- **General Expectation Maximization Algorithm** 
+- **General Expectation Maximization Algorithm** - Approach 1
 
   - Goal:
 
@@ -27,7 +27,7 @@
 
     - $\displaystyle \ln p(X|\theta)=\ln \{ \sum_Z p(X,Z|\theta) \}$ 
 
-      $\Rightarrow$ problem:	$\ln$ out of $\text{sum} \Rightarrow$ no clean math solution 
+      $\Rightarrow$ problem:	 $\ln$ out of $\text{sum} \Rightarrow$ no clean math solution 
 
       ​			only $\{X\}$ observed $\Rightarrow$ cannot maximize $p(X,Z)$ directly, but have $p(Z|X,\theta)$ 
 
@@ -37,7 +37,7 @@
 
       $\displaystyle \Rightarrow \ln p(X|\theta) = \underbrace{ \sum_Z q(Z)\ln \frac {p(X,Z|\theta)}{q(Z)} }_{\mathcal L (q,\theta)} + \underbrace{ (- \sum_Z q(Z)\ln \frac{p(Z|X,\theta)}{q(Z)}) }_{KL(q\|p)} ,$ 
 
-      ​	$\space \text{ where } KL(q\|p) \text{ is Kullback-Leibler divergence}$ 
+      ​	 $\space \text{ where } KL(q\|p) \text{ is Kullback-Leibler divergence}$ 
 
   - **Algorithm**:
 
@@ -47,13 +47,13 @@
 
       $\displaystyle \Rightarrow q(Z) = p(Z|X,\theta^{\text{old}})$ 
 
-      ​		$\text{where } p(Z|X,\theta^{\text{old}}) \text{ is posterior}$ 
+      ​		 $\text{where } p(Z|X,\theta^{\text{old}}) \text{ is posterior}$ 
 
     - $\text{M step:}$ fix $q(Z) = p(Z|X,\theta^{\text{old}})$, maximize lower bound $\mathcal L(q^{\text{old}},\theta)$ 
 
       $\begin{align} \Rightarrow \displaystyle \theta &= \arg \max_{\theta} \ln p(X|\theta) \\&= \arg \max_{\theta} \mathcal L(q^{\text{old}},\theta) \end{align}$  
 
-      ​	$\text{taking gradient w.r.t. $\theta$ will contain } q(Z) = p(Z|X,\theta^{\text{old}})$ 
+      ​	 $\text{taking gradient w.r.t. $\theta$ will contain } q(Z) = p(Z|X,\theta^{\text{old}})$ 
 
   - Convergence:
 
@@ -72,6 +72,63 @@
     - blue curve is one iteration before green curve
 
       ![general EM - exapmle](.\general EM - exapmle.PNG)  
+
+- **General Expectation Maximization Algorithm** - Approach 2
+
+  - Goal:
+
+    - Find maximum likelihood solution for models with latent variables
+
+      $\Rightarrow$ find $\displaystyle \arg\max_\theta P(X|\theta)$ 
+
+  - Variables:
+
+    - $X$: observed variables
+    - $Z$: latent variables
+    - $\theta$: model parameters
+    - $\mathcal L (\theta) = \ln P(X|\theta)$: log likelihood 
+
+  - Derivation
+
+    - iterative procedure for maximising $\mathcal L (\theta)$  
+
+      $\Rightarrow \mathcal L (\theta) > \mathcal L (\theta_n)$, where $\theta$ is the updated $\theta_n$ 
+
+    - fast improvement
+
+      $\Rightarrow$ maximise $\mathcal  L(\theta) - \mathcal L(\theta_n)  = \ln P(X|\theta) - \ln P(X|\theta_n)$ 
+
+    - inclusion of latent variable
+
+      $\Rightarrow$ $\displaystyle P(X|\theta) = \sum_Z P (X|Z,\theta)P(Z|\theta)$ 
+
+    Hence,
+
+    $\begin{align} \displaystyle \mathcal L(\theta) - \mathcal L (\theta_n) &= \ln \sum_Z  P(X|Z,\theta) P(Z|\theta) - \ln P(X|\theta_n) \\ &= \ln \sum_Z P(Z|X,\theta_n)  \cdot \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)} - \ln P(X|\theta_n) \\ &\geq \sum_ZP(Z|X,\theta_n) \cdot \ln \left( \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)} \right) -\ln P(X|\theta_n) && \text{Jensen’s inequality} \\ &= \sum_ZP(Z|X,\theta_n) \cdot \ln \left( \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)} \right) - \sum_ZP(Z|X,\theta_n)\ln P(X|\theta_n) \\ &= \sum_ZP(Z|X,\theta_n) \cdot \ln \left( \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)P(X|\theta_n)} \right) \\ & \triangleq \Delta(\theta|\theta_n)  \end{align}$  Note: $\Delta(\theta_n|\theta_n) = 0$ 
+
+    $\Rightarrow \mathcal L (\theta) \geq \mathcal L(\theta_n) + \Delta(\theta|\theta_n)$, let $l(\theta|\theta_n) = \mathcal L(\theta_n) + \Delta(\theta|\theta_n)$, then: 
+
+    ![](./general EM - example - approach2.png) 
+
+  - Maximising $\mathcal L (\theta)$ 
+
+    - $\mathcal L (\theta) \geq l(\theta|\theta_n) \space \and$ for current $\theta=\theta_n, \mathcal L (\theta_n) = l(\theta_n|\theta_n)$ 
+
+      $\Rightarrow$ any $\theta$ increases $l(\theta|\theta_n)$ will increase $\mathcal L(\theta)$ 
+
+    - fast improvement
+
+      $\Rightarrow$ maximising $l(\theta|\theta_n)$
+
+    Hence,
+
+    $ \displaystyle \begin{align} \theta_{n+1} &= \arg\max_{\\theta} l(\theta|\theta_n) \\ &= \arg\max_\theta \Delta(\theta|\theta_n) \\ &= \arg\max_\theta \sum_Z P(Z|X,\theta_n)\cdot\ln\left( \frac {P(X|Z,\theta)P(Z|\theta)} {P(Z|X,\theta_n) P(X|\theta_n)} \right) \\ &= \arg\max_\theta  \sum_Z P(Z|X,\theta_n)\cdot\ln P(X|Z,\theta)P(Z|\theta) \\ &= \arg\max_\theta \sum_Z P(Z|X,\theta_n) \cdot \ln P(X,Z|\theta) \\ &= \arg\max_\theta \{E_{Z|X,\theta_n} \{\ln P(X,Z|\theta)\} \} \end{align}$ 
+
+  - EM Algorithm
+
+    - E-step: detemine the conditional expectation $E_{Z|X,\theta_n} \{\ln P(X,Z|\theta)\}$ (as a function of $\theta$)
+    - M-step: maximise this function of $\theta$ accordingly
+
 
 #### Clustering - Naive K-means
 

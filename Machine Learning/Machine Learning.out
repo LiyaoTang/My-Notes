@@ -1,0 +1,27 @@
+\BOOKMARK [0][-]{chapter.1}{Math}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Convolution}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Normal Distribution}{chapter.1}% 3
+\BOOKMARK [0][-]{chapter.2}{Statistical Machine Learning}{}% 4
+\BOOKMARK [1][-]{section.2.1}{Supervised Learning}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.2}{Linear Regression}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.3}{Bayesian Regression}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.4}{Logistic Regression \(Classification\)}{chapter.2}% 8
+\BOOKMARK [1][-]{section.2.5}{Diagnose Machine Learning}{chapter.2}% 9
+\BOOKMARK [2][-]{subsection.2.5.1}{Evaluating Hypothesis}{section.2.5}% 10
+\BOOKMARK [2][-]{subsection.2.5.2}{Bias / Variance}{section.2.5}% 11
+\BOOKMARK [2][-]{subsection.2.5.3}{Error Analysis}{section.2.5}% 12
+\BOOKMARK [2][-]{subsection.2.5.4}{Skewed classes}{section.2.5}% 13
+\BOOKMARK [1][-]{section.2.6}{Latent Variable Analysis}{chapter.2}% 14
+\BOOKMARK [2][-]{subsection.2.6.1}{Principal Component Analysis \(PCA\)}{section.2.6}% 15
+\BOOKMARK [2][-]{subsection.2.6.2}{Independent Component Analysis \(ICA\)}{section.2.6}% 16
+\BOOKMARK [2][-]{subsection.2.6.3}{t-SNE}{section.2.6}% 17
+\BOOKMARK [2][-]{subsection.2.6.4}{Anomaly Detection}{section.2.6}% 18
+\BOOKMARK [2][-]{subsection.2.6.5}{Recommender System}{section.2.6}% 19
+\BOOKMARK [1][-]{section.2.7}{Large Scale Machine Learning}{chapter.2}% 20
+\BOOKMARK [2][-]{subsection.2.7.1}{Gradient Descent with Large Dataset}{section.2.7}% 21
+\BOOKMARK [2][-]{subsection.2.7.2}{Online Learning}{section.2.7}% 22
+\BOOKMARK [2][-]{subsection.2.7.3}{Map-reduce}{section.2.7}% 23
+\BOOKMARK [1][-]{section.2.8}{Building Machine Learning System}{chapter.2}% 24
+\BOOKMARK [2][-]{subsection.2.8.1}{Pipeline}{section.2.8}% 25
+\BOOKMARK [2][-]{subsection.2.8.2}{Getting More Data}{section.2.8}% 26
+\BOOKMARK [2][-]{subsection.2.8.3}{Ceilling Analysis}{section.2.8}% 27

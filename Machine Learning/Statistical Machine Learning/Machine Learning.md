@@ -69,7 +69,7 @@
 
      - $\Rightarrow \text{Posterior}: p(w|\boldsymbol t) = \mathcal N(w|m_N,S_N)$ 
 
-       ​	$\text{where } m_N = S_N(S_0^{-1}m_0+\beta \Phi^T\boldsymbol t),\space S_N^{-1} = S_0^{-1}+\beta \Phi^T\Phi $ 
+       ​	 $\text{where } m_N = S_N(S_0^{-1}m_0+\beta \Phi^T\boldsymbol t),\space S_N^{-1} = S_0^{-1}+\beta \Phi^T\Phi $ 
 
    - Maximum Likelihood:
 

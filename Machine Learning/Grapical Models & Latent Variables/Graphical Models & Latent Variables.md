@@ -51,8 +51,8 @@
    - Plate Notation: 
      - $\displaystyle p(\mathbf t,\mathbf w)=p(\mathbf w)\prod_{n=1}^Np(t_n|\mathbf w):$ ![Bayesian Network - Plate Notation example 1.PNG](.\Bayesian Network - Plate Notation example 1.PNG)  $\boldsymbol\Leftrightarrow$ ![Bayesian Network - Plate Notation example 2](.\Bayesian Network - Plate Notation example 2.PNG)  
    - Parameters of model:
-     - Observed random variables 	= open circles 
-     - Unobserved random variables  = shaded circles
+     - Observed random variables 	= shaded circles 
+     - Unobserved random variables  = open circles
      - Deterministic variable                 = smaller solid circles 
      - $\displaystyle p(\mathbf t,\mathbf w|\mathbf X, \alpha, \sigma^2)=p(\mathbf w|\alpha) \prod_{n=1}^Np(t_n|\mathbf w,x_n,\sigma^2): $  ![Bayesian Network - parameters included](.\Bayesian Network - parameters included.PNG)  
    - Prediction:
@@ -205,7 +205,7 @@
 4. **Linear-chain CRF**:
 
    - Graph:
-     - ![Linear CRF](F:\Machine Learning\Linear CRF.PNG) 
+     - ![Linear CRF](.\CRF Tut\Linear CRF.PNG) 
 
    - Maximum Cliques:
      - $\{y_i, X\}$: energy function $\displaystyle =\sum_{n=1}^N \alpha_nf_n(y_i, X)$ $\Rightarrow  n$ feature functions for each cliques
@@ -363,7 +363,7 @@
 
      - Factor $f_S(\mathbf x_S)$ for potential function of maximal clique $\mathbf x_S$ 
 
-       ​	$\text{(may be several factor graph for one undirected graph)}$ 
+       ​	$\text{(may be several factor graph for one undirected graph)}$  
 
 4. **Sum-Product Algorithm**:
 
@@ -433,7 +433,13 @@
     - Time series
     - Natrual language
     - ...
+
   - Changed distribution while drawing data
+
+    - yet Gaussian still usually assumed $\Rightarrow$ model complexity remains in iterations
+
+      ​	(exponential family's prior posterior are in the same family)
+
   - Both of the above
 - Category:
   - Stationary case:
@@ -495,13 +501,17 @@
 
    - Avoid exponentially growing parameters
    - Avoid assumption in Markov Chain
+   - Allow for sequential correlations in the data - an extension of mixture models
 
 2. Introduce $\text{latent variable}$: 
 
    - Assumption:
 
      - Latent variables forms a Markov Chain
-     - Latent variables are discrete
+
+     - Latent variables are <u>discrete</u> 
+
+       note: continuous laten variable leads to linear dynamic system
 
    - One $\text{latent variable}$ $z_n$ for each observation $x_n$ 
 
@@ -533,13 +543,13 @@
 
      - $p(z_n|z_{n-1}) = \boldsymbol A_{K\times K}\in [0,1]^{K\times K}$   
 
-       ​	$\text{where } A_{ik}=p(z_{n,k}=1\mid z_{n-1,i}=1), \space 0 \le A_{ik}\le 1 \text{ and } \small{\displaystyle \sum_{k=1}^K} \normalsize A_{ik} = 1 \\ \Rightarrow \text{num of independent parameters}=K(K-1) $ 
+       ​	where $A_{ik}=p(z_{n,k}=1 \mid z_{n-1,i}=1), \space 0 \le A_{ik}\le 1 \text{ and } \small{\displaystyle \sum_{k=1}^K} \normalsize A_{ik} = 1 \\ \Rightarrow \text{num of independent parameters}=K(K-1) $ 
 
        $\Rightarrow \displaystyle p(z_n|z_{n-1},A) = \prod_{k=1}^K \prod_{i=1}^K A_{ik}^{z_{n-1,i} \times z_{n,k}}$ 
 
      - $p(z_1) = \mathbf \pi$ 
 
-       ​	$\text{where } \pi_k = p(z_{1k}=1), 0\le\pi_k \le 1  \text{ and } \space \small {\displaystyle\sum_k} \normalsize \pi_k=1$ 
+       ​	where $\pi_k = p(z_{1k}=1), 0\le\pi_k \le 1  \text{ and } \space \small {\displaystyle\sum_k} \normalsize \pi_k=1$ 
 
        $\displaystyle \Rightarrow p(z_1|\pi) = \prod_{k=1}^K \pi_k^{z_{1k}}$ 
 
@@ -551,7 +561,7 @@
 
      - $\displaystyle p(x_n|z_n,\phi) = \prod_{k=1}^K p(x_n|\phi_k)^{z_{n,k}}$ 
 
-       ​	$\text{where } \phi \text{ is a set of parameters governing the conditional distribution}$ 
+       ​	where $\phi \text{ is a set of parameters governing the conditional distribution}$ 
 
 4. Homogeneous Hidden Markov Model:
 
@@ -581,7 +591,9 @@
 
 6. Maximum Likelihood $-\text{ EM}$ algorithm:
 
-   - $\displaystyle p(X|\theta) = \sum_Z p(X,Z|\theta)$ 
+   - Goal
+
+     - maximizing the likelihood $\displaystyle p(X|\theta) = \sum_Z p(X,Z|\theta)$ in hidden Markov models 
 
    - Notiation:
 
@@ -601,7 +613,7 @@
 
      - $\displaystyle \arg\max_{\theta}Q = \sum_{k=1}^K \gamma(z_{1k})\ln \pi_k + \sum_{n=2}^N\sum_{i=1}^K\sum_{k=1}^K \xi(z_{n-1,i},z_{nk})\ln A_{ik} + \sum_{n=1}^N \sum_{k=1}^K \gamma(z_{nk}) \ln p(x_n|\phi_k)$
 
-       ​	$\displaystyle \text{where full combination } \small \sum_{Z}\prod_{\text{each combination of }z_{1-n}} = \prod_{X}\sum_{\text{all possibility of each }x}$ 
+       ​	 $\displaystyle \text{where full combination } \small \sum_{Z}\prod_{\text{each combination of }z_{1-n}} = \prod_{X}\sum_{\text{all possibility of each }x}$ 
 
      - Critical points:
 
@@ -614,7 +626,7 @@
    - Finding $\gamma(z_{nk}),\xi(z_{n-1,i}, z_{nk})$: 
 
      - Tree structure in $\text{HMM} \Rightarrow$ Message passing 
-     - $\text{alpha-beta algorithm}$ 
+     - $\text{alpha-beta algorithm}$ - based on forward-backward algorithm
 
    - $\text{alpha-beta algorithm}$: 
 
@@ -622,11 +634,19 @@
 
        All path through $z_n$ is blocked conditioned on $z_n$  
 
-       ​	$\Rightarrow p(X|z_n) = p(x_1,...,x_n|z_n)p(x_{n+1},...,x_N|z_n)$ 
+       ​	 $\Rightarrow p(X|z_n) = p(x_1,...,x_n|z_n)p(x_{n+1},...,x_N|z_n)$
 
-       ​
+       
 
        ![Sequential data - Hidden Markov model](.\Sequential data - Hidden Markov model.PNG)  
+
+       illustration:
+
+       ![](Independence - Hidden Markov Model.PNG) 
+
+       $\displaystyle P(D,B) = \sum_A P(A,B) P(D|A) \\ \displaystyle P(F,B) = \sum_A\left( P(A,B) \sum_C P(C|B)P(F|C) \right) \\ \displaystyle P(D,F,B) =\sum_A \left( P(A,B) P(D|A)\sum_C P(C|B)P(F|C) \right)$ 
+
+       $\Rightarrow P(D|B)P(F|B) = P(D,F|B) \Rightarrow D \perp\!\!\!\perp F | B$ 
 
      - $\text{Let }\alpha(z_n) = p(x_1,...,x_n,z_n)$ 
 
@@ -654,7 +674,7 @@
 
        $\text{where factorizing using conditional independence}: \begin{cases} [x_1,...,x_{n-1}],[z_n] &\text{on } z_{n-1} \\ [x_n,...,x_N],[z_{n-1}] &\text{on } z_n  \\ [x_n],[x_{n+1},...,x_N] &\text{on } z_n \end{cases}$ 
 
-       ​	$\small (p(A|B)=p(A) \text{ when } A\perp\!\!\!\perp B) $ 
+       ​	 $\small (p(A|B)=p(A) \text{ when } A\perp\!\!\!\perp B) $ 
 
    - Algorithm description:
 
@@ -672,13 +692,17 @@
 
        ​	Maximize $Q(\theta,\theta^{\text{old}})$ using critical points
 
-7. Viterbi Algorithm
+7. Viterbi Algorithm (max-sum algorithm)
 
    - Goal:
 
-     - Find $\displaystyle\max_{Z} p(Z|X,\theta), \text{ where $Z$ is sequence of latent states}$   
+     - Find $\displaystyle\max_{Z} p(Z|X,\theta), \text{ where $Z$ is sequence of latent states}​$   
 
-       $\Rightarrow$ the most probable states of latent variables given sequence observations and the model
+       $\Rightarrow$ the most probable sequence of latent states given a sequence observations and the model
+
+       ​	(most probable sequence of latent states $\not \Leftrightarrow$ set of states being individually most probable)
+
+     - Efficiency: searches space of paths efficiently ( $\mathcal O(n)$ to the length of chain )
 
    - Notation:
 
@@ -694,4 +718,75 @@
 
        ​	for $n=1,...,N-1:$ remember best transition
 
-       ​	for $n=N:$ state with highest probability​
+       ​	for $n=N:$ state with highest probability
+
+#### Linear Dynamic System
+
+1. Goal
+
+   - Continuous Latent Variable
+
+     - sum becomes integral
+
+     - practical sense $\Rightarrow$ multivariated Gaussian distribution assumed
+
+       ​	(so that complexity of posterior dose NOT increase)
+
+   - Senquential Correlation in Contiuous Data
+
+     - an extension to continous latent variable model (such as probablistic PCA)
+
+2. Notation
+
+   - Transition
+     - $z_n = A z_{n-1} + w_n, \text{ where noise } w \sim \mathcal N(w|0,\Gamma)$ 
+     - $\Rightarrow p(z_n|z_{n-1}) = \mathcal N (z_n|Az_{n-1}, \Gamma)$ 
+   - Emission
+     - $x_n = Cz_n + v_n, \text{ where noise } v \sim \mathcal N(v|0,\Sigma)$ 
+     - $\Rightarrow p(x_n|z_n) = \mathcal N (x_n|C z_n,\Sigma)$ 
+   - Initial Latent Variable: 
+     - $z_1 = \mu_0 + \mu, \text{ where noise } \mu \sim \mathcal N (\mu|0,V_0)$ 
+     - $\Rightarrow p(z_1) = \mathcal N(z_1|\mu_0,V_0)$ 
+   - Model Parameters
+     - $\theta = \{ A,\Gamma,C,\Sigma,\mu_0,V_0 \}$ 
+
+3. Maximum Likelihood - EM
+
+   - E step 
+
+     - Inference problem - determine the local posterior marginals for latent variables 
+
+       (sum-product algorithm)
+
+   - M step
+
+4. Inference
+
+   - Linear-Gaussian Model Features:
+
+     - sequence of individually most probable latent variable $\Leftrightarrow$ the most probable latent sequence
+
+       $\Rightarrow$ no need for Viterbi algorithm
+
+     - joint distribution is a Gaussian $\Rightarrow$ standard result available for its marginals and conditionals 
+
+       $\Rightarrow$ sum-product algorithm for faster computation
+
+   - Goal
+
+     - determine marginal distribution $P(Z|X)$ 
+     - prediction: $P(z_n, x_n|x_1,...,x_{n-1}.\theta)$ - used in real-time application
+
+   - Sum-Product Algorithm (Kalman Filter + Kalman Smoother)
+
+     - joint distribution $\displaystyle P(X,Z) = p(z_1) \left[ \sum_{n=2}^Np(z_n|z_{n-1}) \right] \sum_{n=1}^N p(x_n|z_n)$  - same as HMM
+
+     - analogous to $\text{alpha-beta algorithm}$ in HMM
+
+       $\displaystyle \alpha(z_n) = p(x_1,...,x_n,z_n) =  p(x_n|z_n) \int_{z_{n-1}}\alpha(z_{n-1}) p(z_n|z_{n-1}) \space d z_{n-1}$ 
+
+       $\displaystyle \begin{align} \Rightarrow \alpha(z_n) =\mathcal N(z_n|\mu_n,V_n) = \mathcal N (x_n|C z_n,\Sigma) \int \mathcal N(z_{n-1} | \mu_{n-1},V_{n-1}) \mathcal N(z_n|Az_{n-1} , \Gamma) \space d z_{n-1} \end{align}$ 
+
+       
+
+     - 

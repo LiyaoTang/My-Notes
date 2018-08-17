@@ -1,0 +1,61 @@
+\chapter{Math}
+
+\section{Convolution}
+
+\begin{itemize}
+\item Definition
+	\begin{itemize}
+	\item $\displaystyle f* g (z) = \int_{\mathbb R}f(x)g(z-x) dx,$ where \\
+	$f(x),g(x)$ are functions defined in $\mathbb R$
+	\end{itemize}
+	
+\item Statistical Meaning
+	\begin{itemize}
+	\item Notation
+		\begin{itemize}
+		\item X,Y: independent random variables, with pdf's given by $f$ and $g$
+		\item $Z = X+Y$, with pdf given by $h(z)$:
+		\end{itemize}
+		
+	\item $\Rightarrow h(z) = f * g (z)$
+		\begin{itemize}
+		\item derivation
+		\end{itemize}
+	\begin{align*} H(z) &= P(Z<z) = P(X+Y<z) \\ &= \int_x f(x)P(X+Y<z|X=x) dx \\ &= \int_x f(x)P(Y<z-x)dx \\ &= \int_x f(x)G_Y(z-x)dx \\ \Rightarrow h(x) &= \frac d {dz} H(z) = \frac d {dz} \int_x f(x)G_Y(z-x)dx \\ &= \int_x f(x) \frac {dG_Y(z-x)}{dz} dx \\ &= \int_x f(x) g(z-x)dx \\ &= f * g (z) \end{align*}
+	
+	\end{itemize}
+\end{itemize}
+ 
+ \section{Normal Distribution}
+ 
+ \begin{itemize}
+ 	\item $d$-dimensional Gaussian
+ 		\begin{itemize}
+ 		\item Variable
+ 			\begin{itemize}
+ 			\item mean: $\mu \in \mathbb R^d$
+ 			\item covariance matrix: $\Sigma_{d\times d}$
+ 			\end{itemize}
+ 		\item PDF
+ 			\begin{itemize}
+ 			\item $\displaystyle g_d(x|\mu,\Sigma) = \frac 1 {(2\pi)^{d/2} |\Sigma|^{1/2}} exp \left( -\frac 1 2 (x-\mu)^T \Sigma^{-1} (x-\mu) \right) $, \\
+ 			noted as $X\sim \mathcal N_d (x|\mu,\Sigma)$
+ 			\end{itemize}
+ 		\end{itemize}
+ 	
+ 	\item Convolution of Gaussian
+ 		\begin{itemize}
+ 		\item Integral of Gaussians $\int G_1G_2dx$
+ 			\begin{itemize}
+ 			\item $G_1\sim \mathcal N_d(x|a,A), \space G_2 \sim \mathcal N_d(x|b,B)$
+ 			\end{itemize}
+ 			\begin{align*} \displaystyle \Rightarrow & \int \mathcal N_d(x|a,A) N_d(x|b,B)dx \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} e^{-\frac 1 2 (x-a)^TA^{-1}(x-a)} \frac 1 {(2\pi)^{d/2}|B|^{1/2}} e^{-\frac 1 2 (x-b)^TB^{-1}(x-b)} dx \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} \frac 1 {(2\pi)^{d/2}|B|^{1/2}} e^{-\frac 12 [(x-a)^TA^{-1}(x-a)+(x-b)^TB^{-1}(x-b)]} \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} \frac 1 {(2\pi)^{d/2}|B|^{1/2}}  e^{-\frac 12 [(x-c)^T (A^{-1}+B^{-1}) (x-c)+(a-b)^TC(a-b)]},\\ & \text{where } c=(A^{-1}+B^{-1})^{-1}(A^{-1}a+B^{-1}b), C=A^{-1}(A^{-1}+B^{-1})^{-1}B^{-1} = (A+B)^{-1} \\ = & \frac {\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} {(2\pi)^{d/2}|A|^{1/2}|B|^{1/2}} e^{-\frac 12 (a-b)^TC(a-b)} \int \frac 1 {(2\pi)^{d/2}\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} e^{-\frac 12 (x-c)^T(A^{-1}+B^{-1}) (x-c)} dx \\ =& \frac {\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} {(2\pi)^{d/2}|A|^{1/2}|B|^{1/2}} e^{-\frac 12 (a-b)^TC(a-b)} \\ =& \frac 1 {(2\pi)^{d/2} (|A||B||A^{-1}+B^{-1}|)^{1/2}} e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |ABA^{-1}+ABB^{-1}|^{1/2}} e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |ABA^{-1}+A| } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |A(B+A)A^{-1}| } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |A+B|^{1/2} } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \end{align*}
+ 			
+ 			\item $\Rightarrow$ Convolution of Gaussians $G1* G2$
+	 			\begin{itemize}
+	 			\item $G_1\sim \mathcal N_d(a,A),G_2\sim \mathcal N_d(b,B)$
+	 			\end{itemize}
+ 			\begin{align*} \displaystyle G_1* G_2 (z) &= \int G_1(x)G_2(z-x)dx \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(z-x|b,B)dx \\ &= \int \mathcal N_d (x|a,A) \cdot \frac 1 {(2\pi)^{d/2} |B|^{1/2}} e^{-\frac 12 (z-x-b)^TB^{-1} (z-x-b)} dx \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(x|z-b,B)dx \\&= \frac 1 {(2\pi)^{d/2}|A+B|^{1/2}} e^{-\frac 12(z-(a+b))^T (A+B)^{-1} (z-(a+b))} \\&= \boldsymbol{\mathcal N_d(z|a+b,A+B)}  
+ 			\end{align*}
+ 		\end{itemize}
+ \end{itemize}
