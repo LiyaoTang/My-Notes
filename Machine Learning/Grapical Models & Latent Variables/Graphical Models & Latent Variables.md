@@ -18,19 +18,19 @@
 
      - $\displaystyle p(\mathbf x) = \prod_{k=1}^Kp(x_k|pa(x_k)) \text{, where $pa(x)$ = parents of $x$ }$ 
 
-       ​	A **product** of distributions, one for each associated random variable $\text{(over all the nodes)}$ 	
+       	A **product** of distributions, one for each associated random variable $\text{(over all the nodes)}$ 	
 
-       ​	For each node, add all **parents** to its conditioning variables list $\text{(conditioned on parents)}$ 
+       	For each node, add all **parents** to its conditioning variables list $\text{(conditioned on parents)}$ 
 
      - Must be **directed acyclic graph** 
 
      - Normalization proof:
 
-       ​	$\text{Start with the node with no outgoing edges, denoted as $x_i$}$ 
+       	$\text{Start with the node with no outgoing edges, denoted as $x_i$}$ 
 
-       ​	$\begin{aligned} \displaystyle \sum_{\mathbf x}p(\mathbf x) &= \sum_{x_1,...,x_K} \prod_{k=1}^Kp(x_k|pa(x_k) \\ &= \sum_{x_1,...,x_{i-1},x_{i+1}...,x_K}\left(\sum_{x_i} \prod_{k=1}^Kp(x_k|pa(x_k)\right) \\ &=  \sum_{x_1,...,x_{i-1},x_{i+1}...,x_K} \left( \prod_{k=1 \land k\neq i}^Kp(x_k|pa(x_k)) \underbrace{ \sum_{x_i} p(x_i|pa(x_i))}_{=1} \right) \end{aligned}$ 
+       	$\begin{aligned} \displaystyle \sum_{\mathbf x}p(\mathbf x) &= \sum_{x_1,...,x_K} \prod_{k=1}^Kp(x_k|pa(x_k) \\ &= \sum_{x_1,...,x_{i-1},x_{i+1}...,x_K}\left(\sum_{x_i} \prod_{k=1}^Kp(x_k|pa(x_k)\right) \\ &=  \sum_{x_1,...,x_{i-1},x_{i+1}...,x_K} \left( \prod_{k=1 \land k\neq i}^Kp(x_k|pa(x_k)) \underbrace{ \sum_{x_i} p(x_i|pa(x_i))}_{=1} \right) \end{aligned}$ 
 
-       ​	$\text{Repeat until no node left}$ 
+       	$\text{Repeat until no node left}$ 
 
    - Example:
 
@@ -205,6 +205,7 @@
 4. **Linear-chain CRF**:
 
    - Graph:
+
      - ![Linear CRF](.\CRF Tut\Linear CRF.PNG) 
 
    - Maximum Cliques:
@@ -267,9 +268,9 @@
 
        $\Rightarrow$ adding term $hx_i$ 
 
-       ​	$\text{Reason: Potential function is an arbitrary, non-negative function over maximal cliques}$ 
+       	$\text{Reason: Potential function is an arbitrary, non-negative function over maximal cliques}$ 
 
-       ​	$\Rightarrow \text{allowed to multiply it by any nonnegative function of subsets of the clique}$   
+       	$\Rightarrow \text{allowed to multiply it by any nonnegative function of subsets of the clique}$   
 
    - Joint Distribution:
 
@@ -301,13 +302,13 @@
 
      - Corresponding term:
 
-       ​	$\begin{aligned} \psi_{1,2}(x_1,x_2)=& \space p(x_1)p(x_2|x_1) \\ \psi_{2,3}(x_2,x_3) =& \space p(x_3|x_2) \\ \vdots& \\ \psi_{N-1,N}(x_{N-1},x_N) =&\space p(x_N|x_{N-1}) \end{aligned} \\ Z = 1 \text{ for MRFs}$ 
+       	$\begin{aligned} \psi_{1,2}(x_1,x_2)=& \space p(x_1)p(x_2|x_1) \\ \psi_{2,3}(x_2,x_3) =& \space p(x_3|x_2) \\ \vdots& \\ \psi_{N-1,N}(x_{N-1},x_N) =&\space p(x_N|x_{N-1}) \end{aligned} \\ Z = 1 \text{ for MRFs}$ 
 
    - Bayesian Networks in MRFs:
 
      - Moralisation: For every nodes in Bayesian Networks, fully connect its parents in MRFs
 
-       ​	$\text{(Simulation instead of expressing the same distribution)}$ 
+       	$\text{(Simulation instead of expressing the same distribution)}$ 
 
      - Expressing Distribution in Graph:
 
@@ -353,7 +354,7 @@
 
      - Factor node for corresponding (conditional) distributions
 
-       ​	$\text{(may be several factor graph for one directed graph)}$ 
+       	$\text{(may be several factor graph for one directed graph)}$ 
 
    - MRFs $\rightarrow$ Factor Graph:
 
@@ -363,7 +364,7 @@
 
      - Factor $f_S(\mathbf x_S)$ for potential function of maximal clique $\mathbf x_S$ 
 
-       ​	$\text{(may be several factor graph for one undirected graph)}$  
+       	$\text{(may be several factor graph for one undirected graph)}$  
 
 4. **Sum-Product Algorithm**:
 
@@ -387,23 +388,23 @@
 
        $\text{Leaves: }\displaystyle \mu_{x\rightarrow f} (x) = 1 \\ \text{Other: }\large\displaystyle \mu_{x\rightarrow f}(x) = \prod_{l\in \{ne(x)-f\}}\mu_{f_l\rightarrow x}(x), \space\small\text{ (get a function of x)}$ 
 
-       ​	$\text{where $ne(x)$ is neighbour of $x$}$ 
+       	$\text{where $ne(x)$ is neighbour of $x$}$ 
 
      - Factor nodes $\rightarrow$ Variable node:
 
        $\text{Leaves: }\displaystyle \mu_{f\rightarrow x}(x)=f(x) \\ \text{Other: } \large \displaystyle \mu_{f_S\rightarrow x}(x)=\sum_{X_S} \left( f_S(x,X_S)\prod_{m\in \{ne(f_S)-x\}} \mu_{x_m\rightarrow f_S} \right) ,\space\small\text{ (get a fuction of $x$)}$ 
 
-       ​	$\text{ where $X_S$ is the set of nodes connected to factor $f_S(\cdot)$ except for $x$ }\small (X_S=\{ne(f_S)-x\})$ 
+       	$\text{ where $X_S$ is the set of nodes connected to factor $f_S(\cdot)$ except for $x$ }\small (X_S=\{ne(f_S)-x\})$ 
 
    - Distribution with Messages:
 
      - $\large\displaystyle p(x) = \prod_{l\in ne(x)} \mu_{f_l\rightarrow x}(x)$ 
 
-       ​	$\text{Product over all the incoming messages}$ 
+       	$\text{Product over all the incoming messages}$ 
 
-       ​	$\Rightarrow \text{only depends on its neighbour}$  
+       	$\Rightarrow \text{only depends on its neighbour}$  
 
-       ​		$\text{(as info of sub-graph is stored in its beighbour)} $ 
+       		$\text{(as info of sub-graph is stored in its beighbour)} $ 
 
    - Algorithm:
 
@@ -420,7 +421,7 @@
 
      - Assume a unit message sent over each link in each direction
 
-       ​	(extract out the cyclic sub-graph, substituted with one node)
+       	(extract out the cyclic sub-graph, substituted with one node)
 
      - Try algorithm on cyclic graph
 
@@ -438,7 +439,7 @@
 
     - yet Gaussian still usually assumed $\Rightarrow$ model complexity remains in iterations
 
-      ​	(exponential family's prior posterior are in the same family)
+      	(exponential family's prior posterior are in the same family)
 
   - Both of the above
 - Category:
@@ -535,7 +536,7 @@
 
        $\Rightarrow$ 	component densities = $p(x|z)$ 
 
-       ​	choice of component depends on previous state: $p(z_n|z_{n-1})$ 
+       	choice of component depends on previous state: $p(z_n|z_{n-1})$ 
 
    - Transition probabilities:
 
@@ -543,13 +544,13 @@
 
      - $p(z_n|z_{n-1}) = \boldsymbol A_{K\times K}\in [0,1]^{K\times K}$   
 
-       ​	where $A_{ik}=p(z_{n,k}=1 \mid z_{n-1,i}=1), \space 0 \le A_{ik}\le 1 \text{ and } \small{\displaystyle \sum_{k=1}^K} \normalsize A_{ik} = 1 \\ \Rightarrow \text{num of independent parameters}=K(K-1) $ 
+       	where $A_{ik}=p(z_{n,k}=1 \mid z_{n-1,i}=1), \space 0 \le A_{ik}\le 1 \text{ and } \small{\displaystyle \sum_{k=1}^K} \normalsize A_{ik} = 1 \\ \Rightarrow \text{num of independent parameters}=K(K-1) $ 
 
        $\Rightarrow \displaystyle p(z_n|z_{n-1},A) = \prod_{k=1}^K \prod_{i=1}^K A_{ik}^{z_{n-1,i} \times z_{n,k}}$ 
 
      - $p(z_1) = \mathbf \pi$ 
 
-       ​	where $\pi_k = p(z_{1k}=1), 0\le\pi_k \le 1  \text{ and } \space \small {\displaystyle\sum_k} \normalsize \pi_k=1$ 
+       	where $\pi_k = p(z_{1k}=1), 0\le\pi_k \le 1  \text{ and } \space \small {\displaystyle\sum_k} \normalsize \pi_k=1$ 
 
        $\displaystyle \Rightarrow p(z_1|\pi) = \prod_{k=1}^K \pi_k^{z_{1k}}$ 
 
@@ -561,7 +562,7 @@
 
      - $\displaystyle p(x_n|z_n,\phi) = \prod_{k=1}^K p(x_n|\phi_k)^{z_{n,k}}$ 
 
-       ​	where $\phi \text{ is a set of parameters governing the conditional distribution}$ 
+       	where $\phi \text{ is a set of parameters governing the conditional distribution}$ 
 
 4. Homogeneous Hidden Markov Model:
 
@@ -613,7 +614,7 @@
 
      - $\displaystyle \arg\max_{\theta}Q = \sum_{k=1}^K \gamma(z_{1k})\ln \pi_k + \sum_{n=2}^N\sum_{i=1}^K\sum_{k=1}^K \xi(z_{n-1,i},z_{nk})\ln A_{ik} + \sum_{n=1}^N \sum_{k=1}^K \gamma(z_{nk}) \ln p(x_n|\phi_k)$
 
-       ​	 $\displaystyle \text{where full combination } \small \sum_{Z}\prod_{\text{each combination of }z_{1-n}} = \prod_{X}\sum_{\text{all possibility of each }x}$ 
+       	 $\displaystyle \text{where full combination } \small \sum_{Z}\prod_{\text{each combination of }z_{1-n}} = \prod_{X}\sum_{\text{all possibility of each }x}$ 
 
      - Critical points:
 
@@ -634,7 +635,7 @@
 
        All path through $z_n$ is blocked conditioned on $z_n$  
 
-       ​	 $\Rightarrow p(X|z_n) = p(x_1,...,x_n|z_n)p(x_{n+1},...,x_N|z_n)$
+       	 $\Rightarrow p(X|z_n) = p(x_1,...,x_n|z_n)p(x_{n+1},...,x_N|z_n)$
 
        
 
@@ -674,7 +675,7 @@
 
        $\text{where factorizing using conditional independence}: \begin{cases} [x_1,...,x_{n-1}],[z_n] &\text{on } z_{n-1} \\ [x_n,...,x_N],[z_{n-1}] &\text{on } z_n  \\ [x_n],[x_{n+1},...,x_N] &\text{on } z_n \end{cases}$ 
 
-       ​	 $\small (p(A|B)=p(A) \text{ when } A\perp\!\!\!\perp B) $ 
+       	 $\small (p(A|B)=p(A) \text{ when } A\perp\!\!\!\perp B) $ 
 
    - Algorithm description:
 
@@ -682,15 +683,15 @@
 
      - $\text{E step:}$ 
 
-       ​	Forward recursion for $\alpha(z_n)$ 
+       	Forward recursion for $\alpha(z_n)$ 
 
-       ​	Backward recursion for $\beta(z_n)$ 
+       	Backward recursion for $\beta(z_n)$ 
 
-       ​	Calculate $\gamma(z_n), \xi(z_{n-1}, z_n)$ 
+       	Calculate $\gamma(z_n), \xi(z_{n-1}, z_n)$ 
 
      - $\text{M step:}$ 
 
-       ​	Maximize $Q(\theta,\theta^{\text{old}})$ using critical points
+       	Maximize $Q(\theta,\theta^{\text{old}})$ using critical points
 
 7. Viterbi Algorithm (max-sum algorithm)
 
@@ -700,7 +701,7 @@
 
        $\Rightarrow$ the most probable sequence of latent states given a sequence observations and the model
 
-       ​	(most probable sequence of latent states $\not \Leftrightarrow$ set of states being individually most probable)
+       	(most probable sequence of latent states $\not \Leftrightarrow$ set of states being individually most probable)
 
      - Efficiency: searches space of paths efficiently ( $\mathcal O(n)$ to the length of chain )
 
@@ -716,9 +717,9 @@
 
      - Backtrace:
 
-       ​	for $n=1,...,N-1:$ remember best transition
+       	for $n=1,...,N-1:$ remember best transition
 
-       ​	for $n=N:$ state with highest probability
+       	for $n=N:$ state with highest probability
 
 #### Linear Dynamic System
 
@@ -730,7 +731,7 @@
 
      - practical sense $\Rightarrow$ multivariated Gaussian distribution assumed
 
-       ​	(so that complexity of posterior dose NOT increase)
+       	(so that complexity of posterior dose NOT increase)
 
    - Senquential Correlation in Contiuous Data
 
@@ -783,10 +784,8 @@
 
      - analogous to $\text{alpha-beta algorithm}$ in HMM
 
-       $\displaystyle \alpha(z_n) = p(x_1,...,x_n,z_n) =  p(x_n|z_n) \int_{z_{n-1}}\alpha(z_{n-1}) p(z_n|z_{n-1}) \space d z_{n-1}$ 
+       $\displaystyle \begin{align} c_n \hat\alpha(z_n) & = p(z_n|x_1,...,x_n) \\ &=  p(x_n|z_n) \int_{z_{n-1}} p(z_{n-1}|x_1,...,x_{n-1})  p(z_n|z_{n-1}) \space d z_{n-1} \\ &= p(x_n|z_n) \int_{z_{n-1}}\alpha(z_{n-1}) p(z_n|z_{n-1}) \space d z_{n-1} , \\ &\text{where } c_n \text{ is normaliser} \end{align}$ 
 
-       $\displaystyle \begin{align} \Rightarrow \alpha(z_n) =\mathcal N(z_n|\mu_n,V_n) = \mathcal N (x_n|C z_n,\Sigma) \int \mathcal N(z_{n-1} | \mu_{n-1},V_{n-1}) \mathcal N(z_n|Az_{n-1} , \Gamma) \space d z_{n-1} \end{align}$ 
-
-       
+       $\displaystyle \begin{align} \Rightarrow c_n \hat \alpha(z_n) &= c_n \mathcal N(z_n|\mu_n,V_n) \\ &= \mathcal N (x_n|C z_n,\Sigma) \int \mathcal N(z_{n-1} | \mu_{n-1},V_{n-1}) \mathcal N(z_n|Az_{n-1} , \Gamma) \space d z_{n-1} \\ &= \mathcal N (x_n|C z_n,\Sigma) \space \mathcal N (z_n|A\mu_{n-1},P_{n-1}), \\ & \text{where } P_{n-1} = AV_{n-1}A^T+\Gamma \space ( \text{ by integral of } \mathcal N\cdot\mathcal N ) \end{align}$ 
 
      - 

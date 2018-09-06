@@ -29,7 +29,7 @@
 
       $\Rightarrow$ problem:	 $\ln$ out of $\text{sum} \Rightarrow$ no clean math solution 
 
-      ​			only $\{X\}$ observed $\Rightarrow$ cannot maximize $p(X,Z)$ directly, but have $p(Z|X,\theta)$ 
+      			only $\{X\}$ observed $\Rightarrow$ cannot maximize $p(X,Z)$ directly, but have $p(Z|X,\theta)$ 
 
     - Introduce arbitrary $q(Z)$ and then sum over $Z,\text{ where $q(Z)$ is distribution} \small\Rightarrow \displaystyle \sum_Z q(Z)=1$ 
 
@@ -37,7 +37,7 @@
 
       $\displaystyle \Rightarrow \ln p(X|\theta) = \underbrace{ \sum_Z q(Z)\ln \frac {p(X,Z|\theta)}{q(Z)} }_{\mathcal L (q,\theta)} + \underbrace{ (- \sum_Z q(Z)\ln \frac{p(Z|X,\theta)}{q(Z)}) }_{KL(q\|p)} ,$ 
 
-      ​	 $\space \text{ where } KL(q\|p) \text{ is Kullback-Leibler divergence}$ 
+      	 $\space \text{ where } KL(q\|p) \text{ is Kullback-Leibler divergence}$ 
 
   - **Algorithm**:
 
@@ -47,13 +47,13 @@
 
       $\displaystyle \Rightarrow q(Z) = p(Z|X,\theta^{\text{old}})$ 
 
-      ​		 $\text{where } p(Z|X,\theta^{\text{old}}) \text{ is posterior}$ 
+      		 $\text{where } p(Z|X,\theta^{\text{old}}) \text{ is posterior}$ 
 
     - $\text{M step:}$ fix $q(Z) = p(Z|X,\theta^{\text{old}})$, maximize lower bound $\mathcal L(q^{\text{old}},\theta)$ 
 
       $\begin{align} \Rightarrow \displaystyle \theta &= \arg \max_{\theta} \ln p(X|\theta) \\&= \arg \max_{\theta} \mathcal L(q^{\text{old}},\theta) \end{align}$  
 
-      ​	 $\text{taking gradient w.r.t. $\theta$ will contain } q(Z) = p(Z|X,\theta^{\text{old}})$ 
+      	 $\text{taking gradient w.r.t. $\theta$ will contain } q(Z) = p(Z|X,\theta^{\text{old}})$ 
 
   - Convergence:
 
@@ -122,7 +122,7 @@
 
     Hence,
 
-    $ \displaystyle \begin{align} \theta_{n+1} &= \arg\max_{\\theta} l(\theta|\theta_n) \\ &= \arg\max_\theta \Delta(\theta|\theta_n) \\ &= \arg\max_\theta \sum_Z P(Z|X,\theta_n)\cdot\ln\left( \frac {P(X|Z,\theta)P(Z|\theta)} {P(Z|X,\theta_n) P(X|\theta_n)} \right) \\ &= \arg\max_\theta  \sum_Z P(Z|X,\theta_n)\cdot\ln P(X|Z,\theta)P(Z|\theta) \\ &= \arg\max_\theta \sum_Z P(Z|X,\theta_n) \cdot \ln P(X,Z|\theta) \\ &= \arg\max_\theta \{E_{Z|X,\theta_n} \{\ln P(X,Z|\theta)\} \} \end{align}$ 
+    $ \displaystyle \begin{align} \theta_{n+1} &= \arg\max_{\theta} l(\theta|\theta_n) \\ &= \arg\max_\theta \Delta(\theta|\theta_n) \\ &= \arg\max_\theta \sum_Z P(Z|X,\theta_n)\cdot\ln\left( \frac {P(X|Z,\theta)P(Z|\theta)} {P(Z|X,\theta_n) P(X|\theta_n)} \right) \\ &= \arg\max_\theta  \sum_Z P(Z|X,\theta_n)\cdot\ln P(X|Z,\theta)P(Z|\theta) \\ &= \arg\max_\theta \sum_Z P(Z|X,\theta_n) \cdot \ln P(X,Z|\theta) \\ &= \arg\max_\theta \{E_{Z|X,\theta_n} \{\ln P(X,Z|\theta)\} \} \end{align}$ 
 
   - EM Algorithm
 
@@ -160,11 +160,11 @@
 
      - for $i=1$ to $m$ $\small \text {(cluster assignment - E step)}$
 
-       ​	$c^i := \text{closest cluster centroid to } x^i$ 
+       	$c^i := \text{closest cluster centroid to } x^i$ 
 
      - for $k=1$ to $K$ $\small \text{(move centroid - M step)}$ 
 
-       ​	$\mu_k := \text{mean of points assigned to cluster } k$ 
+       	$\mu_k := \text{mean of points assigned to cluster } k$ 
 
 5. Initialization: $\small \text{(crucial for convergence)}$ 
 
@@ -217,13 +217,13 @@
 
      - $\displaystyle p(z_k=1|x) = \frac{\displaystyle p(z_k=1)p(x|z_k=1)}{\displaystyle\sum_{i=1}^Kp(z_i=1)p(x|z_i=1)} =\frac{\pi_k \mathcal N(x|\mu_k,\Sigma_k)}{\displaystyle \sum_{i=1}^K \pi_i \mathcal N(x|\mu_i,\Sigma_i)} $ 
 
-       ​	denoted as $\gamma(z_k):$ responsibility of $z_k$ to explain the observed $x$ 
+       	denoted as $\gamma(z_k):$ responsibility of $z_k$ to explain the observed $x$ 
 
    - Recover $p(x)$: (to assert that we are on the right track)
 
      - $\displaystyle p(x) \!= \displaystyle \sum_{\mathbf z} p(\mathbf z)p(x|\mathbf z)$
 
-       ​	$\displaystyle = \sum_{\mathbf z} \prod_{k=1}^K\pi_k^{z_k} \prod_{k=1}^K \mathcal N(x|\mu_k,\Sigma_k)^{z_k} \\ \displaystyle = \sum_{k=1}^K \pi_k \mathcal N(x|\mu_k, \Sigma_k)$ 
+       	$\displaystyle = \sum_{\mathbf z} \prod_{k=1}^K\pi_k^{z_k} \prod_{k=1}^K \mathcal N(x|\mu_k,\Sigma_k)^{z_k} \\ \displaystyle = \sum_{k=1}^K \pi_k \mathcal N(x|\mu_k, \Sigma_k)$ 
 
    - $N$ data drawn $\text{i.i.d.}$ 
 
@@ -255,7 +255,7 @@
 
        $\displaystyle \Rightarrow \pi_k=\frac {N_k} N$ 
 
-       ​	$\small \text{where $N_k$ is the effective num of data point assigned to $k$ : $N_k=\sum_{n=1}^N \gamma(z_k)$}$ 
+       	$\small \text{where $N_k$ is the effective num of data point assigned to $k$ : $N_k=\sum_{n=1}^N \gamma(z_k)$}$ 
 
    - $\text{E step}$: evaluate $q(Z) = \gamma(z_k)$ using current parameters $\mu,\Sigma,\pi$ $\space\small\text{ (soft assign point to Gaussian)}$ 
 
