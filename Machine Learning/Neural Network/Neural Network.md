@@ -412,11 +412,167 @@
 
        $\Rightarrow$ more representation power, harder to train
 
+6. Convolution for Sparse Input
 
-### Traning
+   - Notation
+
+     - $f:$ feature vector
+     - $w:$ weight vector
+     - $l:$ window
+
+   - Inverted Convolution
+
+     - original: for each window $l$, collect result of $f \cdot w$ at each location within $l$ 
+
+     - inverted: for each input $f$, calculate its contribution $f\cdot w_l$ for each possible window $l$  
+
+       (where $w_l$ differ from window to window, as the relative location within $l$ changes)
+
+     $\Rightarrow$ original: $\mathcal O(D_xD_y k_xk_y|f|)$; inverted: $\mathcal O(nk_xk_y|f|)$,
+
+     ​	where $D_x,D_y$ are input dimension; $k_x,k_y$ kernel dimension; $n$ the number of non-zero input
+
+### Point Cloud
+
+1. Dataset Feature
+   - Points
+     - a set of point with location (usually x,y,z) and some other features
+
+       $\Rightarrow$ orderless 
+
+     - usually generated from radar / ladar scanning
+
+       $\Rightarrow$ can be noisy 
+
+   - Voxelization
+
+     - apply grids on point cloud $\Rightarrow$ 3D grids
+     - cell may contain more than one point $\Rightarrow$ feature learning
+     - whole space can usually be large $\Rightarrow$ sparse grid with few occupied cell
+
+2. Object Detection
+
+   - Point Net
+
+     - notation
+
+       1. $N:$ number of points
+       2. $D:$ dimension of vector for each point
+       3. $f:$ function of the neural net
+
+     - design
+
+       1. orderless set point cloud 
+
+          $\Rightarrow$ invariant to permutation of input order: $f(x_1,...,x_N) = f(x_{\pi_1},...,x_{\pi_N}), x_i\in\mathbb R^{D}$  
+
+          $\Rightarrow$ restriction of neural net: can and only can represent the symmetric function
+
+          ​	noting that $f(x_1,...,x_n) = \gamma \circ g(h(x_1),...,h(x_N))$ is symmetric if $g$ symmetric
+
+          $\Rightarrow h:$ feature learning; $g:$ symmetric operation; $\gamma:$ not restricted (subnet for output)   
+
+          ​	(such structure can and only can represent symmetric function) 
+
+       2. invariance to geometric transformation
+
+          $\Rightarrow$ analogue to <u>spatial transformer network</u> 
+
+          $\Rightarrow$ transformer is only a matrix multiplication in point cloud (no interpolation needed)
+
+          $\Rightarrow$ restrict the transformer close to orthogonal (avoid suboptimal) 
+
+     - architecture
+
+       1. input: row of vectors for a set of points
+
+       2. transformer: analogue to spatial transformer network
+
+       3. mapping to higher (64-D) dimension: 1x1 conv
+
+       4. 2$^{nd}$ transformer
+
+       5. mapping to higher (1024-D) dimension
+
+       6. $g$ (symmetric operation): max pooling for each index on feature vector
+
+          $\Rightarrow$ global feature
+
+       7. k-class classification: fully connected sub-net to output
+
+          segmentation: concatenated to local feature vector for points
+
+          ​	$\Rightarrow$ shared 1x1 conv to output per-point classification 
+
+     - analysis
+
+       1. robust to  missing data: 
+
+          critical points (contributors to global feature) capture contour and skeleton of objects
+
+          upper-bound points: some points outside the object can result in similar global feature
+
+   - Vote3Deep
+
+     - design
+
+       1. conv for sparse input at 3D space
+
+       2. bounding box $\Leftrightarrow$ 3D conv kernel size at the output layer
+
+          $\Rightarrow$ fine-tuning output layer for object of various size 
+
+          ​	(after conv kernel in hidden layer trained)  
+
+     - analysis
+
+       1. shallow networks & simple features (including radar intensity) works
+
+          $\Rightarrow$ spatial info matters
+
+### Post Processing
+
+1. CRF
+
+   - Goal
+
+     - remove improbable pattern 
+
+       $\Rightarrow$ apply context-dependent rules
+
+   - Procedure
+
+     - similar to MRF; another layer before the output layer
+
+       $\Rightarrow$ can be trained end-to-end
+
+2. Non-Maximum Suppression
+
+   - Goal
+
+     - reduce duplicate / largely overlapped bounding box
+   - Procedure
+     - selecting window scored higher than a threshold (decision threshold)
+
+     - candidates sorted in descending order; set of accepted window initialized to empty
+
+     - taken candidate window one-by-one; compare with accepted windows
+
+     - accepted the candidate if not overlapping with accepted window by more than a threshold
+
+       (threshold usually is compared regarding ratio of intersection) 
+
+### Training
 
 1. Searching hyper-parameter:
    - Sampling hyper-parameter from uniform distribution over the parameters space
    - **Not** using fix steps
      - Usually some parameters have more influence on the performance => fix steps waste effort
-2. ​
+2. Hard Negative Mining
+   - Goal
+     - improving precision; reducing false positive
+     - overcome skewed dataset
+   - Procedure
+     - random sample out a initial training set (preferably balanced) from whole training set
+     - after trained on initial training set, evaluate on the whole training set
+     - add into training set the "hard negative" (false positive)
