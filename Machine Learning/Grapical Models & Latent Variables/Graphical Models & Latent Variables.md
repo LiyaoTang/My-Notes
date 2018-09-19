@@ -269,7 +269,7 @@
        $\Rightarrow$ adding term $hx_i$ 
 
        	$\text{Reason: Potential function is an arbitrary, non-negative function over maximal cliques}$ 
-
+				
        	$\Rightarrow \text{allowed to multiply it by any nonnegative function of subsets of the clique}$   
 
    - Joint Distribution:
@@ -739,15 +739,14 @@
 
 2. Notation
 
-   - Transition
-     - $z_n = A z_{n-1} + w_n, \text{ where noise } w \sim \mathcal N(w|0,\Gamma)$ 
-     - $\Rightarrow p(z_n|z_{n-1}) = \mathcal N (z_n|Az_{n-1}, \Gamma)$ 
-   - Emission
-     - $x_n = Cz_n + v_n, \text{ where noise } v \sim \mathcal N(v|0,\Sigma)$ 
-     - $\Rightarrow p(x_n|z_n) = \mathcal N (x_n|C z_n,\Sigma)$ 
-   - Initial Latent Variable: 
-     - $z_1 = \mu_0 + \mu, \text{ where noise } \mu \sim \mathcal N (\mu|0,V_0)$ 
-     - $\Rightarrow p(z_1) = \mathcal N(z_1|\mu_0,V_0)$ 
+   - Underlain Procedure
+     - transition: $z_n = A z_{n-1} + w_n, \text{ where noise } w \sim \mathcal N(w|0,\Gamma)$ 
+     - emission: $x_n = Cz_n + v_n, \text{ where noise } v \sim \mathcal N(v|0,\Sigma)$
+     - initialization: $z_1 = \mu_0 + \mu, \text{ where noise } \mu \sim \mathcal N (\mu|0,V_0)$ 
+   - Probabilities
+     - transition: $p(z_n|z_{n-1}) = \mathcal N (z_n|Az_{n-1}, \Gamma)$   
+     - emission: $p(x_n|z_n) = \mathcal N (x_n|C z_n,\Sigma)$ 
+     - initialization: $p(z_1) = \mathcal N(z_1|\mu_0,V_0)$  
    - Model Parameters
      - $\theta = \{ A,\Gamma,C,\Sigma,\mu_0,V_0 \}$ 
 
@@ -761,31 +760,52 @@
 
    - M step
 
-4. Inference
+4. Linear-Gaussian Model Features
 
-   - Linear-Gaussian Model Features:
+   - sequence of individually most probable latent variable $\Leftrightarrow$ the most probable latent sequence
 
-     - sequence of individually most probable latent variable $\Leftrightarrow$ the most probable latent sequence
+     $\Rightarrow$ no need for Viterbi algorithm
 
-       $\Rightarrow$ no need for Viterbi algorithm
+   - Joint Distribution
 
-     - joint distribution is a Gaussian $\Rightarrow$ standard result available for its marginals and conditionals 
+     - $\displaystyle P(X,Z) = p(z_1) \left[ \sum_{n=2}^Np(z_n|z_{n-1}) \right] \sum_{n=1}^N p(x_n|z_n)$  - same form as HMM
+
+       $\Rightarrow$ an Gaussian (product of Gaussians)
+
+       $\Rightarrow$ standard result available for its marginals and conditionals 
 
        $\Rightarrow$ sum-product algorithm for faster computation
+
+5. Inference
 
    - Goal
 
      - determine marginal distribution $P(Z|X)$ 
-     - prediction: $P(z_n, x_n|x_1,...,x_{n-1}.\theta)$ - used in real-time application
+     - prediction: $P(z_n, x_n|x_1,...,x_{n-1}.\theta)​$ - used in real-time application
 
    - Sum-Product Algorithm (Kalman Filter + Kalman Smoother)
 
-     - joint distribution $\displaystyle P(X,Z) = p(z_1) \left[ \sum_{n=2}^Np(z_n|z_{n-1}) \right] \sum_{n=1}^N p(x_n|z_n)$  - same as HMM
-
      - analogous to $\text{alpha-beta algorithm}$ in HMM
 
-       $\displaystyle \begin{align} c_n \hat\alpha(z_n) & = p(z_n|x_1,...,x_n) \\ &=  p(x_n|z_n) \int_{z_{n-1}} p(z_{n-1}|x_1,...,x_{n-1})  p(z_n|z_{n-1}) \space d z_{n-1} \\ &= p(x_n|z_n) \int_{z_{n-1}}\alpha(z_{n-1}) p(z_n|z_{n-1}) \space d z_{n-1} , \\ &\text{where } c_n \text{ is normaliser} \end{align}$ 
+       let $\hat \alpha(z_n) = p(z_n| x_1,...,x_n)$ 
+
+       $ \displaystyle \begin{align} \Rightarrow c_n \hat\alpha(z_n) & = c_n p(z_n|x_1,...,x_n) \\ &=  p(x_n|z_n) \int_{z_{n-1}} p(z_{n-1}|x_1,...,x_{n-1})  p(z_n|z_{n-1}) \space d z_{n-1} \\ &= p(x_n|z_n) \int_{z_{n-1}}\alpha(z_{n-1}) p(z_n|z_{n-1}) \space d z_{n-1} , \\ &\text{where } c_n \text{ is normaliser; } c_n= \frac{p(x_1,...,x_n)}{p(x_1,...,x_{n-1})} \end{align}$ 
 
        $\displaystyle \begin{align} \Rightarrow c_n \hat \alpha(z_n) &= c_n \mathcal N(z_n|\mu_n,V_n) \\ &= \mathcal N (x_n|C z_n,\Sigma) \int \mathcal N(z_{n-1} | \mu_{n-1},V_{n-1}) \mathcal N(z_n|Az_{n-1} , \Gamma) \space d z_{n-1} \\ &= \mathcal N (x_n|C z_n,\Sigma) \space \mathcal N (z_n|A\mu_{n-1},P_{n-1}), \\ & \text{where } P_{n-1} = AV_{n-1}A^T+\Gamma \space ( \text{ by integral of } \mathcal N\cdot\mathcal N ) \end{align}$ 
 
-     - 
+       $\displaystyle \begin{align} \Rightarrow \mu_n &= A\mu_{n-1}  + K_n (x_n - CA\mu_{n-1}) \\ V_n &= (I-K_nC) P_{n-1} \\ c_n &= \mathcal N(x_n| CA\mu_{n-1} , CP_{n-1}C^T + \Sigma), \\ & \text{where } K_n = P_{n-1}C^T(CP_{n-1}C^T+\Sigma)^{-1}, \text{ known as Kalman gain matrix} \end{align}$ 
+
+     - Initial Condition
+
+       $\Rightarrow$ $c_1 \hat \alpha (z_1) = p(z_1) p(x_1|z_1), \text{ where } z_1 = p(x_1)$ 
+
+       $\displaystyle \begin{align} \Rightarrow \mu_1 &= \mu_0 +K_1 (x_1-C\mu_0) \\ V_1 &= (I-K_1C)V_0 \\ c_1 &= \mathcal N(x_1 |C \mu_0 , CV_0C^T + \Sigma), \\ & \text{where } K_1 = V_0 C^T (CV_0C^T + \Sigma)^{-1} \end{align}$ 
+
+   - Interpretation
+
+     - $A\mu_{n-1}:$ predicted mean of $z_n$, by projecting mean of $z_{n-1}$ one step forward
+     - $CA\mu_{n-1}:$ predicted observation $x_n$, by emitting from predicted mean of $z_n$  
+     - $x_n-CA\mu_{n-1}:$ error between predicted observation and actual observation
+     - $K_n:$ coefficient of error, giving a correction to the predicted mean of $z_{n}$ 
+
+     $\Rightarrow$ making successive predictions & correcting them in the light of new observation
