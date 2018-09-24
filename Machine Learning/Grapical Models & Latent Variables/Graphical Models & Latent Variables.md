@@ -530,13 +530,13 @@
 
    - Joint distribution:
 
-     - $\displaystyle \begin{align} p(x_1,...,x_N,z_1,...,z_N) &= p(z_1)[\prod_{n=2}^N p(z_n|z_{n-1})]\prod_{n=1}^N p(x_n|z_n) \\ &= p(z_1)p(x_1|z_1)\prod_{n=2}^N p(z_n|z_{n-1}) p(x_n|z_n) \end{align}$ 
+     $\displaystyle \begin{align} p(x_1,...,x_N,z_1,...,z_N) &= p(z_1)[\prod_{n=2}^N p(z_n|z_{n-1})]\prod_{n=1}^N p(x_n|z_n) \\ &= p(z_1)p(x_1|z_1)\prod_{n=2}^N p(z_n|z_{n-1}) p(x_n|z_n) \end{align}$ 
 
      - understanding: extension of mixture distribution
 
        $\Rightarrow$ 	component densities = $p(x|z)$ 
 
-       	choice of component depends on previous state: $p(z_n|z_{n-1})$ 
+       ​	choice of component depends on previous state: $p(z_n|z_{n-1})$ 
 
    - Transition probabilities:
 
@@ -574,9 +574,9 @@
 
    - **Joint distribution**: 
 
-     - $\begin{align} \displaystyle p(X,Z|\theta) &= p(z_1|\pi) \left[\prod_{n=2}^N p(z_n|z_{n-1},A)\right] \prod_{n=1}^N p(x_n|z_n,\phi) \\ &= \prod_{k=1}^K \pi_k^{z_{1k}} \left[ \prod_{n=2}^N  \prod_{k=1}^K \prod_{i=1}^K A_{ik}^{z_{n-1,i} \times z_{n,k}} \right] \prod_{n=1}^N \prod_{k=1}^Kp(x_n|\phi_k)^{z_{nk}}\end{align}$ 
+     $\begin{align} \displaystyle p(X,Z|\theta) &= p(z_1|\pi) \left[\prod_{n=2}^N p(z_n|z_{n-1},A)\right] \prod_{n=1}^N p(x_n|z_n,\phi) \\ &= \prod_{k=1}^K \pi_k^{z_{1k}} \left[ \prod_{n=2}^N  \prod_{k=1}^K \prod_{i=1}^K A_{ik}^{z_{n-1,i} \times z_{n,k}} \right] \prod_{n=1}^N \prod_{k=1}^Kp(x_n|\phi_k)^{z_{nk}}\end{align}$ 
 
-       $\text{where } X = (x_1,...,x_N), Z=(z_1,...,z_N) \text{ and } \theta = \{\pi,A,\phi\}$ 
+     $\text{where } X = (x_1,...,x_N), Z=(z_1,...,z_N) \text{ and } \theta = \{\pi,A,\phi\}$ 
 
 5. Variants - by constraints on transition matrix $A$ 
 
@@ -594,7 +594,8 @@
 
    - Goal
 
-     - maximizing the likelihood $\displaystyle p(X|\theta) = \sum_Z p(X,Z|\theta)$ in hidden Markov models 
+     - determine model parameter $\theta$ given observations $X$ 
+     - $\Rightarrow$ maximizing the likelihood $\displaystyle p(X|\theta) = \sum_Z p(X,Z|\theta)$ in hidden Markov models 
 
    - Notiation:
 
@@ -608,9 +609,9 @@
 
    - $\text{E step}$: evaluate $\text{posterior } P(Z|X,\theta)$ 
 
-     - Evaluate $\gamma(z_n), \xi(z_{n-1},z_n)$ 
+     - $\Rightarrow$ evaluate $\gamma(z_n), \xi(z_{n-1},z_n)$ 
 
-   - $\text{M step}$: $\displaystyle \theta = \arg \max_{\theta}\ln P(X|\theta) = \arg\max_{\theta}\sum_Z q(Z)\ln p(X,Z|\theta) = Q \text{, where } \theta = \{\pi,A,\phi\} $ 
+   - $\text{M step}$: $\displaystyle \theta = \arg \max_{\theta}\ln P(X|\theta) = \arg\max_{\theta}\sum_Z p(Z|X,\theta^\text{old})\ln p(X,Z|\theta) \text{, where } \theta = \{\pi,A,\phi\} $ 
 
      - $\displaystyle \arg\max_{\theta}Q = \sum_{k=1}^K \gamma(z_{1k})\ln \pi_k + \sum_{n=2}^N\sum_{i=1}^K\sum_{k=1}^K \xi(z_{n-1,i},z_{nk})\ln A_{ik} + \sum_{n=1}^N \sum_{k=1}^K \gamma(z_{nk}) \ln p(x_n|\phi_k)$
 
@@ -626,8 +627,10 @@
 
    - Finding $\gamma(z_{nk}),\xi(z_{n-1,i}, z_{nk})$: 
 
-     - Tree structure in $\text{HMM} \Rightarrow$ Message passing 
-     - $\text{alpha-beta algorithm}$ - based on forward-backward algorithm
+     - sum-product - based on message passing tree structure in $\text{HMM} $ 
+     - $\text{alpha-beta algorithm}$ - known as forward-backward algorithm
+
+     Note: two approaches are equivalent - derive the same recursion formula
 
    - $\text{alpha-beta algorithm}$: 
 
@@ -635,47 +638,48 @@
 
        All path through $z_n$ is blocked conditioned on $z_n$  
 
-       	 $\Rightarrow p(X|z_n) = p(x_1,...,x_n|z_n)p(x_{n+1},...,x_N|z_n)$
+       $\Rightarrow p(X|z_n) = p(x_1,...,x_n|z_n)p(x_{n+1},...,x_N|z_n)$
 
-       
+          ![Sequential data - Hidden Markov model](.\Sequential data - Hidden Markov model.PNG)  
 
-       ![Sequential data - Hidden Markov model](.\Sequential data - Hidden Markov model.PNG)  
+          illustration:
 
-       illustration:
+          ![](Independence - Hidden Markov Model.PNG) 
 
-       ![](Independence - Hidden Markov Model.PNG) 
+          $\displaystyle P(D,B) = \sum_A P(A,B) P(D|A) \\ \displaystyle P(F,B) = \sum_A\left( P(A,B) \sum_C P(C|B)P(F|C) \right) \\ \displaystyle P(D,F,B) =\sum_A \left( P(A,B) P(D|A)\sum_C P(C|B)P(F|C) \right)$ 
 
-       $\displaystyle P(D,B) = \sum_A P(A,B) P(D|A) \\ \displaystyle P(F,B) = \sum_A\left( P(A,B) \sum_C P(C|B)P(F|C) \right) \\ \displaystyle P(D,F,B) =\sum_A \left( P(A,B) P(D|A)\sum_C P(C|B)P(F|C) \right)$ 
+          $\Rightarrow P(D|B)P(F|B) = P(D,F|B) \Rightarrow D \perp\!\!\!\perp F | B$ 
 
-       $\Rightarrow P(D|B)P(F|B) = P(D,F|B) \Rightarrow D \perp\!\!\!\perp F | B$ 
 
      - $\text{Let }\alpha(z_n) = p(x_1,...,x_n,z_n)$ 
-
+    
        $\begin{align} \Rightarrow \alpha(z_n) &= p(x_n|z_n)p(x_1,...,x_{n-1}|z_n)p(z_n) \\ &= \displaystyle p(x_n|z_n)\sum_{z_{n-1}}p(x_1,...,x_{n-1},z_{n-1},z_n) \\ &= p(x_n|z_n) \sum_{z_{n-1}} p(x_1,...,x_{n-1}|z_{n-1})p(z_n|z_{n-1})p(z_{n-1}) \\ &= p(x_n|z_n) \sum_{z_{n-1}}\alpha(z_{n-1}) p(z_n|z_{n-1}) \end{align}$ 
-
+    
        $\displaystyle \Rightarrow \alpha(z_1) = \prod_{k=1}^K [\pi_k p(x_1|\phi_k)]^{z_{1k}}$ 
-
+    
      - $\text{Let } \beta(z_n) = p(x_{n+1},...,x_N|z_n)$ 
-
+    
        $\begin{align} \displaystyle \Rightarrow \beta(z_n) &= \frac 1 {p(z_n)} \sum_{z_{n+1}}p(x_{n+1}, ..., x_N, z_n | z_{n+1}) p(z_{n+1}) \\ &= \frac 1 {p(z_n)} \sum_{z_{n+1}}p(x_{n+1}, ..., x_N | z_{n+1})p(z_n | z_{n+1}) p(z_{n+1})  \\ &= \sum_{z_{n+1}}p(x_{n+2},...,x_N|z_{n+1})p(x_{n+1}|z_{n+1}) \frac{p(z_n|z_{n+1})p(z_{n+1}) }{p(z_n)} \\ &= \sum_{z_{n+1}} \beta(z_{n+1}) p(x_{n+1} | z_{n+1}) p(z_{n+1}|z_n) \end{align}$ 
-
-       $\Rightarrow \beta(z_N) = 1$ 
-
+    
+       $\Rightarrow \beta(z_N) = 1, \text{solved from } \gamma(z_N) =  \frac{\alpha(z_N)\beta(z_N)}{p(X)}$ 
+    
      - $\displaystyle \gamma(z_n) = p(z_n|X) = \frac{P(X|z_n)p(z_n)} {p(X)} = \frac{\alpha(z_n) \beta(z_n)}{p(X)}$ 
-
+    
      - $\displaystyle 1 = \sum_{z_n}\gamma(z_n) = \frac{\sum_{z_n} \alpha(z_n)\beta(z_n)}{p(X)}$ 
-
-       $\Rightarrow p(X) = \sum_{z_n} \alpha(z_n)\beta(z_n)$ 
-
-       $\text{More conveniently, let } z_n=z_N \Rightarrow p(X)=\sum_{z_N}\alpha(z_N)$ 
-
+    
+       $\displaystyle \Rightarrow p(X) = \sum_{z_n} \alpha(z_n)\beta(z_n)$ 
+    
+       $\text{More conveniently, let } \displaystyle z_n=z_N \Rightarrow p(X)=\sum_{z_N}\alpha(z_N)$
+    
+       $\Rightarrow \text{complexity: } \mathcal O(n), \text{ instead of } \mathcal O(2^n), \text{ where } n \text{ is the length of the chain}$ 
+    
      - $\displaystyle \xi(z_{n-1}, z_n) = \frac {\alpha(z_{n-1})p(x_n|z_n)p(z_n|z_{n-1})\beta(z_n)} {P(X)}:$ 
-
+    
        $\begin{align} \displaystyle \xi(z_{n-1}, z_n) &= p(z_{n-1},z_n|X) = \frac{p(X|z_{n-1},z_n)p(z_{n-1},z_n)}{p(X)} \\ &= \frac{p(x_1,....,x_{n-1}| z_{n-1},z_n) p(x_n,...,x_N|z_{n-1} ,z_n) \times p(z_n|z_{n-1})p(z_{n-1})} {p(X)} \\ &= \frac{p(x_1,...,x_{n-1}|z_{n-1}) p(x_n|z_n)p(x_{n+1},...,x_N|z_n) \times p(z_n|z_{n-1})p(z_{n-1})} {p(X)} \\ &= \frac {\alpha(z_{n-1})p(x_n|z_n)p(z_n|z_{n-1})\beta(z_n)} {p(X)} \end{align} $ 
-
+    
        $\text{where factorizing using conditional independence}: \begin{cases} [x_1,...,x_{n-1}],[z_n] &\text{on } z_{n-1} \\ [x_n,...,x_N],[z_{n-1}] &\text{on } z_n  \\ [x_n],[x_{n+1},...,x_N] &\text{on } z_n \end{cases}$ 
-
-       	 $\small (p(A|B)=p(A) \text{ when } A\perp\!\!\!\perp B) $ 
+    
+       $\small (p(A|B)=p(A) \text{ when } A\perp\!\!\!\perp B) $ 
 
    - Algorithm description:
 
@@ -683,17 +687,74 @@
 
      - $\text{E step:}$ 
 
-       	Forward recursion for $\alpha(z_n)$ 
+       Forward recursion for $\alpha(z_n)$ 
 
        	Backward recursion for $\beta(z_n)$ 
-
+			
        	Calculate $\gamma(z_n), \xi(z_{n-1}, z_n)$ 
 
      - $\text{M step:}$ 
 
-       	Maximize $Q(\theta,\theta^{\text{old}})$ using critical points
+       Maximize $Q(\theta,\theta^{\text{old}})$ using critical points
 
-7. Viterbi Algorithm (max-sum algorithm)
+   - Regularized EM
+
+     - add the prior of $\pi, A, \phi$, in the form of $\log p(\theta)$, into $Q(\theta,\theta^\text{old})$ before maximization
+
+7. Prediction
+
+   - Goal
+
+     - predict $x_{N+1}$ given $X=\{x_1,...,x_N\}$ 
+
+   - Algorithm
+
+     - $\alpha$ recusion + summing over $z_N$
+
+       $ \displaystyle \begin{align} p(x_{N+1}) &= \sum_{z_{N+1}} p(x_{N+1}, z_{N+1}|X) \\ &= \sum_{z_{N+1}} p(x_{N+1}|z_{N+1,X})p(z_{N+1}|X) \\ &= \sum_{z_{N+1}} p(x_{N+1} | z_{N+1}) \sum_{z_N} p(z_{N+1}|z_N,X)p(z_N|X) \\ &= \sum_{z_{N+1}} p(x_{N+1}|z_{N+1}) \sum_{z_N} p(z_{N+1}|z_N)p(z_N|X) \\ &= \frac 1 {P(X)}\sum_{z_{N+1}} p(x_{N+1}| z_{N+1}) \sum_{Z_{N}} p(z_{N+1}|z_N) \alpha(z_N) \end{align} $ 
+
+       $\Rightarrow$ store the $\alpha(z_t)$ for predicting $x_{t+1}$ **and** computing $\alpha(z_{t+1})$ once $x_{t+1}$ observed
+
+     - Intuition: information in $x_1,...,x_N$ stored in $\alpha(z_N)$ 
+
+       $\Rightarrow$ enable real-time application
+
+8. Scaling Factors
+
+   - Original $\alpha-\beta$ Recursion
+
+     - $\displaystyle \alpha(z_n) =  p(x_n|z_n) \sum_{z_{n-1}}\alpha(z_{n-1}) p(z_n|z_{n-1})$
+     - $\displaystyle \beta(z_n) =  \sum_{z_{n+1}} \beta(z_{n+1}) p(x_{n+1} | z_{n+1}) p(z_{n+1}|z_n)$ 
+
+     $\Rightarrow$ $\alpha\rightarrow 0$ exponentially quickly to length of chain
+
+     $\Rightarrow$ for long chain (~100), $\alpha$ can exceed the dynamic range of computer
+
+   - Normalized and Rescaled $\alpha$ 
+
+     - normalize: $\displaystyle \hat\alpha(z_n) = \frac{\alpha(z_n)} {p(x_1,...,x_n)} = p(z_n|x_1,...,x_n)$ 
+
+     - let rescale factor $c_n=p(x_n|x_1,...,x_{n-1})$ 
+
+       $\displaystyle \begin{align} \Rightarrow \space & p(x_1,...,x_n) = \prod_{m=1}^n c_m \\ \Rightarrow \space & \alpha(z_n) = (\prod_{m=1}^n c_m) \cdot \hat \alpha(z_n) \\ \Rightarrow \space & c_n\hat\alpha(z_n) = p(x_n|z_n)\sum_{z_{n-1}}\hat\alpha(z_{n-1})p(z_n|z_{n-1}) \end{align}$ 
+
+   - Rescaled $\beta$ 
+
+     - let normalizeation $\displaystyle \hat\beta(z_n) = \frac {\beta(z_n)}{\displaystyle \prod_{m=n+1}^N c_m} = \frac{p(x_{n+1}, ..., x_N|z_n)}{p(x_{n+1}, ..., x_N|x_1,...,x_n)}$ 
+
+       $\displaystyle \Rightarrow c_{n+1} \hat\beta (z_n) = \sum_{z_{n+1}} \hat\beta(z_{n+1}) p(x_{n+1}|z_{n+1})p(z_{n+1}|z_n)$ 
+
+       ​	note: $c_{n+1}$ can be re-used from $\alpha​$ recursion
+
+   - EM under Rescaled $\alpha-\beta$ 
+
+     - monitoring likelihood: $\displaystyle p(X) = \prod_{n=1}^Nc_n$ 
+
+     - $E$ step:
+
+       $\displaystyle \begin{align} \Rightarrow \space & \gamma(z_n) = \hat\alpha(z_n)\hat\beta(z_n) \\ & \xi(z_{n-1},z_n) = c_n \hat\alpha(z_n)p(x_n|z_n)p(z_n|z_{n+1})\hat\beta(z_n) \end{align}$ 
+
+9. Viterbi Algorithm (max-sum algorithm)
 
    - Goal:
 
@@ -701,7 +762,7 @@
 
        $\Rightarrow$ the most probable sequence of latent states given a sequence observations and the model
 
-       	(most probable sequence of latent states $\not \Leftrightarrow$ set of states being individually most probable)
+       ​	(most probable sequence of latent states $\not \Leftrightarrow$ set of states being individually most probable)
 
      - Efficiency: searches space of paths efficiently ( $\mathcal O(n)$ to the length of chain )
 
