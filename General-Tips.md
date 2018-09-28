@@ -32,8 +32,8 @@
 2. for all i in range => suggest concurrent performance.
 3. modular type can NOT be runtime dependent.
 4. can NOT have variant record in array. => compiler refuse to alloct heap mem at runtime
-  => but CAN use mutable variant record (where a default value is given)
-  	=> but can vary in the fly.
+    => but CAN use mutable variant record (where a default value is given)
+    ​	=> but can vary in the fly.
 5. Make sure sub-task get the termination signal before main task terminated by either
   - terminating safely, or 
   - raising an error
@@ -42,17 +42,32 @@
 
 1. @：矩阵乘法 => can have difference between *,@,multiply,dot (for matrix/ndarray)
 2. explicit matrix inverse computations should be avoided for reasons of numerical stability
-  => 用 numpy.linalg.solve()
+    => 用 numpy.linalg.solve()
 3. matrix[:,0:1] => 矩阵第一列
-  => 前闭后开
+    => 前闭后开
 4. X = PolynomialFeatures(degree=2).fit_transform(X) => X每个features 的 2次多项式展开
 5. np.random.shuffle(idx) => shuffle (index of) data set
 
 
 7. 式子中改变+/- 号位置会影响精确度 => 调用opt.fmin_bfgs() 中有warning
 8. U,S,V = np.linalg.svd(A)
-  =>	S is 1-D array with corresponding number
-  	V is matrix with row vectors being eigenvectors of A.T*A （U==V.T when A = X.T*X）
+     =>	S is 1-D array with corresponding number
+       	V is matrix with row vectors being eigenvectors of A.T*A （U==V.T when A = X.T*X）
 9. OptionParser to accept comman-line parameters
 10. gc to release memory explicitly (gc.collect())
 11. place the outer python-based library directly under the  folder => then import as usuall
+12. python multi-inheritance: 
+        - Method Resolution Order (MRO)
+          - maintain the precedence appeared in the inheritance list in the derived class
+          - super() call:
+            1. find & gather the next class in MRO list into a stack
+            2. init & pop the class from that stack $\Rightarrow$ last in first out
+      - Passing Parameters
+        - bass class need to be designed for multi-inheritance
+        - $\Rightarrow$ intermediate class need to take extra parameters to pass along the MRO
+        - $\Rightarrow$ force designer to be aware of the MRO precedence!
+
+### Data
+
+1. h5py is a good thing: light-weight dataset structure
+2. TF.Data: a pipeline for fetching, parsing and feeding the data (in a separate thread $\Rightarrow$ parallel)
