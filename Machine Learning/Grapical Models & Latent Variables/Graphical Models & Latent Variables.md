@@ -690,7 +690,7 @@
        Forward recursion for $\alpha(z_n)$ 
 
        	Backward recursion for $\beta(z_n)$ 
-			
+       	
        	Calculate $\gamma(z_n), \xi(z_{n-1}, z_n)$ 
 
      - $\text{M step:}$ 
@@ -734,13 +734,15 @@
 
      - normalize: $\displaystyle \hat\alpha(z_n) = \frac{\alpha(z_n)} {p(x_1,...,x_n)} = p(z_n|x_1,...,x_n)$ 
 
+       $\Rightarrow$ stay in the dynamic range
+
      - let rescale factor $c_n=p(x_n|x_1,...,x_{n-1})$ 
 
        $\displaystyle \begin{align} \Rightarrow \space & p(x_1,...,x_n) = \prod_{m=1}^n c_m \\ \Rightarrow \space & \alpha(z_n) = (\prod_{m=1}^n c_m) \cdot \hat \alpha(z_n) \\ \Rightarrow \space & c_n\hat\alpha(z_n) = p(x_n|z_n)\sum_{z_{n-1}}\hat\alpha(z_{n-1})p(z_n|z_{n-1}) \end{align}$ 
 
    - Rescaled $\beta$ 
 
-     - let normalizeation $\displaystyle \hat\beta(z_n) = \frac {\beta(z_n)}{\displaystyle \prod_{m=n+1}^N c_m} = \frac{p(x_{n+1}, ..., x_N|z_n)}{p(x_{n+1}, ..., x_N|x_1,...,x_n)}$ 
+     - let normalization $\displaystyle \hat\beta(z_n) = \frac {\beta(z_n)}{\displaystyle \prod_{m=n+1}^N c_m} = \frac{p(x_{n+1}, ..., x_N|z_n)}{p(x_{n+1}, ..., x_N|x_1,...,x_n)}$ 
 
        $\displaystyle \Rightarrow c_{n+1} \hat\beta (z_n) = \sum_{z_{n+1}} \hat\beta(z_{n+1}) p(x_{n+1}|z_{n+1})p(z_{n+1}|z_n)$ 
 
@@ -870,3 +872,5 @@
      - $K_n:$ coefficient of error, giving a correction to the predicted mean of $z_{n}$ 
 
      $\Rightarrow$ making successive predictions & correcting them in the light of new observation
+
+6. 
