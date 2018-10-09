@@ -5,8 +5,7 @@
 \begin{itemize}
 \item Definition
 	\begin{itemize}
-	\item $\displaystyle f* g (z) = \int_{\mathbb R}f(x)g(z-x) dx,$ where \\
-	$f(x),g(x)$ are functions defined in $\mathbb R$
+	\item $\displaystyle f* g (z) = \int_{\mathbb R}f(x)g(z-x) dx,$ where $f(x),g(x)$ are functions in $\mathbb R$
 	\end{itemize}
 	
 \item Statistical Meaning
@@ -21,7 +20,8 @@
 		\begin{itemize}
 		\item derivation
 		\end{itemize}
-	\begin{align*} H(z) &= P(Z<z) = P(X+Y<z) \\ &= \int_x f(x)P(X+Y<z|X=x) dx \\ &= \int_x f(x)P(Y<z-x)dx \\ &= \int_x f(x)G_Y(z-x)dx \\ \Rightarrow h(x) &= \frac d {dz} H(z) = \frac d {dz} \int_x f(x)G_Y(z-x)dx \\ &= \int_x f(x) \frac {dG_Y(z-x)}{dz} dx \\ &= \int_x f(x) g(z-x)dx \\ &= f * g (z) \end{align*}
+	\begin{align*} H(z) &= P(Z<z) = P(X+Y<z) \\ &= \int_x P(X=x)P(X+Y<z|X=x) dx \\ &= \int_x f(x)P(Y<z-x)dx \\ &= \int_x f(x)G_Y(z-x)dx  \end{align*} 
+	\begin{align*} \Rightarrow h(x) &= \frac d {dz} H(z) = \frac d {dz} \int_x f(x)G_Y(z-x)dx \\ &= \int_x f(x) \frac {dG_Y(z-x)}{dz} dx \\ &= \int_x f(x) g(z-x)dx \\ &= f * g (z) \end{align*}
 	
 	\end{itemize}
 \end{itemize}
