@@ -882,4 +882,4 @@
 
      $\Rightarrow$ making successive predictions & correcting them in the light of new observation
 
-6. 
+6. EM - Learning Model Parameters

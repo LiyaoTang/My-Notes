@@ -57,15 +57,20 @@
 10. gc to release memory explicitly (gc.collect())
 11. place the outer python-based library directly under the  folder => then import as usuall
 12. python multi-inheritance: 
-        - Method Resolution Order (MRO)
-          - maintain the precedence appeared in the inheritance list in the derived class
-          - super() call:
-            1. find & gather the next class in MRO list into a stack
-            2. init & pop the class from that stack $\Rightarrow$ last in first out
+    ​    - Method Resolution Order (MRO)
+    ​      - maintain the precedence appeared in the inheritance list in the derived class
+    ​      - super() call:
+    ​        1. find & gather the next class in MRO list into a stack
+    ​        2. init & pop the class from that stack $\Rightarrow$ last in first out
       - Passing Parameters
         - bass class need to be designed for multi-inheritance
         - $\Rightarrow$ intermediate class need to take extra parameters to pass along the MRO
         - $\Rightarrow$ force designer to be aware of the MRO precedence!
+
+### Octave / Matlab
+
+1. unrolling parameters: deltaVector = [ D1(:) ; D2(:) ] // matrix D1,D2 $\Rightarrow$ column vector 
+2. Reshape: D1 = reshape (deltaVector(1, m\*n), m, n) // column vector $\Rightarrow$ m\*n matrix
 
 ### Data
 

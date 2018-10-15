@@ -2,40 +2,56 @@
 
 \section{Supervised Learning}
 \begin{itemize}
-	
+
 \item Feature normalization: $\forall x_{ij} \in X, x_{ij}=\frac{x_{ij}-\mu_j}{\sigma_j^2}$, $ X:[instance][feature]$, without $[1...1]^T$ in 1st column $X=[x_1,x_2,...,x_m]$, m instances in total
 \item Regularization: add penalty for $\theta$ being large into cost function
-\item $\displaystyle J(\theta)= \space... + \frac{\lambda}{2m}\sum^n_{j=1}\theta_j^2$ , \textbf{$\theta_0$ shouldn't be penalized} 
-\item Matlab/Octave tips:
-
-	\begin{itemize}
-	\item Unrolling parameters: deltaVector = [ D1(:) ; D2(:) ] // matrix D1,D2 => column vector 
-	\item Reshape: D1 = reshape (deltaVector(1, m*n), m, n) // column vector $\Rightarrow$ m*n matrix
-	\end{itemize}
+\item $\displaystyle J(\theta)= \space... + \frac{\lambda}{2m}\sum^n_{j=1}\theta_j^2$ , \textbf{bias $\theta_0$ shouldn't be penalized} 
 
 \end{itemize}
 
 \section{Linear Regression}
 
 \begin{itemize}
-\item Assumption: 
+
+\item Notation
 	\begin{itemize}
-	\item \(y=h^\star_\theta(x)+\epsilon \text{, where $h^\star_\theta(x)$ is the theoretical (perfect) hypothesis, $\epsilon$ is gaussian noise}\)
+	\item $t$: observed data
+	\item $\displaystyle y(\mathbf x,\mathbf w)=\sum_{i=0}^{M}\phi_i(\mathbf x)w_i = \mathbf w^T \phi(\mathbf x)$ : model generating ground truth, with
+		\begin{itemize}
+		\item $\mathbf w$: weight vector
+		\item $\phi(\mathbf x)$: basis function for feature vector $\mathbf x$, with usually $\phi_0(\mathbf x) = 1$ as bias
+		\end{itemize}
 	\end{itemize}
 
-\item General Hypothesis Function: $h_\theta(x)=\phi (x)\theta$, where $\phi (x)$ is basis function
+\item Assumption
+	\begin{itemize}
+	\item Deterministic Model with Observation Noise
+		\begin{itemize}
+		\item \(t=y(x,w)+\epsilon\), where
+		
+		$\epsilon \sim \mathcal N(0,\beta^{-1})$ is Gaussian noise where precision (inverse variance) $\beta$
+		\item $\Rightarrow$ consequence
+			\begin{enumerate}
+			\item $\text{likelihood } p(t|\mathbf x,\mathbf w,\beta) = \mathcal N(t|y(\mathbf x,\mathbf w), \beta^{-1})$
+			\item $\mathbb E[t|\mathbf x] = \int t\cdot p(t|\mathbf x) dt = y(\mathbf x, \mathbf w) $
+			\item unimodal distribution $p(t|\mathbf x) \Rightarrow$ extended by conditional mixture model
+			\end{enumerate}
 
-\item Log Likelihood leads to least square cost function $J(\theta)$ 
+		\end{itemize}
+	\end{itemize}
+
+\item Joint Likelihood
 
 	\begin{itemize}
-	\item $P(y|x,\theta, \beta) = \mathcal{N}(x|h_\theta(x), \beta^{-1})$ - likelihood
-	
+	\item $\displaystyle P(\mathbf t|\mathbf X,\mathbf w,\beta) = \prod_{n=1}^N \mathcal N(t_n|\mathbf w ^T\phi(\mathbf x_n), \beta^{-1})$, where
 		\begin{itemize}
-		\item $\text{based on assumption: } y=h^\star_\theta(x)+\epsilon, \text{where}$ \\
-		\( h^\star_\theta(x) \text{ is the theoretical (perfect) hypothesis, $\epsilon$ is gaussian noise}\)
+		\item $\mathbf X = \{ \mathbf x_1,...,\mathbf x_N \}, \mathbf t = \{ t_1,...,t_N \}$
 		\end{itemize}
-	\item $\displaystyle P(\boldsymbol y|X,\theta,\beta) = \prod_{i=1}^m \mathcal{N}(x^i|h_\theta(x^i), \beta^{-1})$ 
-	\item $\displaystyle \ln P(\boldsymbol y|X,\theta,\beta) = \frac N 2\ln\beta - \frac N 2 \ln(2\pi) - \beta \frac 1 2\sum_{i=1}^m (h_\theta(x^i) - y^i)^2$ 
+	\item Log Likelihood 
+		\begin{itemize}
+			\item $\displaystyle \ln P(\boldsymbol y|X,\theta,\beta) = \frac N 2\ln\beta - \frac N 2 \ln(2\pi) - \beta \frac 1 2\sum_{i=1}^m (h_\theta(x^i) - y^i)^2$
+		\end{itemize}
+	 
 	\end{itemize}
 
 \item Log Posterior leads to regularization
