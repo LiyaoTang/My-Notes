@@ -650,36 +650,35 @@
 
           $\Rightarrow P(D|B)P(F|B) = P(D,F|B) \Rightarrow D \perp\!\!\!\perp F | B$ 
 
-
      - $\text{Let }\alpha(z_n) = p(x_1,...,x_n,z_n)$ 
-    
+
        $\begin{align} \Rightarrow \alpha(z_n) &= p(x_n|z_n)p(x_1,...,x_{n-1}|z_n)p(z_n) \\ &= \displaystyle p(x_n|z_n)\sum_{z_{n-1}}p(x_1,...,x_{n-1},z_{n-1},z_n) \\ &= p(x_n|z_n) \sum_{z_{n-1}} p(x_1,...,x_{n-1}|z_{n-1})p(z_n|z_{n-1})p(z_{n-1}) \\ &= p(x_n|z_n) \sum_{z_{n-1}}\alpha(z_{n-1}) p(z_n|z_{n-1}) \end{align}$ 
-    
+
        $\displaystyle \Rightarrow \alpha(z_1) = \prod_{k=1}^K [\pi_k p(x_1|\phi_k)]^{z_{1k}}$ 
-    
-     - $\text{Let } \beta(z_n) = p(x_{n+1},...,x_N|z_n)$ 
-    
-       $\begin{align} \displaystyle \Rightarrow \beta(z_n) &= \frac 1 {p(z_n)} \sum_{z_{n+1}}p(x_{n+1}, ..., x_N, z_n | z_{n+1}) p(z_{n+1}) \\ &= \frac 1 {p(z_n)} \sum_{z_{n+1}}p(x_{n+1}, ..., x_N | z_{n+1})p(z_n | z_{n+1}) p(z_{n+1})  \\ &= \sum_{z_{n+1}}p(x_{n+2},...,x_N|z_{n+1})p(x_{n+1}|z_{n+1}) \frac{p(z_n|z_{n+1})p(z_{n+1}) }{p(z_n)} \\ &= \sum_{z_{n+1}} \beta(z_{n+1}) p(x_{n+1} | z_{n+1}) p(z_{n+1}|z_n) \end{align}$ 
-    
-       $\Rightarrow \beta(z_N) = 1, \text{solved from } \gamma(z_N) =  \frac{\alpha(z_N)\beta(z_N)}{p(X)}$ 
-    
-     - $\displaystyle \gamma(z_n) = p(z_n|X) = \frac{P(X|z_n)p(z_n)} {p(X)} = \frac{\alpha(z_n) \beta(z_n)}{p(X)}$ 
-    
-     - $\displaystyle 1 = \sum_{z_n}\gamma(z_n) = \frac{\sum_{z_n} \alpha(z_n)\beta(z_n)}{p(X)}$ 
-    
-       $\displaystyle \Rightarrow p(X) = \sum_{z_n} \alpha(z_n)\beta(z_n)$ 
-    
-       $\text{More conveniently, let } \displaystyle z_n=z_N \Rightarrow p(X)=\sum_{z_N}\alpha(z_N)$
-    
-       $\Rightarrow \text{complexity: } \mathcal O(n), \text{ instead of } \mathcal O(2^n), \text{ where } n \text{ is the length of the chain}$ 
-    
-     - $\displaystyle \xi(z_{n-1}, z_n) = \frac {\alpha(z_{n-1})p(x_n|z_n)p(z_n|z_{n-1})\beta(z_n)} {P(X)}:$ 
-    
-       $\begin{align} \displaystyle \xi(z_{n-1}, z_n) &= p(z_{n-1},z_n|X) = \frac{p(X|z_{n-1},z_n)p(z_{n-1},z_n)}{p(X)} \\ &= \frac{p(x_1,....,x_{n-1}| z_{n-1},z_n) p(x_n,...,x_N|z_{n-1} ,z_n) \times p(z_n|z_{n-1})p(z_{n-1})} {p(X)} \\ &= \frac{p(x_1,...,x_{n-1}|z_{n-1}) p(x_n|z_n)p(x_{n+1},...,x_N|z_n) \times p(z_n|z_{n-1})p(z_{n-1})} {p(X)} \\ &= \frac {\alpha(z_{n-1})p(x_n|z_n)p(z_n|z_{n-1})\beta(z_n)} {p(X)} \end{align} $ 
-    
-       $\text{where factorizing using conditional independence}: \begin{cases} [x_1,...,x_{n-1}],[z_n] &\text{on } z_{n-1} \\ [x_n,...,x_N],[z_{n-1}] &\text{on } z_n  \\ [x_n],[x_{n+1},...,x_N] &\text{on } z_n \end{cases}$ 
-    
-       $\small (p(A|B)=p(A) \text{ when } A\perp\!\!\!\perp B) $ 
+
+      - $\text{Let } \beta(z_n) = p(x_{n+1},...,x_N|z_n)$ 
+
+        $\begin{align} \displaystyle \Rightarrow \beta(z_n) &= \frac 1 {p(z_n)} \sum_{z_{n+1}}p(x_{n+1}, ..., x_N, z_n | z_{n+1}) p(z_{n+1}) \\ &= \frac 1 {p(z_n)} \sum_{z_{n+1}}p(x_{n+1}, ..., x_N | z_{n+1})p(z_n | z_{n+1}) p(z_{n+1})  \\ &= \sum_{z_{n+1}}p(x_{n+2},...,x_N|z_{n+1})p(x_{n+1}|z_{n+1}) \frac{p(z_n|z_{n+1})p(z_{n+1}) }{p(z_n)} \\ &= \sum_{z_{n+1}} \beta(z_{n+1}) p(x_{n+1} | z_{n+1}) p(z_{n+1}|z_n) \end{align}$ 
+
+        $\Rightarrow \beta(z_N) = 1, \text{solved from } \gamma(z_N) =  \frac{\alpha(z_N)\beta(z_N)}{p(X)}$ 
+
+      - $\displaystyle \gamma(z_n) = p(z_n|X) = \frac{P(X|z_n)p(z_n)} {p(X)} = \frac{\alpha(z_n) \beta(z_n)}{p(X)}$ 
+
+      - $\displaystyle 1 = \sum_{z_n}\gamma(z_n) = \frac{\sum_{z_n} \alpha(z_n)\beta(z_n)}{p(X)}$ 
+
+        $\displaystyle \Rightarrow p(X) = \sum_{z_n} \alpha(z_n)\beta(z_n)$ 
+
+        $\text{More conveniently, let } \displaystyle z_n=z_N \Rightarrow p(X)=\sum_{z_N}\alpha(z_N)$
+
+        $\Rightarrow \text{complexity: } \mathcal O(n), \text{ instead of } \mathcal O(2^n), \text{ where } n \text{ is the length of the chain}$ 
+
+      - $\displaystyle \xi(z_{n-1}, z_n) = \frac {\alpha(z_{n-1})p(x_n|z_n)p(z_n|z_{n-1})\beta(z_n)} {P(X)}:$ 
+
+        $\begin{align} \displaystyle \xi(z_{n-1}, z_n) &= p(z_{n-1},z_n|X) = \frac{p(X|z_{n-1},z_n)p(z_{n-1},z_n)}{p(X)} \\ &= \frac{p(x_1,....,x_{n-1}| z_{n-1},z_n) p(x_n,...,x_N|z_{n-1} ,z_n) \times p(z_n|z_{n-1})p(z_{n-1})} {p(X)} \\ &= \frac{p(x_1,...,x_{n-1}|z_{n-1}) p(x_n|z_n)p(x_{n+1},...,x_N|z_n) \times p(z_n|z_{n-1})p(z_{n-1})} {p(X)} \\ &= \frac {\alpha(z_{n-1})p(x_n|z_n)p(z_n|z_{n-1})\beta(z_n)} {p(X)} \end{align} $ 
+
+        $\text{where factorizing using conditional independence}: \begin{cases} [x_1,...,x_{n-1}],[z_n] &\text{on } z_{n-1} \\ [x_n,...,x_N],[z_{n-1}] &\text{on } z_n  \\ [x_n],[x_{n+1},...,x_N] &\text{on } z_n \end{cases}$ 
+
+        $\small (p(A|B)=p(A) \text{ when } A\perp\!\!\!\perp B) $ 
 
    - Algorithm description:
 
@@ -689,9 +688,9 @@
 
        Forward recursion for $\alpha(z_n)$ 
 
-       	Backward recursion for $\beta(z_n)$ 
-       	
-       	Calculate $\gamma(z_n), \xi(z_{n-1}, z_n)$ 
+       Backward recursion for $\beta(z_n)$ 
+
+       Calculate $\gamma(z_n), \xi(z_{n-1}, z_n)$ 
 
      - $\text{M step:}$ 
 
@@ -760,29 +759,39 @@
 
    - Goal:
 
-     - Find $\displaystyle\max_{Z} p(Z|X,\theta), \text{ where $Z$ is sequence of latent states}​$   
+     - find the most probable sequence of latent variable
 
-       $\Rightarrow$ the most probable sequence of latent states given a sequence observations and the model
+       $\Rightarrow$ find $\displaystyle\max_{Z} p(Z|X,\theta), \text{ where $Z$ is sequence of latent states}$ 
 
-       ​	(most probable sequence of latent states $\not \Leftrightarrow$ set of states being individually most probable)
+     - compare with: set of states being individually most probable $\Rightarrow \forall n$, find $\displaystyle \max_{z_n} p(z_n|X,\theta)$ 
 
-     - Efficiency: searches space of paths efficiently ( $\mathcal O(n)$ to the length of chain )
+       $\Rightarrow$ maximize $\gamma(z_n)$ for all $n$ 
+
+     - efficiency: searches space of paths efficiently ( $\mathcal O(n)$ to the length of chain )
 
    - Notation:
 
      - $\displaystyle w(z_n) = \max_{z_1,...,z_{n-1}} \ln p(x_1,...,x_n,z_1,...,z_n)$ 
 
-   - Recursion from joint distribution of HMM:
+       note: $w(z_n)$ is a function of $z_n$, with log probability maximized over $z_1,...,z_{n-1}$ 
 
-     - $\displaystyle  w(z_n) = \ln p(x_n|z_n) + \max _{z_{n-1}} \{ \ln p(z_n|z_{n-1}) + w(z_{n-1}) \}$  
+   - Recursion from Joint Distribution of HMM:
 
-       $\displaystyle w(z_1) = \ln p(z_1) + \ln p(x_1|z_1) =\ln p(x_1,z_1) $ 
+     - $\displaystyle  w(z_{n+1}) = \ln p(x_{n+1}|z_{n+1}) + \max _{z_{n}} \{ \ln p(z_{n+1}|z_{n}) + w(z_{n}) \}$  
 
-     - Backtrace:
+       $\displaystyle w(z_1) =\ln p(x_1,z_1) = \ln p(z_1) + \ln p(x_1|z_1) $ 
 
-       	for $n=1,...,N-1:$ remember best transition
+   - Backtrack
 
-       	for $n=N:$ state with highest probability
+     - maximization over $z_n$ $\Rightarrow$ individually done for each of the $K$ states of $z_{n+1}$
+
+     - maintain a matrix record for each maximization:
+
+       let $\phi(k_n)$ be the state of $z_n$ when $w(z_{n+1})$ getting maximum given $z_{n+1} = k$ (in state $k$) 
+
+       $\Rightarrow k_n^\text{max} = \phi(k_{n+1}^\text{max})$, where $k_n^\text{max}$ is the desired state of $z_n$
+
+       $\displaystyle \Rightarrow k_{N-1}^\text{max} = \phi(k_{N}^\text{max})=\phi(\arg\max_{z_{N}}w(z_{N}))$   
 
 #### Linear Dynamic System
 
@@ -850,9 +859,9 @@
 
      - analogous to $\text{alpha-beta algorithm}$ in HMM
 
-       let $\hat \alpha(z_n) = p(z_n| x_1,...,x_n)$ 
+       $\Rightarrow \hat \alpha(z_n) = p(z_n| x_1,...,x_n), \text{ factor } c_n=p(x_n|x_1,...,x_{n-1})$  
 
-       $ \displaystyle \begin{align} \Rightarrow c_n \hat\alpha(z_n) & = c_n p(z_n|x_1,...,x_n) \\ &=  p(x_n|z_n) \int_{z_{n-1}} p(z_{n-1}|x_1,...,x_{n-1})  p(z_n|z_{n-1}) \space d z_{n-1} \\ &= p(x_n|z_n) \int_{z_{n-1}}\alpha(z_{n-1}) p(z_n|z_{n-1}) \space d z_{n-1} , \\ &\text{where } c_n \text{ is normaliser; } c_n= \frac{p(x_1,...,x_n)}{p(x_1,...,x_{n-1})} \end{align}$ 
+       $ \displaystyle \Rightarrow c_n \hat\alpha(z_n) = p(x_n|z_n) \int_{z_{n-1}}\hat\alpha(z_{n-1}) p(z_n|z_{n-1}) \space d z_{n-1}$ 
 
        $\displaystyle \begin{align} \Rightarrow c_n \hat \alpha(z_n) &= c_n \mathcal N(z_n|\mu_n,V_n) \\ &= \mathcal N (x_n|C z_n,\Sigma) \int \mathcal N(z_{n-1} | \mu_{n-1},V_{n-1}) \mathcal N(z_n|Az_{n-1} , \Gamma) \space d z_{n-1} \\ &= \mathcal N (x_n|C z_n,\Sigma) \space \mathcal N (z_n|A\mu_{n-1},P_{n-1}), \\ & \text{where } P_{n-1} = AV_{n-1}A^T+\Gamma \space ( \text{ by integral of } \mathcal N\cdot\mathcal N ) \end{align}$ 
 
