@@ -76,3 +76,39 @@
 
 1. h5py is a good thing: light-weight dataset structure
 2. TF.Data: a pipeline for fetching, parsing and feeding the data (in a separate thread $\Rightarrow$ parallel)
+
+### QT
+
+1. Event 
+
+   - Registration
+
+     - in the code, widget overrides the event handler in its class
+
+   - Routine
+
+     - main thread (app.exec_) waked up by system & read from the buffer & create an event
+     - locates the corresponding widget through the event handlers UI chain (down propagation)
+     - executes the defined handler & terminate / further propagate the event
+
+   - Cons
+
+     - every widget with customized behavior expects a class implementation
+
+       note: even of the same type (e.g. button)
+
+2. Signal-Slot
+
+   - Registration
+     - in the code, define slot function (handler for signal)
+     - in the code, widget connects desired signal to slot function (many-to-many)
+     - at compile time, QT core register slot functions to a list of signal
+     - at runtime, each slot function gets attached a queue 
+   - Routine
+     - main thread (app.exec_) waked up by system & read from the buffer & create a signal
+     - find out all registered functions from the list
+     - push the signal to their queue
+     - functions (potentially sub-threads) wait on queues & execute
+   - Pros
+     - more parallel
+     - dynamic dispatch at function level
