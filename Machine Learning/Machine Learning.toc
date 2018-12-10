@@ -25,3 +25,35 @@
 \contentsline {subsection}{\numberline {2.8.1}Pipeline}{19}{subsection.2.8.1}
 \contentsline {subsection}{\numberline {2.8.2}Getting More Data}{19}{subsection.2.8.2}
 \contentsline {subsection}{\numberline {2.8.3}Ceilling Analysis}{19}{subsection.2.8.3}
+\contentsline {chapter}{\numberline {3}Linear Regression}{21}{chapter.3}
+\contentsline {chapter}{\numberline {4}Linear Classification}{22}{chapter.4}
+\contentsline {chapter}{\numberline {5}Kernel Methods}{23}{chapter.5}
+\contentsline {chapter}{\numberline {6}Graphical Models}{24}{chapter.6}
+\contentsline {chapter}{\numberline {7}Mixture Models and EM}{25}{chapter.7}
+\contentsline {chapter}{\numberline {8}Approximate Inference}{26}{chapter.8}
+\contentsline {chapter}{\numberline {9}Sampling Methods}{27}{chapter.9}
+\contentsline {chapter}{\numberline {10}Continuous Latent Variable}{28}{chapter.10}
+\contentsline {chapter}{\numberline {11}Sequential Data}{29}{chapter.11}
+\contentsline {chapter}{\numberline {12}Deep Learning}{30}{chapter.12}
+\contentsline {section}{\numberline {12.1}Interview of Fame}{30}{section.12.1}
+\contentsline {subsection}{\numberline {12.1.1}Geoffrey Hinton}{30}{subsection.12.1.1}
+\contentsline {subsubsection}{Knowledge Embedding}{30}{section*.4}
+\contentsline {subsubsection}{Brain Science}{30}{section*.5}
+\contentsline {subsubsection}{Memory in Nets}{31}{section*.6}
+\contentsline {subsubsection}{Unsupervised Learning}{31}{section*.7}
+\contentsline {subsubsection}{"Slow" Feature}{31}{section*.8}
+\contentsline {subsubsection}{Relations between Computers}{31}{section*.9}
+\contentsline {subsection}{\numberline {12.1.2}Pieter Abbeel}{31}{subsection.12.1.2}
+\contentsline {subsubsection}{Deep Reinforcement Learning}{31}{section*.10}
+\contentsline {subsection}{\numberline {12.1.3}Research Advices}{32}{subsection.12.1.3}
+\contentsline {section}{\numberline {12.2}Basic Neutral Network}{32}{section.12.2}
+\contentsline {subsection}{\numberline {12.2.1}Goal and Advantages}{32}{subsection.12.2.1}
+\contentsline {subsubsection}{Data Mining and Pattern Recognition}{32}{section*.11}
+\contentsline {subsubsection}{Ability to Choose}{33}{section*.12}
+\contentsline {subsection}{\numberline {12.2.2}Problem}{33}{subsection.12.2.2}
+\contentsline {subsubsection}{Weight-space Symmetries}{33}{section*.13}
+\contentsline {subsubsection}{Non-convex Error Function}{33}{section*.14}
+\contentsline {subsubsection}{Gradient Vanishing}{33}{section*.15}
+\contentsline {subsection}{\numberline {12.2.3}Learning}{34}{subsection.12.2.3}
+\contentsline {subsubsection}{Forward-Backward Propagation}{34}{section*.16}
+\contentsline {subsubsection}{}{34}{section*.17}

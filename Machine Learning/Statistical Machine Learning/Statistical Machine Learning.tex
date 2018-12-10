@@ -133,6 +133,9 @@
 	\begin{itemize}
 	
 	\item $\text{Likelihood}: \displaystyle p(\boldsymbol t|w) = \prod_{n=1}^N\mathcal N(t_n|\phi(x_n)w,\beta^{-1})$ 
+		\begin{itemize}
+		\item meaning: how probable the observed dataset is w.r.t the model setting (under parameter $w$)
+		\end{itemize}
 	
 	\item $\displaystyle \ln \text{Likelihood} = \sum_{n=1}^N [-\ln \frac {\beta} {\sqrt {2\pi}} - \frac \beta 2 (t_n-\phi(x)w)^2]$ 
 	

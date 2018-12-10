@@ -1,3 +1,20 @@
+# Neural Network
+
+## Background
+
+- Driver of Deep Learning
+  - Scale
+    - the scale of data (labeled)
+    - the scale of neural network (interpretability)
+    - the possible scale of computation: e.g. ReLu, faster parallel algorithm...
+- Data Category
+  - Structured
+    - well-defined meaning for each feature
+    - e.g. csv file, database...
+  - Unstructured
+    - input meaning & form undefined
+    - e.g. image, text (word vs. character), audio, ...
+
 ### Basic Neural Networks
 
 1. Goal:

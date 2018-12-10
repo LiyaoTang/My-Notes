@@ -40,7 +40,7 @@
 
 ### Python
 
-1. @：矩阵乘法 => can have difference between *,@,multiply,dot (for matrix/ndarray)
+1. @：numpy 矩阵乘法 => can have difference between *,@,multiply,dot (for matrix/ndarray)
 2. explicit matrix inverse computations should be avoided for reasons of numerical stability
     => 用 numpy.linalg.solve()
 3. matrix[:,0:1] => 矩阵第一列
@@ -50,22 +50,50 @@
 
 
 7. 式子中改变+/- 号位置会影响精确度 => 调用opt.fmin_bfgs() 中有warning
+
 8. U,S,V = np.linalg.svd(A)
      =>	S is 1-D array with corresponding number
        	V is matrix with row vectors being eigenvectors of A.T*A （U==V.T when A = X.T*X）
+
 9. OptionParser to accept comman-line parameters
+
 10. gc to release memory explicitly (gc.collect())
+
 11. place the outer python-based library directly under the  folder => then import as usuall
+
 12. python multi-inheritance: 
-    ​    - Method Resolution Order (MRO)
-    ​      - maintain the precedence appeared in the inheritance list in the derived class
-    ​      - super() call:
-    ​        1. find & gather the next class in MRO list into a stack
-    ​        2. init & pop the class from that stack $\Rightarrow$ last in first out
-      - Passing Parameters
-        - bass class need to be designed for multi-inheritance
-        - $\Rightarrow$ intermediate class need to take extra parameters to pass along the MRO
-        - $\Rightarrow$ force designer to be aware of the MRO precedence!
+
+          -  Method Resolution Order (MRO)
+                - maintain the precedence appeared in the inheritance list in the derived class
+                - super() call:
+          
+              1. find & gather the next class in MRO list into a stack
+              2. init & pop the class from that stack $\Rightarrow$ last in first out
+            
+              - Passing Parameters
+                - bass class need to be designed for multi-inheritance
+                - $\Rightarrow$ intermediate class need to take extra parameters to pass along the MRO
+                - $\Rightarrow​$ force designer to be aware of the MRO precedence!
+
+13. MatPlotLib
+
+          - API Overview
+          
+            - `matplotlib.backend_bases.FigureCanvas` : the area onto which the figure is drawn, 
+            - `matplotlib.backend_bases.Renderer` : object knowing how to draw on `FigureCanvas`
+            - `matplotlib.artist.Artist` : object knowing how to use a renderer to paint onto the canvas
+          
+            $\Rightarrow$ `FigureCanvas` and `Renderer`  handle all the details of talking to UI toolkits
+          
+            $\Rightarrow$ `Artist` handles high level constructs e.g. representing and laying out the figure, text, and lines
+
+14. meta class: class is **object** in python $\Rightarrow$ can be generated on the fly, or, by a meta class - dynamically
+
+        $\Rightarrow$ see https://stackoverflow.com/questions/100003/what-are-metaclasses-in-python
+
+15. In fact, **EVERYTHING** is object in python
+
+16. \_\_init\_\_: handler for folder importing - better to use relative import
 
 ### Octave / Matlab
 
