@@ -1,4 +1,88 @@
-\chapter{Statistical Machine Learning}
+\chapter{Introduction}
+
+\section{General Concern}
+\subsection{Types of Learning}
+
+\subsubsection{Supervised Learning}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item training data comprises examples of input vectors with corresponding target vectors
+	\end{itemize}
+\item Regression
+	\begin{itemize}
+	\item output one or more continuous variable
+	\end{itemize}
+
+\item Classification
+	\begin{itemize}
+	\item assign input to one of a finite number of discrete categories
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Unsupervised Learning}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item training data consists of a set of input
+	vectors without target vectors
+	\end{itemize}
+\item Clustering
+	\begin{itemize}
+	\item Goal: discover groups of similar examples
+	\end{itemize}
+\item Density Estimation
+	\begin{itemize}
+	\item Goal: determine the distribution of data within the input space
+	\end{itemize}
+\item Dimension Reduction
+	\begin{itemize}
+	\item Goal: project data into low dimension, for the purpose of such as visualization
+	\end{itemize}
+
+\end{itemize}
+
+\subsubsection{Reinforcement Learning}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item input with time series \& discover optimal output by a process of trial and error
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item find actions to take under given circumstance to maximize a reward
+	\end{itemize}
+\end{itemize}
+
+\section{Probability Theory}
+
+\section{Model Selection}
+
+\subsection{Over-/Under-fitting}
+\subsubsection{Over-fitting}
+\begin{itemize}
+\item Symptom
+	\begin{itemize}
+	\item good performance on training set \& poor generalization
+	\item $\Rightarrow$ good at fitting training set; bad at representing modeling underlying data source
+	\end{itemize}
+\item Cause
+	\begin{itemize}
+	\item too much representation ability (to fit even the noise)
+	\item directly model the likelihood instead of posterior
+	\end{itemize}
+\item Remedy
+	\begin{itemize}
+	\item larger dataset
+	\item regularization (model the posterior by accounting prior)
+	\end{itemize}
+\end{itemize}
+\subsubsection{Under-fitting}
+\begin{itemize}
+\item bad at fitting training examples \& modeling underlying data source
+\item lack of representation ability
+\item $\Rightarrow$ poor performance on training set \& good generalization (though meaningless)
+\end{itemize}
 
 \section{Supervised Learning}
 \begin{itemize}

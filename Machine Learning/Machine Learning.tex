@@ -4,7 +4,15 @@
 \usepackage{layouts}
 
 \usepackage{paralist}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={black},
+%    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
 \usepackage{graphicx}
 
 \usepackage{amssymb}
@@ -33,9 +41,9 @@
 	\mainmatter 
 	
 	\input{"./Math/Math"}
-	\input{"./Statistical Machine Learning/Statistical Machine Learning"}
-	\input{"./Linear Regression/Linear Regression"}
-	\input{"./Linear Classification/Linear Classification"}
+	\input{"./Introduction/Introduction"}
+	\input{"./Linear Models for Regression/Linear Models for Regression"}
+	\input{"./Linear Models for Classification/Linear Models for Classification"}
 	\input{"./Kernel Methods/Kernel Methods"}
 	\input{"./Graphical Models/Graphical Models"}
 	\input{"./Mixture Models and EM/Mixture Models and EM"}

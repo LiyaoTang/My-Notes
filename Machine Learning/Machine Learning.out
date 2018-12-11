@@ -1,45 +1,50 @@
 \BOOKMARK [0][-]{chapter.1}{Math}{}% 1
 \BOOKMARK [1][-]{section.1.1}{Convolution}{chapter.1}% 2
 \BOOKMARK [1][-]{section.1.2}{Normal Distribution}{chapter.1}% 3
-\BOOKMARK [0][-]{chapter.2}{Statistical Machine Learning}{}% 4
-\BOOKMARK [1][-]{section.2.1}{Supervised Learning}{chapter.2}% 5
-\BOOKMARK [1][-]{section.2.2}{Linear Regression}{chapter.2}% 6
-\BOOKMARK [1][-]{section.2.3}{Bayesian Regression}{chapter.2}% 7
-\BOOKMARK [1][-]{section.2.4}{Logistic Regression \(Classification\)}{chapter.2}% 8
-\BOOKMARK [1][-]{section.2.5}{Diagnose Machine Learning}{chapter.2}% 9
-\BOOKMARK [2][-]{subsection.2.5.1}{Evaluating Hypothesis}{section.2.5}% 10
-\BOOKMARK [2][-]{subsection.2.5.2}{Bias / Variance}{section.2.5}% 11
-\BOOKMARK [2][-]{subsection.2.5.3}{Error Analysis}{section.2.5}% 12
-\BOOKMARK [2][-]{subsection.2.5.4}{Skewed classes}{section.2.5}% 13
-\BOOKMARK [1][-]{section.2.6}{Latent Variable Analysis}{chapter.2}% 14
-\BOOKMARK [2][-]{subsection.2.6.1}{Principal Component Analysis \(PCA\)}{section.2.6}% 15
-\BOOKMARK [2][-]{subsection.2.6.2}{Independent Component Analysis \(ICA\)}{section.2.6}% 16
-\BOOKMARK [2][-]{subsection.2.6.3}{t-SNE}{section.2.6}% 17
-\BOOKMARK [2][-]{subsection.2.6.4}{Anomaly Detection}{section.2.6}% 18
-\BOOKMARK [2][-]{subsection.2.6.5}{Recommender System}{section.2.6}% 19
-\BOOKMARK [1][-]{section.2.7}{Large Scale Machine Learning}{chapter.2}% 20
-\BOOKMARK [2][-]{subsection.2.7.1}{Gradient Descent with Large Dataset}{section.2.7}% 21
-\BOOKMARK [2][-]{subsection.2.7.2}{Online Learning}{section.2.7}% 22
-\BOOKMARK [2][-]{subsection.2.7.3}{Map-reduce}{section.2.7}% 23
-\BOOKMARK [1][-]{section.2.8}{Building Machine Learning System}{chapter.2}% 24
-\BOOKMARK [2][-]{subsection.2.8.1}{Pipeline}{section.2.8}% 25
-\BOOKMARK [2][-]{subsection.2.8.2}{Getting More Data}{section.2.8}% 26
-\BOOKMARK [2][-]{subsection.2.8.3}{Ceilling Analysis}{section.2.8}% 27
-\BOOKMARK [0][-]{chapter.3}{Linear Regression}{}% 28
-\BOOKMARK [0][-]{chapter.4}{Linear Classification}{}% 29
-\BOOKMARK [0][-]{chapter.5}{Kernel Methods}{}% 30
-\BOOKMARK [0][-]{chapter.6}{Graphical Models}{}% 31
-\BOOKMARK [0][-]{chapter.7}{Mixture Models and EM}{}% 32
-\BOOKMARK [0][-]{chapter.8}{Approximate Inference}{}% 33
-\BOOKMARK [0][-]{chapter.9}{Sampling Methods}{}% 34
-\BOOKMARK [0][-]{chapter.10}{Continuous Latent Variable}{}% 35
-\BOOKMARK [0][-]{chapter.11}{Sequential Data}{}% 36
-\BOOKMARK [0][-]{chapter.12}{Deep Learning}{}% 37
-\BOOKMARK [1][-]{section.12.1}{Interview of Fame}{chapter.12}% 38
-\BOOKMARK [2][-]{subsection.12.1.1}{Geoffrey Hinton}{section.12.1}% 39
-\BOOKMARK [2][-]{subsection.12.1.2}{Pieter Abbeel}{section.12.1}% 40
-\BOOKMARK [2][-]{subsection.12.1.3}{Research Advices}{section.12.1}% 41
-\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 42
-\BOOKMARK [2][-]{subsection.12.2.1}{Goal and Advantages}{section.12.2}% 43
-\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 44
-\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 45
+\BOOKMARK [0][-]{chapter.2}{Introduction}{}% 4
+\BOOKMARK [1][-]{section.2.1}{General Concern}{chapter.2}% 5
+\BOOKMARK [2][-]{subsection.2.1.1}{Types of Learning}{section.2.1}% 6
+\BOOKMARK [1][-]{section.2.2}{Probability Theory}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.3}{Model Selection}{chapter.2}% 8
+\BOOKMARK [2][-]{subsection.2.3.1}{Over-/Under-fitting}{section.2.3}% 9
+\BOOKMARK [1][-]{section.2.4}{Supervised Learning}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.5}{Linear Regression}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.6}{Bayesian Regression}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.7}{Logistic Regression \(Classification\)}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.8}{Diagnose Machine Learning}{chapter.2}% 14
+\BOOKMARK [2][-]{subsection.2.8.1}{Evaluating Hypothesis}{section.2.8}% 15
+\BOOKMARK [2][-]{subsection.2.8.2}{Bias / Variance}{section.2.8}% 16
+\BOOKMARK [2][-]{subsection.2.8.3}{Error Analysis}{section.2.8}% 17
+\BOOKMARK [2][-]{subsection.2.8.4}{Skewed classes}{section.2.8}% 18
+\BOOKMARK [1][-]{section.2.9}{Latent Variable Analysis}{chapter.2}% 19
+\BOOKMARK [2][-]{subsection.2.9.1}{Principal Component Analysis \(PCA\)}{section.2.9}% 20
+\BOOKMARK [2][-]{subsection.2.9.2}{Independent Component Analysis \(ICA\)}{section.2.9}% 21
+\BOOKMARK [2][-]{subsection.2.9.3}{t-SNE}{section.2.9}% 22
+\BOOKMARK [2][-]{subsection.2.9.4}{Anomaly Detection}{section.2.9}% 23
+\BOOKMARK [2][-]{subsection.2.9.5}{Recommender System}{section.2.9}% 24
+\BOOKMARK [1][-]{section.2.10}{Large Scale Machine Learning}{chapter.2}% 25
+\BOOKMARK [2][-]{subsection.2.10.1}{Gradient Descent with Large Dataset}{section.2.10}% 26
+\BOOKMARK [2][-]{subsection.2.10.2}{Online Learning}{section.2.10}% 27
+\BOOKMARK [2][-]{subsection.2.10.3}{Map-reduce}{section.2.10}% 28
+\BOOKMARK [1][-]{section.2.11}{Building Machine Learning System}{chapter.2}% 29
+\BOOKMARK [2][-]{subsection.2.11.1}{Pipeline}{section.2.11}% 30
+\BOOKMARK [2][-]{subsection.2.11.2}{Getting More Data}{section.2.11}% 31
+\BOOKMARK [2][-]{subsection.2.11.3}{Ceilling Analysis}{section.2.11}% 32
+\BOOKMARK [0][-]{chapter.3}{Linear Regression}{}% 33
+\BOOKMARK [0][-]{chapter.4}{Linear Classification}{}% 34
+\BOOKMARK [0][-]{chapter.5}{Kernel Methods}{}% 35
+\BOOKMARK [0][-]{chapter.6}{Graphical Models}{}% 36
+\BOOKMARK [0][-]{chapter.7}{Mixture Models and EM}{}% 37
+\BOOKMARK [0][-]{chapter.8}{Approximate Inference}{}% 38
+\BOOKMARK [0][-]{chapter.9}{Sampling Methods}{}% 39
+\BOOKMARK [0][-]{chapter.10}{Continuous Latent Variable}{}% 40
+\BOOKMARK [0][-]{chapter.11}{Sequential Data}{}% 41
+\BOOKMARK [0][-]{chapter.12}{Deep Learning}{}% 42
+\BOOKMARK [1][-]{section.12.1}{Interview of Fame}{chapter.12}% 43
+\BOOKMARK [2][-]{subsection.12.1.1}{Geoffrey Hinton}{section.12.1}% 44
+\BOOKMARK [2][-]{subsection.12.1.2}{Pieter Abbeel}{section.12.1}% 45
+\BOOKMARK [2][-]{subsection.12.1.3}{Research Advices}{section.12.1}% 46
+\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 47
+\BOOKMARK [2][-]{subsection.12.2.1}{Goal and Advantages}{section.12.2}% 48
+\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 49
+\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 50
