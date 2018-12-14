@@ -27,36 +27,367 @@
 	\end{itemize}
 \end{itemize}
  
- \section{Normal Distribution}
+\section{Probability Theory}
+
+\subsection{Introduction}
+
+\subsubsection{Background}
+\begin{itemize}
+\item Measuring Uncertainty
+	\begin{itemize}
+	\item Source of Uncertainty
+		\begin{itemize}
+		\item noise in reality \& observation
+		\item finite size of data (limited information)
+		\end{itemize}
+	\end{itemize}
+\item Derivation
+	\begin{itemize}
+	\item Quantifying Belief
+		\begin{itemize}
+		\item by Cox (1946): if numerical values used to
+		represent degrees of belief, a simple set of axioms encoding common sense
+		properties of such beliefs will lead \underline{uniquely} to a set of rules for manipulating degrees of
+		belief that are equivalent to the \underline{sum and product rules of probability}
+		\end{itemize}
+	\item Measuring Uncertainty
+		\begin{itemize}
+		\item by Jaynes (2003): probability theory can be regarded as an extension of
+		Boolean logic to situations involving uncertainty
+		\end{itemize}
+	\item Common Destination
+		\begin{itemize}
+		\item numerical quantities to measure uncertainty, derived from different sets of properties/axioms, behave precisely according to the rules of probability
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{The Basic}
+\begin{itemize}
+\item Notation
+	\begin{itemize}
+	\item $X,Y$: random variable
+	\end{itemize}
+\item Discrete 
+		\begin{itemize}
+		\item $P(X,Y)$: joint probability of $X,Y$ taking their values
+		\item $P(X)$: marginal probability of $X$ taking its value
+		\item $P(X|Y)$: conditional probability of $X$ taking its value given $Y$ observed / determined
+	\end{itemize}
+	\item Continuous
+		\begin{itemize}
+		\item $P(x) = P_X(x)$: cumulative probability of value for variable $X < x$
+		\item $p(x)$: probability density,
+			\begin{itemize}
+			\item where $\displaystyle \lim_{\delta x \rightarrow 0} P(X\in(x,x+\delta x)) = \lim_{\delta x \rightarrow 0}p(x)\delta x \Rightarrow \displaystyle P(X\in(a,b))=\int_a^b p(x)dx$
+			\item $\displaystyle \Rightarrow p(x )\ge 0 \text{ and } \int^{+\infty}_{-\infty} p(x) = 1$
+			\item $\Rightarrow P(z) = \int_{-\infty}^z p(x)dx$
+			\end{itemize}
+		\end{itemize}
+\item Basic Rules
+	\begin{itemize}
+	\item Sum Rule
+		\begin{itemize}
+		\item $\displaystyle P(X) = \sum_Y P(X,Y)$, where $X,Y$ are discrete
+		\item $\displaystyle P(X) = \int_Y P(X,Y)$, where $X,Y$ are continuous
+		
+		(formal justification requires measure theory)
+		\end{itemize}
+	\item Product Rule
+		\begin{itemize}
+		\item $P(X, Y) = P(Y|X)P(X)$
+		\item $P(X, Y) = P(Y)P(X)$, where $X,Y$ are independent
+		\end{itemize}
+	\item $\Rightarrow$ Bayes' Rule
+		\begin{itemize}
+		\item $\displaystyle P(Y|X) = \frac {P(X|Y)P(Y)} {P(X)} = \frac{P(X|Y)P(Y)}{\sum_YP(X|Y)P(Y)}$, where $Y$ are discrete
+		\item $\displaystyle P(Y|X) = \frac {P(X|Y)P(Y)} {P(X)} = \frac{P(X|Y)P(Y)}{\int_YP(X|Y)P(Y)}$, where $Y$ are continuous
+		\end{itemize}
+	\end{itemize}
+\item Interpretation of Bayes
+	\begin{itemize}
+	\item Normalization
+		\begin{itemize}
+		\item the $\sum$, $\int$ can be interpreted as a \textbf{normalization constant}
+		
+		$\Rightarrow \textbf{posterior} \propto \textbf{likelihood} \times \textbf{prior}$
+		\end{itemize}
+	\item Prior
+		\begin{itemize}
+		\item $P(Y)$: available probability of desired variable \textbf{before} anything observed
+		\end{itemize}
+	\item Posterior
+		\begin{itemize}
+		\item $P(Y|X)$: obtained probability of desired variable \textbf{after} observation
+		
+		$\Rightarrow$ if $X,Y$ independent, observation has no effect $\Rightarrow$ prior $=$ posterior
+		\end{itemize}
+	\item Likelihood
+		\begin{itemize}
+		\item $P(X|Y)$: how probably /likely of $X$ being observed under different setting of $Y$
+		\end{itemize}
+	\item Prior $\rightarrow$ Posterior
+		\begin{itemize}
+		\item a process of incorporating the evidence provided by observed data
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Bayesian Interpretation of Probability}
+\subsubsection{Contrasting Frequentist Estimator}
+\begin{itemize}
+\item Posterior $\displaystyle p(\mathbf w|\mathcal D) = \frac {p(\mathcal D|\mathbf w)p(\mathbf w)}{p(\mathcal D)}$
+	\begin{itemize}
+	\item Notation
+		\begin{itemize}
+		\item $\mathcal D$ the observed dataset
+		\item $\mathbf w$ the vector for model parameters
+		\end{itemize}
+	\item Bayesian
+		\begin{itemize}
+		\item only one single dataset $\mathcal D$ (the observed one)
+		\item uncertainty expressed as distribution over $\mathbf w$
+		\item model's error: use likelihood / posterior directly (or after taking $\log$)
+		\item pros
+			\begin{enumerate}
+			\item naturally incorporating prior knowledge as prior distribution (of $\mathbf w$)
+			\end{enumerate}
+		\item cons
+			\begin{enumerate}
+			\item prior usually selected for mathematic convenience 
+			\end{enumerate}
+		\end{itemize}
+	\item Frequentist Estimator
+		\begin{itemize}
+		\item parameters $\mathbf w$ already determined / fixed by 'estimator' (model)
+		\item error bars of the model obtained by considering the distribution over $\mathcal D$
+		\item model's error: bootstrap procedure
+			\begin{enumerate}
+			\item generate dataset(s) by drawing from the observed $\mathcal D$ with replacement
+			\item sampling $L$ datasets with the same size as $\mathcal D$
+			\item error = variability of predictions between the sampled datasets
+			\end{enumerate}
+		\item pros
+			\begin{enumerate}
+			\item protect the conclusion from false prior knowledge
+			\end{enumerate}
+		\item cons
+			\begin{enumerate}
+			\item sensitive to observed data \& extreme observation, especially under a small dataset
+			\end{enumerate}
+		\end{itemize}
+
+	\end{itemize}
+\end{itemize}
  
- \begin{itemize}
- 	\item $d$-dimensional Gaussian
- 		\begin{itemize}
- 		\item Variable
- 			\begin{itemize}
- 			\item mean: $\mu \in \mathbb R^d$
- 			\item covariance matrix: $\Sigma_{d\times d}$
- 			\end{itemize}
- 		\item PDF
- 			\begin{itemize}
- 			\item $\displaystyle g_d(x|\mu,\Sigma) = \frac 1 {(2\pi)^{d/2} |\Sigma|^{1/2}} exp \left( -\frac 1 2 (x-\mu)^T \Sigma^{-1} (x-\mu) \right) $, \\
- 			noted as $X\sim \mathcal N_d (x|\mu,\Sigma)$
- 			\end{itemize}
- 		\end{itemize}
- 	
- 	\item Convolution of Gaussian
- 		\begin{itemize}
- 		\item Integral of Gaussians $\int G_1G_2dx$
- 			\begin{itemize}
- 			\item $G_1\sim \mathcal N_d(x|a,A), \space G_2 \sim \mathcal N_d(x|b,B)$
- 			\end{itemize}
- 			\begin{align*} \displaystyle \Rightarrow & \int \mathcal N_d(x|a,A) N_d(x|b,B)dx \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} e^{-\frac 1 2 (x-a)^TA^{-1}(x-a)} \frac 1 {(2\pi)^{d/2}|B|^{1/2}} e^{-\frac 1 2 (x-b)^TB^{-1}(x-b)} dx \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} \frac 1 {(2\pi)^{d/2}|B|^{1/2}} e^{-\frac 12 [(x-a)^TA^{-1}(x-a)+(x-b)^TB^{-1}(x-b)]} \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} \frac 1 {(2\pi)^{d/2}|B|^{1/2}}  e^{-\frac 12 [(x-c)^T (A^{-1}+B^{-1}) (x-c)+(a-b)^TC(a-b)]},\\ & \text{where } c=(A^{-1}+B^{-1})^{-1}(A^{-1}a+B^{-1}b), C=A^{-1}(A^{-1}+B^{-1})^{-1}B^{-1} = (A+B)^{-1} \\ = & \frac {\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} {(2\pi)^{d/2}|A|^{1/2}|B|^{1/2}} e^{-\frac 12 (a-b)^TC(a-b)} \int \frac 1 {(2\pi)^{d/2}\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} e^{-\frac 12 (x-c)^T(A^{-1}+B^{-1}) (x-c)} dx \\ =& \frac {\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} {(2\pi)^{d/2}|A|^{1/2}|B|^{1/2}} e^{-\frac 12 (a-b)^TC(a-b)} \\ =& \frac 1 {(2\pi)^{d/2} (|A||B||A^{-1}+B^{-1}|)^{1/2}} e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |ABA^{-1}+ABB^{-1}|^{1/2}} e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |ABA^{-1}+A| } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |A(B+A)A^{-1}| } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |A+B|^{1/2} } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \end{align*}
- 			
- 			\item $\Rightarrow$ Convolution of Gaussians $G1* G2$
-	 			\begin{itemize}
-	 			\item $G_1\sim \mathcal N_d(a,A),G_2\sim \mathcal N_d(b,B)$
-	 			\end{itemize}
- 			\begin{align*} \displaystyle G_1* G_2 (z) &= \int G_1(x)G_2(z-x)dx \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(z-x|b,B)dx \\ &= \int \mathcal N_d (x|a,A) \cdot \frac 1 {(2\pi)^{d/2} |B|^{1/2}} e^{-\frac 12 (z-x-b)^TB^{-1} (z-x-b)} dx \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(x|z-b,B)dx \\&= \frac 1 {(2\pi)^{d/2}|A+B|^{1/2}} e^{-\frac 12(z-(a+b))^T (A+B)^{-1} (z-(a+b))} \\&= \boldsymbol{\mathcal N_d(z|a+b,A+B)}  
- 			\end{align*}
- 		\end{itemize}
+\subsection{Expectations and Covariances}
+
+\subsubsection{Expectation}
+
+\begin{itemize}
+\item Definition
+	\begin{itemize}
+	\item Expectation of $f(x)$ under $p(x)$
+		\begin{itemize}
+		\item discrete $x$: $\displaystyle \mathbb{E}_{p}[f] = \sum_xp(x)f(x)$
+		\item continuous $x$: $\displaystyle \mathbb{E}_{p}[f] = \int p(x)f(x)dx$
+		\item approximation with $N$ points drawn from $p(x)$: $\displaystyle \mathbb E_p[f] \simeq \frac 1N \sum_{n=1}^N f(x_n) $
+		
+		(when $N\rightarrow \infty$, $\simeq$ becomes $=$)
+		\end{itemize}
+	\item Multivariate Expectation
+		\begin{itemize}
+		\item Marginal Expectation of $f(x,y)$ on $x$: $\displaystyle \mathbb{E}_x[f(x,y)] = \sum_xp(x)f(x,y)$ 
+		
+		(hence a function of $y$)
+		\item Conditional Expectation $f(x)$ on $p(x|y)$: $\displaystyle \mathbb{E}[f|y] = \sum_x p(x|y)f(x)$
+		\end{itemize}
+	\end{itemize}
+\item Independence
+	\begin{itemize}
+	\item Independent $x,y$
+		\begin{itemize}
+		\item $\displaystyle \mathbb{E}_{xy}[x,y] = \sum_{x,y}p(x,y)xy = \sum_{x,y}p(x)p(y)xy = \mathbb{E}[x]\mathbb{E}[y]$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Variance}
+\begin{itemize}
+\item Definition
+	\begin{itemize}
+	\item Variance of $f(x)$:
+		\begin{itemize}
+		\Item \begin{align*} \text{var}[f] &= \mathbb{E}[(f(x) - \mathbb{E}[f(x)])^2] \\ &= \mathbb{E}[f(x)^2] - \mathbb{E}[f(x)]^2 \end{align*}
+		\end{itemize}
+	\item Covariance
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Covariance}
+\begin{itemize}
+\item Definition
+	\begin{itemize}
+	\item between Variables $x,y$
+		\begin{itemize}
+		\Item \begin{align*} \text{cov}[x,y] &= \mathbb{E}_{x,y}[(x-\mathbb{E}[x])(y-\mathbb{E}[y])] \\ &= \mathbb{E}_{x,y}[xy] - \mathbb{E}[x]\mathbb{E}[y] \end{align*}
+		\end{itemize}
+	\item between Vectors $\mathbf x, \mathbf y$ (column vectors)
+		\begin{itemize}
+		\Item \begin{align*} \text{cov}[\mathbf x, \mathbf y] &= \mathbb{E}_{\mathbf x,\mathbf y}[(\mathbf x - \mathbb{E}[\mathbf x]) \cdot (\mathbf y^T -\mathbb{E}[\mathbf y^T])] \\ &= \mathbb{E}_{\mathbf x,\mathbf y}[\mathbf{xy}^T] - \mathbb{E}[\mathbf x]\mathbb E[\mathbf y^T] \end{align*}
+		
+		(pairwise covariance between components of $\mathbf x,\mathbf y$)
+		\end{itemize}
+	\item within Vector $\mathbf x$
+		\begin{itemize}
+		\item $\text{cov}[\mathbf x] \equiv \text{conv}[\mathbf x, \mathbf x]$ 
+		
+		(pairwise covariance between its components)
+		\end{itemize}
+	\end{itemize}
+\item Independence Variable
+	\begin{itemize}
+	\item Independent $x,y$
+		\begin{itemize}
+		\item $\text{cov}[x,y] = \mathbb E_{x,y}[xy] -\mathbb{E}[x]\mathbb{E}[y] = 0$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Transformations of Random Variables}
+
+\subsubsection{Inverse Image}
+\begin{itemize}
+\item Definition
+	\begin{itemize}
+	\item Notation
+		\begin{itemize}
+		\item function $g:\mathbb{R} \rightarrow \mathbb{R}$
+		\item set $A$ in $\mathbb{R}$
+		\end{itemize}
+	\item Inverse Image on Set $A$
+		\begin{itemize}
+		\item $\displaystyle g^{-1}(A) = \{x\in\mathbb{R}|g(x)\in A\}$
+		
+		$\Leftrightarrow x\in g^{-1}(A) \text{ if and only if } g(x) \in A$
+		
+		interpretation: for each element in $A$, get its original value before $g$ applied
+		\end{itemize}
+	\end{itemize}
+\item Properties
+	\begin{itemize}
+	\item $g^{-1}(\mathbb{R}) = \mathbb{R}$, as $g$ is defined on $\mathbb{R}$
+	\item $\forall \text{ set } A, g^{-1}(A^c) = g^{-1}(A)^c$, where $A^c$ is the complement of set $A$
+	\item $\displaystyle \forall \text{ collection of sets } \{A_\lambda | \lambda \in \Lambda\}, g^{-1}\left( \bigcup_\lambda A_\lambda \right) = \bigcup_\lambda g^{-1}(A_\lambda)$
+	\item General Transformation $Y=g(X)$
+		\begin{itemize}
+		\item $P(Y\in A) = P(g(X)\in A) = P(X \in g^{-1}(A))$
+		\end{itemize}
+	\end{itemize}
+	
+\end{itemize}
+
+\subsubsection{Discrete Variable}
+\begin{itemize}
+\item Variable
+	\begin{itemize}
+	\item $X$: random variable with probability mass function $P_X(x)$
+	\item $Y = g(X)$, with probability mass function $P_Y(y)$
+	\end{itemize}
+\item Probability Mass Function
+	\begin{itemize}
+	\item $\displaystyle P_Y(y) = \sum_{x\in g^{-1}(y)} P_X(x)$, as $X=x$ is independent and mutually exclusive	
+	
+	note: $g^{-1}(y)$ denotes $g^{-1}(\{y\})$
+	\item Example
+		\begin{itemize}
+		\item uniform random variable $X$ on $\{-n,...,n\}$ with $Y=|X|$
+		
+		$\Rightarrow P_X(x) = \frac 1 {2n+1}$
+			
+		$\Rightarrow P_Y(y) = \begin{cases} \frac 1 {2n+1}, &x=0, \\ \frac 2 {2n+1}, &x\neq0. \end{cases}$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Continuous}
+\begin{itemize}
+\item Variable
+	\begin{itemize}
+	\item $X$: random variable with cumulative distribution $P_X(x)$, density $p_X(x)$
+	\item $Y=g(X)$, with cumulative distribution $P_Y(y)$, density $p_Y(y)$
+	\end{itemize}
+
+\item Cumulative Distribution
+	\begin{itemize}
+	\item Strictly Monotone Increasing $g$
+		\begin{itemize}
+		\item $P_Y(y) = P(Y\le y) = P(g(X) \le y) = P(X \le g^{-1}(y)) = P_X(g^{-1}(y))$
+		\end{itemize}
+	\item Strictly Monotone Decreasing $g$
+		\begin{itemize}
+		\item $P_Y(y) = P(Y\le y) = P(g(X) \le y) = P(X \ge g^{-1}(y)) = 1 - P_X(g^{-1}(y))$
+		\end{itemize}
+	\end{itemize}
+
+\item Probability Density
+	\begin{itemize}
+	\item Strictly Monotone $g$ (an one-to-one function)
+		\begin{itemize}
+		\item $\displaystyle p_Y(y) = \frac d {dy} P_Y(y) = \frac {d P_Y(y)}{d\space  g^{-1}(y)} \frac{d \space g^{-1}(y)}{dy} = p_X(g^{-1}(y)) \abs*{\frac{d}{dy} g^{-1}(y)}$, 
+		
+		as $g^{-1}$ has the same monotony as $g$, combined with the sign in $P_Y$ to give the $\abs*\cdot$
+		
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Gaussian Distribution}
+ 
+\subsubsection{Definition}
+
+\begin{itemize}
+\item Single Variable Gaussian
+	\begin{itemize}
+	\item Variable
+		\begin{itemize}
+		\item mean: $\mu$
+		\item variance: $\sigma^2 \Rightarrow$ reciprocal of the variance $\beta = \frac 1 {\sigma^2}$
+		\end{itemize}
+	\item Probability Dense Function (PDF)
+		\begin{itemize}
+		\item $\displaystyle \mathcal N(x|\mu, \sigma^2) = \frac 1 {(2\pi \sigma^2)^{1/2}} \exp \left\{ -\frac 1 {2\sigma^2(x-\mu)^2} \right\}$
+		\end{itemize}
+	\end{itemize}
+\item $d$-dimensional Gaussian
+	\begin{itemize}
+	\item Variable
+		\begin{itemize}
+		\item mean: $\mu \in \mathbb R^d$
+		\item covariance matrix: $\Sigma_{d\times d}$
+		\end{itemize}
+	\item Probability Dense Function (PDF)
+		\begin{itemize}
+		\item $\displaystyle g_d(x|\mu,\Sigma) = \frac 1 {(2\pi)^{d/2} |\Sigma|^{1/2}} exp \left( -\frac 1 2 (x-\mu)^T \Sigma^{-1} (x-\mu) \right) $, \\
+		noted as $X\sim \mathcal N_d (x|\mu,\Sigma)$
+		\end{itemize}
+	\end{itemize}
+
+\item Convolution of Gaussian
+	\begin{itemize}
+	\item Integral of Gaussians $\int G_1G_2dx$
+		\begin{itemize}
+		\item $G_1\sim \mathcal N_d(x|a,A), \space G_2 \sim \mathcal N_d(x|b,B)$
+		\end{itemize}
+		\begin{align*} \displaystyle \Rightarrow & \int \mathcal N_d(x|a,A) N_d(x|b,B)dx \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} e^{-\frac 1 2 (x-a)^TA^{-1}(x-a)} \frac 1 {(2\pi)^{d/2}|B|^{1/2}} e^{-\frac 1 2 (x-b)^TB^{-1}(x-b)} dx \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} \frac 1 {(2\pi)^{d/2}|B|^{1/2}} e^{-\frac 12 [(x-a)^TA^{-1}(x-a)+(x-b)^TB^{-1}(x-b)]} \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} \frac 1 {(2\pi)^{d/2}|B|^{1/2}}  e^{-\frac 12 [(x-c)^T (A^{-1}+B^{-1}) (x-c)+(a-b)^TC(a-b)]},\\ & \text{where } c=(A^{-1}+B^{-1})^{-1}(A^{-1}a+B^{-1}b), C=A^{-1}(A^{-1}+B^{-1})^{-1}B^{-1} = (A+B)^{-1} \\ = & \frac {\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} {(2\pi)^{d/2}|A|^{1/2}|B|^{1/2}} e^{-\frac 12 (a-b)^TC(a-b)} \int \frac 1 {(2\pi)^{d/2}\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} e^{-\frac 12 (x-c)^T(A^{-1}+B^{-1}) (x-c)} dx \\ =& \frac {\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} {(2\pi)^{d/2}|A|^{1/2}|B|^{1/2}} e^{-\frac 12 (a-b)^TC(a-b)} \\ =& \frac 1 {(2\pi)^{d/2} (|A||B||A^{-1}+B^{-1}|)^{1/2}} e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |ABA^{-1}+ABB^{-1}|^{1/2}} e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |ABA^{-1}+A| } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |A(B+A)A^{-1}| } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |A+B|^{1/2} } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \end{align*}
+			
+	\item $\Rightarrow$ Convolution of Gaussians $G1* G2$
+		\begin{itemize}
+		\item $G_1\sim \mathcal N_d(a,A),G_2\sim \mathcal N_d(b,B)$
+		\end{itemize}
+		\begin{align*} \displaystyle G_1* G_2 (z) &= \int G_1(x)G_2(z-x)dx \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(z-x|b,B)dx \\ &= \int \mathcal N_d (x|a,A) \cdot \frac 1 {(2\pi)^{d/2} |B|^{1/2}} e^{-\frac 12 (z-x-b)^TB^{-1} (z-x-b)} dx \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(x|z-b,B)dx \\&= \frac 1 {(2\pi)^{d/2}|A+B|^{1/2}} e^{-\frac 12(z-(a+b))^T (A+B)^{-1} (z-(a+b))} \\&= \boldsymbol{\mathcal N_d(z|a+b,A+B)}  
+		\end{align*}
+	\end{itemize}
  \end{itemize}

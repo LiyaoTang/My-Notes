@@ -20,11 +20,19 @@
 
 \setlength{\mathindent}{0pt}
 
+% set up command / syntax suger
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
 \renewcommand{\labelitemii}{$\circ$} % itemize second level
 \renewcommand{\labelitemiii}{\tiny$\blacksquare$} % itemize third level
 
 \providecommand{\tightlist}{%
 	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\newcommand\Item[1][]{%
+  \ifx\relax#1\relax  \item \else \item[#1] \fi
+  \abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 
 
 \title{Machine Learning} 
