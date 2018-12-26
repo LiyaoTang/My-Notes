@@ -27,6 +27,96 @@
 	\end{itemize}
 \end{itemize}
  
+\section{Calculus}
+
+\subsection{Integral}
+\subsubsection{Interchanging Coordinates in Integral}
+\begin{itemize}
+\item General Theory
+	\begin{itemize}
+	\item Notation
+		\begin{itemize}
+		\item $(x,y)$: coordinate under Field $D$
+		\item $(u,v)$: coordinate under Field $D'$
+		\item $\displaystyle T: \begin{cases} x=x(u,v), \\ y=y(u,v) \end{cases}$: transformation from $D$ to $D'$
+		\end{itemize} 
+	\item Assumption
+		\begin{itemize}
+		\item $f(x,y)$ continuous in $D$
+		\item transformation $T$'s partial $1^{st}$ order derivatives continuous on $D'$
+		\item transformation $T$'s Jacobian $J(u,v) = \frac {\partial (x,y)}{\partial (u,v)} \neq 0$
+		\item transformation $T: D\rightarrow D'$ is 1-1 mapping
+		\end{itemize}
+	\item Derivation
+		\begin{itemize}
+		\item take infinitely small square in $D':$
+		\abovedisplayshortskip=0pt~\vspace*{-0.5\baselineskip}
+		\begin{align*} &M_4'(u,v+\delta v),&&M_3'(u+\delta u, v+\delta v),\\&M_1'(u, v),&&M_2'(u+\delta u, v) \end{align*}
+		$\Rightarrow$ after transformation to $D:$ 
+		\abovedisplayshortskip=0pt~\vspace*{-0.5\baselineskip}
+		\begin{align*} &M_4(x(u,v+\delta v),y(u,v+\delta v)),&&M_3(x(u+\delta u, v+\delta v),y(u+\delta u, v+\delta v)),\\&M_1(x(u, v),y(u, v)),&&M_2(x(u+\delta u, v),y(u+\delta u, v)) \end{align*}
+		\abovedisplayshortskip=0pt~\vspace*{-1.5\baselineskip}
+		\begin{align*} \Rightarrow &x_2 - x_1 = x(u+\delta u, v) - x(u,v) = \frac {\partial x}{\partial u}\rvert_{(u,v)} \delta u \\
+		&x_4 - x_1 = x(u, v+\delta v) - x(u,v) = \frac {\partial x}{\partial v}\rvert_{(u,v)} \delta v \\
+		&y_2 - y_1 = y(u+\delta u, v) - y(u,v) = \frac {\partial y}{\partial u}\rvert_{(u,v)} \delta u \\
+		&y_4 - y_1 = y(u, v+\delta v) - y(u,v) = \frac {\partial y}{\partial v}\rvert_{(u,v)} \delta v
+		\end{align*}
+		as $\delta u, \delta v \rightarrow 0$, 
+		curvilinear boundary quadrilateral $M_1M_2M_3M_4 \rightarrow$ parallelogram % ({\kaishu 曲边四边形}) ({\kaishu 平行四边形})
+		\abovedisplayshortskip=0pt~\vspace*{-0.5\baselineskip}
+		\begin{align*}\Rightarrow S_{M_1M_2M_3M_4} &= \abs{\overrightarrow{M_1M_2} \times \overrightarrow{M_1M_4}} = \abs{\begin{vmatrix} x_2-x_1 & y_2-y_1 \\ x_4-x_1 & y_4-y_1 \end{vmatrix}} \\&= \abs{ \begin{vmatrix} \frac {\partial x}{\partial u} \delta u & \frac {\partial y}{\partial u} \delta u \\ \frac {\partial x}{\partial v} \delta v & \frac {\partial y}{\partial v} \delta v \end{vmatrix} } = \abs{\begin{vmatrix} \frac {\partial x}{\partial u} & \frac {\partial y}{\partial u} \\ \frac {\partial x}{\partial v} & \frac {\partial y}{\partial v} \end{vmatrix}} \delta u\delta v \\ &= \abs{J(u,v)}\delta u\delta v \end{align*}
+		
+		\Item \begin{align*} &\Rightarrow \text{ infinitely small area } \delta \sigma = dxdy = \abs{J(u,v)}\delta u\delta v \\ &\Rightarrow \int\int_D f(x,y) dxdy = \int\int_{D'} f(x(u,v), y(u,v)) |J(u,v)| dudv \end{align*}
+		
+		\end{itemize}
+	\end{itemize}
+\item Integral in Cartesian $\rightarrow$ Polar
+	\begin{itemize}
+	\item Result
+		\begin{itemize}
+		\item $dxdy = rdrd\theta$
+		\end{itemize}
+	\item Derivation
+		\begin{itemize}
+		\item from general transformation: $x = r\cos(\theta), y = r\sin(\theta)$
+			
+		$\Rightarrow dxdy = \abs{J(r,\theta)} drd\theta = rdrd\theta$
+			
+		\item from direct calculation of infinite small area in polar coordinate 
+		
+		$\Rightarrow d\sigma = \frac 12 (r+dr)^2d\theta - \frac 12 r^2d\theta = rdrd\theta +\frac 12 (dr)^2d\theta$
+			
+		$\Rightarrow d\sigma = rdrd\theta, \text{when } dr,d\theta \rightarrow 0$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Gaussian Integral}
+\begin{itemize}
+\item Gaussian Function
+	\begin{itemize}
+	\item $\displaystyle f(x) = \rm e^{-a(x+b)^2}$
+		\begin{itemize}
+		\item special form: $\displaystyle f(x) = \rm e^{-(x)^2}$
+		\item alternative form: $\displaystyle f(x) = \rm e^{ax^2+bx+c}$
+		\item no indefinite integral $\displaystyle \int_a^b \rm e^{-x^2}$
+		\item only definite integral $\displaystyle \int_{-\infty}^{+\infty} \rm e^{-x^2}$
+		\end{itemize}
+	\end{itemize}
+\item Direct Integral
+	\begin{itemize}
+	\Item \begin{align*}\displaystyle (\int^{+\infty}_{-\infty} \rm e^{-a(x+b)^2}dx)^2 &= \int^{+\infty}_{-\infty} \rm e^{-a(x+b)^2}dx\int^{+\infty}_{-\infty} \rm e^{-a(y+b)^2}dy \\ &= \int\int^{+\infty}_{-\infty} \rm e^{-a[(x+b)^2  + (y+b)^2]}d(x+b)d(y+b) = \int\int^{+\infty}_{-\infty} \rm e^{-a(x^2+y^2)}dxdy \\ &= \int_0^{2\pi}\int_0^{+\infty} \rm e^{-ar^2}rdrd\theta  \\ &= \frac \pi a \end{align*}
+	
+	$\displaystyle \Rightarrow \int^{+\infty}_{-\infty} \rm e^{-a(x+b)^2}dx = \sqrt{\frac \pi a}, \text{ alternatively } \int^{+\infty}_{-\infty} \rm e^{ax^2+bx+c}dx = \sqrt{\frac {\pi} {-a}} \cdot \rm e^{\frac {b^2}{4a} + c}$
+	\end{itemize}
+
+\item Even Moment of Gaussian Function
+	\begin{itemize}
+	\Item \begin{align*} \displaystyle \int_{-\infty}^{+\infty} x^{2n}\rm{e}^{-ax^2}dx &= (-1)^n\int^{+\infty}_{-\infty} \frac {\partial^n} {\partial a^n} \rm{e}^{-ax^2}dx \\ &= (-1)^n \frac {\partial^n} {\partial a^n} \int_{-\infty}^{+\infty} \rm{e}^{-ax^2}dx && \text{by parameter differeation} \\ &= (-1)^n\sqrt{\pi} \frac {\partial^n} {\partial a^n} a^{-\frac 12} \\ &= \sqrt {\frac {\pi}{a}} \frac {(2n-1)!!}{(2a)^n}, &&\text{where } !! \text{ is double factorial} \end{align*}
+	\end{itemize}
+\end{itemize}
+
+ 
 \section{Probability Theory}
 
 \subsection{Introduction}
@@ -115,6 +205,8 @@
 	\item Prior
 		\begin{itemize}
 		\item $P(Y)$: available probability of desired variable \textbf{before} anything observed
+		
+		$\Rightarrow Y$ usually model parameters
 		\end{itemize}
 	\item Posterior
 		\begin{itemize}
@@ -124,59 +216,13 @@
 		\end{itemize}
 	\item Likelihood
 		\begin{itemize}
-		\item $P(X|Y)$: how probably /likely of $X$ being observed under different setting of $Y$
+		\item $P(X|Y)$: how probable/likely of $X$ being observed under different setting of $Y$
+		
 		\end{itemize}
 	\item Prior $\rightarrow$ Posterior
 		\begin{itemize}
-		\item a process of incorporating the evidence provided by observed data
+		\item a process of incorporating the evidence provided by observation
 		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsection{Bayesian Interpretation of Probability}
-\subsubsection{Contrasting Frequentist Estimator}
-\begin{itemize}
-\item Posterior $\displaystyle p(\mathbf w|\mathcal D) = \frac {p(\mathcal D|\mathbf w)p(\mathbf w)}{p(\mathcal D)}$
-	\begin{itemize}
-	\item Notation
-		\begin{itemize}
-		\item $\mathcal D$ the observed dataset
-		\item $\mathbf w$ the vector for model parameters
-		\end{itemize}
-	\item Bayesian
-		\begin{itemize}
-		\item only one single dataset $\mathcal D$ (the observed one)
-		\item uncertainty expressed as distribution over $\mathbf w$
-		\item model's error: use likelihood / posterior directly (or after taking $\log$)
-		\item pros
-			\begin{enumerate}
-			\item naturally incorporating prior knowledge as prior distribution (of $\mathbf w$)
-			\end{enumerate}
-		\item cons
-			\begin{enumerate}
-			\item prior usually selected for mathematic convenience 
-			\end{enumerate}
-		\end{itemize}
-	\item Frequentist Estimator
-		\begin{itemize}
-		\item parameters $\mathbf w$ already determined / fixed by 'estimator' (model)
-		\item error bars of the model obtained by considering the distribution over $\mathcal D$
-		\item model's error: bootstrap procedure
-			\begin{enumerate}
-			\item generate dataset(s) by drawing from the observed $\mathcal D$ with replacement
-			\item sampling $L$ datasets with the same size as $\mathcal D$
-			\item error = variability of predictions between the sampled datasets
-			\end{enumerate}
-		\item pros
-			\begin{enumerate}
-			\item protect the conclusion from false prior knowledge
-			\end{enumerate}
-		\item cons
-			\begin{enumerate}
-			\item sensitive to observed data \& extreme observation, especially under a small dataset
-			\end{enumerate}
-		\end{itemize}
-
 	\end{itemize}
 \end{itemize}
  
@@ -253,7 +299,6 @@
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
-
 
 \subsection{Transformations of Random Variables}
 
@@ -349,19 +394,38 @@
 \subsubsection{Definition}
 
 \begin{itemize}
-\item Single Variable Gaussian
+\item Univariate Gaussian
 	\begin{itemize}
 	\item Variable
 		\begin{itemize}
 		\item mean: $\mu$
-		\item variance: $\sigma^2 \Rightarrow$ reciprocal of the variance $\beta = \frac 1 {\sigma^2}$
+		\item variance: $\sigma^2 \Rightarrow$ reciprocal of the variance $\beta = \frac 1 {\sigma^2}$ (also called precision)
 		\end{itemize}
 	\item Probability Dense Function (PDF)
 		\begin{itemize}
-		\item $\displaystyle \mathcal N(x|\mu, \sigma^2) = \frac 1 {(2\pi \sigma^2)^{1/2}} \exp \left\{ -\frac 1 {2\sigma^2(x-\mu)^2} \right\}$
+		\item $\displaystyle \mathcal N(x|\mu, \sigma^2) = \frac 1 {(2\pi \sigma^2)^{1/2}} \exp \left\{ -\frac 1 {2\sigma^2}(x-\mu)^2 \right\}$
+		
+		$\Rightarrow$ satisfying probability axioms: $\displaystyle \mathcal N(x|\mu,\sigma^2)>0 \text{ and } \int_{-\infty}^{+\infty} \mathcal N (x|\mu,\sigma^2) dx = 1$
+		\end{itemize}
+	\item Expectation
+		\begin{itemize}
+		\item $\displaystyle \mathbb{E}[x] = \int_{-\infty}^{+\infty}\mathcal{N}(x|\mu, \sigma^2)xdx=\mu$
+		\begin{align*}
+		\Rightarrow \displaystyle \mathbb E [x^2] &= \int_{-\infty}^{+\infty} \mathcal{N}(x|\mu, \sigma^2)x^2dx \\ 
+		&= \frac 1 {(2\pi \sigma^2)^{1/2}} \int_{-\infty}^{+\infty} x^2 \exp \left\{ -\frac 1 {2\sigma^2}(x-\mu)^2 \right\} dx \\ 
+		&= \pi^{-\frac 12} \int_{-\infty}^{+\infty} (\sqrt{2\sigma^2}x+\mu)^2 \exp(-x^2) dx, \text{ substituting } a=\frac{x-\mu}{\sqrt{2\sigma^2}} \\ 
+		&= \pi^{-\frac 12} (2\sigma^2\int_R x^2\rm{e}^{-x^2}dx + 2\mu\sqrt{2\sigma^2}\int_R x\rm{e}^{-x^2}dx + \mu^2 \int_R \rm{e}^{-x^2}dx ) \\ 
+		&= \pi^{-\frac 12} ( 2\sigma^2\int_R x^2\rm{e}^{-x^2}dx + 2\mu\sqrt{2\sigma^2}\cdot 0 + \mu^2\sqrt\pi ) \\ 
+		&= 2\sigma^2\pi^{-\frac 12}\int_R x^2\rm{e}^{-x^2}dx + \mu^2 \\ 
+		&= \sigma^2 + \mu^2, \text{ by 2nd moment of Guassian or } (x\rm e^{-x^2})' = e^{-x^2}-2x^2\rm e^{-x^2}
+		\end{align*}
+		\end{itemize}
+	\item Variance
+		\begin{itemize}
+		\item $\displaystyle \text{var}[x] = \mathbb E[x^2] - \mathbb E[x]^2 = \sigma^2$
 		\end{itemize}
 	\end{itemize}
-\item $d$-dimensional Gaussian
+\item Multivariate ($d$-dimensional) Gaussian
 	\begin{itemize}
 	\item Variable
 		\begin{itemize}
@@ -370,7 +434,8 @@
 		\end{itemize}
 	\item Probability Dense Function (PDF)
 		\begin{itemize}
-		\item $\displaystyle g_d(x|\mu,\Sigma) = \frac 1 {(2\pi)^{d/2} |\Sigma|^{1/2}} exp \left( -\frac 1 2 (x-\mu)^T \Sigma^{-1} (x-\mu) \right) $, \\
+		\item $\displaystyle \mathcal N_d(\mathbf x|\mathbf{\mu},\mathbf \Sigma) = \frac 1 {(2\pi)^{d/2} |\Sigma|^{1/2}} \exp \left\{ -\frac 1 2 (x-\mu)^T \Sigma^{-1} (x-\mu) \right\} $,
+		
 		noted as $X\sim \mathcal N_d (x|\mu,\Sigma)$
 		\end{itemize}
 	\end{itemize}
@@ -390,4 +455,110 @@
 		\begin{align*} \displaystyle G_1* G_2 (z) &= \int G_1(x)G_2(z-x)dx \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(z-x|b,B)dx \\ &= \int \mathcal N_d (x|a,A) \cdot \frac 1 {(2\pi)^{d/2} |B|^{1/2}} e^{-\frac 12 (z-x-b)^TB^{-1} (z-x-b)} dx \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(x|z-b,B)dx \\&= \frac 1 {(2\pi)^{d/2}|A+B|^{1/2}} e^{-\frac 12(z-(a+b))^T (A+B)^{-1} (z-(a+b))} \\&= \boldsymbol{\mathcal N_d(z|a+b,A+B)}  
 		\end{align*}
 	\end{itemize}
- \end{itemize}
+\end{itemize}
+ 
+ 
+\subsection{Bayesian Interpretation of Probability}
+\subsubsection{Contrasting Frequentist Estimator}
+\begin{itemize}
+\item Posterior $\displaystyle p(\mathbf w|\mathcal D) = \frac {p(\mathcal D|\mathbf w)p(\mathbf w)}{p(\mathcal D)}$
+	\begin{itemize}
+	\item Notation
+ 		\begin{itemize}
+ 		\item $\mathcal D$ the observed dataset
+ 		\item $\mathbf w$ the vector for model parameters
+ 		\end{itemize}
+	\item Bayesian
+		\begin{itemize}
+		\item only one single dataset $\mathcal D$ (the observed one)
+ 		\item uncertainty expressed as distribution over $\mathbf w$
+ 		\item model's error: use likelihood / posterior directly (or after taking $\log$)
+ 		\item pros
+ 			\begin{enumerate}
+ 			\item naturally incorporating prior knowledge as prior distribution (of $\mathbf w$)
+ 			\end{enumerate}
+ 		\item cons
+ 			\begin{enumerate}
+ 			\item prior usually selected for mathematic convenience 
+ 			\end{enumerate}
+ 		\end{itemize}
+ 	\item Frequentist Estimator
+ 		\begin{itemize}
+ 		\item parameters $\mathbf w$ already determined / fixed by 'estimator' (model)
+ 		\item error bars of the model obtained by considering the distribution over $\mathcal D$
+ 		\item model's error: bootstrap procedure
+ 			\begin{enumerate}
+ 			\item generate dataset(s) by drawing from the observed $\mathcal D$ with replacement
+ 			\item sampling $L$ datasets with the same size as $\mathcal D$
+ 			\item error = variability of predictions between the sampled datasets
+ 			\end{enumerate}
+ 		\item pros
+ 			\begin{enumerate}
+ 			\item protect the conclusion from false prior knowledge
+ 			\end{enumerate}
+ 		\item cons
+ 			\begin{enumerate}
+ 			\item sensitive to observation (extreme cases), especially under small dataset
+			\end{enumerate}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+ 
+\subsubsection{Parameter Estimation}
+\begin{itemize}
+\item Bias vs. Variance
+
+
+\item Taking Logarithm
+	\begin{itemize}
+	\item Reason
+		\begin{itemize}
+		\item monotonically increasing function $\Rightarrow \arg\max_{\theta}f(x;\theta) = \arg\max_\theta\log f(x;\theta)$
+		\item simplify mathematical analysis $\Rightarrow \prod \rightarrow \sum$
+		\item numerical stability $\Rightarrow \text{ avoid } \prod (\text{small probabilities})$
+		
+		(may otherwise underflow the numerical precision)
+		\end{itemize}
+	\end{itemize}
+
+\item Maximum Likelihood Estimation for Gaussian
+	\begin{itemize}
+	\item Notation
+		\begin{itemize}
+		\item $X=\{x_1,...,x_N\}$: observed $N$ data points
+		\end{itemize}
+	\item Assumption
+		\begin{itemize}
+		\item data points are i.i.d. (identically and independently distributed)
+		\item underlying distribution is Gaussian $\mathcal N(\mu, \sigma)$
+		\end{itemize}
+	\item Likelihood
+		\begin{itemize}
+		\item $\displaystyle p(X|\mu,\sigma^2) = \prod_{n=1}^N \mathcal(x_n|\mu,\sigma^2)$
+		\item $\displaystyle \Rightarrow \ln p(X|\mu,\sigma) = -\frac 1{2\sigma^2} \sum_{n=1}^N(x_n-\mu)^2 -\frac N2 \ln \sigma^2 -\frac N2 \ln (2\pi)$
+		\end{itemize}
+	\item Solution
+		\begin{itemize}
+		\item $\displaystyle \text{let } \frac {\partial}{\partial \mu} \ln p(X|\mu,\sigma^2) = 0 \Rightarrow \mu_{\text{ML}}=\frac 1N \sum_{n=1}^Nx_n $
+		\item $\displaystyle \text{let } \frac {\partial}{\partial \sigma^2} \ln p(X|\mu,\sigma^2)=0 \Rightarrow \sigma_\text{ML}^2 = \frac 1N \sum_{n=1}^N (x_n- \mu_\text{ML})$
+		\end{itemize}
+	\item Analysis
+		\begin{itemize}
+		\Item \begin{align*} \displaystyle \mathbb E[\mu_\text{ML}] = \mathbb E[\frac 1N \sum_{n=1}^Nx_n] = \frac 1N \sum_{n=1}^N \mathbb E[x_n] = \mu \tag{as \(x_1,...,x_N\) i.i.d, drawn from \(\mathcal N(\mu,\sigma^2)\), thus \(\sim \mathcal N(\mu,\sigma^2)\)} \end{align*}
+		$\Rightarrow$ unbiased estimation of mean
+		
+		\Item \begin{align*} \mathbb E[\sigma_\text{ML}^2] &= \mathbb E[\frac 1N \sum_{n=1}^N(x_n-\mu_{\text{ML}})^2] \\
+		&= \mathbb E [ \frac 1N \sum_{n=1}^{N}(x_n^2-2\mu_\text{ML}x_n+\mu_\text{ML}^2) ] \\ 
+		&= \frac 1N \sum_{n=1}^N \mathbb E[x_n^2] - \mathbb E[\frac 1N \sum_{n=1}^N 2x_n \mu_\text{ML}] + \mathbb E[\mu_\text{ML}^2] \\ 
+		&= \frac 1N \sum_{n=1}^N \mathbb E[x_n^2] - 2\mathbb E[\mu_\text{ML}^2] + \mathbb E[\mu_\text{ML}^2] \\
+		&= \frac 1N \sum_{n=1}^N \mathbb E[x_n^2] - \frac 1{N^2} \sum_{i,j=1}^N \mathbb E[x_ix_j] \\
+		&= \frac 1N \sum_{n=1}^N (\sigma^2 + \mu^2) - \frac 1{N^2} [N(N-1)\mu^2 + N(\sigma^2+\mu^2)] \tag{by 2nd moment of Gaussian \(\mathbb E[x^2]\) and i.i.d assumption} \\
+		&= \left(\frac {N-1}N  \right) \sigma^2 \end{align*}
+		$\Rightarrow$ biased variance \textbf{!} \\
+		interpretation: $N-1$  degree of freedom, \\
+		as calculating $\sigma^2$ needs $\mu$, which help pin down the $x_N$ given $x_1,...,x_{N-1}$ \\
+		$\Rightarrow $ unbiased variance $\displaystyle \hat \sigma^2 = \frac N {N-1}\sigma^2_\text{ML} = \frac N{N-1} \sum_{n=1}^N (x_n-\mu_\text{ML})^2 $
+		\end{itemize}
+	\end{itemize}
+
+\end{itemize}
