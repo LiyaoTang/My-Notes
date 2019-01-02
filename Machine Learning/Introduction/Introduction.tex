@@ -63,6 +63,73 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Model Selection}
 
+\subsection{Project Structuring}
+
+\subsubsection{Data Arrangement}
+\begin{itemize}
+\item Train-Val-Test
+	\begin{itemize}
+	\item Training Set
+		\begin{itemize}
+		\item data used to find the model parameter estimation \\
+		$\Rightarrow$ over-fit by complex model
+		\end{itemize}
+	\item Validation Set
+		\begin{itemize}
+		\item data to indicate generalization ability of a range of models \\
+		$\Rightarrow$ for model comparison \& selection
+		\item may still \textbf{over-fit} if model design iterated for too many times!
+		\end{itemize}
+	\item Test Set
+		\begin{itemize}
+		\item to indicate the generalization ability of finally selected model
+		\end{itemize}
+	\end{itemize}
+
+\item Constraints on Val
+	\begin{itemize}
+	\item Limited Data
+		\begin{itemize}
+		\item better model $\Rightarrow$ more training data 
+		\item $\Rightarrow$ small validation $\Rightarrow$ noisy estimation of generalization ability
+		\end{itemize}
+	\end{itemize}
+	
+\end{itemize}
+
+\subsubsection{Measuring Generalization Ability}
+
+\begin{itemize}
+\item K-fold Cross Validation
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item split all data into $K$ folds, $K-1$ folds for train, $1$ for validation
+		
+		\item $\Rightarrow$ average over all $C^1_K$ combination to indicate the generalization ability
+	
+		\item extreme case: leave-out-one $\Rightarrow K=N$, where $N$ is number of all data
+		\end{itemize}
+	
+	\item Cons: 
+		\begin{itemize}
+		\item $\mathcal O(K) \Rightarrow$ slow, especially if training process already slow
+		\item $\Rightarrow$ trade off between time vs. constraint on validation
+		\end{itemize}
+	\end{itemize}
+
+\item Information Criteria
+	\begin{itemize}
+	\item Pros
+		\begin{itemize}
+		\item rely only on training set
+		\item need only (each) single training process to compare multiple models
+		\end{itemize}
+	\end{itemize}
+
+\end{itemize}
+
+
 \subsection{Over-/Under-fitting}
 \subsubsection{Over-fitting}
 \begin{itemize}

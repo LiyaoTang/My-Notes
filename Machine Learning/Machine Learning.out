@@ -1,59 +1,62 @@
 \BOOKMARK [0][-]{chapter.1}{Math}{}% 1
 \BOOKMARK [1][-]{section.1.1}{Convolution}{chapter.1}% 2
-\BOOKMARK [1][-]{section.1.2}{Calculus}{chapter.1}% 3
-\BOOKMARK [2][-]{subsection.1.2.1}{Integral}{section.1.2}% 4
-\BOOKMARK [1][-]{section.1.3}{Probability Theory}{chapter.1}% 5
-\BOOKMARK [2][-]{subsection.1.3.1}{Introduction}{section.1.3}% 6
-\BOOKMARK [2][-]{subsection.1.3.2}{Expectations and Covariances}{section.1.3}% 7
-\BOOKMARK [2][-]{subsection.1.3.3}{Transformations of Random Variables}{section.1.3}% 8
-\BOOKMARK [2][-]{subsection.1.3.4}{Gaussian Distribution}{section.1.3}% 9
-\BOOKMARK [2][-]{subsection.1.3.5}{Bayesian Interpretation of Probability}{section.1.3}% 10
-\BOOKMARK [0][-]{chapter.2}{Introduction}{}% 11
-\BOOKMARK [1][-]{section.2.1}{General Concern}{chapter.2}% 12
-\BOOKMARK [2][-]{subsection.2.1.1}{Types of Learning}{section.2.1}% 13
-\BOOKMARK [1][-]{section.2.2}{Model Selection}{chapter.2}% 14
-\BOOKMARK [2][-]{subsection.2.2.1}{Over-/Under-fitting}{section.2.2}% 15
-\BOOKMARK [1][-]{section.2.3}{Decision Theory}{chapter.2}% 16
-\BOOKMARK [2][-]{subsection.2.3.1}{}{section.2.3}% 17
-\BOOKMARK [1][-]{section.2.4}{Information Theory}{chapter.2}% 18
-\BOOKMARK [1][-]{section.2.5}{Supervised Learning}{chapter.2}% 19
-\BOOKMARK [1][-]{section.2.6}{Linear Regression}{chapter.2}% 20
-\BOOKMARK [1][-]{section.2.7}{Bayesian Regression}{chapter.2}% 21
-\BOOKMARK [1][-]{section.2.8}{Logistic Regression \(Classification\)}{chapter.2}% 22
-\BOOKMARK [1][-]{section.2.9}{Diagnose Machine Learning}{chapter.2}% 23
-\BOOKMARK [2][-]{subsection.2.9.1}{Evaluating Hypothesis}{section.2.9}% 24
-\BOOKMARK [2][-]{subsection.2.9.2}{Bias / Variance}{section.2.9}% 25
-\BOOKMARK [2][-]{subsection.2.9.3}{Error Analysis}{section.2.9}% 26
-\BOOKMARK [2][-]{subsection.2.9.4}{Skewed classes}{section.2.9}% 27
-\BOOKMARK [1][-]{section.2.10}{Latent Variable Analysis}{chapter.2}% 28
-\BOOKMARK [2][-]{subsection.2.10.1}{Principal Component Analysis \(PCA\)}{section.2.10}% 29
-\BOOKMARK [2][-]{subsection.2.10.2}{Independent Component Analysis \(ICA\)}{section.2.10}% 30
-\BOOKMARK [2][-]{subsection.2.10.3}{t-SNE}{section.2.10}% 31
-\BOOKMARK [2][-]{subsection.2.10.4}{Anomaly Detection}{section.2.10}% 32
-\BOOKMARK [2][-]{subsection.2.10.5}{Recommender System}{section.2.10}% 33
-\BOOKMARK [1][-]{section.2.11}{Large Scale Machine Learning}{chapter.2}% 34
-\BOOKMARK [2][-]{subsection.2.11.1}{Gradient Descent with Large Dataset}{section.2.11}% 35
-\BOOKMARK [2][-]{subsection.2.11.2}{Online Learning}{section.2.11}% 36
-\BOOKMARK [2][-]{subsection.2.11.3}{Map-reduce}{section.2.11}% 37
-\BOOKMARK [1][-]{section.2.12}{Building Machine Learning System}{chapter.2}% 38
-\BOOKMARK [2][-]{subsection.2.12.1}{Pipeline}{section.2.12}% 39
-\BOOKMARK [2][-]{subsection.2.12.2}{Getting More Data}{section.2.12}% 40
-\BOOKMARK [2][-]{subsection.2.12.3}{Ceilling Analysis}{section.2.12}% 41
-\BOOKMARK [0][-]{chapter.3}{Linear Regression}{}% 42
-\BOOKMARK [0][-]{chapter.4}{Linear Classification}{}% 43
-\BOOKMARK [0][-]{chapter.5}{Kernel Methods}{}% 44
-\BOOKMARK [0][-]{chapter.6}{Graphical Models}{}% 45
-\BOOKMARK [0][-]{chapter.7}{Mixture Models and EM}{}% 46
-\BOOKMARK [0][-]{chapter.8}{Approximate Inference}{}% 47
-\BOOKMARK [0][-]{chapter.9}{Sampling Methods}{}% 48
-\BOOKMARK [0][-]{chapter.10}{Continuous Latent Variable}{}% 49
-\BOOKMARK [0][-]{chapter.11}{Sequential Data}{}% 50
-\BOOKMARK [0][-]{chapter.12}{Deep Learning}{}% 51
-\BOOKMARK [1][-]{section.12.1}{Interview of Fame}{chapter.12}% 52
-\BOOKMARK [2][-]{subsection.12.1.1}{Geoffrey Hinton}{section.12.1}% 53
-\BOOKMARK [2][-]{subsection.12.1.2}{Pieter Abbeel}{section.12.1}% 54
-\BOOKMARK [2][-]{subsection.12.1.3}{Research Advices}{section.12.1}% 55
-\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 56
-\BOOKMARK [2][-]{subsection.12.2.1}{Goal and Advantages}{section.12.2}% 57
-\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 58
-\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 59
+\BOOKMARK [1][-]{section.1.2}{Linear Algebra}{chapter.1}% 3
+\BOOKMARK [2][-]{subsection.1.2.1}{Interchanging Coordinates}{section.1.2}% 4
+\BOOKMARK [1][-]{section.1.3}{Calculus}{chapter.1}% 5
+\BOOKMARK [2][-]{subsection.1.3.1}{Integral}{section.1.3}% 6
+\BOOKMARK [1][-]{section.1.4}{Probability Theory}{chapter.1}% 7
+\BOOKMARK [2][-]{subsection.1.4.1}{Introduction}{section.1.4}% 8
+\BOOKMARK [2][-]{subsection.1.4.2}{Expectations and Covariances}{section.1.4}% 9
+\BOOKMARK [2][-]{subsection.1.4.3}{Transformations of Random Variables}{section.1.4}% 10
+\BOOKMARK [2][-]{subsection.1.4.4}{Gaussian Distribution}{section.1.4}% 11
+\BOOKMARK [2][-]{subsection.1.4.5}{Bayesian Interpretation of Probability}{section.1.4}% 12
+\BOOKMARK [0][-]{chapter.2}{Introduction}{}% 13
+\BOOKMARK [1][-]{section.2.1}{General Concern}{chapter.2}% 14
+\BOOKMARK [2][-]{subsection.2.1.1}{Types of Learning}{section.2.1}% 15
+\BOOKMARK [1][-]{section.2.2}{Model Selection}{chapter.2}% 16
+\BOOKMARK [2][-]{subsection.2.2.1}{Project Structuring}{section.2.2}% 17
+\BOOKMARK [2][-]{subsection.2.2.2}{Over-/Under-fitting}{section.2.2}% 18
+\BOOKMARK [1][-]{section.2.3}{Decision Theory}{chapter.2}% 19
+\BOOKMARK [2][-]{subsection.2.3.1}{}{section.2.3}% 20
+\BOOKMARK [1][-]{section.2.4}{Information Theory}{chapter.2}% 21
+\BOOKMARK [1][-]{section.2.5}{Supervised Learning}{chapter.2}% 22
+\BOOKMARK [1][-]{section.2.6}{Linear Regression}{chapter.2}% 23
+\BOOKMARK [1][-]{section.2.7}{Bayesian Regression}{chapter.2}% 24
+\BOOKMARK [1][-]{section.2.8}{Logistic Regression \(Classification\)}{chapter.2}% 25
+\BOOKMARK [1][-]{section.2.9}{Diagnose Machine Learning}{chapter.2}% 26
+\BOOKMARK [2][-]{subsection.2.9.1}{Evaluating Hypothesis}{section.2.9}% 27
+\BOOKMARK [2][-]{subsection.2.9.2}{Bias / Variance}{section.2.9}% 28
+\BOOKMARK [2][-]{subsection.2.9.3}{Error Analysis}{section.2.9}% 29
+\BOOKMARK [2][-]{subsection.2.9.4}{Skewed classes}{section.2.9}% 30
+\BOOKMARK [1][-]{section.2.10}{Latent Variable Analysis}{chapter.2}% 31
+\BOOKMARK [2][-]{subsection.2.10.1}{Principal Component Analysis \(PCA\)}{section.2.10}% 32
+\BOOKMARK [2][-]{subsection.2.10.2}{Independent Component Analysis \(ICA\)}{section.2.10}% 33
+\BOOKMARK [2][-]{subsection.2.10.3}{t-SNE}{section.2.10}% 34
+\BOOKMARK [2][-]{subsection.2.10.4}{Anomaly Detection}{section.2.10}% 35
+\BOOKMARK [2][-]{subsection.2.10.5}{Recommender System}{section.2.10}% 36
+\BOOKMARK [1][-]{section.2.11}{Large Scale Machine Learning}{chapter.2}% 37
+\BOOKMARK [2][-]{subsection.2.11.1}{Gradient Descent with Large Dataset}{section.2.11}% 38
+\BOOKMARK [2][-]{subsection.2.11.2}{Online Learning}{section.2.11}% 39
+\BOOKMARK [2][-]{subsection.2.11.3}{Map-reduce}{section.2.11}% 40
+\BOOKMARK [1][-]{section.2.12}{Building Machine Learning System}{chapter.2}% 41
+\BOOKMARK [2][-]{subsection.2.12.1}{Pipeline}{section.2.12}% 42
+\BOOKMARK [2][-]{subsection.2.12.2}{Getting More Data}{section.2.12}% 43
+\BOOKMARK [2][-]{subsection.2.12.3}{Ceilling Analysis}{section.2.12}% 44
+\BOOKMARK [0][-]{chapter.3}{Linear Regression}{}% 45
+\BOOKMARK [0][-]{chapter.4}{Linear Classification}{}% 46
+\BOOKMARK [0][-]{chapter.5}{Kernel Methods}{}% 47
+\BOOKMARK [0][-]{chapter.6}{Graphical Models}{}% 48
+\BOOKMARK [0][-]{chapter.7}{Mixture Models and EM}{}% 49
+\BOOKMARK [0][-]{chapter.8}{Approximate Inference}{}% 50
+\BOOKMARK [0][-]{chapter.9}{Sampling Methods}{}% 51
+\BOOKMARK [0][-]{chapter.10}{Continuous Latent Variable}{}% 52
+\BOOKMARK [0][-]{chapter.11}{Sequential Data}{}% 53
+\BOOKMARK [0][-]{chapter.12}{Deep Learning}{}% 54
+\BOOKMARK [1][-]{section.12.1}{Interview of Fame}{chapter.12}% 55
+\BOOKMARK [2][-]{subsection.12.1.1}{Geoffrey Hinton}{section.12.1}% 56
+\BOOKMARK [2][-]{subsection.12.1.2}{Pieter Abbeel}{section.12.1}% 57
+\BOOKMARK [2][-]{subsection.12.1.3}{Research Advices}{section.12.1}% 58
+\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 59
+\BOOKMARK [2][-]{subsection.12.2.1}{Goal and Advantages}{section.12.2}% 60
+\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 61
+\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 62

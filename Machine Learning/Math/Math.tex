@@ -27,6 +27,111 @@
 	\end{itemize}
 \end{itemize}
  
+\section{Linear Algebra}
+
+\subsection{Interchanging Coordinates}
+
+\subsubsection{N-dimensional Spherical Coordinates}
+\begin{itemize}
+\item Notation
+	\begin{itemize}
+	\item $N$-dim Euclidean Space $E_N$
+		\begin{itemize}
+		\item $e_1, e_2,...,e_N$: a group of orthonormal basis of $E_N$
+		\item $\mathbf x = (x_1, x_2,...,x_N)$: vector in $E_n$
+		\item $\mathbf x_{i-N}$: projection of $\mathbf x$ onto subspace spanned by $e_i,...,e_N$ \\
+			$\displaystyle \Rightarrow \mathbf x_{i-N} = \sum_{n=i}^N x_ne_n$
+		\end{itemize}
+	\item Spherical Coordinates
+		\begin{itemize}
+		\item $r=\norm{\mathbf x}$: the norm of $\mathbf x$
+		\item $\phi_i \in [0,\pi]$: angle between $\mathbf x_{i-N}$ and $e_i$
+		\item $r_i=\norm{\mathbf x_{i-N}}$: norm of projection $\mathbf x_{i-N}$, with $r_1 = r$
+		\end{itemize}
+	\end{itemize}
+	
+\item Observation
+	\begin{itemize}
+	\item Space $e_1,...,e_N$:
+		\begin{itemize}
+		\item $\cos \phi_1 = \frac{\mathbf x e_1}{\norm{\mathbf x} \norm{e_1}} =\frac {x_1}{r} $ \\ 
+			$\Rightarrow x_1 = r\cos\phi_1$ \\
+			$\displaystyle \Rightarrow \mathbf x = r\cos\phi_1 e_1 + \sum_{n=2}^Nx_ne_n$
+		\end{itemize}
+	\item Space $e_2,...,e_N$:
+		\begin{itemize}
+		\item from above: $\displaystyle \mathbf x^2 = r^2\cos^2\phi_1 + \sum_{n=2}^N x_n^2 = r^2 $ \\ 
+			$\displaystyle \Rightarrow \sum_{n=2}^N x_n^2 = r^2\sin^2\phi_1$
+		\item $\displaystyle \mathbf x_{2-N} = \sum_{n=2}^Nx_ne_n$ \\
+		$\displaystyle \Rightarrow \begin{cases} \displaystyle  \norm {\mathbf x_{2-N}}^2 = \sum_{n=2}^Nx_n^2 = r^2\sin^2\phi_1 = r_2^2 \\ \displaystyle \cos\phi_2 = \frac {\mathbf x_{2-N}\cdot e_2}{\norm{\mathbf x_{2-N}}\norm{e_2}} = \frac{x_2}{r_2} \end{cases}$ \\
+		$\Rightarrow \begin{cases} r_2 = r\sin\phi_1 & (\text{ as }\phi_1\in [0,\pi]) \\ x_2 = r_2\cos\phi_2 = r\sin\phi_1\cos\phi_2 \end{cases}$ \\
+		$\displaystyle \Rightarrow \mathbf x_{2-N} = r\sin\phi_1\cos\phi_2e_2 + \sum_{n=3}^Nx_ne_n$ \\
+		\end{itemize}
+	\item Space $e_3,...,e_N$:
+		\begin{itemize}
+		\item from above: $\displaystyle \mathbf x_{2-N}^2 = r^2\sin^2\phi_1\cos^2\phi_2 + \sum_{n=3}^{N}x_n^2 = r^2\sin^2\phi_1$ \\
+			$\displaystyle \Rightarrow \sum_{n=3}^N x_n^2 = r^2\sin^2\phi_1\sin^2\phi_2$
+		\item $\displaystyle \mathbf x_{3-N} = \sum_{n=3}^N$ \\
+		$\displaystyle \Rightarrow \begin{cases} \displaystyle \norm{\mathbf x_{3-N}}^2 = \sum_{n=3}^Nx_n^2 = r^2\sin^2\phi_1\sin^2\phi_2 = r_3^2 \\ \displaystyle \cos\phi_3 = \frac {\mathbf x_{3-N}\cdot e_3} {\norm{\mathbf x_{3-N}} \norm{e_3}} = \frac{x_3}{r_3} \end{cases}$ \\
+		$\displaystyle \Rightarrow \begin{cases} r_3 = r \sin \phi_1 \sin \phi_2 & (\text{ as } \phi_1,\phi_2\in[0,\pi]) \\ x_3 = r_3\cos\phi_3 \end{cases}$ \\
+		$\displaystyle \Rightarrow \mathbf x_{3-N} = r\sin\phi_1\sin\phi_2e_3 + \sum_{n=4}^Nx_ne_n$
+		\end{itemize}
+	\end{itemize}
+
+\item Proof for $x_i$
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item $\displaystyle \mathbf x_{i-N} = \sum_{n=i}^{N} x_ne_n$ \\
+		$\displaystyle \Rightarrow \cos\phi_i = \frac {\mathbf x_{i-N}\cdot e_i}{\norm{\mathbf x_{i-N}}\norm{e_i}} = \frac {x_i}{r_i}$ \\
+		$\Rightarrow x_i = r_i\cos\phi_i$
+		\end{itemize}
+	\end{itemize}
+
+\item Induction
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item $\displaystyle \forall i \ge 2, r_i = r\prod_{j=1}^{i-1}\sin\phi_j$
+		\end{itemize}
+	\item Base Case ($i=2$)
+		\begin{itemize}
+		\item as in observation, $\displaystyle r_2 = r\sin\phi_1 = r\prod_{j=1}^{2-1}\sin\phi_j$
+		\end{itemize}
+	\item Step Case
+		\begin{itemize}
+		\item assumption $\displaystyle r_i = r\prod_{j=1}^{i-1}\sin\phi_j$
+		\item procedure: $\displaystyle \mathbf x_{i-N} = \sum_{n=i}^Nx_ne_n = r_i\cos\phi_i + \sum_{n=i+1}^Nx_ne_n$ \\
+			$\displaystyle \Rightarrow \norm{x_{i-N}}^2 = r_i^2\cos^2\phi_i + \sum_{n=i+1}^N x_n^2 = r_i^2$ \\
+			$\displaystyle \Rightarrow \norm{x_{i+1-N}}^2 = \sum_{n=i+1}^Nx_n^2 = r_i^2\sin^2\phi = r_{i+1}^2$ \\
+			$\displaystyle \Rightarrow r_{i+1} = r_i\sin\phi_i = r\prod_{j=1}^i\sin\phi_j$
+		\end{itemize}
+	\end{itemize}
+
+\item Derivation
+	\begin{itemize}
+	\item $x_i$ from Combined Proofs
+		\begin{itemize}
+		\item $x_i = \begin{cases} r\cos\phi_1 & i = 1 \\ \displaystyle r\cos\phi_i\prod_{j=1}^{i-1}\sin\phi_j & 2\le i \le N \end{cases}$
+		\end{itemize}
+	\item Last 2 Dimensions
+		\begin{itemize}
+		\item $\displaystyle \mathbf x_{(N-1)-N} = x_{N-1}\cdot e_{N-1} + x_N\cdot e_N, \text{ with } r_{N-1} = r\prod_{j=1}^{N-2}\sin\phi_j$ \\
+		$\Rightarrow \norm{\mathbf x_{(N-1)-N}} = f(\phi_{N-1}, \phi_N)=r_{N-1}$ \\
+		$\Rightarrow \phi_{N-1},\phi_N$ not independent\textbf{!} \\
+		(actually, if $e_N = e_{N-1} + \frac \pi 2$, then $\phi_N = \phi_{N-1} - \frac \pi 2$) \\
+		
+		$\Rightarrow$ define $\theta \in [0,2\pi)$ instead of $\phi_{N-1}, \phi_N\in[0,\pi]$ \\
+		$\displaystyle \Rightarrow x_{N-1} = r_{N-1}\sin\theta, x_{N} = r_{N-1}\cos\theta$ (interchangeable)
+		\end{itemize}
+	\item Final Spherical Coordinates
+		\begin{itemize}
+		\item $x_i = \begin{cases} r\cos\phi_1 & i = 1 \\ \displaystyle r\cos\phi_i\prod_{j=1}^{i-1}\sin\phi_j & 2\le i \le N-1 \\ \displaystyle r\sin\theta\prod_{j=1}^{N-2}\sin\phi_j & i=N-1 \\ \displaystyle r\cos\theta\prod_{j=1}^{N-2}\sin\phi_j & i=N \end{cases}$
+		\end{itemize}
+	\end{itemize}
+
+\end{itemize}
+ 
 \section{Calculus}
 
 \subsection{Integral}
@@ -440,6 +545,12 @@
 		\end{itemize}
 	\end{itemize}
 
+\subsubsection{Multivariate Gaussian}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\subsubsection{}
 \item Convolution of Gaussian
 	\begin{itemize}
 	\item Integral of Gaussians $\int G_1G_2dx$
@@ -555,10 +666,30 @@
 		&= \frac 1N \sum_{n=1}^N (\sigma^2 + \mu^2) - \frac 1{N^2} [N(N-1)\mu^2 + N(\sigma^2+\mu^2)] \tag{by 2nd moment of Gaussian \(\mathbb E[x^2]\) and i.i.d assumption} \\
 		&= \left(\frac {N-1}N  \right) \sigma^2 \end{align*}
 		$\Rightarrow$ biased variance \textbf{!} \\
+		$\Rightarrow $ unbiased variance $\displaystyle \hat \sigma^2 = \frac N {N-1}\sigma^2_\text{ML} = \frac 1{N-1} \sum_{n=1}^N (x_n-\mu_\text{ML})^2 $ \\
 		interpretation: $N-1$  degree of freedom, \\
-		as calculating $\sigma^2$ needs $\mu$, which help pin down the $x_N$ given $x_1,...,x_{N-1}$ \\
-		$\Rightarrow $ unbiased variance $\displaystyle \hat \sigma^2 = \frac N {N-1}\sigma^2_\text{ML} = \frac N{N-1} \sum_{n=1}^N (x_n-\mu_\text{ML})^2 $
+		(as calculating $\sigma^2$ needs $\mu$, which help pin down $x_N$ given $x_1,...,x_{N-1}$) \\
 		\end{itemize}
 	\end{itemize}
+\end{itemize}
 
+\subsubsection{Predictive Distribution}
+\begin{itemize}	
+\item Probabilistic Prediction
+	\begin{itemize}
+	\item Notation
+		\begin{itemize}
+		\item $\bf x, \bf t$: vector of data examples and corresponding ground truth
+		\item $\bf w$: model parameters
+		\item $x, t$: new data example for prediction and its ground truth
+		\end{itemize}
+	\item Prediction by Model
+		\begin{itemize}
+		\item $p(t|x, \mathbf{w}')$, where $\mathbf w'$ is the best fit parameters founded
+		\end{itemize}
+	\item Prediction by Data
+		\begin{itemize}
+		\item $\displaystyle p(t|x,\mathbf{x},\mathbf{t}) = \int p(t|x,\mathbf{w})p(\mathbf{w}|\mathbf{x},\mathbf{t}) d\mathbf w$, where $\bf w$ marginalized over its posterior 
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
