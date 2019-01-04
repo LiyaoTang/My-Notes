@@ -29,6 +29,67 @@
  
 \section{Linear Algebra}
 
+\subsection{Essence}
+\subsubsection{Vector}
+\begin{itemize}
+\item Interpretation
+	\begin{itemize}
+	\item Movement
+		\begin{itemize}
+		\item direction
+		\item distance
+		\end{itemize}
+	\item Numeric in High Dimensions
+		\begin{itemize}
+		\item in 1-$D$: +/- represents direction
+		\item in n-$D$: +/- alone each dimension combined to represent an overall direction \\
+			(direction of the n-$D$ numeric - vector)
+		\end{itemize}
+	\end{itemize}
+
+\item Numerics Multiplication
+	\begin{itemize}
+	\item Scaling
+		\begin{itemize}
+		\item the number scales the distance of vector (direction remains) \\
+			$\Rightarrow$ such number thus also called scalar
+		\item $\Rightarrow$ scale alone each axis by that scalar \\
+			$(2\mathbf x)^2 = 4\mathbf x^2 = 4 (x_1 e_1 + ... x_ne_n)^2 = (2x_1e_2+...+2x_ne_n)^2$, \\ 
+			where $e_1,...,e_N$ are vector defining coordinates
+		\end{itemize}
+	\end{itemize}
+
+\item Vector Adding
+	\begin{itemize}
+	\item Generalization of Numerical Adding
+		\begin{itemize}
+		\item in 1-$D$: joint movement along single axis
+		\item in n-$D$: joint movement along each axis $\Rightarrow$ a joint movement in n-$D$ space
+		\end{itemize}
+	\item Linear Combination $\mathbf x = a\mathbf v + b\mathbf w$
+		\begin{itemize}
+		\item the vectors $\mathbf v, \mathbf w$ only changed linearly \\
+			$\Rightarrow \mathbf x$ direction \& size are linear combination of that in $\mathbf v, \mathbf w$
+		\end{itemize}
+	\end{itemize}
+
+\end{itemize}
+
+\subsubsection{Coordinate}
+\begin{itemize}
+\item Foundation
+	\begin{itemize}
+	\item Basis Vectors
+		\begin{itemize}
+		\item define the direction \& size of a unit movement alone each axis
+		\end{itemize}
+	\end{itemize}
+\item Orthonormal Coordinate
+	\begin{itemize}
+	\item 
+	\end{itemize}
+\end{itemize}
+
 \subsection{Interchanging Coordinates}
 
 \subsubsection{N-dimensional Spherical Coordinates}
@@ -544,13 +605,29 @@
 		noted as $X\sim \mathcal N_d (x|\mu,\Sigma)$
 		\end{itemize}
 	\end{itemize}
+\end{itemize}
 
 \subsubsection{Multivariate Gaussian}
 \begin{itemize}
-\item 
+\item Dimensionality
+	\begin{itemize}
+		\item Volume of High Dimensional Ball
+		\item Volume of High Dimensional Cube
+		\item High Dimensional Distribution
+		\item High Dimensional Gaussian
+			\begin{itemize}
+			\item probability density with respect to radius $r$ for various dimension $D$ \\
+				$\Rightarrow$ most density are in a thin shell at a specific $r$			
+			\end{itemize}
+			\begin{figure}[ht]
+			\includegraphics[width=0.5\linewidth,center]{./Math/"multivariate gaussian-mass of distribution".jpg}
+			\end{figure}
+		
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{}
+\begin{itemize}
 \item Convolution of Gaussian
 	\begin{itemize}
 	\item Integral of Gaussians $\int G_1G_2dx$

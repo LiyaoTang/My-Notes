@@ -27,6 +27,7 @@
   - Passivity
   - Small footprint
   - Instrumentation
+
     - Provides sensors, converters etc. to perceive environment
   - Usually integret into harware & environment (no operating system)
 
@@ -118,7 +119,7 @@
 
       $\boldsymbol\Rightarrow$ assum a logical & discret time
 
-      $\Rightarrow$ Easier verification, hardware implementation; Stronger analysis
+      $\Rightarrow$ easier verification, hardware implementation; stronger analysis
 
   - Causality
 
@@ -145,7 +146,7 @@
 
   - Features
 
-    - Concurrency & Synchornization (shared memory & message passing)
+    - Concurrency & Synchronization (shared memory & message passing)
 
     - Strong runtime environment
 
@@ -157,7 +158,7 @@
 
     - OO concepts
 
-      $\Rightarrow$ 'synchronizd interface' (abstract) allows only 1-step inheritance
+      $\Rightarrow$ 'synchronized interface' (abstract) allows only 1-step inheritance
 
   -  High-integrity $\Rightarrow$ Standardized language-annexes as part of language (Ex. Ravenscar)
 
@@ -851,33 +852,23 @@
 
     $\Rightarrow$ maintain the state of the atomic action
 
+  ```Ada
   Select
-
-  ​       Triggeringstatement (Waiting on Monitor. failed)
-
-  ​       …(Clean-up routine)
-
+  	Triggeringstatement (Waiting on Monitor.failed)
+  	…(Clean-up routine)
   Then abort
-
-  ​       …(Check in)
-
-  Select
-
-  ​       … (Wait for maximum )
-
-  Then abort
-
-  ​       
-
-  End Select
-
-  Wait for othertask & Check out from Monitor
-
+  	…(Check in)
+  	
+      Select
+          …(Wait for maximum)
+      Then abort
+  		…(do the job)
+      End Select
+      Wait for other tasks to finish & Check out from Monitor
   Exception
-
-  ​       Monitor.report failure
-
+      Monitor.report failure
   End select
+  ```
 
 #### 4. Asynchronous Transfer of Control
 
@@ -895,8 +886,8 @@
 ### Synchronism
 
 - Note on Mutual Exclusion
-  - task safe $\neq$ interrupt handler safe
-    - interrupt handler (a 'procedure') can NOT wait insed a queue (no PCB)
+  - task safe $\neq​$ interrupt handler safe
+    - interrupt handler (a 'procedure') can NOT wait insid a queue (no PCB)
 
 #### 1. Shared Memory
 
@@ -1079,7 +1070,7 @@
   - All processes are periodic and all periods (cycle times) are known
   - All processes are independent (usually not the case)
   - Task-switching overhead is negligible
-  - Deadline indentical with process cycle times (periods)
+  - Deadline identical with process cycle times (periods)
   - Worst-case execution time for each process known
   - All process released at once
 
