@@ -27,7 +27,23 @@
 
 1. 用`char`类型读入大数字
 
-2. `4/3=1` 整数除法很危险。。。除故意，尽量用double型打头，尽量避免整数连续计算
+2. casting
+
+   1. `4/3=1` 整数除法很危险 (implicit casting)。。。除故意，尽量用double型打头，尽量避免整数连续计算
+
+   2. should avoid implicit casting
+
+   3. static_cast: 
+
+   4. reinterpret_cast: 
+
+      1. does not compile to any CPU instructions but compile time directive
+
+         (except for casting between `int` and pointer, or obscure architectures where pointer representation depends on its type)
+
+      2. instruct compiler to treat `expression` as if it had the type `new_type`
+
+      3. used to convert one pointer of another pointer of any type, no matter either the class is related to each other or not. It does NOT check if the pointer type and data pointed by the pointer is same or not.
 
 3. `for(int i = 0, j = 0; i<m ＆＆ j<n; i++, j++)`　`，`是一种运算符，会遮盖前半句
 
@@ -62,6 +78,15 @@
 
 9. alignment trick: `union` with unused `long int` $\Rightarrow$ cpu needs to fetch mem exactly once to get the struct
 
+10. casting type of pointer in c++
+
+    1. `static_cast`: assume object has containing relation \& adjust the address of pointer if necessary
+    2. `dynamic_cast`: check for containing relation, \& adjust address if the check passed and necessary
+    3. `reinterpret_cast`: just change the type of pointer directly, no adjustment, no check
+    4. `const_cast`: the ONLY casting with ability to cast away constness
+
+    NOTE: <https://www.quora.com/How-do-you-explain-the-differences-among-static_cast-reinterpret_cast-const_cast-and-dynamic_cast-to-a-new-C++-programmer>
+
 ### Concurrency in C++ (POSIX Library)
 
 - Thread
@@ -93,10 +118,15 @@
       6. guard size
       7. stack address (detail in `unistd.h`, `bits/posix_opt.h`, `_POSIX_THREAD_ATTR_STACKADDR` 
       8. stack size: default: minimum `PTHREAD_STACK_SIZE` (set in `pthread.h` 
+      9. initialize to default: `pthread_attr_init`; destroy by `pthread_attr_destroy` 
 
   - Termination
 
-    - `pthread_exit` to kill the thread \& return
+    - `pthread_exit` to kill the current thread \& return (can also be achieved by `return`)
+
+    - `cancel` to signal other thread to cancel, if it is cancelable, or block till it becomes cancelable
+
+      (preemption control, atomic get-set of cancelability \& cancel type w.r.t other threads)
 
   - Synchronization
 
