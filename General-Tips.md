@@ -1,35 +1,144 @@
 # Tips-for-programming
 
-1. 用char类型读入大数字
-2. 4/3=1 整数除法很危险。。。除故意，尽量用double型打头，尽量避免整数连续计算
-3. for(int i = 0, j = 0; i<m ＆＆ j<n; i++, j++)　“，”是一种运算符，会遮盖前半句
-4. 不要拒绝新的数据结构（堆、栈等），尽早接触为好
-5. 注意待处理数据的范围，注意数据溢出
-6. 先判断下角标 再判断其他数据。防止越界
-7. 蛋疼的题处处有，蛋疼的要求满大街。。。考验耐心，学会持久战吧= =、
-8. 对数据结构的值的范围要敏感！~ 用了unsigned这种之后要注意不能有负数，而且负数会循环到最大值处。。。
+1. 不要拒绝新的数据结构（堆、栈等），尽早接触为好
+2. 注意待处理数据的范围，注意数据溢出
+3. 先判断下角标 再判断其他数据。防止越界
+4. 蛋疼的题处处有，蛋疼的要求满大街。。。考验耐心，学会持久战吧= =、
+5. 对数据结构的值的范围要敏感！~ 用了unsigned这种之后要注意不能有负数，而且负数会循环到最大值处。。。
    （圈圈模型）
-9. 压位<->位表
-10. 答案明显可以分成几个部分组成的就妥妥的分成几个部分去计算吧。。。分治
-11. 写程序也要分治。。。即分块，先处理干净再进入下一步骤。。。
-12. DP。。。最优子结构。。。不断大事化小。。。处理每步都出现多分支、总处理步数与所输入数据量有关的问题
-13. 具有对称性时可考虑逆向DP
-14. 先自己模拟过程，抓住特征，再码
-15. 两种类型栈共用一个下标 -> 多类型栈
-16. 用笔记下各种思路
-17. 预处理很重要
-18. 卡用例很可能是哪里手贱写残了，或是复制粘贴漏改了
-19. 坚持第5条100年不变，注意数据范围！！！
-20. 分块！！！ 一个模块一个模块的写，一个模块一个模块的调
-21. 任何一种成熟数据结构都有存在的理由
-22. 用数组存储明显方便时，又需要避开一个一个挪（下标逐个移动），可采用静态链表
-23. 尽量先做数学变换
-24. 01背包相关问题可先考虑DP
+6. 压位<->位表
+7. 答案明显可以分成几个部分组成的就妥妥的分成几个部分去计算吧。。。分治
+8. 写程序也要分治。。。即分块，先处理干净再进入下一步骤。。。
+9. DP。。。最优子结构。。。不断大事化小。。。处理每步都出现多分支、总处理步数与所输入数据量有关的问题
+10. 具有对称性时可考虑逆向DP
+11. 先自己模拟过程，抓住特征，再码
+12. 两种类型栈共用一个下标 -> 多类型栈
+13. 用笔记下各种思路
+14. 预处理很重要
+15. 卡用例很可能是哪里手贱写残了，或是复制粘贴漏改了
+16. 坚持第2条100年不变，注意数据范围！！！
+17. 分块！！！ 一个模块一个模块的写，一个模块一个模块的调
+18. 任何一种成熟数据结构都有存在的理由
+19. 用数组存储明显方便时，又需要避开一个一个挪（下标逐个移动），可采用静态链表
+20. 尽量先做数学变换
+21. 01背包相关问题可先考虑DP
+
+## C++
+
+1. 用`char`类型读入大数字
+
+2. `4/3=1` 整数除法很危险。。。除故意，尽量用double型打头，尽量避免整数连续计算
+
+3. `for(int i = 0, j = 0; i<m ＆＆ j<n; i++, j++)`　`，`是一种运算符，会遮盖前半句
+
+4. lvalue (左值): can be assigned by values (ABLE to appear at the Left of "=")
+
+5. rvalue(右值): literal constant, cannot be assigned (can ONLY appear at the Right of "=")
+
+6.  C++ is based on class instead of on object, which means that objects of the same class can access each other's private fields without restriction
+
+7.  `int& a = 0;` NOT okay - not able to change integer literal 
+
+    `int const& a=0;` okay - as reference to a const)
+
+8.  `&&` meaning: reference for rvalue
+
+    1. move semantics: copy constructor by moving things on mem 
+
+       $\Rightarrow$ obviate copy-destroy process for some intermediate result 
+
+       (e.g. initialization from function return)
+
+    2. forwarding reference in template: offer a systematic mechanism to auto-forward literal into a copy, instead of overloading function for e.g. `int&` vs. `int const&` when defining template
+
+    3. property:
+
+       1. when the function parameter type is of the form `T&&` where `T` is a template parameter, and the function argument is an lvalue of type `A`, the type `A&` is used for template argument deduction.
+       2. For overload resolution, lvalues prefer binding to lvalue references and rvalues prefer binding to rvalue references. Hence why temporaries prefer invoking a move constructor / move assignment operator over a copy constructor / assignment operator.
+       3. rvalue references will implicitly bind to rvalues and to temporaries that are the result of an implicit conversion. i.e. `float f = 0f; int&& i = f;` is okay because `float` is implicitly convertible to `int`; the reference would be to a temporary that is the result of the conversion.
+       4. named rvalue references are lvalues. Unnamed rvalue references are rvalues. This is important to understand why the `std::move` call is necessary in: `foo&& r = foo(); foo f = std::move(r);`
+
+       NOTE: https://stackoverflow.com/questions/5481539/what-does-t-double-ampersand-mean-in-c11
+
+9. alignment trick: `union` with unused `long int` $\Rightarrow$ cpu needs to fetch mem exactly once to get the struct
+
+### Concurrency in C++ (POSIX Library)
+
+- Thread
+
+  - Basic (see more in real-time note)
+
+    - operation: creation, termination, synchronization, scheduling, interaction, data management
+    - thread vs. process: thread inside process, invisible to OS (use same address space & pid)
+    - shared data: OS resources (file descriptor, etc.), signals, work directory, gid, uid, pid...
+    - unique data: thread id, stack pointer (control flow), local variables, signal mask, priority, error
+
+  - Creation
+
+    - `pthread_t` to represent thread
+
+    - `pthread_create` to kickoff the thread (with attributes, function and args), return thread id
+
+      note: function as pointer `void * (*start_routine)(void *)`, args as pointer `void *arg` 
+
+    - attributes `pthread_attr_t`: 
+
+      1. detached state:  `PTHREAD_CREATE_JOINABLE`, `PTHREAD_CREATE_DETACHED`
+         1. joinable (default): holding resources (even after finished) till someone else call `join()`
+         2. detached: release all resources on finish and then die. can NOT be joined by others
+      2. scheduling policy: `PTHREAD_INHERIT_SCHED`,`PTHREAD_EXPLICIT_SCHED`,`SCHED_OTHER`
+      3. scheduling parameter
+      4. inherited schedule attribute: default: `PTHREAD_EXPLICIT_SCHED`; to inherit from parent thread: `PTHREAD_INHERIT_SCHED`
+      5. scope: kernel threads-`PTHREAD_SCOPE_SYSTEM` user threads-`PTHREAD_SCOPE_PROCESS` 
+      6. guard size
+      7. stack address (detail in `unistd.h`, `bits/posix_opt.h`, `_POSIX_THREAD_ATTR_STACKADDR` 
+      8. stack size: default: minimum `PTHREAD_STACK_SIZE` (set in `pthread.h` 
+
+  - Termination
+
+    - `pthread_exit` to kill the thread \& return
+
+  - Synchronization
+
+    - mutexes: semaphore
+
+    - joins: wait till others termination 
+
+    - conditional variable `pthread_cond_t`
+
+      1. variable invoking is implemented by signaling $\Rightarrow$ need to wait before others signal
+
+         (otherwise miss the signal !)
+
+      2. no compiler check for library $\Rightarrow$ need a syntactically unrelated semaphore to help :(
+
+         (though the waiting & signaling of the semaphore encapsulated in `phread_cond_wait`)
+
+         (the same lock is used to enter the critical region \& wait on conditional var - as itself is shamelessly not mutual exclusive)
+
+      3. need a loop to go sleep again if invoked and failed in trying to grab the lock
+
+         (potential live lock as conditional critical region)
+
+         (shitty POSIX standard: invoke **at least** one thread)
+
+      $\Rightarrow​$ not even a conditional critical region...
+
+      example code for waiting:
+
+      ```c++
+      while (cond is true) { 				// re-sleep if failed to evaluate to true
+      	pthread_cond_wait(&cond, &mtx); // sleep in the queue & release the lock
+      	// invoked, but not sure if is me
+      }
+      // lock mtx acquired at this point - it is me who inside critical region now
+      ```
+
 
 ## Ada
 
-1. Only operator "=" can be promoted.
-2. for all i in range => suggest concurrent performance.
+1. Only operator `=` can be promoted (to perform concurrency)
+2. `for all i in range` => suggest concurrent performance.
 3. modular type can NOT be runtime dependent.
 4. can NOT have variant record in array. => compiler refuse to alloct heap mem at runtime
     => but CAN use mutable variant record (where a default value is given)
@@ -64,13 +173,13 @@
 
 
       1. API Overview
-
+    
            1. `matplotlib.backend_bases.FigureCanvas` : the area onto which the figure is drawn, 
            2. `matplotlib.backend_bases.Renderer` : object knowing how to draw on `FigureCanvas``
            3. `matplotlib.artist.Artist` : object knowing how to use a renderer to paint onto the canvas
-
+    
       $\Rightarrow$ `FigureCanvas` and `Renderer`  handle all the details of talking to UI toolkits
-
+    
       $\Rightarrow$ `Artist` handles high level constructs e.g. representing and laying out the figure, text, and lines
 
 13. In fact, **EVERYTHING** is object in python
@@ -84,28 +193,28 @@
            1. function can be assigned into a variable (related to lazy evaluation)
            2. concept of scope: read-only access to the parent scope
            3. easily passing arbitrary arguments by `*args`, `**kwargs` 
-
+    
       2. define a decorator: define a function to manipulate another function
-
+    
            (build upon given function)
-
+    
       3. decorate a function: `func = decorator(func)` 
-
+    
       4. put `@decorator` above the definition of function to be decorated
-
+    
            $\Rightarrow$ python interpreter helps decorate automatically! 
-
+    
            $\Rightarrow$ easily stack decorators into a pipeline (to decorate a function)
-
+    
       5. retain the attributes of original function
 
 
            1. get overwritten by wrapper (e.g. `__doc__`, `__name__` and `__module__`)
-
+    
            2. `from functools import wraps`: `@wraps(func)` before self-defined wrapping behaviour
-
+    
                 $\Rightarrow$ copy all attributes of original function to the one returned by the wrapper
-
+    
       6. ability of decorator
 
 
@@ -300,7 +409,23 @@
 
 - Concurrency
 
-  - Coroutine in Thread (fake concurrency due to GIL)
+  - Global Interpreter Lock
+
+    - purpose
+
+      1. garbage collection needs a universal view of reference $\Rightarrow$ reference count
+      2. need synchronization when counting the reference
+      3. $\Rightarrow$ set a lock for the whole interpreter to protect this global count
+
+    - implementation
+
+      1. cpython interpreter: compatible to C API, thus GIL
+
+      2. ironpython, javapython and other interpreter implemented with other language
+
+         $\Rightarrow$ no GIL!, but locks at various granularity
+
+  - Coroutine in Thread
 
     - coroutine + `Thread.start()` at proper point (before `=(yield)`)
 
@@ -318,6 +443,14 @@
       1. `.send()` needs synchronization - sender's one-time try, success or error
 
          $\Rightarrow$ `send` NOT designed as blocking call for sender $\Rightarrow$ receiver should wait in rendezvous
+
+    - concurrency analysis
+
+      1. thread concurrency achieved (actually at control-flow level)
+
+         $\Rightarrow$ no scheduler nor any runtime environment guarantee but active `yield` 
+
+      2. can be parallel from OS view: OS running syscalls while other python control flow running
 
   - Coroutine are Task (fake concurrency due to GIL - control flow level concurrency)
 
@@ -351,18 +484,111 @@
 
     - achievement: 
 
-      1. control flow switching within single process
-      2. 
+      1. concurrency at control-flow level
+      2. can be parallel from OS view: OS running syscalls while other python control flow running
 
   - Potential Problems
 
     - real OS may suspend the python preocess (interpreter) for real OS request (syscalls)
     - control-flow-level concurrency $\Rightarrow$ GIL gives knowledge of "signle task alive at a time"
 
+  - Concurrency Analysis
+
+    - concurrency at the level of control flow
+
 - `select` Module in Python
 
   - Controlable Blocking Call
     - wait on real OS resource for a specified timeout
+
+- `threading` Module
+
+  - Control Flow Swicthing in Python
+    - indeed, a wrapper over coroutine...using class as shown above
+
+- `multiprocessing ` Module
+
+  - Local Multiprocessing
+    - wrapping over function (function - program for subprocess, passed as parameter)
+    - `Pool(n)` to spawn $n$ subprocess, `subprocess.map()` to pass in function with parameters
+    - communication & shared resource: `Queue`, `Pipe`
+    - resource control: `Manager`
+
+  - Multiprocessing over Netwrok
+    - shared mem over network e.g. Redis (database on mem) 
+    - listener for change in shared mem: can be maintained by library e.g. RQ, Celery, ...
+
+  - Creating Processes
+    - spawn
+      1. only necessary resources copied into child process $\Rightarrow$ slower
+      2. provided with semaphore tracker
+
+    - fork
+      1. call the `os.fork()` - c fork
+      2. safely forking multi-threaded process is problematic
+
+    - forkserver
+
+      1. a server (single-threaded) process to create new process (fork itself)
+      2. provided with semaphore tracker
+
+    - semaphore tracker
+
+      1. unlinking named semaphores - limited number & not auto-collected till next reboot
+
+    - context
+
+      1. $\Rightarrow$ select in default context by `mp.set_start_method('spawn')` 
+
+         (singel start method choice allowed in one context)
+
+      2. use `get_ context` for separate environment of multiprocessing
+
+    - `Pool`
+
+      1. start a group of worker to take arbitrary control flow (function)s
+      2. recommend to use `with` block for neat clean-up
+
+  - Communication between Process
+
+    - `Queue` - shared mem 
+      1. python thread and process safe
+      2. not overall safe - not prevented killing by OS while in the critical region
+    - `Pipe` - dual message passing
+      1. duplex connection between a pair of processes
+      2. not process / thread safe on single end (send/recv) $\Rightarrow$ keep it private
+    - shared mem - `Value`, `Array` 
+      1. process and thread-safe
+    - server processs - `Manager` 
+      1. server for passing objects $\Rightarrow$ more flexible, able to cross network, yet slower
+
+  - Synchronization
+
+    - lock - semaphore level
+
+  - Overhead
+
+    - memory of program copied into each subprocess
+    - multiple python interpreter (if GIL)
+
+- Multiprocessing with TF
+
+  - TF Behaviour
+
+    - it is running on its own, having the whole python process
+
+    - it is asynchronous inside, already in multiprocessing
+
+      (while, python multiprocessing is based on `fork`)
+
+    - $\Rightarrow$ python multiprocessing with multiple tf imported will break the synchronization point in TF
+
+    - $\Rightarrow$ NOT really able for hand-crafted multiprocessing  
+
+  - Work-around
+
+    - import TF in scope $\Rightarrow$ provide the inner-tf multiprocessing with scope
+    - $\Rightarrow$ import TF inside each function call (scope), with NO process-level TF running
 
 ## Octave / Matlab
 

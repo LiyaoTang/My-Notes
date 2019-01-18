@@ -262,8 +262,8 @@
   - Observable Effect caused by Temperature Changes:
 
     - Noise voltage change
-    - Volum change (Ex.gas, liquid, metals)
-    - Thermovoltage change (热电压)
+    - Volume change (Ex.gas, liquid, metals)
+    - Thermo-voltage change (热电压)
     - Change in conductor (导体) / semiconductor
     - State change (gas, liquid, solid)
 
@@ -275,7 +275,7 @@
 
       ​	Cons: need stable amplifier (放大器), constraint on cables
 
-    - Thermoresistor
+    - Thermo-resistor
 
       ​	Pros: potentially higher accuracy; more linear; long-term stability; absolute temperature
 
