@@ -85,7 +85,29 @@
     3. `reinterpret_cast`: just change the type of pointer directly, no adjustment, no check
     4. `const_cast`: the ONLY casting with ability to cast away constness
 
-    NOTE: <https://www.quora.com/How-do-you-explain-the-differences-among-static_cast-reinterpret_cast-const_cast-and-dynamic_cast-to-a-new-C++-programmer>
+    NOTE: <https://www.quora.com/How-do-you-explain-the-differences-among-static_cast-reinterpret_cast-const_cast-and-dynamic_cast-to-a-new-C++-programmer> 
+
+11. `explicit`: only applicable to constructor, so that no implicit type casting can perform when calling it
+
+12. `#` in macro: stringizing operator: turn `macro` into a quoted string (without expanding parameter definition)
+
+    e.g. `#define MKSTR(s) #s`, then `MKSTR(hello)` will be replaced by `"hello"` 
+
+13. `#@` in macro: charizing operator: make the parameter into a `char`
+
+    e.g. `#define MKCHAR(x)  #@x` to replace `a = MKCHAR(b);` by `a = 'b';` 
+
+14. `##` in macro: token-pasting operator: if a formal parameter in a macro definition is preceded or followed by the token-pasting operator, the formal parameter is immediately replaced by the unexpanded actual argument. Macro expansion is not performed on the argument prior to replacement.
+
+    the tokens preceding and following it are concatenated. The resulting token must be a valid token. If it is, the token is scanned for possible replacement if it represents a macro name. 
+
+    e.g. `#define paster( n ) printf_s( "token" #n " = %d", token##n )` 
+
+    to make `paster( 9 );` becomes `printf_s( "token" "9" " = %d", token9 ); ` 
+
+    then becomes `printf_s( "token9 = %d", token9 );` , output `token9 = 9` 
+
+15. 
 
 ### Concurrency in C++ (POSIX Library)
 
@@ -629,6 +651,28 @@
 
 1. h5py is a good thing: light-weight dataset structure
 2. TF.Data: a pipeline for fetching, parsing and feeding the data (in a separate thread $\Rightarrow$ parallel)
+
+### Potobuf
+
+- reading protobuf byte stream from python client
+
+  - for message from python client: `rst.ParseFromString(ptxt_bt)`
+
+  - for message from other client: `protobuf.text_format.Merge(ptxt_bt, rst)` 
+
+    ```python
+    try:
+        protobuf.text_format.Merge(ptxt_bt, rst)  # read from non-python
+    except:
+        rst.ParseFromString(ptxt_bt)  # read from python
+    ```
+
+- as Configuration File
+
+  - `ParseFromString`: read from a `string` type (instead of `byte` as above)
+  - File Structure
+    - just write configuration as coding style...
+    - concrete style can be checked by printing the class after reading a proto files
 
 ## QT
 
