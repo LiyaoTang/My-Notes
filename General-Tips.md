@@ -107,7 +107,13 @@
 
     then becomes `printf_s( "token9 = %d", token9 );` , output `token9 = 9` 
 
-15. 
+15. `virtual`, `override` and `final`:
+
+    1. `virtual`: ensure the function is dynamic for derived classes; only base declaration need `virtual` to mark as virtual; superfluous for overriding or for passing virtuality to further derived class (automatically passed down)
+    2. `override`: ensure the function is overriding a virtual function (a compiler check)
+    3. `final` with `virtual`: ensure function is itself virtual and can NOT be further overridden by derived class; ill-formed otherwise (a compiler check + forbidding further overriding)
+    4. `final` with `class`: ensure the class can NOT be a base for derived class
+    5. Note: `override` and `final` is keyword only in declaration, NOT reserved in other context
 
 ### Concurrency in C++ (POSIX Library)
 
@@ -186,6 +192,105 @@
       // lock mtx acquired at this point - it is me who inside critical region now
       ```
 
+-  `futex` Fast User Level Locking
+
+  - Paper
+
+    - https://www.kernel.org/doc/ols/2002/ols2002-pages-479-495.pdf
+
+  - Design Goal
+
+    - avoid system calls if possible, as system calls typically consume several hundred instructions.
+
+      1. uncontended case: the application changes the lock status word without into the kernel
+
+         $\Rightarrow$ atomic operation required at user level
+
+      2. contended case: require waiting queue \& scheduling 
+
+         $\Rightarrow$ into the kernel; kernel object needed, yet not always needed $\Rightarrow$ allocate on demand (compare to prior allocation e.g. IPC mechanisms)
+
+    - avoid unnecessary context switches: context switches lead to overhead associated with TLB invalidations etc.
+
+    - provide foundation for complicated synchronization, e.g. semaphores, rwlocks, blocking locks, or spin versions of these
+
+    - provide solution to recover from “dead” locks.
+
+  - Limitation
+
+    - hard to determine lock ownership: lock acquired by manipulating use-space memory
+
+  - Lock in Use Space
+
+    - ability of virtual address to represent dynamic allocated lock
+      1. anonymous memory: inside only single process
+      2. shared memory segment: over multiple processes (mostly used)
+      3. memory mapped files: over multiple processes
+    - virtual address as kernel handle
+      1. able to be recognized to refer to the same underlying kernel object (if any)
+
+  - Implementation 
+
+    - unique identifier for each futex (may have different virtual addresses in different process)
+
+      1. identifier: a pointer to “struct page”  and the offset within that page
+      2. incrementing the reference count to avoid being swapped out (while process sleeping) 
+
+    - hash table to indicate process and the futex it is waiting on, created on process kernel stack
+
+      (as now contend happened)
+
+    - basically, writing assembly in user code that utilize machine-level atomic operation
+
+      (further detail in "linux/kernel/futex.c")
+
+  - Procedure (the Basic Implementation)
+
+    - check user address alignment; pin the page (increase reference count to not be swapped out)
+
+    - add the address (page ptr with offset) hashed into the table, becoming a hash bucket
+
+    - FUTEX_DOWN op (acquiring / potentially waiting the lock)
+
+      1. process marked INTERRUPTIBLE - ready to stop
+
+      2. futex acquired (denoted by page+offset) added to the tail of hash bucket determined above 
+
+         (to the tail so as to have FIFO ordering for wakeups)
+
+      3. attempt an atomic decrement of the futex address 
+
+         (not attempt if it is already negative, to avoid wrap around)
+
+      4. if futex becomes 0, lock acquired, process marked as RUNNING, remove our futex from hash table, wake next process (if any) to decrease its futex to -1 to indicate it is waiting
+
+      5. if lock busy, my futex becomes -1, a signal received, go into kernel and suspend myself 
+
+    - FUTEX_UP (releasing the lock)
+
+      1. increase my futex by 1 (set to 1)
+      2. found the hash table bucket for my futex and wake up the first process (at the head)
+
+    - unpin the page (able to be swapped out if needed)
+
+    - cons:
+
+      1. timeout: NOT easy to protect associated timer from being used by other purposed
+      2. starvation: if the thread releasing the lock acquire it immediately again, it will win the contend
+      3. live-lock not considered
+
+  - More Flexible Implementation
+
+    - FUTEX_WAIT: check if lock (a number) == the number passed in, to find out if contending; and then decide proceed or suspend itself in kernel
+
+      (able to specify time-out, with the help of kernel)
+
+    -  FUTEX_WAKE: not altering the lock, but just wake process waiting on the futex lock if any (with kernel help)
+
+  - Note
+
+    - nowadays `mutex` ARE based on `futex` 
+    - `futex` nowadays becomes a wait queue technique accessible in the user space
 
 ## Ada
 
