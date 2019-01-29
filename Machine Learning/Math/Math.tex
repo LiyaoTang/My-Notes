@@ -54,7 +54,7 @@
 		\item the number scales the distance of vector (direction remains) \\
 			$\Rightarrow$ such number thus also called scalar
 		\item $\Rightarrow$ scale alone each axis by that scalar \\
-			$(2\mathbf x)^2 = 4\mathbf x^2 = 4 (x_1 e_1 + ... x_ne_n)^2 = (2x_1e_2+...+2x_ne_n)^2$, \\ 
+			$2\mathbf x = 2x_1e_2+...+2x_ne_n$, \\ 
 			where $e_1,...,e_N$ are vector defining coordinates
 		\end{itemize}
 	\end{itemize}
@@ -611,18 +611,31 @@
 \begin{itemize}
 \item Dimensionality
 	\begin{itemize}
-		\item Volume of High Dimensional Ball
-		\item Volume of High Dimensional Cube
-		\item High Dimensional Distribution
-		\item High Dimensional Gaussian
-			\begin{itemize}
-			\item probability density with respect to radius $r$ for various dimension $D$ \\
-				$\Rightarrow$ most density are in a thin shell at a specific $r$			
-			\end{itemize}
-			\begin{figure}[ht]
-			\includegraphics[width=0.5\linewidth,center]{./Math/"multivariate gaussian-mass of distribution".jpg}
-			\end{figure}
-		
+	\item Volume of High Dimensional Sphere
+		\begin{itemize}
+		\item for $n=2k, k\in N^+, V_{2k}(R) = \frac {\pi^k}{k!} R^{2k}$ 
+		\item for $n=2k+1, k\in N, V_{2k}(R) = \frac {2^{k+1}\pi^k}{(2k+1)!!} R^{2k+1}$ 
+		\item $\displaystyle \Rightarrow \lim_{D\rightarrow+\infty} \frac {V_D(1)-V_D(1-\epsilon)}{V_D(1)} = \lim_{D\rightarrow+\infty}1-1(1-\epsilon)^D = 1$
+			$\Rightarrow$ the volume of a $D$-sphere concentrate in a thin shell near the surface! \\
+			(actually, in the corner of a high dimensional cube as shown below)
+		\end{itemize}
+	\item Volume of High Dimensional Cube
+		\begin{itemize}
+		\item 
+		\item $\Rightarrow$ volume ratio of hyper sphere and hyper cube: 
+		$\Rightarrow$ the volume of a $D$-cube concentrates in its corner!
+		$\Rightarrow$ distance function in high dimensional space CAN be useless
+		\end{itemize}
+	\item High Dimensional Distribution
+	\item High Dimensional Gaussian
+		\begin{itemize}
+		\item probability density with respect to radius $r$ for various dimension $D$ \\
+			$\Rightarrow$ most density are in a thin shell at a specific $r$			
+		\end{itemize}
+		\begin{figure}[ht]
+		\includegraphics[width=0.5\linewidth,center]{./Math/"multivariate gaussian-mass of distribution".jpg}
+		\end{figure}
+	\item Facing High Dimensionality
 	\end{itemize}
 \end{itemize}
 

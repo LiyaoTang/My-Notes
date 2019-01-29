@@ -101,3 +101,8 @@
 \contentsline {subsection}{\numberline {12.2.3}Learning}{49}{subsection.12.2.3}
 \contentsline {subsubsection}{Forward-Backward Propagation}{49}{section*.42}
 \contentsline {subsubsection}{}{49}{section*.43}
+\contentsline {section}{\numberline {12.3}Advanced Topic}{49}{section.12.3}
+\contentsline {subsection}{\numberline {12.3.1}Machine Reading Comprehension}{49}{subsection.12.3.1}
+\contentsline {subsubsection}{Problem Formulation}{49}{section*.44}
+\contentsline {subsubsection}{RNN with Attention}{49}{section*.45}
+\contentsline {subsubsection}{Convolution with Self-attention - QAnet}{49}{section*.46}
