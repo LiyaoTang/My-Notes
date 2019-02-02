@@ -15,6 +15,7 @@
 }
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
+\usepackage{caption}
 
 \usepackage{amssymb}
 \usepackage[fleqn]{mathtools}
@@ -30,6 +31,11 @@
 % set up command / syntax suger
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\makeatletter
+\newcommand{\extp}{\@ifnextchar^\@extp{\@extp^{\,}}} % exterior product
+\def\@extp^#1{\mathop{\bigwedge\nolimits^{\!#1}}}
+\makeatother
 
 \renewcommand{\labelitemii}{$\circ$} % itemize second level
 \renewcommand{\labelitemiii}{\tiny$\blacksquare$} % itemize third level

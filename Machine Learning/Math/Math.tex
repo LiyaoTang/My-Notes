@@ -59,34 +59,379 @@
 		\end{itemize}
 	\end{itemize}
 
-\item Vector Adding
+\item Linear Combination
 	\begin{itemize}
-	\item Generalization of Numerical Adding
+	\item Vector Adding: Generalization of Numerical Adding
 		\begin{itemize}
 		\item in 1-$D$: joint movement along single axis
 		\item in n-$D$: joint movement along each axis $\Rightarrow$ a joint movement in n-$D$ space
 		\end{itemize}
-	\item Linear Combination $\mathbf x = a\mathbf v + b\mathbf w$
+	\item Definition: $\mathbf x = a_1\mathbf x_1 + ... + a_n\mathbf x_n$
 		\begin{itemize}
-		\item the vectors $\mathbf v, \mathbf w$ only changed linearly \\
-			$\Rightarrow \mathbf x$ direction \& size are linear combination of that in $\mathbf v, \mathbf w$
+		\item the vectors $\mathbf x_1,..., \mathbf x_n$ only altered linearly (as only being scaled) \\
+			$\Rightarrow \mathbf x$ direction \& size are linear combination of that in $\mathbf x_1,..., \mathbf x_n$
+		\end{itemize}
+	\item Span of $\{\mathbf x_1, \mathbf x_2,...,\mathbf x_n\}$
+		\begin{itemize}
+		\item the $n$-D space $S$ constructed by linear combination of $\mathbf x_1, \mathbf x_2,...,\mathbf x_n$
+		\end{itemize}
+	\item $x_0$ linearly dependent on $\{x_1,.,,,x_n\}$ 
+		\begin{itemize}
+		\item $x_0$ can be constructed by linear combination of $\{x_1,.,,,x_n\}$ \\ 
+		(already in the span space $S$)
+		\item $\Leftrightarrow$ function $a_0\mathbf x_0 + ... + a_n\mathbf x_n=0$ has other solution than $a_0=...a_n=0$
+		\end{itemize}
+	\item $x_0$ linearly INdependent with $\{x_1,.,,,x_n\}$	
+		\begin{itemize}
+		\item $x_0$ can NOT be constructed by linear combination of $\{x_1,.,,,x_n\}$ \\ 
+		(not in the span space $S$, will increase the dimension of $S$ if adopted)
+		\item $\Leftrightarrow$ function $a_0\mathbf x_0 + ... + a_n\mathbf x_n=0$ has and only has solution $a_0=...a_n=0$
 		\end{itemize}
 	\end{itemize}
 
+\item Special Vectors
+	\begin{itemize}
+	\item $n$-D Zero Vector $\mathbf x$
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Unit Vector
+	\item Basis of Vector Space $S^{n}$
+		\begin{itemize}
+		\item general basis: a set of linearly independent vectors that span the space \\
+		(i.e. a set of linearly independent $n$-D vectors)
+		\item unit basis: a general basis where every vector is unit vector
+		\item orthogonal basis: a general basis where all vectors are orthogonal with each other
+		\item unit orthogonal basis: a basis that is also a unit basis and an orthogonal basis
+		\end{itemize}
+		$\Rightarrow$ coordinate: the scaler to composite a vector given a specific basis
+	\end{itemize}
 \end{itemize}
 
-\subsubsection{Coordinate}
+\subsubsection{Matrix}
 \begin{itemize}
-\item Foundation
+\item Linear Transformation
 	\begin{itemize}
-	\item Basis Vectors
+	\item Transformation
 		\begin{itemize}
-		\item define the direction \& size of a unit movement alone each axis
+		\item a function mapping: vector $\rightarrow$ vector
+		\item a vector movement: scale \& rotate all possible input vectors (i.e. a vector space)
+		\end{itemize}
+	\item Transformation with Linearity
+		\begin{itemize}
+		\item intuition: lines remain lines \& origin remains origin
+		\item definition: a transformation $L(\cdot)$ is linear if
+			\begin{enumerate}
+			\item additivity: $L(\mathbf x_1 + \mathbf x_2) = L(\mathbf x_1) + L(\mathbf x_2)$
+			\item scaling: $L(a\mathbf x) = aL(\mathbf x)$, where $a$ is scaler
+			\end{enumerate}
+		\end{itemize}
+	\item Features $\text{given } \mathbf x = x_1e_1 +...+ x_ne_n$
+		\begin{itemize}		
+		\item same scaler for coordinates
+		\abovedisplayshortskip=0pt~\vspace*{-0.5\baselineskip}
+		\begin{align*} \Rightarrow L(\mathbf x) &= L(x_1e_1 +...+x_ne_n) \\ &= L(x_1e_1)+...+L(x_ne_n) \\ &= x_1L(e_1)+...+x_nL(e_n) \end{align*}
+		$\Rightarrow$ transformed vector $\mathbf x'=L(\mathbf x)$ has the same coord under the transformed basis
 		\end{itemize}
 	\end{itemize}
-\item Orthonormal Coordinate
+
+\item Matrix for Linear Transformation $L : S\rightarrow S'$
 	\begin{itemize}
-	\item 
+	\item Representing Space Transformation
+		\begin{itemize}
+		\item package the transformed basis under the original basis using matrix $M$ \\
+		i.e. represent the $e'_1,...,e'_n = L(e_1),...,L(e_n)$ under the original basis $e_1,...,e_n$
+		$\Rightarrow M = [e'_1, ..., e'_n]$, with all transformed basis as column vectors \\
+		$\Rightarrow M$ represent the result of linear transformation for the basis of $S$
+		\item hence, determine a linear space transformation $L:S\rightarrow S'$ using $e_1,...,e_n$ \\
+		for $M_{m\times n}$ matrix: a linear transformation from $n$-D space to $m$-D space
+			\begin{enumerate}
+			\item $m<n$: projecting to subspace
+			\item $m>n$: expanding into a hyper-plane/-line/etc (constrained in hyper-space)
+			\end{enumerate}
+		 
+		\end{itemize}
+	\item Performing Space Transformation
+		\begin{itemize}
+		\item $\displaystyle \forall i\in \{1,...,n\}, x'_i = i^\text{th}$ component of $\mathbf x'=L(\mathbf x)$, then $x'_i = (e'_{1i}+...+e'_{n_i})x_i$ \\
+		(as proved above)
+		\item $\Rightarrow$ output vector $\mathbf x' = L(\mathbf x)=M\mathbf x$ under the original basis $e_1,...,e_n$ \\
+		hence the rule for matrix multiplication
+		\begin{figure}[ht]
+		\includegraphics[width=0.5\linewidth,center]{./Math/"matrix-performing space transformation".png}
+		\caption*{where green and red columns the $\{e_1',e_2'\}$ under $\{e_1,e_2\}$, $[x,y]$ the input vector $\mathbf x$}
+		\end{figure}
+		\end{itemize}
+	\end{itemize}
+
+\item Matrices for Composition of Linear Transformation
+	\begin{itemize}
+	\item Transformation $L_1, L_2$ as Matrix $M_1, M_2$
+		\begin{itemize}
+		\item as easy to prove $M_2\cdot (M_1 \cdot \mathbf x) = (M_1\cdot M_2) \cdot \mathbf x$ \\
+		$\Rightarrow L_2(L_1(\cdot))$ $\Leftrightarrow$ the composition of transformation defined by $M_2\cdot M_1$
+		\item $\Rightarrow \mathbf x$ first transformed by $L_1$ then $L_2 \Leftrightarrow$ transformed by $M_2\cdot M_1$ 
+		\end{itemize}
+	\item Linear Transformation on Space
+		\begin{itemize}
+		\item given a basis matrix $E = [e_1,...,e_n]$, a transformed basis $L_1(E) = L_1(e_1), ..., L_1(e_n)$ \\
+		($e_1,...,e_n$ as column vectors) \\
+		$\Rightarrow L_2(L_1(e_k))$ performs $L_2$ transformation on the $k^\text{th}$ vector of $L_1(E)$
+		\item hence to perform $L_2$ on the transformed space $L_1(E) \Rightarrow L_2(L_1(E))$
+		\item given that $L_1(E) = M_1 \Rightarrow L_2(L_1(E)) = M_2 \cdot M_1$ \\ 
+		(due to the derivation of linear transformation as matrix)
+		\item hence, $M_2\cdot M_1$ denotes 
+			\begin{enumerate}
+			\item a further $L_2$ transformation on a transformed space $L_1(E)$ \\
+			(all result represented under the original basis $E$)
+			\item the final transformed basis (first $L_1$ then $L_2$) under original basis $E$ \\
+			$\Rightarrow$ denotes a composite transformation of $L_2(L_1(\cdot))$
+			\end{enumerate}
+		
+		\end{itemize}
+	\item Multiplication between Matrices
+		\begin{itemize}
+		\item $\Rightarrow$ composite linear transformation\textbf{s} into single linear transformation
+		\item $\Rightarrow$ linear transformation on vector\textbf{s}/space (generalized from single vector)
+		\begin{figure}[ht]
+		\includegraphics[width=0.5\linewidth,center]{./Math/"matrix-composition of transformations".png}
+		\caption*{where $M_1=[L_1(e_1), L_1(e_2)], M_2=[L_2(e_1), L_2(e_2)]$, the result $=[L_2(L_1(e_1)), L_2(L_1(e_2))]$ \\ (all under basis $E=[e_1,e_2]$)}
+		\end{figure}
+		\end{itemize}
+	\end{itemize}
+	
+\item Understanding Properties
+	\begin{itemize}
+		\item $(AB)C = A(BC)$
+		\begin{itemize}
+			\item both meaning apply transformation $C$ then $B$ then $A$...
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Dot Product}
+\begin{itemize}
+\item Projecting to 1-D
+	\begin{itemize}
+	\item Unit Orthogonal Basis
+		\begin{itemize}
+		\item $\mathbf x\cdot \mathbf y = x_1y_1 +...+ x_ny_n = \mathbf x^T \cdot \mathbf y = \mathbf y^T\cdot \mathbf x$ \\
+		($\mathbf x,\mathbf y$ assumed to be column vector / matrix with single column)
+		\end{itemize}
+	\item General Basis $E=[e_1,...,e_n]$
+		\begin{itemize}
+		\item $\Rightarrow \mathbf x = x_1e_1+...+x_ne_n=E\mathbf x, \mathbf y = y_1e_1+...+y_ne_n = E \mathbf y$ \\
+		$\Rightarrow \mathbf x\cdot \mathbf y = (E\mathbf x) \cdot (E \mathbf y) = \mathbf x^TE^TE\mathbf y$
+		\item understanding: 
+			\begin{enumerate}
+			\item $\mathbf x = E\mathbf x$: transfer back to a representation under unit orthogonal basis
+			\item for $E=I$, back to the unit orthogonal case
+			\end{enumerate}
+		\end{itemize}
+	\end{itemize}
+$\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-D line using transformation $\mathbf y/\mathbf x$ \\ 
+(direction/scaling effect of projection can be alter by choice of basis $E$ though)
+\item Duality
+	\begin{itemize}
+	\item Dual Vector
+		\begin{itemize}
+		\item the vector represent a projection (linear transformation) to $1$-D line \\
+		(hence the vector equivalent to the matrix with 1 row defining the projection)
+		\item $\Rightarrow$ performing transformation on a vector $\Leftrightarrow$ taking product with the dual vector
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Determinant}
+\begin{itemize}
+\item Measuring Linear Transformation on Volume
+	\begin{itemize}
+	\item Unit Volume
+		\begin{itemize}
+		\item unit volume $v=\norm{e_1 \extp ...\extp e_n}$ with basis $e_1,...,e_n$ \\
+		(for orthogonal basis, $v=\norm{e_1}\times...\times\norm{e_n}$)
+		\item after transformation: $L(v) = \norm{L(e_1)\extp...\extp L(e_n)} = \norm{Me_1\extp...\extp Me_n}$
+		\end{itemize}
+		where $\extp$ is the exterior product
+	\item Measuring Change of Unit Volume
+		\begin{itemize}
+		\item $\Rightarrow \det(M) = \frac {L(v)}{v} = \norm{M_0\times...\times M_n}$, \\
+		assuming unit orthogonal basis $E=I$, where $I$ is identity matrix \\
+		(note: interpretation of $\det(\cdot) \leftrightarrow$ spacial interpretation of cross product $\times$)
+		\item hence, the rule of calculating $\det(\cdot)$ \\
+		\end{itemize}
+	\end{itemize}
+	
+\item Measuring Change of Orientation
+	\begin{itemize}
+	\item Orientation of Space
+		\begin{itemize}
+		\item jointly defined by the direction \& order of the sequence of basis vector \\
+		i.e. the positive/negative part of each axis in sequence
+		\end{itemize}
+	\item Measuring the Change
+		\begin{itemize}
+		\item $\det(M) < 0$ if axises flipped over once (for an odd times) \\
+		$\det(M) > 0$ if flipped for even times
+		\item interpretation: the flipped axis approaches $0$ then expanded into the negative \\
+		(measured by original basis $E$)
+		\end{itemize}
+	\end{itemize}
+	
+\item Linear Dependency
+	\begin{itemize}
+	\item $\det(M) = 0$
+		\begin{itemize}
+		\item volume in current space becomes 0 \\
+		$\Rightarrow$ dimensions decreases after transformation applied \\
+		$\Rightarrow$ i.e. transformed basis not able to span the current space
+		\item $\Rightarrow$ basis in $M$ NOT linearly INdependent! $\Leftrightarrow \det(M)=0$
+		\end{itemize}
+	\item $\det(M) \neq 0$
+		\begin{itemize}
+		\item volume still exist \\
+		$\Rightarrow$ dimensions remain \& transformed basis still span the space
+		\item $\Rightarrow$ basis in $M$ is linearly INdependent $\Leftrightarrow \det(M) \neq 0$
+		\end{itemize}
+	\end{itemize}
+
+\item Understanding Properties
+	\begin{itemize}
+	\item $\det(M_1M_2) = \det(M_1)\det(M_2)$:
+		\begin{itemize}
+		\item left: final volume \& orientation changed after transformation $M_2$ then $M_1$
+		\item right: the volume scaled by one transformation, then further by the other; \\ 
+		(similar for orientation, as measured by sign)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Cross Product}
+\begin{itemize}
+\item Determinant
+	\begin{itemize}
+	\item $\norm{\mathbf v \times \mathbf w} = \abs{\det([\mathbf v,\mathbf w])}$
+		\begin{itemize}
+		\item as determinant measuring the change of unit basis \\
+		$\Rightarrow$ constructing matrix with target vector $\mathbf v, \mathbf w$ as column
+		\item $\Rightarrow$ matrix $[\mathbf v,\mathbf w]$ as the transformation altering the space      
+		\end{itemize}
+	\item Direction of $\mathbf v\times\mathbf w$
+		\begin{itemize}
+		\item expanding in the perpendicular direction w.r.t the hyper-plane defined by $\mathbf v, \mathbf w$
+		(obeying the "right hand rule")
+		\end{itemize}
+	\end{itemize}
+\item Linear Transformation
+	\begin{itemize}
+	\item  
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Rank}
+\begin{itemize}
+\item Measuring Linear Transformation on Dimension
+	\begin{itemize}
+	\item Measuring the Transformed Space
+		\begin{itemize}
+		\item rank of $M=r$: basis in $M$ span a $r$-dimension (column) space \\
+		note: the column space of $M$: transformed space defined by column basis
+		\item full rank: the dimension of column space is as high as possible
+		\end{itemize}
+	\end{itemize}
+\item Null Space (Kernel) of $M$
+	\begin{itemize}
+	\item Vectors in Null Space
+		\begin{itemize}
+		\item $\forall \mathbf x, M\mathbf x = \mathbf 0$ \\
+		(i.e. all the vectors in null space transformed into $\mathbf 0$ by $M$, hence the name)
+		\item $\mathbf 0$ always in null space
+		\end{itemize}
+	\item Dimension of Null Space
+		\begin{itemize}
+		\item $D(\text{null space}) = \text{num of column in }M - \text{rank of }M$ \\
+		note: as focusing on column space $\Rightarrow$ num of cols $=$ dimension of input vectors
+		\end{itemize}
+	\end{itemize}
+	
+\item Understanding Properties
+	\begin{itemize}
+	\item $R(M_{m\times n}) \leq \min\{m, n\}$
+		\begin{itemize}
+		\item $m<n$: projecting a $n$-D vector to a $m$-D subspace, hence at most of rank $m$
+		\item $m>n$: $M$ consists of $n$ vectors of $m$ dimensions, define at most $n$-D space
+		\end{itemize}
+	\item $R(M_{m\times n}) = \min\{m, n\} \Leftrightarrow M$ Full Rank
+		\begin{itemize}
+		\item from definition, it is as high as possible
+		\item $m$ vectors with $n$ dimensions, span at most a $\min\{m, n\}$ space \\ 
+		either linearly dependent ($m<n$), or not enough independent vectors ($m>n$)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Inverse of Matrix}
+\begin{itemize}
+\item Inverse of Linear Transformation
+	\begin{itemize}
+	\item Interpretation
+		\begin{itemize}
+		\item a transformation $L^{-1}$ to inverse the effect of another transformation $L$ \\
+		$\Rightarrow \forall \mathbf x, L^{-1}L(\mathbf x) = \mathbf x$
+		\item $\Rightarrow M^{-1}M = I$, where $M$ for $L$, $M^{-1}$ for $L^{-1}$, $I$ the identity matrix
+		\end{itemize}
+	\item Requirement
+		\begin{itemize}
+		\item transformed basis in $M$ still span the space! \\
+		otherwise, transformed vectors projected onto subspace $\Rightarrow$ information lost!
+		\item hence, following equivalent requirements:
+			\begin{enumerate}
+			\item transformed basis in $M$ linearly INdependent
+			\item $M$ is square and full rank
+			\item $\det(M)\neq 0$
+			\end{enumerate}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Linear System of Equations}
+\begin{itemize}
+\item Linearity
+	\begin{itemize}
+	\item Linear Combination of Variables
+		\begin{itemize}
+		\item coefficients matrix $A$: holding the coefficient for each equation (in row)
+		\item variables vector $\mathbf x$: holding variables as column vector
+		\item constants vector $\mathbf v$: holding target constant for each equations as column vector
+		\end{itemize}
+		$\Rightarrow A\mathbf x = \mathbf v$ for a set of linear equations
+	\item Linear Transformation Perspective
+		\begin{itemize}
+		\item $\mathbf x$/$\mathbf v$ as original/transformed vectors
+		\item columns of $A$ (coefficients for the same variable) as transformed basis
+		\end{itemize}
+		$\Rightarrow$ finding a start position $\mathbf x$ which, after transformation $A$, lands on $\mathbf v$		
+	\end{itemize}
+
+\item Solutions
+	\begin{itemize}
+	\item Transformed Basis Linearly INdependent ($\det(A) \neq 0$)
+		\begin{itemize}
+		\item hence, $A\mathbf x=\mathbf v \Leftrightarrow \mathbf x = A^{-1}\mathbf v$ \\
+		(use the inverse transformation $A^{-1}$ to find the input $\mathbf x$ using output $\mathbf v$)
+		\end{itemize}
+		$\Rightarrow$ single unique $\mathbf x$ found
+	\item Transformed Basis Linearly Dependent ($\det(A) = 0$)
+		\begin{itemize}
+		\item information lost ($\mathbf x$ projected to subspace) $\Rightarrow$ 
+			\begin{enumerate}
+			\item multiple solutions: basis in $A$ linearly dependent with $\mathbf v$ \\
+			$\Rightarrow$ i.e. $\mathbf v$ in the column space of $A$ \\
+			(special case where $\mathbf v=\mathbf 0$: solution space $=$ null space of $A$)
+			\item no solution: basis in $A$ linearly INdependent with $\mathbf v$ \\
+			$\Rightarrow$ i.e. can NOT possibly be described by basis in $A$
+			\end{enumerate}
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
