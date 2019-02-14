@@ -256,6 +256,205 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{RNN with Attention}
 \subsubsection{Convolution with Self-attention - QAnet}
+
+\subsection{Referring Segmentation}
+\subsubsection{Problem Formulation}
 \begin{itemize}
-\item 
+\item Input
+	\begin{itemize}
+	\item Image 
+		\begin{itemize}
+		\item visual input for segmentation
+		\end{itemize}
+	\item Natural Language Expression
+		\begin{itemize}
+		\item expression to denote the interested object(s)/stuff(s)
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Segmentation Mask of Referred Object(s)
+		\begin{itemize}
+		\item currently (till early 2019), mostly binary segmentation
+		\end{itemize}
+	\end{itemize}
+\item Related Area
+	\begin{itemize}
+	\item NLP + CV
+		\begin{itemize}
+		\item referring localization
+		\item image caption
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+\subsubsection{Baseline Approach \& Previous Work}
+\begin{itemize}
+\item Segmentation from Natural Language Expressions
+	\begin{itemize}
+	\item Spatial Info
+		\begin{itemize}
+		\item FCN-32s to encode the image into $2$-D feature maps (the last conv layer)
+		\end{itemize}
+	\item Language Info
+		\begin{itemize}
+		\item LSTM to encode the sentence into $1$-D vector (the last hidden state)
+		\end{itemize}
+	\item Combining Info and Output
+		\begin{itemize}
+		\item per-pixel info: concat [coordinates of current pixel (coord info), language info]
+		\item tile the per-pixel info into a feature map, then concat to the spatial info \\
+		(per-pixel info concatenated at every pixel of spatial info)
+		\item followed by a series of conv and finally a deconv for upsampling
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item per-pixel cross-entropy loss
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item special spatial info: coord of each pixel
+		\item standard info combination: concatenation
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item no powerful spatial info encoder: FCN-32s instead of Resnet/Unet...
+		\item weak upsampler, compared to encoder-decoder architecture
+		\item language info comes late: after downsampling
+		\item weak language info: only integrated once
+		\end{itemize}
+	\end{itemize}
+
+\item Recurrent Multimodal Interaction for Referring Image Segmentation
+	\begin{itemize}
+	\item Spatial Info
+		\begin{itemize}
+		\item DeepLab-101 as encoder (Resnet as backbone, with atrous conv)
+		\item then tiled (concat at every pixel) by coord info (coordinate of current pixel)
+		\end{itemize}
+	\item Language Info
+		\begin{itemize}
+		\item word embedding $w_t$ for $t=1,...,T$
+		\item LSTM scanning the sentence, with hidden state $h_t$ at time $t$
+		\item language info $l_t=$ concat [$h_t$, $w_t$]
+		\end{itemize}
+	\item Combining Info
+		\begin{itemize}
+		\item $l_t$ tiled to spatial info, at each time step \\
+		$\Rightarrow$ creating combined feature maps $F_t$ (of shape $[\text{height}, \text{wide}, \text{channel}])$
+		\item combined feature maps $F_1,...,F_T$ fed to an convolutional LSTM, \\
+		where the ConvLSTM shares weight over both space and time \\
+		$\Rightarrow$ feature vector of $F_t[i,j]$ is the input of the ConvLSTM at time $t$ \\
+		$\Rightarrow$ conv in ConvLSTM implemented as $1\times1$ conv
+		\item a series of conv following the last hidden state of the ConvLSTM
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item bilinear interpolated to original input size
+		\item optionally post-processed by dense CRF, using pydensecrf (hence inference only)
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item more powerful spatial info extractor: DeepLab-101
+		\item better language info: integrated at every time step, maintained by an ConvLSTM
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item weak architecture for spatial info: still no upsampling (blur segmentation)
+		\item no spatial relation considered in ConvLSTM (?)
+		\item weak language representation \\ 
+		(better with pos tag, word2vec, word dict, biLSTM, and maybe even attention)
+		\item language info still comes late: still after downsampling
+		\end{itemize}
+	\end{itemize}
+
+\subsubsection{Current State-of-The-Art (early 2019)}
+\item Key-Word-Aware Network for Referring Expression Image Segmentation
+	\begin{itemize}
+	\item Spatial Info
+		\begin{itemize}
+		\item DeepLab-101 as encoder for comparability
+		\item then tiled by coord info (coordinate of each pixel)
+		\end{itemize}
+	\item Language Info
+		\begin{itemize}
+		\item LSTM scanning sentence, each hidden state as word info
+		\end{itemize}
+	\item Combining Info
+		\begin{itemize}
+		\item attention mask from combined info (spatial info with language info tiled) \\
+		(at each time step)
+		\item attention weighting over spatial info at each time step \\
+		$\Rightarrow$ an $1$-D global encoding for each time step (via weighted mean over space) \\
+		$\Rightarrow$ filling feature maps: global encoding if attention here $>$ threshold; else $\mathbf 0$ \\
+		$\Rightarrow$ summing filled feature maps over time for the global spatial maps $c$
+		\item attention weighting over tiled language info at each time step, correspondingly \\
+		$\Rightarrow$ tiled language info maps summed over time for the global language maps $q$
+		\item concat [spatial info, $c$, $q$], followed by $1\times1$ conv
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item upsampling performed
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item attention introduced: from combined info
+		\item better combination: attention masked interact with both spatial \& language info
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item blur segmentation: no encoder-decoder architecture
+		\item attention mask obtained sequentially: only last mask has complete language info
+		\item language info comes late: after downsampling
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+\subsubsection{Research Direction}
+\begin{itemize}
+\item Integrating Encoder-Decoder Architecture
+	\begin{itemize}
+	\item Upsampling
+	\end{itemize}
+\item Early Info Combination
+	\begin{itemize}
+	\item Tiling at First Conv
+		\begin{itemize}
+		\item downsampling more responsible for language info processing \\
+		$\Rightarrow$ hopefully get more fine-tuning + more non-linearity for language info
+		\item can used with pre-trained net: \\ 
+		$ReLU(conv_1*X_1 + conv_2*X_2) = ReLU( [conv_1,conv_2]*[X_1,X_2] )$
+		\end{itemize}
+	\item Multiple Entry
+		\begin{itemize}
+		\item at different stages of downsampling / upsampling
+		\end{itemize}
+	\end{itemize}
+\item Attention
+	\begin{itemize}
+	\item Attention from Combined Info
+		\begin{itemize}
+		\item as key-word-aware net
+		\end{itemize}
+	\item Attention on Language Info
+		\begin{itemize}
+		\item $1$-D spatial pyramid pooling / attention mask on the sentence encoding
+		\end{itemize}
+	\end{itemize}
+\item Language Info Throughout Network
+	\begin{itemize}
+	\item Encoder-Decoder for Language Info
+		\begin{itemize}
+		\item network asked to recover language info after processing combined info \\ 
+		(potentially via a separate branch only at training time) \\ 
+		$\Rightarrow$ auxiliary loss
+		\end{itemize}
+	\item Language as Conv Filter
+		\begin{itemize}
+		\item Language Info, through a subnet, becoming a set of conv filters \\
+		$\Rightarrow$ then imposed in downsampling, tunnel, upsampling or bridge stage(s)
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
