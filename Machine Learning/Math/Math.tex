@@ -79,13 +79,13 @@
 		\begin{itemize}
 		\item $x_0$ can be constructed by linear combination of $\{x_1,.,,,x_n\}$ \\ 
 		(already in the span space $S$)
-		\item $\Leftrightarrow$ function $a_0\mathbf x_0 + ... + a_n\mathbf x_n=0$ has other solution than $a_0=...a_n=0$
+		\item $\Leftrightarrow$ function $a_0\mathbf x_0 + ... + a_n\mathbf x_n=0$ has other solution than $a_0=...=a_n=0$
 		\end{itemize}
 	\item $x_0$ linearly INdependent with $\{x_1,.,,,x_n\}$	
 		\begin{itemize}
 		\item $x_0$ can NOT be constructed by linear combination of $\{x_1,.,,,x_n\}$ \\ 
 		(not in the span space $S$, will increase the dimension of $S$ if adopted)
-		\item $\Leftrightarrow$ function $a_0\mathbf x_0 + ... + a_n\mathbf x_n=0$ has and only has solution $a_0=...a_n=0$
+		\item $\Leftrightarrow$ function $a_0\mathbf x_0 + ... + a_n\mathbf x_n=0$ has and only has solution $a_0=...=a_n=0$
 		\end{itemize}
 	\end{itemize}
 
@@ -108,7 +108,7 @@
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Matrix}
+\subsubsection{Linear Transformation and Maps}
 \begin{itemize}
 \item Linear Transformation
 	\begin{itemize}
@@ -117,7 +117,7 @@
 		\item a function mapping: vector $\rightarrow$ vector
 		\item a vector movement: scale \& rotate all possible input vectors (i.e. a vector space)
 		\end{itemize}
-	\item Transformation with Linearity
+	\item Transformation with Linearity $L(\cdot)$
 		\begin{itemize}
 		\item intuition: lines remain lines \& origin remains origin
 		\item definition: a transformation $L(\cdot)$ is linear if
@@ -126,15 +126,56 @@
 			\item scaling: $L(a\mathbf x) = aL(\mathbf x)$, where $a$ is scaler
 			\end{enumerate}
 		\end{itemize}
-	\item Features $\text{given } \mathbf x = x_1e_1 +...+ x_ne_n$
-		\begin{itemize}		
+	\item Features of $L(\cdot)$ given $\mathbf x = x_1e_1 +...+ x_ne_n$
+		\begin{itemize}
 		\item same scaler for coordinates
-		\abovedisplayshortskip=0pt~\vspace*{-0.5\baselineskip}
 		\begin{align*} \Rightarrow L(\mathbf x) &= L(x_1e_1 +...+x_ne_n) \\ &= L(x_1e_1)+...+L(x_ne_n) \\ &= x_1L(e_1)+...+x_nL(e_n) \end{align*}
 		$\Rightarrow$ transformed vector $\mathbf x'=L(\mathbf x)$ has the same coord under the transformed basis
 		\end{itemize}
 	\end{itemize}
 
+\item Linear Map
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item map $F:V\rightarrow X$ is a linear map if it is a linear transformation, \\
+		where $V,X$ are vector spaces
+		\end{itemize}
+	\end{itemize}
+
+\item Multilinear Maps
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item map $F:\underbrace{V\times...\times V}_{k \text{ copies}} \rightarrow X$ is multilinear/$k$-linear if it is linear in each slot \\
+		i.e. $F(\mathbf v_1, ..., a\mathbf v_i+b\mathbf v_i',...,\mathbf v_k) = aF(\mathbf v_1, ..., \mathbf v_i,...,\mathbf v_k) + bF(\mathbf v_1, ..., b\mathbf v_i',...,\mathbf v_k)$ \\ 
+		i.e. for fixed $\mathbf v_1,...,\mathbf v_{i-1},\mathbf v_{i+1},...,\mathbf v_{k}, F$ reduced to linear map with $\mathbf v_i$ as variable \\ 
+		(where $V, X$ are vector spaces)
+		\end{itemize}
+	\item Alternating Maps
+		\begin{itemize}
+		\item map $F$ is alternating if, its output is $\mathbf 0$ whenever two vectors in inputs are identical
+		\end{itemize}
+	\item for Multilinear Map $F$: $F$ Alternating $\Leftrightarrow F(...,\mathbf v,...,\mathbf w, ...)=-F(...,\mathbf w,...,\mathbf v, ...)$ \\
+	i.e. for multilinear map $F$, $F$ alternating $\Leftrightarrow$ swapping two inputs flips sign of output
+		\begin{itemize}
+		\item proof: given multilinear and alternating map $F$, for any $\mathbf v, \mathbf w$
+		\begin{align*}
+		0 &= F(..., (\mathbf v+\mathbf w), ..., (\mathbf v+\mathbf w), ...) \\
+		&= F(...,\mathbf v, ..., \mathbf v, ...) + F(...,\mathbf w, ..., \mathbf w, ...) + F(...,\mathbf v, ..., \mathbf w, ...) + F(...,\mathbf w, ..., \mathbf v, ...) \\
+		&= F(...,\mathbf v, ..., \mathbf w, ...) + F(...,\mathbf w, ..., \mathbf v, ...)
+		\end{align*}
+		$\Rightarrow F(...,\mathbf v, ..., \mathbf w, ...) = -F(...,\mathbf w, ..., \mathbf v, ...)$
+		\item proof: given multilinear map $F: F(...,\mathbf v, ..., \mathbf w, ...) = -F(...,\mathbf w, ..., \mathbf v, ...)$ \\
+		$\Rightarrow F(...,\mathbf v, ..., \mathbf v, ...) = -F(...,\mathbf v, ..., \mathbf v, ...)$ \\
+		$\Rightarrow F(...,\mathbf v, ..., \mathbf v, ...) = 0$, hence alternating
+				
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Matrix}
+\begin{itemize}
 \item Matrix for Linear Transformation $L : S\rightarrow S'$
 	\begin{itemize}
 	\item Representing Space Transformation
@@ -194,7 +235,7 @@
 		\item $\Rightarrow$ composite linear transformation\textbf{s} into single linear transformation
 		\item $\Rightarrow$ linear transformation on vector\textbf{s}/space (generalized from single vector)
 		\begin{figure}[ht]
-		\includegraphics[width=0.5\linewidth,center]{./Math/"matrix-composition of transformations".png}
+		\includegraphics[width=0.5\linewidth,center]{"./Math/matrix-composition of transformations".png}
 		\caption*{where $M_1=[L_1(e_1), L_1(e_2)], M_2=[L_2(e_1), L_2(e_2)]$, the result $=[L_2(L_1(e_1)), L_2(L_1(e_2))]$ \\ (all under basis $E=[e_1,e_2]$)}
 		\end{figure}
 		\end{itemize}
@@ -242,8 +283,36 @@ $\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-
 	\end{itemize}
 \end{itemize}
 
+\subsubsection{Exterior (Wedge) Product}
+\begin{itemize}
+\item Introduction
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item $k$th exterior product $\wedge^kV$ is a vector space, with a map $\psi:\underbrace{V\times...\times V}_{k \text{ times}} \rightarrow \wedge^kV$ \\
+		note: map $\psi$ called exterior multiplication, element $\psi(\mathbf v_1\wedge...\wedge\mathbf v_k)$ called $k$-blade
+		\end{itemize}
+	\item Key Properties for Pair $(\wedge^kV,\psi)$
+		\begin{itemize}
+		\item $\psi$ is alternating multilinear map
+		\item for basis $\{e_1,...,e_n\}$ of $V\in\mathbb R^n$ $\Rightarrow \{e_{i_1}\wedge ...\wedge e_{i_k}|1\leq i_1 \leq i_k \leq n\}$ a basis for $\wedge^kV$ \\
+		(due to its alternating multilinearity) \\
+		$\Rightarrow e_{i_1}\wedge ...\wedge e_{i_k}$ can form any permutation of the same input by swapping order \\
+		e.g. for $\wedge^2V: e_1\wedge e_1 = e_2\wedge e_2=\mathbf 0,\space e_1\wedge e_2=-e_2\wedge e_1 \Rightarrow$ not linearly independent
+		\item dim $\wedge^kV=\left(\begin{smallmatrix} n \\ k \end{smallmatrix}\right) = C^k_n$ (due to the form of its basis), \\
+				where $n=$ dim $V$
+		\item sum of $k$-wedge is still in the vector space $\wedge^k V$
+		\item any alternating multilinear map $F:\underbrace{V\times...\times V}_k\rightarrow X$ factors uniquely into: \\ 
+		$\underbrace{V\times...\times V}_k\xrightarrow{\psi} \wedge^k V \xrightarrow{\text{ }\underline F\text{ }} X$, where $\psi$
+		exterior multiplication, $\underline F$ a linear map
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
 \subsubsection{Determinant}
 \begin{itemize}
+\item Signed Volume
+\item 
 \item Measuring Linear Transformation on Volume
 	\begin{itemize}
 	\item Unit Volume
@@ -561,22 +630,21 @@ $\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-
 	\item Derivation
 		\begin{itemize}
 		\item take infinitely small square in $D':$
-		\abovedisplayshortskip=0pt~\vspace*{-0.5\baselineskip}
-		\begin{align*} &M_4'(u,v+\delta v),&&M_3'(u+\delta u, v+\delta v),\\&M_1'(u, v),&&M_2'(u+\delta u, v) \end{align*}
+		\begin{align*} &M_4'(u,v+\delta v),&&M_3'(u+\delta u, v+\delta v),\\&M_1'(u, v),&&M_2'(u+\delta u, v) \end{align*} \\
 		$\Rightarrow$ after transformation to $D:$ 
-		\abovedisplayshortskip=0pt~\vspace*{-0.5\baselineskip}
-		\begin{align*} &M_4(x(u,v+\delta v),y(u,v+\delta v)),&&M_3(x(u+\delta u, v+\delta v),y(u+\delta u, v+\delta v)),\\&M_1(x(u, v),y(u, v)),&&M_2(x(u+\delta u, v),y(u+\delta u, v)) \end{align*}
-		\abovedisplayshortskip=0pt~\vspace*{-1.5\baselineskip}
-		\begin{align*} \Rightarrow &x_2 - x_1 = x(u+\delta u, v) - x(u,v) = \frac {\partial x}{\partial u}\rvert_{(u,v)} \delta u \\
+		\begin{align*} 
+		&M_4(x(u,v+\delta v),y(u,v+\delta v)),&&M_3(x(u+\delta u, v+\delta v),y(u+\delta u, v+\delta v)),\\&M_1(x(u, v),y(u, v)),&&M_2(x(u+\delta u, v),y(u+\delta u, v)) 
+		\end{align*}
+		\begin{align*} 
+		\Rightarrow &x_2 - x_1 = x(u+\delta u, v) - x(u,v) = \frac {\partial x}{\partial u}\rvert_{(u,v)} \delta u \\
 		&x_4 - x_1 = x(u, v+\delta v) - x(u,v) = \frac {\partial x}{\partial v}\rvert_{(u,v)} \delta v \\
 		&y_2 - y_1 = y(u+\delta u, v) - y(u,v) = \frac {\partial y}{\partial u}\rvert_{(u,v)} \delta u \\
 		&y_4 - y_1 = y(u, v+\delta v) - y(u,v) = \frac {\partial y}{\partial v}\rvert_{(u,v)} \delta v
+		\end{align*} \\
+		as $\delta u, \delta v \rightarrow 0$, curvilinear boundary quadrilateral $M_1M_2M_3M_4 \rightarrow$ parallelogram % ({\kaishu 曲边四边形}) ({\kaishu 平行四边形})
+		\begin{align*}
+		\Rightarrow S_{M_1M_2M_3M_4} &= \abs{\overrightarrow{M_1M_2} \times \overrightarrow{M_1M_4}} = \abs{\begin{vmatrix} x_2-x_1 & y_2-y_1 \\ x_4-x_1 & y_4-y_1 \end{vmatrix}} \\&= \abs{ \begin{vmatrix} \frac {\partial x}{\partial u} \delta u & \frac {\partial y}{\partial u} \delta u \\ \frac {\partial x}{\partial v} \delta v & \frac {\partial y}{\partial v} \delta v \end{vmatrix} } = \abs{\begin{vmatrix} \frac {\partial x}{\partial u} & \frac {\partial y}{\partial u} \\ \frac {\partial x}{\partial v} & \frac {\partial y}{\partial v} \end{vmatrix}} \delta u\delta v \\ &= \abs{J(u,v)}\delta u\delta v 
 		\end{align*}
-		as $\delta u, \delta v \rightarrow 0$, 
-		curvilinear boundary quadrilateral $M_1M_2M_3M_4 \rightarrow$ parallelogram % ({\kaishu 曲边四边形}) ({\kaishu 平行四边形})
-		\abovedisplayshortskip=0pt~\vspace*{-0.5\baselineskip}
-		\begin{align*}\Rightarrow S_{M_1M_2M_3M_4} &= \abs{\overrightarrow{M_1M_2} \times \overrightarrow{M_1M_4}} = \abs{\begin{vmatrix} x_2-x_1 & y_2-y_1 \\ x_4-x_1 & y_4-y_1 \end{vmatrix}} \\&= \abs{ \begin{vmatrix} \frac {\partial x}{\partial u} \delta u & \frac {\partial y}{\partial u} \delta u \\ \frac {\partial x}{\partial v} \delta v & \frac {\partial y}{\partial v} \delta v \end{vmatrix} } = \abs{\begin{vmatrix} \frac {\partial x}{\partial u} & \frac {\partial y}{\partial u} \\ \frac {\partial x}{\partial v} & \frac {\partial y}{\partial v} \end{vmatrix}} \delta u\delta v \\ &= \abs{J(u,v)}\delta u\delta v \end{align*}
-		
 		\Item \begin{align*} &\Rightarrow \text{ infinitely small area } \delta \sigma = dxdy = \abs{J(u,v)}\delta u\delta v \\ &\Rightarrow \int\int_D f(x,y) dxdy = \int\int_{D'} f(x(u,v), y(u,v)) |J(u,v)| dudv \end{align*}
 		
 		\end{itemize}

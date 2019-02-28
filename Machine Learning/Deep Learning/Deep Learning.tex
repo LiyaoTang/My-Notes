@@ -112,7 +112,58 @@
 	\end{itemize}
 \end{itemize}
 
-\subsection{Research Advices}
+\subsection{Ian}
+\subsubsection{Generative Adversarial Networks}
+\begin{itemize}
+\item Generative Models
+	\begin{itemize}
+	\item Resembling
+		\begin{itemize}
+		\item trained to optimized the distribution behind training data \\ 
+		(then sampled from that distribution to get more imaginary training data)
+		\item $\Rightarrow$ produce data to resemble the training data
+		\end{itemize}
+	\item Usage
+		\begin{itemize}
+		\item semi-supervised learning
+		\item data augmentation
+		\item simulating scientific experiment
+		\end{itemize}
+	\item Previous Ways
+		\begin{itemize}
+		\item Boltzmann Machine
+		\item Sparse Coding
+		\end{itemize}
+	\item Now: Generative Adversarial Networks (GANs)
+	\item Future
+		\begin{itemize}
+		\item increase reliability of GANs (stabilizing)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Research}
+\subsubsection{Topics}
+\begin{itemize}
+\item Unsupervised Learning
+\item Reinforcement Learning
+\item AI Security
+	\begin{itemize}
+	\item Anti Inducing
+		\begin{itemize}
+		\item NOT to be fooled/induced to do unappropriated things \\
+		(even if algorithm is right)
+		\end{itemize}
+	\item Built-in Security
+	\end{itemize}
+\item Fairness in AI
+	\begin{itemize}
+	\item Dealing Societal Issue
+	\item Reflecting Preferred Bias
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Advises}
 \begin{itemize}
 	\item Reading
 	\begin{itemize}
@@ -133,20 +184,21 @@
 		\begin{itemize}
 		\item open-source learning resource
 		\item implement the paper
+		\item work on a projected and open source it \\
+		$\Rightarrow$ the stage (e.g. github) will bring people to you
 		\end{itemize}
 \end{itemize}
 
-
 \section{Basic Neutral Network}
 
-\subsection{Goal and Advantages}
-\subsubsection{Data Mining and Pattern Recognition}
+\subsection{Advantages}
+\subsubsection{Large/Big Data}
 \begin{itemize}
 \item Larger Maximum Capability
 	\begin{itemize}
 	\item Curve given Amount of Data
 	\begin{figure}[ht]
-	\includegraphics[width=\linewidth]{./Deep Learning/background-largedata.png}
+	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/background-largedata".png}
 	\end{figure}
 	\item Reasons
 		\begin{itemize}
@@ -157,9 +209,18 @@
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Ability to Choose}
+\subsubsection{Flexibility}
 \begin{itemize}
-\item Choosing Basis Functions
+\item Different Structures for Different Tasks
+	\begin{itemize}
+	\item Same Data \& Task
+		\begin{itemize}
+		\item changing settings/structures of deep learning model can make a difference \\
+		(v.s. SVM, etc.)
+		\end{itemize}
+	\end{itemize}
+
+\item Ability to Choose Basis Functions
 	\begin{itemize}
 	\item Functional View
 		\begin{itemize}
@@ -168,6 +229,29 @@
 	\item Learning $\phi$: choose embedding $\Rightarrow$ choose basis function
 	\item Learning $\mathbf w$: choose which feature / basis functions more useful
 	\end{itemize}
+\end{itemize}
+
+\subsubsection{Power of Depth}
+\begin{itemize}
+\item Deep Representation
+	\begin{itemize}
+	\item Low-level $\rightarrow$ High-level
+		\begin{itemize}	
+		\item multiple layers to choose \& combine useful information (creating new feature/basis) \\
+		$\Rightarrow$ next layer use chosen/combined simple basis to build more complex one
+		\item $\Rightarrow$ an hierarchy from low-level information to high-level information
+		\end{itemize}
+	\end{itemize}
+
+\item Circuit Theory
+	\begin{itemize}
+	\item Power of Combination
+		\begin{itemize}
+		\item functions that can be compactly represented by a depth $k$ architecture might require an exponential number of computational nodes using a depth $k-1$ architecture \\
+		(from the perspective of factorization)
+		\end{itemize}
+	\end{itemize}
+\textbf{Yet, start from the SHALLOW (logistic regression) before trying the deep}
 \end{itemize}
 
 \subsection{Problem}
@@ -201,11 +285,10 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{Gradient Vanishing}
 \begin{itemize}
-\item Ability of Depth (however)
+\item Saturated Function
 	\begin{itemize}
-	\item functions that can be compactly represented by a depth $k$ architecture might require an exponential number of computational nodes using a depth $k-1$ architecture
-	\end{itemize}
-	
+	\item sigmoid/tanh function: gradient $\rightarrow 0$ when input $\rightarrow \pm \infty$
+	\end{itemize}	
 \item Possible Solutions
 	\begin{itemize}
 	\item Xavier initialization, ReLU activation, ...
@@ -219,19 +302,27 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Layers
 		\begin{itemize}
-		\item input layer, hidden layer(s) (each has a bias term $x_0=1$)
+		\item input layer
+		\item hidden layer(s): layer with NO ground truth (for the associated weights) available \\
+		note: input \& hidden layers have associated biases as well (usually)
 		\item output layer
 		\end{itemize}
 	\item Neuron (Unit)
 		\begin{itemize}
 		\item $s_l$: num of units in layer $l$
-		\item $w^l$: weight matrix of mapping from layer $l$ to $l+1$, with shape of $s_{l+1}, (s_l + 1)$
+		\item $w^l$: weight matrix of mapping from layer $l$ to $l+1$, with shape of $\left( s_{l+1}, s_l + 1 \right)$
 		\item $a_j^l$: activation of unit $j$ at layer $l$
 		\item $h(\cdot)$: activation function (usually shared)
 		\item $z_j^l$: output of unit $j$ at layer $l$ (represent parameterized basis)
 		\end{itemize}
+	\item Intuition
+		\begin{itemize}
+		\item all stacked vertically (vertical vector) \\
+		$\Rightarrow$ horizontally for different examples; vertically for different units
+		\end{itemize}
 	\end{itemize}
-\item Forward Propagation
+	
+\item Forward Propagation (Inference)
 	\begin{itemize}
 	\item Activation $a^{j+1} = w^j \cdot [z_0^j, ..., z_{s_j}^j]^T, \text{ with } z_0=1$
 	\item Unit Output $z^{j+1} = h(a^{j+1}) = [z_1^{1}, ..., z^{j+1}_{s_{j+1}}]^T$
@@ -239,13 +330,249 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \item Backward Propagation
 	\begin{itemize}
-	\item
+	\item Loss $\mathcal L(W) = $
 	\end{itemize}
 
+\item Practice of Back Prop
+	\begin{itemize}
+	\item Caching Intermediate Result
+		\begin{itemize}
+		\item naturally cached: input $a^0=x$, weights $w$ and bias $b$
+		\item activation input/output $a/z$ \\
+		(since will be used in back-prop)
+		\end{itemize}
+	\item Auto Difference
+		\begin{itemize}
+		\item achievement: calculate the derivatives along the forward prop \textbf{!}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\section{Empirical Experiment Practice}
+\subsection{Designing Networks}
+\subsection{Hyperparameters}
+\subsubsection{}
+
+
+\section{Operations \& Layers Structure}
+\subsection{Operations in Network}
+\subsubsection{Activations}
+\begin{itemize}
+\item Sigmoid $a=\sigma(z)$
+	\begin{itemize}
+	\item Pros
+		\begin{itemize}
+		\item mapping to $(0,1)$, with $\sigma(0)=0.5$
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item gradient vanishing: $\displaystyle \sigma(z)' = \sigma(z)(1-\sigma(z)) \Rightarrow \lim_{z\rightarrow \pm \infty} \sigma(z)' \rightarrow 0$ \\
+		(as the gradient passed through (via chain rule) $=\frac{a}{z} \frac{z}{w}$)
+		\end{itemize}
+	\end{itemize}
+\item Tangent $a=\tanh(z)$
+	\begin{itemize}
+	\item Pros
+		\begin{itemize}
+		\item empirically, almost always better than sigmoid (in hidden layers)
+		\item maps to $(-1,1)$, with $\tan(0)=0 \Rightarrow$ help centering data ($0$-mean) \\ $\Rightarrow$ make the learning of next layer easier
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item still, gradient vanishing when $z\rightarrow \pm \infty$
+		\end{itemize}
+	\end{itemize}
+\item Rectified Linear Unit ReLu $\max(0, z)$
+	\begin{itemize}
+	\item Derivation: approximated by a stack of sigmoid
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item mitigate gradient vanishing: $\forall z>0, a=z \Rightarrow$ learn much faster
+		\end{itemize}
+		$\Rightarrow$ the default choice!
+	\item Cons
+		\begin{itemize}
+		\item undefined behavior at $x=0$ (actually, gradient becomes the sub-gradient)
+		\item gradient totally vanished for $x<0$
+		\item $\Rightarrow$ dead units: weights learned/initialized to always output negatives \\ 
+		$\Rightarrow$ activation always output $0$ \\
+		$\Rightarrow$ the unit always output $0$
+		\end{itemize}		
+	\end{itemize}
+\item Leaky Relu $a=\max(\alpha z, z), \alpha \rightarrow 0^+$ (e.g. $\alpha=0.01$)
+	\begin{itemize}
+	\item Pros
+		\begin{itemize}
+		\item mitigate the gradient vanishing problem for $(-\infty, +\infty)$
+		\item avoid dead units problem
+		\end{itemize}
+		(yet not that popular as ReLU)
+	\end{itemize}
+
+\item Linear (Identity) Activation $a=z$
+	\begin{itemize}
+	\item Pros
+		\begin{itemize}
+		\item used in regression to output real number $\in (-\infty, +\infty)$
+		\item used in compression net
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item stacked units with linear activation $\Leftrightarrow$ single linear transformation
+		\item logistic regression with linear activation in hidden layer is NO more expressive than logistic regression with no hidden layer \textbf{!}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Operations on Network}
+\subsubsection{Initialization}
+\begin{itemize}
+\item Random Initialization for Weights
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item weights initialized to a random variable in a small range e.g. $(-0.03, 0.03)$
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item avoid symmetry problem: \\
+		if identical initialization for weights $\Rightarrow$ units in same layer computing exactly same function \\
+		$\Rightarrow$ get the same learning step propagated back \\
+		$\Rightarrow$ then always compute exactly the same function (by induction)
+		\item avoid gradient vanishing: especially for gradient of sigmoid/tanh activation
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item NOT concern various nets: sampling in a fixed range may not work for all nets
+		\end{itemize}
+	\end{itemize}
+\item Xavier Initialization for Weights
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item empirically much better: 
+		\end{itemize}
+	\end{itemize}
+\item Zero Initialization for Bias
+	\begin{itemize}
+	\item Reason
+		\begin{itemize}
+		\item default to use $0$ bias \\
+		(can NOT used for weights as explained)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Layers}
+\subsubsection{Convolution Layer}
+\begin{itemize}
+\item Normal Convolution
+\item Atrous Convolution
+\item Deconvolution
+\end{itemize}
+
+\subsubsection{Pooling Layer}
+\begin{itemize}
+\item Normal Pooling
+\item Unpooling
+\item Spatial Pyramid Pooling (SPP)
+\item Region of Interest Pooling (RoI Pooling)
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item feature maps from CNN
+		\item RoIs i.e. proposal region (from selective search etc.) projected on feature map
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item divide each RoI with grid of desired size (proportional to the RoI size)
+		\item max pooling from each cell
+		\end{itemize}
+		$\Rightarrow$ single-size SPP for each RoI
+	\item Output
+		\begin{itemize}
+		\item a fixed size feature maps for each RoI
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 
-\subsubsection{}
+\section{Architectures}
+\subsection{Encoder-Decoder Architecture}
+\subsubsection{Description}
+\begin{itemize}
+\item Encoder
+	\begin{itemize}
+	\item Functionality
+		\begin{itemize}
+		\item downsample/encode input into rich feature maps/vectors
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item visual input: CNN backbone
+		\item natural expression input: RNN backbone
+		\end{itemize}
+	\end{itemize}
+\item Decoder
+	\begin{itemize}
+	\item Functionality
+		\begin{itemize}
+		\item upsample/decode rich feature maps back to the original size
+		\item actually, impose requirement onto the encoder
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item visual output: CNN backbone
+		\item natural expression output: RNN backbone
+		\end{itemize}
+	\end{itemize}
+\item Connection
+	\begin{itemize}
+	\item Functionality
+		\begin{itemize}
+		\item combine high level information with low level information
+		\item image $\rightarrow$ image: outline refinement ...
+		\item language $\rightarrow$ language: sentence style capturing
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item concatenation
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Extension}
+\begin{itemize}
+\item Multiple Encoder
+	\begin{itemize}
+	\item Functionality
+		\begin{itemize}
+		\item project different information into the same space
+		\item combine those information via some shared layers at the end
+		\end{itemize}
+	\end{itemize}
+\item Multiple Decoder
+	\begin{itemize}
+	\item Functionality
+		\begin{itemize}
+		\item impose multiple requirements to the encoder (via auxiliary loss)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
 
 \section{Advanced Topic}
 \subsection{Machine Reading Comprehension}
@@ -256,6 +583,54 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{RNN with Attention}
 \subsubsection{Convolution with Self-attention - QAnet}
+
+\subsection{Image Caption}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input
+	\begin{itemize}
+	\item Image 
+		\begin{itemize}
+		\item visual input as the target of description
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Natural Expression
+		\begin{itemize}
+		\item description of the image in natural language, e.g. English
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Baseline Approach \& Previous Work}
+\begin{itemize}
+\item Neural Image Caption
+	\begin{itemize}
+	\item Visual Information
+		\begin{itemize}
+		\item encoded by CNN backbone into a $1$-D vector
+		\end{itemize}
+	\item Word Information
+		\begin{itemize}
+		\item a set of word selected beforehand
+		\item word embedding performed
+		\end{itemize}
+	\item Language Generation
+		\begin{itemize}
+		\item generated by an LSTM decoder
+		\item combining info: visual encoding as initial state of LSTM
+		\item process: LSTM gives each word a to-be-selected probability at each time step
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item sampling: sample each word according to the distribution given by LSTM
+		\item beam search: iteratively consider extending $k$ best sentence of length $t$ to $t+1$ \\
+		$\Rightarrow$ select $k$ best sentence of length $t+1$ from all resulted sentences
+		\end{itemize}
+		(beam search selected in the paper)
+	\end{itemize}
+\end{itemize}
+
 
 \subsection{Referring Segmentation}
 \subsubsection{Problem Formulation}
@@ -409,6 +784,45 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item language info comes late: after downsampling
 		\end{itemize}
 	\end{itemize}
+\item Referring Image Segmentation via Recurrent Refinement Networks
+	\begin{itemize}
+	\item Spatial Info
+		\begin{itemize}
+		\item DeepLabl ResNet-101 as encoder
+		\item last feature maps tiled (concat at each pixel) with coord info
+		\end{itemize}
+	\item Language Info
+		\begin{itemize}
+		\item LSTM scanning sentence, generating word info at each time step
+		\item last hidden layer as language info
+		\end{itemize}
+	\item Combining Info
+		\begin{itemize}
+		\item combined info $=$ spatial info tiled with language info
+		\item selecting set of feature maps from downsampling stages
+		\item all selected feature maps resized and fed to $1\times1$ conv \\ 
+		$\Rightarrow$ to match the dimensions of combined info
+		\item convolutional LSTM applied to refine the combined info \\ 
+		(with matched selected feature maps as input at each time step)
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item a conv after final hidden state of ConvLSTM for segmentation
+		\item upsampled to original image size
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item ConvLSTM integrating info at dowsampling stage $\Rightarrow$ segmentation refined
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item no upsampling: blur segmentation, mitigated by ConvLSTM though \\
+		(yet no language info introduced in refinement)
+		\item CNN fixed during training: relying on ConvLSTM
+		\item single info combination: only by tiling \\
+		(though, currently performing the best in all dataset)
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 
@@ -417,19 +831,24 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \item Integrating Encoder-Decoder Architecture
 	\begin{itemize}
 	\item Upsampling
+		\begin{itemize}
+		\item similar to Unet, concat low-level spatial info
+		\item introduce language info as well \\
+		(e.g. early combination, explicit introducing, ...)
+		\end{itemize}
 	\end{itemize}
 \item Early Info Combination
 	\begin{itemize}
 	\item Tiling at First Conv
 		\begin{itemize}
 		\item downsampling more responsible for language info processing \\
-		$\Rightarrow$ hopefully get more fine-tuning + more non-linearity for language info
-		\item can used with pre-trained net: \\ 
+		$\Rightarrow$ hopefully get more fine-tuning alone with conv filters
+		\item can be used with pre-trained net: \\ 
 		$ReLU(conv_1*X_1 + conv_2*X_2) = ReLU( [conv_1,conv_2]*[X_1,X_2] )$
 		\end{itemize}
-	\item Multiple Entry
+	\item Multiple Entries
 		\begin{itemize}
-		\item at different stages of downsampling / upsampling
+		\item combining info at different stages of downsampling / upsampling
 		\end{itemize}
 	\end{itemize}
 \item Attention
@@ -455,6 +874,15 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item Language Info, through a subnet, becoming a set of conv filters \\
 		$\Rightarrow$ then imposed in downsampling, tunnel, upsampling or bridge stage(s)
+		\end{itemize}
+	\end{itemize}
+\item Data Augmentation
+	\begin{itemize}
+	\item Translation Module
+		\begin{itemize}
+		\item using the same image
+		\item expression translated to a middle language and then back to English \\
+		$\Rightarrow$ language info trained more finely
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
