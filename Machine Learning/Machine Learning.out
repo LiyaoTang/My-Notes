@@ -14,21 +14,21 @@
 \BOOKMARK [0][-]{chapter.2}{Introduction}{}% 14
 \BOOKMARK [1][-]{section.2.1}{General Concern}{chapter.2}% 15
 \BOOKMARK [2][-]{subsection.2.1.1}{Types of Learning}{section.2.1}% 16
-\BOOKMARK [1][-]{section.2.2}{Model Selection}{chapter.2}% 17
-\BOOKMARK [2][-]{subsection.2.2.1}{Project Structuring}{section.2.2}% 18
-\BOOKMARK [2][-]{subsection.2.2.2}{Over-/Under-fitting}{section.2.2}% 19
-\BOOKMARK [1][-]{section.2.3}{Decision Theory}{chapter.2}% 20
-\BOOKMARK [2][-]{subsection.2.3.1}{}{section.2.3}% 21
-\BOOKMARK [1][-]{section.2.4}{Information Theory}{chapter.2}% 22
-\BOOKMARK [1][-]{section.2.5}{Supervised Learning}{chapter.2}% 23
-\BOOKMARK [1][-]{section.2.6}{Linear Regression}{chapter.2}% 24
-\BOOKMARK [1][-]{section.2.7}{Bayesian Regression}{chapter.2}% 25
-\BOOKMARK [1][-]{section.2.8}{Logistic Regression \(Classification\)}{chapter.2}% 26
-\BOOKMARK [1][-]{section.2.9}{Diagnose Machine Learning}{chapter.2}% 27
-\BOOKMARK [2][-]{subsection.2.9.1}{Evaluating Hypothesis}{section.2.9}% 28
-\BOOKMARK [2][-]{subsection.2.9.2}{Bias / Variance}{section.2.9}% 29
-\BOOKMARK [2][-]{subsection.2.9.3}{Error Analysis}{section.2.9}% 30
-\BOOKMARK [2][-]{subsection.2.9.4}{Skewed classes}{section.2.9}% 31
+\BOOKMARK [1][-]{section.2.2}{Decision Theory}{chapter.2}% 17
+\BOOKMARK [2][-]{subsection.2.2.1}{}{section.2.2}% 18
+\BOOKMARK [1][-]{section.2.3}{Information Theory}{chapter.2}% 19
+\BOOKMARK [1][-]{section.2.4}{Recommended Practice}{chapter.2}% 20
+\BOOKMARK [2][-]{subsection.2.4.1}{Data \046 Dataset}{section.2.4}% 21
+\BOOKMARK [2][-]{subsection.2.4.2}{Project Structuring}{section.2.4}% 22
+\BOOKMARK [1][-]{section.2.5}{Model Analysis}{chapter.2}% 23
+\BOOKMARK [2][-]{subsection.2.5.1}{Bias and Variance}{section.2.5}% 24
+\BOOKMARK [2][-]{subsection.2.5.2}{Evaluating Hypothesis}{section.2.5}% 25
+\BOOKMARK [2][-]{subsection.2.5.3}{Error Analysis}{section.2.5}% 26
+\BOOKMARK [2][-]{subsection.2.5.4}{Skewed classes}{section.2.5}% 27
+\BOOKMARK [1][-]{section.2.6}{Supervised Learning}{chapter.2}% 28
+\BOOKMARK [1][-]{section.2.7}{Linear Regression}{chapter.2}% 29
+\BOOKMARK [1][-]{section.2.8}{Bayesian Regression}{chapter.2}% 30
+\BOOKMARK [1][-]{section.2.9}{Logistic Regression \(Classification\)}{chapter.2}% 31
 \BOOKMARK [1][-]{section.2.10}{Latent Variable Analysis}{chapter.2}% 32
 \BOOKMARK [2][-]{subsection.2.10.1}{Principal Component Analysis \(PCA\)}{section.2.10}% 33
 \BOOKMARK [2][-]{subsection.2.10.2}{Independent Component Analysis \(ICA\)}{section.2.10}% 34
@@ -62,9 +62,9 @@
 \BOOKMARK [2][-]{subsection.12.2.1}{Advantages}{section.12.2}% 62
 \BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 63
 \BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 64
-\BOOKMARK [1][-]{section.12.3}{Empirical Experiment Practice}{chapter.12}% 65
-\BOOKMARK [2][-]{subsection.12.3.1}{Designing Networks}{section.12.3}% 66
-\BOOKMARK [2][-]{subsection.12.3.2}{Hyperparameters}{section.12.3}% 67
+\BOOKMARK [1][-]{section.12.3}{Experiment Practice}{chapter.12}% 65
+\BOOKMARK [2][-]{subsection.12.3.1}{Tunning Hyperparameters}{section.12.3}% 66
+\BOOKMARK [2][-]{subsection.12.3.2}{Designing Networks}{section.12.3}% 67
 \BOOKMARK [1][-]{section.12.4}{Operations \046 Layers Structure}{chapter.12}% 68
 \BOOKMARK [2][-]{subsection.12.4.1}{Operations in Network}{section.12.4}% 69
 \BOOKMARK [2][-]{subsection.12.4.2}{Operations on Network}{section.12.4}% 70

@@ -59,46 +59,94 @@
 %
 %\end{itemize}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Decision Theory}
+\subsection{}
+ 
+\section{Information Theory}
+ 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Model Selection}
-
-\subsection{Project Structuring}
-
-\subsubsection{Data Arrangement}
+\section{Recommended Practice}
+\subsection{Data \& Dataset}
+\subsubsection{Train-Val-Test}
 \begin{itemize}
-\item Train-Val-Test
+\item Reason
 	\begin{itemize}
+	\item Iterative Process
+		\begin{figure}[!ht]
+		\includegraphics[width=0.3\linewidth, center]{"./Deep Learning/experiment practice-iterative process".png}
+		\end{figure}
+		\begin{itemize}
+		\item intuition usually do NOT transfer across domains (NLP, CV, Search, etc.)
+		\item do NOT hope to have the correct hyperparameters at the first try
+		\end{itemize}
+		$\Rightarrow$ need feedback from experiment result \\
+		$\Rightarrow$ make sure the feedback is CORRECT and FAST
+	\end{itemize}
+\item Recommended Usage
+	\begin{itemize}
+	\item Splitting 
+		\begin{itemize}
+		\item classic split for small dataset $\Rightarrow$ train:val:test $= 80:20:20$, or K-fold
+		\item in big data (e.g. 100 million) $\Rightarrow$ train:val:test $= 98:1:1$
+		\end{itemize}
+		(as long as val-test sets cover enough data variance)
 	\item Training Set
 		\begin{itemize}
-		\item data used to find the model parameter estimation \\
+		\item data used to find the model parameter estimation (used for learning process of model) \\
 		$\Rightarrow$ over-fit by complex model
 		\end{itemize}
-	\item Validation Set
+	\item Validation Set (Val)
 		\begin{itemize}
-		\item data to indicate generalization ability of a range of models \\
-		$\Rightarrow$ for model comparison \& selection
-		\item may still \textbf{over-fit} if model design iterated for too many times!
+		\item data to indicate generalization ability of a range of trained models \\
+		$\Rightarrow$ for model comparison, selection \& hyperparameters tunning \\
+		(feedback is correct if enough various input covered)
 		\end{itemize}
 	\item Test Set
 		\begin{itemize}
-		\item to indicate the generalization ability of finally selected model
-		\end{itemize}
-	\end{itemize}
-
-\item Constraints on Val
-	\begin{itemize}
-	\item Limited Data
-		\begin{itemize}
-		\item better model $\Rightarrow$ more training data 
-		\item $\Rightarrow$ small validation $\Rightarrow$ noisy estimation of generalization ability
+		\item evaluate the \textbf{generalization ability} of final selected \& trained model
+		(indication correct if enough various input covered)
 		\end{itemize}
 	\end{itemize}
 	
+\item Special Usage
+	\begin{itemize}
+	\item No Val Set
+		\begin{itemize}
+		\item may use the "test" set as val set $\Rightarrow$ generalization ability NOT reported
+		\end{itemize}
+	\item Training on Train-Val Set
+		\begin{itemize}
+		\item to utilize as many data as possible for ultimate performance \\ 
+		$\Rightarrow$ okay case of "no val set"
+		\end{itemize}
+	\end{itemize}
+
+\item Potential Problem
+	\begin{itemize}
+	\item Mismatched Distribution across Sets
+		\begin{itemize}
+		\item classic supervised learning assumption: all sets drawn from SAME distribution
+		\item other (e.g. transfer/adaptive) learning focus on violation of such assumption
+		\end{itemize}
+		$\Rightarrow$ yet, make sure val\&test set from the SAME distribution as the desired one
+	\item \textbf{Overfitting Val Set}
+		\begin{itemize}
+		\item iteratively tunning model is a processing of learning (fitting to the val set) \\
+		$\Rightarrow$ with enough iteration, val set can be overfitted
+		\item may consider test set as $2^\text{nd}$ val set, and further have $3^\text{rd}, 4^\text{th}...$ val sets
+		\end{itemize}
+	\item Limited Data
+		\begin{itemize}
+		\item better model $\Rightarrow$ more training data 
+		\item $\Rightarrow$ less validation $\Rightarrow$ noisy estimation of generalization ability
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
-\subsubsection{Measuring Generalization Ability}
-
+\subsubsection{Train-Test}
 \begin{itemize}
 \item K-fold Cross Validation
 	\begin{itemize}
@@ -111,56 +159,298 @@
 		\item extreme case: leave-out-one $\Rightarrow K=N$, where $N$ is number of all data
 		\end{itemize}
 	
-	\item Cons: 
+	\item Cons:
 		\begin{itemize}
-		\item $\mathcal O(K) \Rightarrow$ slow, especially if training process already slow
-		\item $\Rightarrow$ trade off between time vs. constraint on validation
+		\item $\mathcal O(K) \Rightarrow$ slow, especially if training process already slow \\
+		$\Rightarrow$ trade off between time vs. constraint on validation
+		\item hence, \textbf{not} often used in big data era
 		\end{itemize}
 	\end{itemize}
+\end{itemize}
 
-\item Information Criteria
+\subsubsection{Data Augmentation}
+
+\subsubsection{Data Preprocessing}
+\begin{itemize}
+\item Mean Centering
 	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item for all training examples, compute mean (on each features) $\displaystyle \mu=\frac 1 N \sum_{n=1}^N{\mathbf x_n}$, \\
+		where $\{\mathbf x_1,...,\mathbf x_N\}=X_\text{train}$ the training set
+		\item preprocess each $\mathbf x \in X_\text{train}, X_\text{val}, X_\text{test}$ to be $\mathbf x'=\mathbf x -\mu$
+		(all data go through the same process)
+		\end{itemize}
 	\item Pros
 		\begin{itemize}
-		\item rely only on training set
-		\item need only (each) single training process to compare multiple models
+		\item (training) data has a zero mean (statistically, most data close to $0$)
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item different features may reside in various scales
 		\end{itemize}
 	\end{itemize}
-
+\item Standardizing
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item compute mean $\mu$, standard deviation $\displaystyle \sigma=\left( \frac 1 N \sum_{n=1}^N{(\mathbf x_n-\mu)^2} \right)^{1/2}$, \\
+		where $\{\mathbf x_1,...,\mathbf x_N\}=X_\text{train}$ the training set
+		\item preprocess each $\mathbf x \in X_\text{train}, X_\text{val}, X_\text{test}$ to be $\mathbf x'=\frac{\mathbf x -\mu} \sigma$ \\ 
+		(all data go through the same process)
+		\item note: with big data, usually computed iteratively due to limited memory
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item (training) data has zero mean \& unit variance \\
+		$\Rightarrow$ approximated to normal distribution
+		\item for deep learning: different features in same small range close to $0$ \\
+		$\Rightarrow$ weights for different features are in roughly the same scale \\
+		$\Rightarrow$ easier to train
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
+\subsection{Project Structuring}
 
-\subsection{Over-/Under-fitting}
-\subsubsection{Over-fitting}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Model Analysis}
+
+\subsection{Bias and Variance}
+\subsubsection{Overview}
 \begin{itemize}
-\item Symptom
+\item Low Bias, High Variance (Over-fitting)
 	\begin{itemize}
-	\item good performance on training set \& poor generalization
-	\item $\Rightarrow$ good at fitting training set; bad at representing modeling underlying data source
+	\item Symptom
+		\begin{itemize}
+		\item good performance on training set \& poor generalization \\
+		(good on train; bad on val)
+		\item $\Rightarrow$ good at fitting training set; bad at representing modeling underlying data source
+		\end{itemize}
+	\item Cause
+		\begin{itemize}
+		\item too much representation ability (to fit even the noise)
+		\item directly model the likelihood instead of posterior
+		\end{itemize}
+	\item Remedy
+		\begin{itemize}
+		\item larger dataset
+		\item regularization (model the posterior by accounting prior)
+		\end{itemize}
 	\end{itemize}
-\item Cause
+\item High Bias, Low Variance (Under-fitting)
 	\begin{itemize}
-	\item too much representation ability (to fit even the noise)
-	\item directly model the likelihood instead of posterior
+	\item Symptom
+		\begin{itemize}
+		\item bad at fitting training examples \& modeling underlying data source \\ 
+		(bad at train \& val)
+		\item $\Rightarrow$ poor performance on training set \& good generalization (though meaningless)
+		\end{itemize}
+	\item Cause
+		\begin{itemize}
+		\item lack of representation ability (not enough flexibility)
+		\end{itemize}
+	\item Remedy
+		\begin{itemize}
+		\item try model with better representative ability (more complexity, flexibility)
+		\end{itemize}
 	\end{itemize}
-\item Remedy
+\item High Bias, High Variance (Over\&Under-fitting)
 	\begin{itemize}
-	\item larger dataset
-	\item regularization (model the posterior by accounting prior)
+	\item Symptom
+		\begin{itemize}
+		\item bad at fitting some general cases; while good at some rare and special cases \\
+		(especially in high dimensional space)
+		\end{itemize}
+	\item Cause
+		\begin{itemize}
+		\item model probably not suitable for the dataset
+		\end{itemize}
+	\item Remedy
+		\begin{itemize}
+		\item switch to other types of model
+		\item dataset preprocessing
+		\end{itemize}
 	\end{itemize}
-\end{itemize}
-\subsubsection{Under-fitting}
-\begin{itemize}
-\item bad at fitting training examples \& modeling underlying data source
-\item lack of representation ability
-\item $\Rightarrow$ poor performance on training set \& good generalization (though meaningless)
+\item Low Bias, Low Variance
+	\begin{itemize}
+	\item Behavior
+		\begin{itemize}
+		\item good at fitting training examples \& modeling underlying data source \\ 
+		(good at train \& val)
+		\item $\Rightarrow$ good performance on training set \& good generalization \\
+		("good"= close to base performance, e.g. human ability in supervised learning)
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
- \section{Decision Theory}
- \subsection{}
- 
- \section{Information Theory}
- 
+\subsubsection{Guideline}
+\begin{itemize}
+\item Solving High Bias
+	\begin{itemize}
+	\item Increasing Model Capability
+		\begin{itemize}
+		\item increase complexity: more weights, latent variable / hidden layer etc.
+		\item use more suitable model specifically designed for the data (e.g. CNN for image)
+		\end{itemize}
+	\end{itemize}
+	$\Rightarrow$ until fitting training set well
+\item Solving High Variance
+	\begin{itemize}
+	\item Data Augment
+		\begin{itemize}
+		\item get/simulate more training data (via crowd sourcing, distortion, GANs, etc.)
+		\end{itemize}
+	\item Model Regularization
+		\begin{itemize}
+		\item control the complexity of model (e.g. L0/1/2 normalization)
+		\end{itemize}
+	\end{itemize}
+\item Solving Trade-off
+	\begin{itemize}
+	\item Iterative Process
+		\begin{itemize}
+		\item solve bias, then solve variance, iteratively
+		\end{itemize}
+	\item Complexity + Data/Regularization
+		\begin{itemize}
+		\item increase complexity to solve bias \\
+		without hurting variance (via more data/regularization)
+		\item more data/regularization to solve variance \\
+		without hurting bias (with enough complexity)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+L2 regularization also called "weight decay", as in gradient decent, weight is multiplied by a $<1$ number due to L2 term 
+
+2. Interaction with regularization:
+
+- Improper $\lambda$:
+- large $\lambda$ => high bias
+- small $\lambda$ => high variance
+- Choosing $\lambda$:
+- try $\lambda=0,0.01,0.02,0.04,...,10$
+- select the model with lowest $J_{cv}(\theta)$ without regularization term
+
+3. Interaction with training set size:
+
+- Normal Learning curve:
+
+![Normal learning curve](../../Machine%20Learning/Statistical%20Machine%20Learning/Normal%20learning%20curve.png) 
+
+- Learning curve with high bias:
+
+- where getting more training data **doesn't** help
+
+![Learning curve with high bias](../../Machine%20Learning/Statistical%20Machine%20Learning/Learning%20curve%20with%20high%20bias.png) 
+
+- Learning curve with high variance:
+
+- where getting more training data **helps**
+
+![Learning curve with high variance](../../Machine%20Learning/Statistical%20Machine%20Learning/Learning%20curve%20with%20high%20variance.png) 
+
+4. Ways to fix:
+
+- High bias:
+- more features / more polunomial terms of features
+- decreasing $\lambda$
+
+- High variance:
+
+- larger data set
+- fewer features
+- increasing $\lambda$
+
+- **In neural network:**
+
+- High bias => larger neural networks (more hidden layers / more units in one layer)
+
+- High variance => smaller neural networks
+
+**Larger network with regularization ($\lambda$) is more powerful**
+
+\subsection{Evaluating Hypothesis}
+
+1. Data set => training set (60%), cross validation set (20%), test set (20%)
+
+- randomly split
+
+2. Cross Validation:
+
+- estimation of the generalization error, inaccurate because:
+
+- finite trainning set
+- finite corss validation set
+
+- S-fold Cross Validation:
+
+- devide whole set of data into S sets
+
+- for $i \in (1,S)$ 
+
+	choose the $i^{th}$ set as cross validation (or test set in some cases)
+
+	rest of the sets are called traning set
+
+	run the procedure (mentioned later) on the traning set
+
+	estimate generalization in CV set 
+
+3. Test set error
+
+- Linear regression:  $\displaystyle J_{test}(\theta)=\frac1{2m_{test}}\sum^{m_{test}}_{i=1}(h_\theta(x^i_{test})-y^i_{test})^2$ 
+- Logistic regression: $\displaystyle J_{test}(\theta)=-\frac1{m_{test}}\sum^{m_{test}}_{i=1}(y_{test}^i log\space h_\theta (x_{test}^i) + (1-y_{test}^i)log\space h_\theta(x_{test}^i))$ 
+- Misclassfication error: $\displaystyle J_{test}(\theta) = \frac1 {m_{test}}\sum_{i=1}^{m_{test}}err(h_\theta(x_{test}^i), \space y_{test}^i)$ 
+- \begin{gather} err(h_\theta(x), \space y) = \begin{cases}1 & \text{if }h_\theta(x) \geq 0.5 \and y=0 \text{ or $h_\theta(x) < 0.5 \and y=1$} \\ 0 & \text{otherwise} \end{cases} \end{gather}
+
+4. Choosing procedure:
+
+- Minimize traning error $J_{train}(\theta)$ 
+- Select a model with lowest $J_{cv}(\theta)$ 
+- Estimate generalization error as $J_{test}(\theta)$ 
+
+\subsection{Error Analysis}
+
+1. Procedure:
+- Algorithm (trained) misclassifies $n$ data in cross validation set
+- Classify these $n$ data and rank them
+- Maybe more features are found
+2. Feature selection => Numerical evaluation
+- => test algorithm with / without this feature on **CV set** (compare error rate)
+
+\subsection{Skewed classes}
+
+1. Precision / Recall
+
+- |                 | **Actual 1**   | **Actual 0**   |
+| --------------- | -------------- | -------------- |
+| **Predicted 1** | True positive  | False positive |
+| **Predicted 0** | False negative | True negative  |
+
+- \textbf{Precision} = $\displaystyle \frac{\text {True positive}}{\text{Predicted positive}} = \frac{\text {True positive}}{\text{True pos + False pos}}$
+
+- **Recall** = $\displaystyle \frac{\text{True positive}}{\text{Actual positive}} = \frac{\text{True positive}}{\text{True pos + False neg}}$
+
+2. Evaluation with precision/recall
+
+- Predict 1 if $ h_\theta(x) \geq \epsilon$, 0 if $h_\theta(x) < \epsilon$
+
+- larger $\epsilon$ => higher precision, lower recall $\small \text{(more confident)}$ 
+- smaller $\epsilon$ => lower pecision, higher recall $\small \text{(avoid missing)}$       
+
+![Posiible Precision -Recall curev](../../Machine Learning/Statistical 0Machine Learning/Posiible Precision -Recall curev.png)  
+
+3. Compare precision/recall num
+
+- $\displaystyle \text{F}_1 \space  Score = 2\frac{PR}{P+R}$, $P$ as precision, $R$ as recall
+- higher better, on cross validation set
+
+4. High precision \& high recall:
+
+- **large num of features $\small\text{(low bias)}$ + large sets of data $\small\text{(low variance)}$**
+
 
 \section{Supervised Learning}
 \begin{itemize}
@@ -643,150 +933,6 @@ Taylor expansion: $\ln f(z) \simeq \ln f(z_0) - \frac 1 2 (z-z_0)^TA(z-z_0),$
 $\displaystyle J(\theta)=\frac{1}{m}\sum^m_{i=1}[-y^i \ln (h_\theta(x^i))-(1-y^i) \ln (1-h_\theta(x^i))]+\frac{\lambda}{2m}\sum^n_{j=1}\theta_j^2$ 
 
 - Update rule: $\forall \theta_j \in \theta, \theta_j := \theta_j-\alpha\large\frac{\partial J(\theta)}{\partial\theta_j}$, $\displaystyle \small\frac{\partial J(\theta)}{\partial\theta_j}=\frac{1}{m}\sum^m_{i=1}[(h_\theta(x^i)-y^i)x_j^i] + \frac \lambda m\theta_j$ 
-
-\section{Diagnose Machine Learning}
-
-- Size of data set
-- value of $\lambda$
-- Num of feature
-- Degree of polynomial
-- Build a quick implmentation
-
-\subsection{Evaluating Hypothesis}
-
-1. Data set => training set (60%), cross validation set (20%), test set (20%)
-
-- randomly split
-
-2. Cross Validation:
-
-- estimation of the generalization error, inaccurate because:
-
-- finite trainning set
-- finite corss validation set
-
-- S-fold Cross Validation:
-
-- devide whole set of data into S sets
-
-- for $i \in (1,S)$ 
-
-	choose the $i^{th}$ set as cross validation (or test set in some cases)
-
-	rest of the sets are called traning set
-
-	run the procedure (mentioned later) on the traning set
-
-	estimate generalization in CV set 
-
-3. Test set error
-
-- Linear regression:  $\displaystyle J_{test}(\theta)=\frac1{2m_{test}}\sum^{m_{test}}_{i=1}(h_\theta(x^i_{test})-y^i_{test})^2$ 
-- Logistic regression: $\displaystyle J_{test}(\theta)=-\frac1{m_{test}}\sum^{m_{test}}_{i=1}(y_{test}^i log\space h_\theta (x_{test}^i) + (1-y_{test}^i)log\space h_\theta(x_{test}^i))$ 
-- Misclassfication error: $\displaystyle J_{test}(\theta) = \frac1 {m_{test}}\sum_{i=1}^{m_{test}}err(h_\theta(x_{test}^i), \space y_{test}^i)$ 
-- \begin{gather} err(h_\theta(x), \space y) = \begin{cases}1 & \text{if }h_\theta(x) \geq 0.5 \and y=0 \text{ or $h_\theta(x) < 0.5 \and y=1$} \\ 0 & \text{otherwise} \end{cases} \end{gather}
-
-4. Choosing procedure:
-
-- Minimize traning error $J_{train}(\theta)$ 
-- Select a model with lowest $J_{cv}(\theta)$ 
-- Estimate generalization error as $J_{test}(\theta)$ 
-
-\subsection{Bias / Variance}
-
-1. Problems:
-
-- High bias: underfitting
-- high $J_{train}(\theta)$ and high $J_{cv}(\theta)$
-- High variance: overfitting
-- low $J_{train}(\theta)$  but high $J_{cv}(\theta)$
-
-2. Interaction with regularization:
-
-- Improper $\lambda$:
-- large $\lambda$ => high bias
-- small $\lambda$ => high variance
-- Choosing $\lambda$:
-- try $\lambda=0,0.01,0.02,0.04,...,10$
-- select the model with lowest $J_{cv}(\theta)$ without regularization term
-
-3. Interaction with training set size:
-
-- Normal Learning curve:
-
-![Normal learning curve](../../Machine%20Learning/Statistical%20Machine%20Learning/Normal%20learning%20curve.png) 
-
-- Learning curve with high bias:
-
-- where getting more training data **doesn't** help
-
-![Learning curve with high bias](../../Machine%20Learning/Statistical%20Machine%20Learning/Learning%20curve%20with%20high%20bias.png) 
-
-- Learning curve with high variance:
-
-- where getting more training data **helps**
-
-![Learning curve with high variance](../../Machine%20Learning/Statistical%20Machine%20Learning/Learning%20curve%20with%20high%20variance.png) 
-
-4. Ways to fix:
-
-- High bias:
-- more features / more polunomial terms of features
-- decreasing $\lambda$
-
-- High variance:
-
-- larger data set
-- fewer features
-- increasing $\lambda$
-
-- **In neural network:**
-
-- High bias => larger neural networks (more hidden layers / more units in one layer)
-
-- High variance => smaller neural networks
-
-**Larger network with regularization ($\lambda$) is more powerful**
-
-\subsection{Error Analysis}
-
-1. Procedure:
-- Algorithm (trained) misclassifies $n$ data in cross validation set
-- Classify these $n$ data and rank them
-- Maybe more features are found
-2. Feature selection => Numerical evaluation
-- => test algorithm with / without this feature on **CV set** (compare error rate)
-
-\subsection{Skewed classes}
-
-1. Precision / Recall
-
-- |                 | **Actual 1**   | **Actual 0**   |
-| --------------- | -------------- | -------------- |
-| **Predicted 1** | True positive  | False positive |
-| **Predicted 0** | False negative | True negative  |
-
-- \textbf{Precision} = $\displaystyle \frac{\text {True positive}}{\text{Predicted positive}} = \frac{\text {True positive}}{\text{True pos + False pos}}$
-
-- **Recall** = $\displaystyle \frac{\text{True positive}}{\text{Actual positive}} = \frac{\text{True positive}}{\text{True pos + False neg}}$
-
-2. Evaluation with precision/recall
-
-- Predict 1 if $ h_\theta(x) \geq \epsilon$, 0 if $h_\theta(x) < \epsilon$
-
-- larger $\epsilon$ => higher precision, lower recall $\small \text{(more confident)}$ 
-- smaller $\epsilon$ => lower pecision, higher recall $\small \text{(avoid missing)}$       
-
-![Posiible Precision -Recall curev](../../Machine Learning/Statistical 0Machine Learning/Posiible Precision -Recall curev.png)  
-
-3. Compare precision/recall num
-
-- $\displaystyle \text{F}_1 \space  Score = 2\frac{PR}{P+R}$, $P$ as precision, $R$ as recall
-- higher better, on cross validation set
-
-4. High precision \& high recall:
-
-- **large num of features $\small\text{(low bias)}$ + large sets of data $\small\text{(low variance)}$**
 
 \section{Latent Variable Analysis}
 

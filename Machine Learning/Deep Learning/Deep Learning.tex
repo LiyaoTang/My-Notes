@@ -161,6 +161,32 @@
 	\item Dealing Societal Issue
 	\item Reflecting Preferred Bias
 	\end{itemize}
+\item \textbf{Auto Optimization (Hyperparameter Tunning)}
+	\begin{itemize}
+	\item Swarm Optimization
+	\item Expectation Maximization
+		\begin{itemize}
+		\item target variable $\theta=$ hyperparameters
+		\item hidden variable $Z=$ weights of network
+		\item data $X=$ dataset
+		\end{itemize}
+	$\Rightarrow$ 
+		\begin{itemize}
+		\item E-step: evaluate $\displaystyle \mathbb E_{Z|\theta_n,X}(\ln P(Z,X|\theta))$
+			\begin{itemize}
+			\item $\ln P(Z, X|\theta)$: log likelihood of hyperparam $\theta$ (for weights \& data to be observed)
+			\item $P(Z|\theta_n, X)$: posterior of weights $Z$ 
+			\end{itemize}
+		$\Rightarrow$ evaluate (approximate) the expectation of the log likelihood of hyperprarm $\theta$ \\
+		(from a functional view, train with $\theta_0-\theta_N$, evaluate model $M$ times in training, thus with weights $Z_{00}-Z_{NM}$) \\
+		$\Rightarrow$ a matrix with $n$ as row entry, $m$ as column entry, mapping to both $\ln P(Z, X|\theta), P(Z|\theta_n, X)$
+		$\Rightarrow$ then marginalize (taking the expectation) over $Z$, to get a (sampled) function over $\theta$
+		\item M-step: maximize the result function from E-step
+			\begin{itemize}
+			\item fit a curve \& maximize w.r.t hyperparams $\theta$
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{Advises}
@@ -229,6 +255,17 @@
 	\item Learning $\phi$: choose embedding $\Rightarrow$ choose basis function
 	\item Learning $\mathbf w$: choose which feature / basis functions more useful
 	\end{itemize}
+	
+\item Solving Bias-Variance Trade-off
+	\begin{itemize}
+	\item Complexity + Data/Regularization
+		\begin{itemize}
+		\item easy complexity via depth, size \\
+		$\Rightarrow$ reduce bias, without hurting variance by utilizing big data
+		\item easy regularization via L$2$ ant etc.\\ 
+		$\Rightarrow$ prevent high variance without hurting bias much in a deep/big net
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{Power of Depth}
@@ -283,15 +320,42 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}	
 \end{itemize}
 
-\subsubsection{Gradient Vanishing}
+\subsubsection{Gradient Vanishing/Exploding}
 \begin{itemize}
-\item Saturated Function
+\item Gradient Vanishing
 	\begin{itemize}
-	\item sigmoid/tanh function: gradient $\rightarrow 0$ when input $\rightarrow \pm \infty$
-	\end{itemize}	
+	\item Saturated Function
+		\begin{itemize}
+		\item sigmoid/tanh function: gradient $\rightarrow 0$ when input $\rightarrow \pm \infty$
+		\end{itemize}
+	\item Exponential Effect
+		\begin{itemize}
+		\item with depth $L$, each activation (e.g. tanh) output $a^l < 1$ and weight $\mathbf w^l <1$ \\ 
+		$\Rightarrow y(\mathbf x, W) \approx \mathbf \mathbf w^L \mathbf w'^{L-1} \mathbf x$, with $\mathbf w'<1$ \\
+		$\Rightarrow$ all the gradient along the way get multiplied by number $<1$ \\
+		$\Rightarrow$ gradient exponentially decayed in back-prop
+		\end{itemize}
+	\end{itemize}
+\item Gradient Exploding
+	\begin{itemize}
+	\item Exponential Effect
+		\begin{itemize}
+		\item similarly, each activation (e.g. ReLU) output $a^l>1$ and weight $\mathbf w^l > 1$ \\
+		$\Rightarrow y(\mathbf x, W) \approx \mathbf \mathbf w^L \mathbf w'^{L-1} \mathbf x$, with $\mathbf w'>1$ \\
+		$\Rightarrow$ all the gradient along the way get multiplied by number $>1$ \\
+		$\Rightarrow$ gradient exponentially augmented in back-prop
+		\end{itemize}
+	\end{itemize}
 \item Possible Solutions
 	\begin{itemize}
-	\item Xavier initialization, ReLU activation, ...
+	\item Random Initialization
+		\begin{itemize}
+		\item \hyperref[Init_Xavier]{Xavier Initialization}: for gradient vanishing \& exploding
+		\end{itemize}
+	\item Activation 
+		\begin{itemize}
+		\item \hyperref[Act_ReLU]{ReLU}: for gradient vanishing
+		\end{itemize}
 	\end{itemize}	
 \end{itemize}
 
@@ -348,9 +412,38 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\section{Empirical Experiment Practice}
+\section{Experiment Practice}
+
+\subsection{Tunning Hyperparameters}
+\subsubsection{Hyperparameters}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Structures and Architectures
+		\begin{itemize}
+		\item type of layers and size of layers
+		\item type of activation
+		\item depth of networks
+		\item so on...
+		\end{itemize}
+	\item Learning
+		\begin{itemize}
+		\item learning rate
+		\item optimizer (learning process)
+		\end{itemize}
+	\end{itemize}
+\item Consequences
+	\begin{itemize}
+	\item NO Consistent Prescience
+	\item 
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+\item 
+\end{itemize}
+
 \subsection{Designing Networks}
-\subsection{Hyperparameters}
 \subsubsection{}
 
 
@@ -382,7 +475,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item still, gradient vanishing when $z\rightarrow \pm \infty$
 		\end{itemize}
 	\end{itemize}
-\item Rectified Linear Unit ReLu $\max(0, z)$
+\item Rectified Linear Unit ReLu $\max(0, z)$ \label{Act_ReLU}
 	\begin{itemize}
 	\item Derivation: approximated by a stack of sigmoid
 		\begin{itemize}
@@ -449,7 +542,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item NOT concern various nets: sampling in a fixed range may not work for all nets
 		\end{itemize}
 	\end{itemize}
-\item Xavier Initialization for Weights
+\item Xavier Initialization for Weights \label{Init_Xavier}
 	\begin{itemize}
 	\item Practice
 		\begin{itemize}
@@ -466,6 +559,85 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item default to use $0$ bias \\
 		(can NOT used for weights as explained)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Regularization}
+\begin{itemize}
+\item $L2$ Regularization
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item forcing weights to be smaller
+			\begin{itemize}
+			\item single node has smaller effect
+			\item input of activation closer to $0$ \\
+			$\Rightarrow$ activation becomes more linear-alike (e.g. sigmoid, tanh) \\
+			$\Rightarrow$ layers perform more linear-alike transformation
+			\end{itemize}
+		$\Rightarrow$ simpler network, less able to fit extreme curly decision boundary \\
+		(hence less able to overfit)
+		\end{itemize}
+	\end{itemize}
+	
+\item $L1$ Regularization
+
+\item Dropout Regularization
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item for each of selected units, set a drop probability \\
+		i.e. for each forward/back-prop, nodes are "dropped" according to the probability \\
+		$\Rightarrow$ for each time, a randomly reduced net is trained
+		\end{itemize}
+	\item Implementation: Inverted Dropout
+		\begin{itemize}
+		\item set a keep prob $k$ instead of drop prob, for a selected layer
+		\item generate random numbers for all units \& turned into a boolean "keep" vector $\mathbf k$
+		\item dropped activation $\mathbf d = \mathbf a \times \mathbf k$ (element-wise), \\
+		 where $\mathbf a$ is original activation output vector from the layer
+		\item $\Rightarrow$ activation becomes $0$ for dropped units in $\mathbf d$
+		\item scaling up by dividing the keep prob: $\mathbf d / k$ \\
+		$\Rightarrow$ so that expected output value of each activation remains the same
+		\item test time: no dropout $\Rightarrow$ no random output \\
+		(randomness in training, mitigated by big data)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item can NOT rely on any one feature $\Rightarrow$ have to spread out weights \\
+		$\Rightarrow$ results in shrinking the squared norm of weights (as $L2$)
+		\item used on layers with enormous features as input (e.g. computer vision) \\
+		$\Rightarrow$ reduce the chance of relying on small set of features
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item training loss may have bigger glitch $\Rightarrow$ harder to debug \\
+		(make sure loss decreasing before introduced dropout)
+		\end{itemize}
+	\end{itemize}
+
+\item Early Stopping
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item stop the training at lowest validation loss (with training loss decreasing) \\
+		$\Rightarrow$ at the start point of overfitting
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item evaluate both train \& val loss, saving models along the way \\
+		$\Rightarrow$ use the model corresponding to the start of overfitting
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item at relatively early stage, weights are still relatively small \\ 
+		(due to random initialization in $[0^-, 0^+]$)
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item couples task of optimizing loss and task of not overfitting \\
+		$\Rightarrow$ no longer one task at a time
 		\end{itemize}
 	\end{itemize}
 \end{itemize}

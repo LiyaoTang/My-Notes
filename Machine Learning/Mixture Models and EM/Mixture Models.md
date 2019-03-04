@@ -29,7 +29,7 @@
 
       $\Rightarrow$ problem:	 $\ln$ out of $\text{sum} \Rightarrow$ no clean math solution 
 
-      			only $\{X\}$ observed $\Rightarrow$ cannot maximize $p(X,Z)$ directly, but have $p(Z|X,\theta)$ 
+      only $\{X\}$ observed $\Rightarrow$ cannot maximize $p(X,Z)$ directly, but have $p(Z|X,\theta)$ 
 
     - Introduce arbitrary $q(Z)$ and then sum over $Z,\text{ where $q(Z)$ is distribution} \small\Rightarrow \displaystyle \sum_Z q(Z)=1$ 
 
@@ -37,7 +37,7 @@
 
       $\displaystyle \Rightarrow \ln p(X|\theta) = \underbrace{ \sum_Z q(Z)\ln \frac {p(X,Z|\theta)}{q(Z)} }_{\mathcal L (q,\theta)} + \underbrace{ (- \sum_Z q(Z)\ln \frac{p(Z|X,\theta)}{q(Z)}) }_{KL(q\|p)} ,$ 
 
-      	 $\space \text{ where } KL(q\|p) \text{ is Kullback-Leibler divergence}$ 
+      $\space \text{ where } KL(q\|p) \text{ is Kullback-Leibler divergence}$ 
 
   - **Algorithm**:
 
@@ -45,15 +45,15 @@
 
       $\Rightarrow$ $\mathcal L(q,\theta^{\text{old}}) \text{ maximize when } KL(q\|p)=0 \small \text{ ( $\ln p(X|\theta)$ independent from $q(\cdot)$ ) }$ 
 
-      $\displaystyle \Rightarrow q(Z) = p(Z|X,\theta^{\text{old}})$ 
+      $\displaystyle \Rightarrow q(Z) = p(Z|X,\theta^{\text{old}})​$ 
 
-      		 $\text{where } p(Z|X,\theta^{\text{old}}) \text{ is posterior}$ 
+      $\text{where } p(Z|X,\theta^{\text{old}}) \text{ is posterior with data }X, \text{ model var } \theta^\text{old} \text{ observed}$  
 
-    - $\text{M step:}$ fix $q(Z) = p(Z|X,\theta^{\text{old}})$, maximize lower bound $\mathcal L(q^{\text{old}},\theta)$ 
+    - $\text{M step:}​$ fix $q(Z) = p(Z|X,\theta^{\text{old}})​$, maximize lower bound $\mathcal L(q^{\text{old}},\theta)​$ 
 
-      $\begin{align} \Rightarrow \displaystyle \theta &= \arg \max_{\theta} \ln p(X|\theta) \\&= \arg \max_{\theta} \mathcal L(q^{\text{old}},\theta) \end{align}$  
+      $\begin{align} \Rightarrow \displaystyle \theta &= \arg \max_{\theta} \ln p(X|\theta) \\&= \arg \max_{\theta} \mathcal L(q^{\text{old}},\theta) \end{align}​$  
 
-      	 $\text{taking gradient w.r.t. $\theta$ will contain } q(Z) = p(Z|X,\theta^{\text{old}})$ 
+      $\text{taking gradient w.r.t. $\theta$ will contain } q(Z) = p(Z|X,\theta^{\text{old}})$ 
 
   - Convergence:
 
@@ -61,11 +61,11 @@
 
     - After $\text{M step}:$  $\mathcal L(q^{\text{old}},\theta) > \mathcal L(q^{\text{old}},\theta^{\text{old}}) \space \land \space \theta \neq \theta^{\text{old}}$ unless converged 
 
-      $\Rightarrow KL(q\|p)>0 \\ \Rightarrow \text{E step}$ 
+      $\Rightarrow KL(q\|p)>0 \\ \Rightarrow \text{E step}​$ 
 
   - Understanding:
 
-    - $q(\cdot):$ model to fit $\ln p(X|\theta)$ 
+    - $q(\cdot):​$ model to fit $\ln p(X|\theta)​$ 
 
     - $\theta:$ model parameter for $\mathcal L(q,\theta)$ 
 
@@ -104,30 +104,35 @@
 
     Hence,
 
-    $\begin{align} \displaystyle \mathcal L(\theta) - \mathcal L (\theta_n) &= \ln \sum_Z  P(X|Z,\theta) P(Z|\theta) - \ln P(X|\theta_n) \\ &= \ln \sum_Z P(Z|X,\theta_n)  \cdot \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)} - \ln P(X|\theta_n) \\ &\geq \sum_ZP(Z|X,\theta_n) \cdot \ln \left( \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)} \right) -\ln P(X|\theta_n) && \text{Jensen’s inequality} \\ &= \sum_ZP(Z|X,\theta_n) \cdot \ln \left( \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)} \right) - \sum_ZP(Z|X,\theta_n)\ln P(X|\theta_n) \\ &= \sum_ZP(Z|X,\theta_n) \cdot \ln \left( \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)P(X|\theta_n)} \right) \\ & \triangleq \Delta(\theta|\theta_n)  \end{align}$  Note: $\Delta(\theta_n|\theta_n) = 0$ 
+    $\begin{align} \displaystyle \mathcal L(\theta) - \mathcal L (\theta_n) &= \ln \sum_Z  P(X|Z,\theta) P(Z|\theta) - \ln P(X|\theta_n) \\ &= \ln \sum_Z P(Z|X,\theta_n)  \cdot \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)} - \ln P(X|\theta_n) \\ &\geq \sum_ZP(Z|X,\theta_n) \cdot \ln \left( \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)} \right) -\ln P(X|\theta_n) && \text{Jensen’s inequality} \\ &= \sum_ZP(Z|X,\theta_n) \cdot \ln \left( \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)} \right) - \sum_ZP(Z|X,\theta_n)\ln P(X|\theta_n) \\ &= \sum_ZP(Z|X,\theta_n) \cdot \ln \left( \frac {P(X|Z,\theta) P(Z|\theta)} {P(Z|X,\theta_n)P(X|\theta_n)} \right) \\ & \triangleq \Delta(\theta|\theta_n)  \end{align}​$  Note: $\Delta(\theta_n|\theta_n) = 0​$ 
 
-    $\Rightarrow \mathcal L (\theta) \geq \mathcal L(\theta_n) + \Delta(\theta|\theta_n)$, let $l(\theta|\theta_n) = \mathcal L(\theta_n) + \Delta(\theta|\theta_n)$, then: 
+    $\Rightarrow \mathcal L (\theta) \geq \mathcal L(\theta_n) + \Delta(\theta|\theta_n)$, let $l(\theta|\theta_n) = \mathcal L(\theta_n) + \Delta(\theta|\theta_n)​$, then: 
 
-    ![](./general EM - example - approach2.png) 
+    ![](./general EM - example - approach2.PNG) 
 
-  - Maximising $\mathcal L (\theta)$ 
+  - Maximising $\mathcal L (\theta)​$ 
 
-    - $\mathcal L (\theta) \geq l(\theta|\theta_n) \space \and$ for current $\theta=\theta_n, \mathcal L (\theta_n) = l(\theta_n|\theta_n)$ 
+    - $\mathcal L (\theta) \geq l(\theta|\theta_n) \space \and​$ for current $\theta=\theta_n, \mathcal L (\theta_n) = l(\theta_n|\theta_n)​$ 
 
       $\Rightarrow$ any $\theta$ increases $l(\theta|\theta_n)$ will increase $\mathcal L(\theta)$ 
 
     - fast improvement
 
-      $\Rightarrow$ maximising $l(\theta|\theta_n)$
+      $\Rightarrow​$ maximising $l(\theta|\theta_n)​$
 
     Hence,
 
-    $ \displaystyle \begin{align} \theta_{n+1} &= \arg\max_{\theta} l(\theta|\theta_n) \\ &= \arg\max_\theta \Delta(\theta|\theta_n) \\ &= \arg\max_\theta \sum_Z P(Z|X,\theta_n)\cdot\ln\left( \frac {P(X|Z,\theta)P(Z|\theta)} {P(Z|X,\theta_n) P(X|\theta_n)} \right) \\ &= \arg\max_\theta  \sum_Z P(Z|X,\theta_n)\cdot\ln P(X|Z,\theta)P(Z|\theta) \\ &= \arg\max_\theta \sum_Z P(Z|X,\theta_n) \cdot \ln P(X,Z|\theta) \\ &= \arg\max_\theta \{E_{Z|X,\theta_n} \{\ln P(X,Z|\theta)\} \} \end{align}$ 
+    $ \displaystyle \begin{align} \theta_{n+1} &= \arg\max_{\theta} l(\theta|\theta_n) \\ &= \arg\max_\theta \Delta(\theta|\theta_n) \\ &= \arg\max_\theta \sum_Z P(Z|X,\theta_n)\cdot\ln\left( \frac {P(X|Z,\theta)P(Z|\theta)} {P(Z|X,\theta_n) P(X|\theta_n)} \right) \\ &= \arg\max_\theta  \sum_Z P(Z|X,\theta_n)\cdot\ln P(X|Z,\theta)P(Z|\theta) \\ &= \arg\max_\theta \sum_Z P(Z|X,\theta_n) \cdot \ln P(X,Z|\theta) \\ &= \arg\max_\theta \{E_{Z|X,\theta_n} \{\ln P(X,Z|\theta)\} \} \end{align}​$ 
 
   - EM Algorithm
 
-    - E-step: detemine the conditional expectation $E_{Z|X,\theta_n} \{\ln P(X,Z|\theta)\}$ (as a function of $\theta$)
-    - M-step: maximise this function of $\theta$ accordingly
+    - E-step: detemine the conditional expectation $E_{Z|X,\theta_n} \{\ln P(X,Z|\theta)\}​$ (as a function of $\theta​$)
+
+      $\Rightarrow$ evaluate expected joint log likelihood of some model var $\theta$ (data $X$, hidden var $Z$ observed) under current posterior of hidden var $Z$ (data $X$, model var $\theta_n$ observed)​
+
+      $\Rightarrow$ use the expectation of likelihood (under partial observation of only $X$) to approximate the true likelihood (under full observation of $Z,X$)
+
+    - M-step: maximise this function of $\theta​$ accordingly
 
 
 #### Clustering - Naive K-means
@@ -255,7 +260,7 @@
 
        $\displaystyle \Rightarrow \pi_k=\frac {N_k} N$ 
 
-       	$\small \text{where $N_k$ is the effective num of data point assigned to $k$ : $N_k=\sum_{n=1}^N \gamma(z_k)$}$ 
+       $\small \text{where $N_k$ is the effective num of data point assigned to $k$ : $N_k=\sum_{n=1}^N \gamma(z_k)$}$  
 
    - $\text{E step}$: evaluate $q(Z) = \gamma(z_k)$ using current parameters $\mu,\Sigma,\pi$ $\space\small\text{ (soft assign point to Gaussian)}$ 
 
