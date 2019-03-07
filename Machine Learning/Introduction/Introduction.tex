@@ -359,7 +359,7 @@ L2 regularization also called "weight decay", as in gradient decent, weight is m
 
 - High variance:
 
-- larger data set
+- larger data setOrtho
 - fewer features
 - increasing $\lambda$
 
@@ -371,39 +371,10 @@ L2 regularization also called "weight decay", as in gradient decent, weight is m
 
 **Larger network with regularization ($\lambda$) is more powerful**
 
+\subsubsection{title}
+
 \subsection{Evaluating Hypothesis}
 
-1. Data set => training set (60%), cross validation set (20%), test set (20%)
-
-- randomly split
-
-2. Cross Validation:
-
-- estimation of the generalization error, inaccurate because:
-
-- finite trainning set
-- finite corss validation set
-
-- S-fold Cross Validation:
-
-- devide whole set of data into S sets
-
-- for $i \in (1,S)$ 
-
-	choose the $i^{th}$ set as cross validation (or test set in some cases)
-
-	rest of the sets are called traning set
-
-	run the procedure (mentioned later) on the traning set
-
-	estimate generalization in CV set 
-
-3. Test set error
-
-- Linear regression:  $\displaystyle J_{test}(\theta)=\frac1{2m_{test}}\sum^{m_{test}}_{i=1}(h_\theta(x^i_{test})-y^i_{test})^2$ 
-- Logistic regression: $\displaystyle J_{test}(\theta)=-\frac1{m_{test}}\sum^{m_{test}}_{i=1}(y_{test}^i log\space h_\theta (x_{test}^i) + (1-y_{test}^i)log\space h_\theta(x_{test}^i))$ 
-- Misclassfication error: $\displaystyle J_{test}(\theta) = \frac1 {m_{test}}\sum_{i=1}^{m_{test}}err(h_\theta(x_{test}^i), \space y_{test}^i)$ 
-- \begin{gather} err(h_\theta(x), \space y) = \begin{cases}1 & \text{if }h_\theta(x) \geq 0.5 \and y=0 \text{ or $h_\theta(x) < 0.5 \and y=1$} \\ 0 & \text{otherwise} \end{cases} \end{gather}
 
 4. Choosing procedure:
 

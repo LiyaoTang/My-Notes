@@ -56,22 +56,25 @@
 \BOOKMARK [1][-]{section.12.1}{Interview of Fame}{chapter.12}% 56
 \BOOKMARK [2][-]{subsection.12.1.1}{Geoffrey Hinton}{section.12.1}% 57
 \BOOKMARK [2][-]{subsection.12.1.2}{Pieter Abbeel}{section.12.1}% 58
-\BOOKMARK [2][-]{subsection.12.1.3}{Ian}{section.12.1}% 59
-\BOOKMARK [2][-]{subsection.12.1.4}{Research}{section.12.1}% 60
-\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 61
-\BOOKMARK [2][-]{subsection.12.2.1}{Advantages}{section.12.2}% 62
-\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 63
-\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 64
-\BOOKMARK [1][-]{section.12.3}{Experiment Practice}{chapter.12}% 65
-\BOOKMARK [2][-]{subsection.12.3.1}{Tunning Hyperparameters}{section.12.3}% 66
-\BOOKMARK [2][-]{subsection.12.3.2}{Designing Networks}{section.12.3}% 67
-\BOOKMARK [1][-]{section.12.4}{Operations \046 Layers Structure}{chapter.12}% 68
-\BOOKMARK [2][-]{subsection.12.4.1}{Operations in Network}{section.12.4}% 69
-\BOOKMARK [2][-]{subsection.12.4.2}{Operations on Network}{section.12.4}% 70
-\BOOKMARK [2][-]{subsection.12.4.3}{Layers}{section.12.4}% 71
-\BOOKMARK [1][-]{section.12.5}{Architectures}{chapter.12}% 72
-\BOOKMARK [2][-]{subsection.12.5.1}{Encoder-Decoder Architecture}{section.12.5}% 73
-\BOOKMARK [1][-]{section.12.6}{Advanced Topic}{chapter.12}% 74
-\BOOKMARK [2][-]{subsection.12.6.1}{Machine Reading Comprehension}{section.12.6}% 75
-\BOOKMARK [2][-]{subsection.12.6.2}{Image Caption}{section.12.6}% 76
-\BOOKMARK [2][-]{subsection.12.6.3}{Referring Segmentation}{section.12.6}% 77
+\BOOKMARK [2][-]{subsection.12.1.3}{Ian Goodfellow}{section.12.1}% 59
+\BOOKMARK [2][-]{subsection.12.1.4}{Yoshua Bengio}{section.12.1}% 60
+\BOOKMARK [2][-]{subsection.12.1.5}{Yuanqing Lin}{section.12.1}% 61
+\BOOKMARK [2][-]{subsection.12.1.6}{}{section.12.1}% 62
+\BOOKMARK [2][-]{subsection.12.1.7}{Research}{section.12.1}% 63
+\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 64
+\BOOKMARK [2][-]{subsection.12.2.1}{Advantages}{section.12.2}% 65
+\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 66
+\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 67
+\BOOKMARK [1][-]{section.12.3}{Experiment Practice}{chapter.12}% 68
+\BOOKMARK [2][-]{subsection.12.3.1}{Tunning Hyperparameters}{section.12.3}% 69
+\BOOKMARK [2][-]{subsection.12.3.2}{Designing Networks}{section.12.3}% 70
+\BOOKMARK [1][-]{section.12.4}{Operations \046 Layers Structure}{chapter.12}% 71
+\BOOKMARK [2][-]{subsection.12.4.1}{Operations in Network}{section.12.4}% 72
+\BOOKMARK [2][-]{subsection.12.4.2}{Operations on Network}{section.12.4}% 73
+\BOOKMARK [2][-]{subsection.12.4.3}{Layers}{section.12.4}% 74
+\BOOKMARK [1][-]{section.12.5}{Architectures}{chapter.12}% 75
+\BOOKMARK [2][-]{subsection.12.5.1}{Encoder-Decoder Architecture}{section.12.5}% 76
+\BOOKMARK [1][-]{section.12.6}{Advanced Topic}{chapter.12}% 77
+\BOOKMARK [2][-]{subsection.12.6.1}{Machine Reading Comprehension}{section.12.6}% 78
+\BOOKMARK [2][-]{subsection.12.6.2}{Image Caption}{section.12.6}% 79
+\BOOKMARK [2][-]{subsection.12.6.3}{Referring Segmentation}{section.12.6}% 80

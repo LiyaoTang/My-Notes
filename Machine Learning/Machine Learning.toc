@@ -61,88 +61,101 @@
 \contentsline {subsection}{\numberline {2.5.2}Evaluating Hypothesis}{27}{subsection.2.5.2}
 \contentsline {subsection}{\numberline {2.5.3}Error Analysis}{27}{subsection.2.5.3}
 \contentsline {subsection}{\numberline {2.5.4}Skewed classes}{27}{subsection.2.5.4}
-\contentsline {section}{\numberline {2.6}Supervised Learning}{28}{section.2.6}
+\contentsline {section}{\numberline {2.6}Supervised Learning}{27}{section.2.6}
 \contentsline {section}{\numberline {2.7}Linear Regression}{28}{section.2.7}
-\contentsline {section}{\numberline {2.8}Bayesian Regression}{30}{section.2.8}
-\contentsline {section}{\numberline {2.9}Logistic Regression (Classification)}{32}{section.2.9}
-\contentsline {section}{\numberline {2.10}Latent Variable Analysis}{36}{section.2.10}
-\contentsline {subsection}{\numberline {2.10.1}Principal Component Analysis (PCA)}{36}{subsection.2.10.1}
+\contentsline {section}{\numberline {2.8}Bayesian Regression}{29}{section.2.8}
+\contentsline {section}{\numberline {2.9}Logistic Regression (Classification)}{31}{section.2.9}
+\contentsline {section}{\numberline {2.10}Latent Variable Analysis}{35}{section.2.10}
+\contentsline {subsection}{\numberline {2.10.1}Principal Component Analysis (PCA)}{35}{subsection.2.10.1}
 \contentsline {subsection}{\numberline {2.10.2}Independent Component Analysis (ICA)}{38}{subsection.2.10.2}
-\contentsline {subsection}{\numberline {2.10.3}t-SNE}{39}{subsection.2.10.3}
-\contentsline {subsection}{\numberline {2.10.4}Anomaly Detection}{39}{subsection.2.10.4}
+\contentsline {subsection}{\numberline {2.10.3}t-SNE}{38}{subsection.2.10.3}
+\contentsline {subsection}{\numberline {2.10.4}Anomaly Detection}{38}{subsection.2.10.4}
 \contentsline {subsection}{\numberline {2.10.5}Recommender System}{39}{subsection.2.10.5}
-\contentsline {section}{\numberline {2.11}Large Scale Machine Learning}{41}{section.2.11}
-\contentsline {subsection}{\numberline {2.11.1}Gradient Descent with Large Dataset}{41}{subsection.2.11.1}
+\contentsline {section}{\numberline {2.11}Large Scale Machine Learning}{40}{section.2.11}
+\contentsline {subsection}{\numberline {2.11.1}Gradient Descent with Large Dataset}{40}{subsection.2.11.1}
 \contentsline {subsection}{\numberline {2.11.2}Online Learning}{41}{subsection.2.11.2}
-\contentsline {subsection}{\numberline {2.11.3}Map-reduce}{42}{subsection.2.11.3}
-\contentsline {section}{\numberline {2.12}Building Machine Learning System}{42}{section.2.12}
-\contentsline {subsection}{\numberline {2.12.1}Pipeline}{42}{subsection.2.12.1}
+\contentsline {subsection}{\numberline {2.11.3}Map-reduce}{41}{subsection.2.11.3}
+\contentsline {section}{\numberline {2.12}Building Machine Learning System}{41}{section.2.12}
+\contentsline {subsection}{\numberline {2.12.1}Pipeline}{41}{subsection.2.12.1}
 \contentsline {subsection}{\numberline {2.12.2}Getting More Data}{42}{subsection.2.12.2}
 \contentsline {subsection}{\numberline {2.12.3}Ceilling Analysis}{42}{subsection.2.12.3}
-\contentsline {chapter}{\numberline {3}Linear Regression}{44}{chapter.3}
-\contentsline {chapter}{\numberline {4}Linear Classification}{45}{chapter.4}
-\contentsline {chapter}{\numberline {5}Kernel Methods}{46}{chapter.5}
-\contentsline {chapter}{\numberline {6}Graphical Models}{47}{chapter.6}
-\contentsline {chapter}{\numberline {7}Mixture Models and EM}{48}{chapter.7}
-\contentsline {chapter}{\numberline {8}Approximate Inference}{49}{chapter.8}
-\contentsline {chapter}{\numberline {9}Sampling Methods}{50}{chapter.9}
-\contentsline {chapter}{\numberline {10}Continuous Latent Variable}{51}{chapter.10}
-\contentsline {chapter}{\numberline {11}Sequential Data}{52}{chapter.11}
-\contentsline {chapter}{\numberline {12}Deep Learning}{53}{chapter.12}
-\contentsline {section}{\numberline {12.1}Interview of Fame}{53}{section.12.1}
-\contentsline {subsection}{\numberline {12.1.1}Geoffrey Hinton}{53}{subsection.12.1.1}
-\contentsline {subsubsection}{Knowledge Embedding}{53}{section*.44}
-\contentsline {subsubsection}{Brain Science}{53}{section*.45}
-\contentsline {subsubsection}{Memory in Nets}{54}{section*.46}
-\contentsline {subsubsection}{Unsupervised Learning}{54}{section*.47}
-\contentsline {subsubsection}{"Slow" Feature}{54}{section*.48}
-\contentsline {subsubsection}{Relations between Computers}{54}{section*.49}
-\contentsline {subsection}{\numberline {12.1.2}Pieter Abbeel}{54}{subsection.12.1.2}
-\contentsline {subsubsection}{Deep Reinforcement Learning}{54}{section*.50}
-\contentsline {subsection}{\numberline {12.1.3}Ian}{55}{subsection.12.1.3}
-\contentsline {subsubsection}{Generative Adversarial Networks}{55}{section*.51}
-\contentsline {subsection}{\numberline {12.1.4}Research}{55}{subsection.12.1.4}
-\contentsline {subsubsection}{Topics}{55}{section*.52}
-\contentsline {subsubsection}{Advises}{56}{section*.53}
-\contentsline {section}{\numberline {12.2}Basic Neutral Network}{56}{section.12.2}
-\contentsline {subsection}{\numberline {12.2.1}Advantages}{56}{subsection.12.2.1}
-\contentsline {subsubsection}{Large/Big Data}{56}{section*.54}
-\contentsline {subsubsection}{Flexibility}{57}{section*.56}
-\contentsline {subsubsection}{Power of Depth}{57}{section*.57}
-\contentsline {subsection}{\numberline {12.2.2}Problem}{57}{subsection.12.2.2}
-\contentsline {subsubsection}{Weight-space Symmetries}{57}{section*.58}
-\contentsline {subsubsection}{Non-convex Error Function}{58}{section*.59}
-\contentsline {subsubsection}{Gradient Vanishing/Exploding}{58}{section*.60}
-\contentsline {subsection}{\numberline {12.2.3}Learning}{58}{subsection.12.2.3}
-\contentsline {subsubsection}{Forward-Backward Propagation}{58}{section*.61}
-\contentsline {section}{\numberline {12.3}Experiment Practice}{59}{section.12.3}
-\contentsline {subsection}{\numberline {12.3.1}Tunning Hyperparameters}{59}{subsection.12.3.1}
-\contentsline {subsubsection}{Hyperparameters}{59}{section*.62}
-\contentsline {subsection}{\numberline {12.3.2}Designing Networks}{60}{subsection.12.3.2}
-\contentsline {subsubsection}{}{60}{section*.63}
-\contentsline {section}{\numberline {12.4}Operations \& Layers Structure}{60}{section.12.4}
-\contentsline {subsection}{\numberline {12.4.1}Operations in Network}{60}{subsection.12.4.1}
-\contentsline {subsubsection}{Activations}{60}{section*.64}
-\contentsline {subsection}{\numberline {12.4.2}Operations on Network}{61}{subsection.12.4.2}
-\contentsline {subsubsection}{Initialization}{61}{section*.65}
-\contentsline {subsubsection}{Regularization}{61}{section*.66}
-\contentsline {subsection}{\numberline {12.4.3}Layers}{62}{subsection.12.4.3}
-\contentsline {subsubsection}{Convolution Layer}{62}{section*.67}
-\contentsline {subsubsection}{Pooling Layer}{63}{section*.68}
-\contentsline {section}{\numberline {12.5}Architectures}{63}{section.12.5}
-\contentsline {subsection}{\numberline {12.5.1}Encoder-Decoder Architecture}{63}{subsection.12.5.1}
-\contentsline {subsubsection}{Description}{63}{section*.69}
-\contentsline {subsubsection}{Extension}{64}{section*.70}
-\contentsline {section}{\numberline {12.6}Advanced Topic}{64}{section.12.6}
-\contentsline {subsection}{\numberline {12.6.1}Machine Reading Comprehension}{64}{subsection.12.6.1}
-\contentsline {subsubsection}{Problem Formulation}{64}{section*.71}
-\contentsline {subsubsection}{RNN with Attention}{64}{section*.72}
-\contentsline {subsubsection}{Convolution with Self-attention - QAnet}{64}{section*.73}
-\contentsline {subsection}{\numberline {12.6.2}Image Caption}{64}{subsection.12.6.2}
-\contentsline {subsubsection}{Problem Formulation}{64}{section*.74}
-\contentsline {subsubsection}{Baseline Approach \& Previous Work}{64}{section*.75}
-\contentsline {subsection}{\numberline {12.6.3}Referring Segmentation}{65}{subsection.12.6.3}
-\contentsline {subsubsection}{Problem Formulation}{65}{section*.76}
-\contentsline {subsubsection}{Baseline Approach \& Previous Work}{65}{section*.77}
-\contentsline {subsubsection}{Current State-of-The-Art (early 2019)}{66}{section*.78}
-\contentsline {subsubsection}{Research Direction}{67}{section*.79}
+\contentsline {chapter}{\numberline {3}Linear Regression}{43}{chapter.3}
+\contentsline {chapter}{\numberline {4}Linear Classification}{44}{chapter.4}
+\contentsline {chapter}{\numberline {5}Kernel Methods}{45}{chapter.5}
+\contentsline {chapter}{\numberline {6}Graphical Models}{46}{chapter.6}
+\contentsline {chapter}{\numberline {7}Mixture Models and EM}{47}{chapter.7}
+\contentsline {chapter}{\numberline {8}Approximate Inference}{48}{chapter.8}
+\contentsline {chapter}{\numberline {9}Sampling Methods}{49}{chapter.9}
+\contentsline {chapter}{\numberline {10}Continuous Latent Variable}{50}{chapter.10}
+\contentsline {chapter}{\numberline {11}Sequential Data}{51}{chapter.11}
+\contentsline {chapter}{\numberline {12}Deep Learning}{52}{chapter.12}
+\contentsline {section}{\numberline {12.1}Interview of Fame}{52}{section.12.1}
+\contentsline {subsection}{\numberline {12.1.1}Geoffrey Hinton}{52}{subsection.12.1.1}
+\contentsline {subsubsection}{Knowledge Embedding}{52}{section*.44}
+\contentsline {subsubsection}{Brain Science}{52}{section*.45}
+\contentsline {subsubsection}{Memory in Nets}{53}{section*.46}
+\contentsline {subsubsection}{Unsupervised Learning}{53}{section*.47}
+\contentsline {subsubsection}{"Slow" Feature}{53}{section*.48}
+\contentsline {subsubsection}{Relations between Computers}{53}{section*.49}
+\contentsline {subsection}{\numberline {12.1.2}Pieter Abbeel}{53}{subsection.12.1.2}
+\contentsline {subsubsection}{Deep Reinforcement Learning}{53}{section*.50}
+\contentsline {subsection}{\numberline {12.1.3}Ian Goodfellow}{54}{subsection.12.1.3}
+\contentsline {subsubsection}{Generative Adversarial Networks}{54}{section*.51}
+\contentsline {subsection}{\numberline {12.1.4}Yoshua Bengio}{54}{subsection.12.1.4}
+\contentsline {subsubsection}{Thoughts}{54}{section*.52}
+\contentsline {subsubsection}{Works}{55}{section*.53}
+\contentsline {subsection}{\numberline {12.1.5}Yuanqing Lin}{55}{subsection.12.1.5}
+\contentsline {subsubsection}{National Deep Learning Lab}{55}{section*.54}
+\contentsline {subsection}{\numberline {12.1.6}}{55}{subsection.12.1.6}
+\contentsline {subsubsection}{title}{55}{section*.55}
+\contentsline {subsection}{\numberline {12.1.7}Research}{55}{subsection.12.1.7}
+\contentsline {subsubsection}{Topics}{55}{section*.56}
+\contentsline {subsubsection}{Advises}{56}{section*.57}
+\contentsline {section}{\numberline {12.2}Basic Neutral Network}{57}{section.12.2}
+\contentsline {subsection}{\numberline {12.2.1}Advantages}{57}{subsection.12.2.1}
+\contentsline {subsubsection}{Large/Big Data}{57}{section*.58}
+\contentsline {subsubsection}{Flexibility}{58}{section*.60}
+\contentsline {subsubsection}{Power of Depth}{58}{section*.61}
+\contentsline {subsection}{\numberline {12.2.2}Problem}{58}{subsection.12.2.2}
+\contentsline {subsubsection}{Weight-space Symmetries}{58}{section*.62}
+\contentsline {subsubsection}{High-Dimension Search Space}{59}{section*.63}
+\contentsline {subsubsection}{Gradient Vanishing/Exploding}{59}{section*.64}
+\contentsline {subsection}{\numberline {12.2.3}Learning}{60}{subsection.12.2.3}
+\contentsline {subsubsection}{Forward-Backward Propagation}{60}{section*.65}
+\contentsline {subsubsection}{Gradient Descent}{60}{section*.66}
+\contentsline {section}{\numberline {12.3}Experiment Practice}{61}{section.12.3}
+\contentsline {subsection}{\numberline {12.3.1}Tunning Hyperparameters}{61}{subsection.12.3.1}
+\contentsline {subsubsection}{Hyperparameters}{61}{section*.67}
+\contentsline {subsubsection}{Systematic Searching}{61}{section*.68}
+\contentsline {subsubsection}{Tunning Practice}{62}{section*.69}
+\contentsline {subsection}{\numberline {12.3.2}Designing Networks}{63}{subsection.12.3.2}
+\contentsline {subsubsection}{}{63}{section*.70}
+\contentsline {section}{\numberline {12.4}Operations \& Layers Structure}{63}{section.12.4}
+\contentsline {subsection}{\numberline {12.4.1}Operations in Network}{63}{subsection.12.4.1}
+\contentsline {subsubsection}{Activations}{63}{section*.71}
+\contentsline {subsubsection}{Normalization in Network}{64}{section*.72}
+\contentsline {subsection}{\numberline {12.4.2}Operations on Network}{65}{subsection.12.4.2}
+\contentsline {subsubsection}{Initialization}{65}{section*.73}
+\contentsline {subsubsection}{Regularization}{65}{section*.74}
+\contentsline {subsubsection}{Optimization}{67}{section*.76}
+\contentsline {subsection}{\numberline {12.4.3}Layers}{69}{subsection.12.4.3}
+\contentsline {subsubsection}{Prediction Layer}{69}{section*.77}
+\contentsline {subsubsection}{Convolution Layer}{70}{section*.78}
+\contentsline {subsubsection}{Pooling Layer}{70}{section*.79}
+\contentsline {section}{\numberline {12.5}Architectures}{70}{section.12.5}
+\contentsline {subsection}{\numberline {12.5.1}Encoder-Decoder Architecture}{70}{subsection.12.5.1}
+\contentsline {subsubsection}{Description}{70}{section*.80}
+\contentsline {subsubsection}{Extension}{71}{section*.81}
+\contentsline {section}{\numberline {12.6}Advanced Topic}{71}{section.12.6}
+\contentsline {subsection}{\numberline {12.6.1}Machine Reading Comprehension}{71}{subsection.12.6.1}
+\contentsline {subsubsection}{Problem Formulation}{71}{section*.82}
+\contentsline {subsubsection}{RNN with Attention}{71}{section*.83}
+\contentsline {subsubsection}{Convolution with Self-attention - QAnet}{71}{section*.84}
+\contentsline {subsection}{\numberline {12.6.2}Image Caption}{71}{subsection.12.6.2}
+\contentsline {subsubsection}{Problem Formulation}{71}{section*.85}
+\contentsline {subsubsection}{Baseline Approach \& Previous Work}{72}{section*.86}
+\contentsline {subsection}{\numberline {12.6.3}Referring Segmentation}{72}{subsection.12.6.3}
+\contentsline {subsubsection}{Problem Formulation}{72}{section*.87}
+\contentsline {subsubsection}{Baseline Approach \& Previous Work}{73}{section*.88}
+\contentsline {subsubsection}{Current State-of-The-Art (early 2019)}{74}{section*.89}
+\contentsline {subsubsection}{Research Direction}{75}{section*.90}

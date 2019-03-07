@@ -313,7 +313,7 @@
 
 4. **Dropout** is an extremely effective, simple and recently introduced regularization technique by Srivastava et al. in [Dropout: A Simple Way to Prevent Neural Networks from Overfitting](http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf) (pdf) that complements the other methods (L1, L2, maxnorm). While training, dropout is implemented by only keeping a neuron active with some probability pp (a hyperparameter), or setting it to zero otherwise.
 
-   ![img](./dropout.jpeg) 
+   ![img](./regularization-dropout.jpeg) 
 
    Understanding:
 
@@ -353,7 +353,7 @@
 
 4. Transposed Conv vs. Fractional Conv
 
-   - ​
+   - 
 
      ![transposed conv vs frationally strided conv ](.\transposed conv vs frationally strided conv .PNG) 
 

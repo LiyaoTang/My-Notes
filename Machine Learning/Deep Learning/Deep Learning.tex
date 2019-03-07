@@ -112,7 +112,7 @@
 	\end{itemize}
 \end{itemize}
 
-\subsection{Ian}
+\subsection{Ian Goodfellow}
 \subsubsection{Generative Adversarial Networks}
 \begin{itemize}
 \item Generative Models
@@ -140,6 +140,95 @@
 		\item increase reliability of GANs (stabilizing)
 		\end{itemize}
 	\end{itemize}
+\end{itemize}
+
+\subsection{Yoshua Bengio}
+\subsubsection{Thoughts}
+\begin{itemize}
+\item Fallacy
+	\begin{itemize}
+	\item Smoothness in Nonlinearity
+		\begin{itemize}
+		\item to ensure non-zero gradients every where
+		\end{itemize}
+	\end{itemize}
+\item Surprising Fact
+	\begin{itemize}
+	\item ReLU in Deep Net
+		\begin{itemize}
+		\item inspired initially by biological connection
+		\end{itemize}
+	\end{itemize}
+\item \textbf{Distribution v.s. Symbolic Representation}
+	\begin{itemize}
+	\item Distributed Representation 
+		\begin{itemize}
+		\item distributed in lots of units, instead of a symbolic representation in a single cell \\
+		(agree on Geoffrey Hinton)
+		\end{itemize}
+	\item Curse of Dimensionality
+		\begin{itemize}
+		\item neural net's distributed representation for joint distribution over random variables
+		\end{itemize}
+	\item $\Rightarrow$ Word Embedding
+		\begin{itemize}
+		\item generalized to joint distribution over sequence of words
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Works}
+\begin{itemize}
+\item Piecewise Linear Activation (PLU)
+\item Unsupervised Learning
+	\begin{itemize}
+	\item Focus
+		\begin{itemize}
+		\item Denoising auto-encoder
+		\item GANs
+		\end{itemize}
+	\item Importance
+		\begin{itemize}
+		\item Human Ability
+			\begin{itemize}
+			\item self-teaching, building world-model from perception
+			\end{itemize}
+		\item Unsupervised Learning + Reinforcement Learning
+			\begin{itemize}
+			\item underlying concept across two fields: machine can learn through interactions \\
+			$\Rightarrow$ learning "good" representation (yet, what is "good")
+			\end{itemize}
+		\end{itemize}
+	\item Possibility
+		\begin{itemize}
+		\item Loss Function
+			\begin{itemize}
+			\item not even defined for each task (not knowing which is good for what?)
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\item Attention
+	\begin{itemize}
+	\item Machine Translation (Founder)
+	\item Generalized into Other Fields
+	\end{itemize}
+\item Back-prop in Brains (Neural Science
+	\begin{itemize}
+	\item Reasons for Efficiency of Backprop
+	\item Larger Family behind Credit Assignment
+	\end{itemize})
+\end{itemize}
+
+\subsection{Yuanqing Lin}
+\subsubsection{National Deep Learning Lab}
+\begin{itemize}
+\item Paddle Paddle
+\item Baidu Lab
+\end{itemize}
+
+\subsection{}
+\subsubsection{title}
+\begin{itemize}
+\item 
 \end{itemize}
 
 \subsection{Research}
@@ -187,32 +276,63 @@
 			\end{itemize}
 		\end{itemize}
 	\end{itemize}
+\item World Understanding: after perception
+	\begin{itemize}
+	\item Unsupervised Learning + Reinforcement Learning
+		\begin{itemize}
+		\item machine learns from interactions
+		\item machine builds a representation of world (like human ability, without fine label)
+		\end{itemize}
+	$\Rightarrow$ building world-model from perception
+	\item Causality Mining
+	\end{itemize}
+\item Model Interpretation
+	\begin{itemize}
+	\item Logical Formalization
+		\begin{itemize}
+		\item deep learning can be understood logically \\
+			e.g. what make deep net training harder? understand the limit of current algorithm/model and \textbf{why}
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{Advises}
 \begin{itemize}
-	\item Reading
+\item Learning Direction
 	\begin{itemize}
-		\item read a little bit \& find somewhere intuitively not right
+	\item Math
 		\begin{itemize}
-			\item good intuition: eventually work; bad intuition: not working no matter what it is doing
-			\item if other doubts your idea as bullshit $\Rightarrow$ a sign for real good result
+		\item statistic
+		\item linear algebra
+		\item calculus
+		\item optimization
 		\end{itemize}
-		\item a supervisor with similar belief
-		\item PhD vs. Company
-			\begin{itemize}
-			\item amount of mentoring
-			\item faster if dedicated supervisor available
-			\end{itemize}
 	\end{itemize}
-	
-	\item Practice
+\item Reading
+	\begin{itemize}
+	\item read a little bit \& find somewhere intuitively not right
+	\begin{itemize}
+		\item good intuition: eventually work; \\ 
+		bad intuition: not working no matter what it is doing
+		\item if other doubts your idea as bullshit $\Rightarrow$ a sign for real good result
+	\end{itemize}
+	\item a supervisor with similar belief
+	\item PhD vs. Company
 		\begin{itemize}
-		\item open-source learning resource
-		\item implement the paper
-		\item work on a projected and open source it \\
-		$\Rightarrow$ the stage (e.g. github) will bring people to you
+		\item amount of mentoring
+		\item faster if dedicated supervisor available
 		\end{itemize}
+	\end{itemize}
+
+\item Practice
+	\begin{itemize}
+	\item open-source learning resource
+	\item implement the paper
+	\item work on a projected and open source it \\
+	$\Rightarrow$ the stage (e.g. github) will bring people to you
+	\item implement the tools: to find out how \& why it works \\
+	$\Rightarrow$ derive theories from the origin
+	\end{itemize}
 \end{itemize}
 
 \section{Basic Neutral Network}
@@ -307,11 +427,32 @@
 \end{itemize}
 $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
-\subsubsection{Non-convex Error Function}
+\subsubsection{High-Dimension Search Space}
 \begin{itemize}
 \item Multiple Critical Points
 	\begin{itemize}
-	\item at least $\mathcal O (n!2^n)$ critical points ($\nabla E(w) = 0, \text{ where } E(w) \text{ is error function}$) due to weight-space symmetries
+	\item Symmetries
+		\begin{itemize}
+		\item at least $\mathcal O (n!2^n)$ critical points ($\nabla E(w) = 0$), where $E(w)$ is error function \\
+		due to weight-space symmetries
+		\end{itemize}
+	\item Saddle Points
+		\begin{itemize}
+		\item both the bottom (in one dimension) and the top for another
+		\item due to high-dimension weight space \\ 
+		$\Rightarrow$ more likely to have functions being convey/convex in different dimensions
+		\end{itemize}
+	\item Local Optima
+		\begin{itemize}
+		\item less then saddle points in amount, due to high-dimension weight space \\ 
+		e.g. usually $\ge 10^4$-D for modern deep nets
+		\end{itemize}
+	\end{itemize}
+\item Plateaus
+	\begin{itemize}
+	\item a large flat region where gradient $\rightarrow 0$ \\
+	$\Rightarrow$ gradient descent slowly down the flat surface (before exiting)
+	\item $\Rightarrow$ slow down gradient descent significantly
 	\end{itemize}
 \item Expensive in Finding Critical Point
 	\begin{itemize}
@@ -375,9 +516,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item $s_l$: num of units in layer $l$
 		\item $w^l$: weight matrix of mapping from layer $l$ to $l+1$, with shape of $\left( s_{l+1}, s_l + 1 \right)$
-		\item $a_j^l$: activation of unit $j$ at layer $l$
 		\item $h(\cdot)$: activation function (usually shared)
-		\item $z_j^l$: output of unit $j$ at layer $l$ (represent parameterized basis)
+		\item $a_j^l$: activation output of unit $j$ at layer $l$
+		\item $z_j^l$: output of unit $j$ at layer $l$ \\ 
+		(represent parameterized basis, also the input for layer $l+1$)
+		
 		\end{itemize}
 	\item Intuition
 		\begin{itemize}
@@ -401,7 +544,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Caching Intermediate Result
 		\begin{itemize}
-		\item naturally cached: input $a^0=x$, weights $w$ and bias $b$
+		\item naturally cached: input $a^0=x$, weights matrix $w$ and bias $b$
 		\item activation input/output $a/z$ \\
 		(since will be used in back-prop)
 		\end{itemize}
@@ -412,7 +555,49 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\section{Experiment Practice}
+\subsubsection{Gradient Descent}
+\begin{itemize}
+\item Batch Descent
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item evaluate on entire training set; then update weights
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item largest optimization every time
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item greedy optimizing
+		\item slow \& memory demanding on large dataset
+		\end{itemize}
+	\end{itemize}
+\item Stochastic Gradient Descent
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item shuffle data to have training set $X_\text{train}$, further split into $X_\text{train}^{1}, ..., X_\text{train}^{T}$
+		\item train the net iteratively with $\forall t\in[1,T], X_\text{train}^t$ \\
+		i.e. one mini-batch for a gradient descent (weights update)
+		\item after training through all $T$ batches, an epoch of training is finished \\
+		$\Rightarrow 1$ epoch = $1$ full scan of training set
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item faster: more weight upgrade over the same amount of data
+		\item better chance to reach global change: not greedy anymore
+		\item more affordable for training in GPU memory
+		\end{itemize}
+		$\Rightarrow$ preferred choice
+	\item Cons
+		\begin{itemize}
+		\item observing noisy training loss: not monotonically decreasing (but overall decreasing)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\section{Recommended Practice}
 
 \subsection{Tunning Hyperparameters}
 \subsubsection{Hyperparameters}
@@ -432,15 +617,94 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item optimizer (learning process)
 		\end{itemize}
 	\end{itemize}
-\item Consequences
+\item Challenges
 	\begin{itemize}
 	\item NO Consistent Prescience
+		\begin{itemize}
+		\item popular choices from one domain usually NOT carry over to other domains
+		\end{itemize}
 	\item 
 	\end{itemize}
 \end{itemize}
 
+\subsubsection{Systematic Searching}
 \begin{itemize}
-\item 
+\item Random Sampling
+	\begin{itemize}
+	\item Reason
+		\begin{itemize}
+		\item NOT able to know the importance of different hyperparameters \\
+		$\Rightarrow$ not wasting grid search step on the unimportant
+		\item NOT able to know the effective range of a hyperparameters \\
+		$\Rightarrow$ may be skipped by grid search step
+		\item decouple the search for different hyperparameters $\Rightarrow$ more richly explore \\
+		(whereas grid search fix one while searching on others)
+		\end{itemize}
+	\item Coarse to Fine Scheme
+		\begin{itemize}
+		\item explore whole space uniformly (equally random)
+		\item exploit region where good results show up (with more densely sampled)
+		\end{itemize}
+	\item Sampling on Scale
+		\begin{itemize}
+		\item instead of sampling the value of hyperparameter, sample the scale of it \\
+		e.g. sampling learning rate $\alpha = 10^r, r\sim U(-4,0)$
+		\item $\Rightarrow$ distribute the density across desired scale\textbf{s} \\ 
+		(by using transfered scale, e.g. applying $\log, e^x$ e.t.c)
+		\item reason: depends on the 
+			\begin{itemize}
+			\item use of hyperparameter e.g. in an exponential/linear/log way
+			\item whether intend to sample on scale e.g. across one or more scales
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+\item Swarm Optimization
+	\begin{itemize}
+	\item Intuition
+		\begin{itemize}
+		\item searching over a space with continuous$\times$discrete across various scale \\ 
+		$\Rightarrow$ encoded into a list
+		\item search using permutation / group behavior \\ 
+		$\Rightarrow$ inherently imposing explore-exploit strategy
+		\end{itemize}
+	\item Popular Framework
+		\begin{itemize}
+		\item genetic algorithm (GA)
+		\item particle swarm optimization (PSO)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Tunning Practice}
+\begin{itemize}
+\item Single Model
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item supervising one model at a time
+		\item interactively justify the hyperparameter in training process  \\
+		$\Rightarrow$ gain knowledge through interaction \& ensure a good performance \\
+		$\Rightarrow$ early feedback
+		\end{itemize}
+	\item Reason
+		\begin{itemize}
+		\item too many data (online advertisement, computer vision etc.)
+		\item few computing resource
+		\end{itemize}
+	\end{itemize}
+\item Parallel Training
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item shoot out multiple model with various settings
+		\item compare at the end (after trained \& evaluated)
+		\end{itemize}
+	\item Reason
+		\begin{itemize}
+		\item small data/model, enough computability / fast training process
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsection{Designing Networks}
@@ -475,7 +739,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item still, gradient vanishing when $z\rightarrow \pm \infty$
 		\end{itemize}
 	\end{itemize}
-\item Rectified Linear Unit ReLu $\max(0, z)$ \label{Act_ReLU}
+\item Rectified Linear Unit (ReLU) $\max(0, z)$ \label{Act_ReLU}
 	\begin{itemize}
 	\item Derivation: approximated by a stack of sigmoid
 		\begin{itemize}
@@ -505,6 +769,17 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(yet not that popular as ReLU)
 	\end{itemize}
 
+\item Piecewise Linear Unit (PLU) $a=\max(\alpha(z+\beta)-\beta, \min(\alpha(z-\beta)+\beta, z)$
+	\begin{itemize}
+	\item Pros
+		\begin{itemize}
+		\item hybrid of tanh \& ReLU: three linear pieces approximating tanh in a given range \\
+		\item more expressive than ReLU: more nonlinear, better to fit smooth nonlinear function
+		\item mitigate gradient vanishing problem: due to linearity
+		\end{itemize}
+	\item Cons
+	\end{itemize}
+
 \item Linear (Identity) Activation $a=z$
 	\begin{itemize}
 	\item Pros
@@ -516,6 +791,46 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item stacked units with linear activation $\Leftrightarrow$ single linear transformation
 		\item logistic regression with linear activation in hidden layer is NO more expressive than logistic regression with no hidden layer \textbf{!}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Normalization in Network}
+\begin{itemize}
+\item Batch Normalization
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item for an activation in hidden layer with input $z$, a batch with size $N_b$
+		\item calculate the mean of current batch $\displaystyle \mu=\frac 1 {N_b} \sum_n z_n$, where $z_n$ for the $n^{th}$ example 
+		\item calculate the deviation of current batch $\displaystyle \sigma = \sqrt{\frac 1 {N_b} \sum_n(z_n-\mu)^2}$
+		\item normalize to be $z'_n = \frac {z_n-\mu}{\sigma}$
+		\item allow model to recover/manipulate original distribution: $\hat z_n=\gamma z'_n + \beta$, \\
+		where $\gamma, \beta$ being trainable (updated by optimizer using gradients)
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item preferred to apply batch norm on $z$ (before activation), instead of after it
+		\item for math stability, $z'_n=\frac {z_n-\mu}{\sigma+\epsilon}$, with $\epsilon\rightarrow 0+$
+		\item (usually) with mini-batch, calculate the mean \& variance from only the mini-batch
+		\item with batch norm, original bias $b$ in calculating $z=wx+b$ becomes pointless \\
+		$\Rightarrow$ integrated into the $\beta$ in batch norm
+		\item at test time ($1$ example a time): need an estimation for $\mu, \sigma$ \\
+		$\Rightarrow$ exponentially weighted average over $\beta, \sigma$ in training time
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item normalize the intermediate data to have $0$ mean, unit variance \\
+		$\Rightarrow$ to speed up the training from some hidden layers (as normalization does)
+		\item remain the ability to transfer the data to have other mean \& variance \\
+		(controlled by $\gamma,\beta$)
+		\item control the distribution of data in hidden layer \\ 
+		$\Rightarrow$ suppress the change of input data distribution for the layer after it \\
+		$\Rightarrow$ increase robustness for later layers, against covariate shift \\ 
+		(from both the weight update in early layers and the input data change)
+		\item regularize the net by adding noise to the input data of hidden layer \\ 
+		(due to computing mean/variance only on mini-batch) \\
+		$\Rightarrow$ enforce robustness against noise, hence unintended slight regularization effect \\
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -546,11 +861,19 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Practice
 		\begin{itemize}
-		\item 
+		\item set $\forall l\in [1,L], \text{Var}(w^l) = \frac 1{n_l}$ for tanh, $\frac 2{n_l}$ for ReLU, \\
+		where $n_l$ is the number of unit in layer $l$
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item draw random variable $r\sim \mathcal N(0,1)$
+		\item set each of $w^l=r\cdot \sqrt{\frac 2 {n_l}}$ for ReLU, $r\cdot \sqrt{\frac 2 {n_l}}$ for tanh \\ 
+		or $r\cdot \sqrt{\frac 2 {n_{l-1}+n_l}}$ proposed by 
 		\end{itemize}
 	\item Pros
 		\begin{itemize}
-		\item empirically much better: 
+		\item theoretically justified to initialized weights to be around $\pm 1$ \\
+		$\Rightarrow$ mitigate gradient vanishing\& exploding problem statistically 
 		\end{itemize}
 	\end{itemize}
 \item Zero Initialization for Bias
@@ -582,6 +905,24 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 	
 \item $L1$ Regularization
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item for each weight ww we add the term $\lambda \abs w$ to the objective. It is possible to combine the L1 regularization with the L2 regularization: $\lambda_1 \abs w + \lambda_2 w^2$ (this is called Elastic net regularization). The L1 regularization has the intriguing property that it leads the weight vectors to become sparse during optimization (i.e. very close to exactly zero). In other words, neurons with L1 regularization end up using only a sparse subset of their most important inputs and become nearly invariant to the “noisy” inputs. In comparison, final weight vectors from L2 regularization are usually diffuse, small numbers. In practice, if you are not concerned with explicit feature selection, L2 regularization can be expected to give superior performance over L1.
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\end{itemize}
 
 \item Dropout Regularization
 	\begin{itemize}
@@ -600,7 +941,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item $\Rightarrow$ activation becomes $0$ for dropped units in $\mathbf d$
 		\item scaling up by dividing the keep prob: $\mathbf d / k$ \\
 		$\Rightarrow$ so that expected output value of each activation remains the same
-		\item test time: no dropout $\Rightarrow$ no random output \\
+		\item test time: no dropout $\Rightarrow$ no random output \& consider all robust features learned\\
 		(randomness in training, mitigated by big data)
 		\end{itemize}
 	\item Understanding
@@ -610,10 +951,33 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item used on layers with enormous features as input (e.g. computer vision) \\
 		$\Rightarrow$ reduce the chance of relying on small set of features
 		\end{itemize}
+	\begin{figure}[ht]
+	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/regularization-dropout".jpeg}
+	\end{figure}
 	\item Cons
 		\begin{itemize}
 		\item training loss may have bigger glitch $\Rightarrow$ harder to debug \\
 		(make sure loss decreasing before introduced dropout)
+		\end{itemize}
+	\end{itemize}
+
+\item Max norm constraints
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item enforce an absolute upper bound on the magnitude of the weight vector for every neuron and use projected gradient descent to enforce the constraint. In practice, this corresponds to performing the parameter update as normal, and then enforcing the constraint by clamping the weight vector $w^l_n$ of every neuron to satisfy (). Typical values of cc are on orders of 3 or 4. Some people report improvements when using this form of regularization. One of its appealing properties is that network cannot “explode” even when the learning rates are set too high because the updates are always bounded.
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item 
 		\end{itemize}
 	\end{itemize}
 
@@ -642,7 +1006,170 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
+\subsubsection{Optimization}
+\begin{itemize}
+\item Gradient Descent with Momentum
+	\begin{itemize}
+	\item Definition: exponentially weighted average
+		\begin{itemize}
+		\item calculate the gradient for weight update: $dW'_t = \beta dW'_{t-1} + (1-\beta) dW_t$, \\ 
+		where $dW$ the original gradient
+		\item $\Rightarrow$ average over past gradients with exponentially decaying weight, \\
+		$\Rightarrow$ for past $k\in[0,K]$ gradient, coefficient becomes $\beta(1-\beta)^k$ \\ 
+		(with $k=0$ denoting current gradient)
+		\item bias correction: avoid slow start \\
+		(due to: gradient $dW_0$ initialized to $0$ \& not enough gradients for averaging) \\
+		$\Rightarrow$ set $dW_t=\frac {dW_t}{1-\beta^t}$ in the early stage \\
+		(after starting stage, bias correction $\rightarrow 0$ for large $t$)
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item approximation: weighted average over past $K=\frac 1 {1-\beta}$ gradients \\
+		due to $(1-\epsilon)^{1/\epsilon} \approx \frac 1 e$, recognized as small enough \\
+		$\Rightarrow$ discard gradients with further exponentially small weights
+		\item apply element-wise multiplication on gradients and pre-calculated coefficient
+		\item sum up to be the gradient for weight update \\ 
+		(include bias correction term if necessary, yet often omitted)
+		\item note: $dW'_t = \beta dW'_{t-1}+dW_t$ is another version, yet discouraged \\
+		(coupling momentum $\beta$ with learning rate $\alpha$, as $\alpha$ needs to cooperate)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item averaging/smoothing out the regular oscillation in stochastic gradient descent \\
+		$\Rightarrow \beta$ popularly chosen to be $0.9$ (averaging over last $10$ gradients) 
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item avoid some regular oscillation (slowing down the training \& not true randomness)
+		\end{itemize}
+	\end{itemize}
+	
+\item Root Mean Square Propagation (RMS prop)
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item compute $S_t = \beta S_{t-1} + (1-\beta) dW_t^2$ ($S_0$ initialized to $0$),\\ 
+		where $dW^2$ the original gradient being element-wisely squared\\
+		$\Rightarrow$ exponentially weighted square of gradients
+		\item calculate the gradient for weight update $dW'_t=\frac {dW_t}{\sqrt{S_t}}$
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item calculate $S_t$ similarly (as an exponentially weighted average)
+		\item $\sqrt{S_t}$ becomes $\sqrt{S_t+\epsilon}$, where $\epsilon\rightarrow 0^+$ for mathematical stability
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item for gradients with large variance in training $\Rightarrow S_t$ large $\Rightarrow \frac 1{\sqrt{S_t}}$ small \\ 
+		$\Rightarrow$ weighted less, hence stabilized (as it should be noisy \& taking smaller step)
+		\item for gradients with small variance \\ 
+		$\Rightarrow$ weighted more, encouraged (as it should be on the "trend" towards optimum)
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item recognize trend from noise via variance of their gradient $\Rightarrow$ speedup training
+		\item auto-fixing learning rate for each weight given the recorded behavior \\ 
+		(protect learning process from a too large learning rate)
+		\end{itemize}
+	\end{itemize}
+	
+\item Adaptive Momentum (Adam) Optimization Optimization
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item compute $M_t = \beta_1 M_{t-1} + (1-\beta_1) M_t$ as momentum
+		\item compute $S_t = \beta_2 S_{t-1} + (1-\beta_2) dW_t^2$ as root mean square
+		\item apply bias correction on both: $M'_t=\frac {M_t}{1-\beta_1^t}, S'_t=\frac {S_t}{1-\beta_2^t}$
+		\item $\Rightarrow$ calculate gradient for update $dW'_t=\frac {M'_t} {\sqrt{S'_t+\epsilon}}$, where $\epsilon\rightarrow 0^+$
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item implement $M_t,S_t$ as momentum and root mean square \\
+		(popular choice: $\beta_1=0.9, \beta_2=0.999, \epsilon=10^{-8}$)
+		\item do implement bias correction
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item combine momentum with root mean square \\
+		$\Rightarrow$ for each weight
+			\begin{itemize}
+			\item smooth out regular oscillation
+			\item encourage the trend \& adapt learning rate given history record
+			\end{itemize}
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item effective for a large range of problem
+		\end{itemize}
+	\end{itemize}
+
+\item Learning Rate Decay
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item update learning rate $\alpha = \frac 1 {1+r\cdot e}$, where $r$ the decay rate, $e$ the epoch number
+		\item other decay formula:
+			\begin{itemize}
+			\item exponential decay: $\alpha=r^e\cdot\alpha_0$, where $\alpha_0$ the base learning rate
+			\item $\alpha=\frac k {\sqrt{e}} * \alpha_0$, where $k$ a constant
+			\end{itemize}
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item set learning rate for each epoch, or after some global steps
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item fast learning at the beginning, more cautious when approaching the optimum \\ 
+		$\Rightarrow$ in order to finally converge
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
 \subsection{Layers}
+
+\subsubsection{Prediction Layer}
+\begin{itemize}
+\item Sigmoid Layer
+\item Softmax Layer
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item arbitrary input $\mathbf z^{L}$ being logits, containing multiple multi-class predictions $z^{L}$ \\
+		$\Rightarrow$ each prediction being the same dimension as one-hot encoded label
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item probabilistic-alike prediction $\mathbf a^L$, with the same shape as the input (logits)
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item for $K$ classes to predict $\Rightarrow$ $\dim (z^L)=K$
+		\item for each dimension $k\in[1,K]$, compute $\displaystyle a^L_k=\frac{e^{(z^L_k)}}{\displaystyle \sum_{k=1}^K e^{(z^L_k)}}$
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item vecotrize the exponential computation $\hat z^L = \exp{(z^L)}$
+		\item compute normalization $N=\displaystyle \sum_{k=1}^K {\hat z^L_k}$
+		\item normalize as $a^L=\frac 1N \hat z^L$
+		\item maximum likelihood with softmax: $\displaystyle L = \frac 1N \sum_{\mathbf Y}-\mathbf y^T \cdot \log \hat {\mathbf y}$, \\
+		where $\mathbf y$ the one-hot encoded label, $\hat {\mathbf y}$ the prediction \\
+		$\Rightarrow$ easy gradients: $dz^L = \hat{\mathbf y} - \mathbf y$, where $z^L$ the logits (vector)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item contrasting the hard-max function (non differentiable): $a_k = 1 \text{ if } \displaystyle \arg\max_k(z); \text{ else } 0$
+		\item exponentially normalizing the output of arbitrary net into probabilistic form \\
+		(reduced to logistic for binary class i.e. $K=2$) \\
+		$\Rightarrow$ generalize logistic prediction to $K$-class prediction
+		\item for maximum likelihood loss, only the gap with true class generate gradients \\ 
+		(due to one-hot encoding) \\ 
+		$\Rightarrow$ trying to predict the class true with higher probability
+		\end{itemize}
+	\end{itemize}
+\item Normalization Layer
+\end{itemize}
+
 \subsubsection{Convolution Layer}
 \begin{itemize}
 \item Normal Convolution
@@ -741,7 +1268,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 
 
-
+\section{Deep Learning Framework}
+\subsection{}
 
 
 
