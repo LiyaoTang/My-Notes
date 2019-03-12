@@ -18,63 +18,64 @@
 \BOOKMARK [2][-]{subsection.2.2.1}{}{section.2.2}% 18
 \BOOKMARK [1][-]{section.2.3}{Information Theory}{chapter.2}% 19
 \BOOKMARK [1][-]{section.2.4}{Recommended Practice}{chapter.2}% 20
-\BOOKMARK [2][-]{subsection.2.4.1}{Data \046 Dataset}{section.2.4}% 21
-\BOOKMARK [2][-]{subsection.2.4.2}{Project Structuring}{section.2.4}% 22
-\BOOKMARK [1][-]{section.2.5}{Model Analysis}{chapter.2}% 23
-\BOOKMARK [2][-]{subsection.2.5.1}{Bias and Variance}{section.2.5}% 24
-\BOOKMARK [2][-]{subsection.2.5.2}{Evaluating Hypothesis}{section.2.5}% 25
-\BOOKMARK [2][-]{subsection.2.5.3}{Error Analysis}{section.2.5}% 26
-\BOOKMARK [2][-]{subsection.2.5.4}{Skewed classes}{section.2.5}% 27
-\BOOKMARK [1][-]{section.2.6}{Supervised Learning}{chapter.2}% 28
-\BOOKMARK [1][-]{section.2.7}{Linear Regression}{chapter.2}% 29
-\BOOKMARK [1][-]{section.2.8}{Bayesian Regression}{chapter.2}% 30
-\BOOKMARK [1][-]{section.2.9}{Logistic Regression \(Classification\)}{chapter.2}% 31
-\BOOKMARK [1][-]{section.2.10}{Latent Variable Analysis}{chapter.2}% 32
-\BOOKMARK [2][-]{subsection.2.10.1}{Principal Component Analysis \(PCA\)}{section.2.10}% 33
-\BOOKMARK [2][-]{subsection.2.10.2}{Independent Component Analysis \(ICA\)}{section.2.10}% 34
-\BOOKMARK [2][-]{subsection.2.10.3}{t-SNE}{section.2.10}% 35
-\BOOKMARK [2][-]{subsection.2.10.4}{Anomaly Detection}{section.2.10}% 36
-\BOOKMARK [2][-]{subsection.2.10.5}{Recommender System}{section.2.10}% 37
-\BOOKMARK [1][-]{section.2.11}{Large Scale Machine Learning}{chapter.2}% 38
-\BOOKMARK [2][-]{subsection.2.11.1}{Gradient Descent with Large Dataset}{section.2.11}% 39
-\BOOKMARK [2][-]{subsection.2.11.2}{Online Learning}{section.2.11}% 40
-\BOOKMARK [2][-]{subsection.2.11.3}{Map-reduce}{section.2.11}% 41
-\BOOKMARK [1][-]{section.2.12}{Building Machine Learning System}{chapter.2}% 42
-\BOOKMARK [2][-]{subsection.2.12.1}{Pipeline}{section.2.12}% 43
-\BOOKMARK [2][-]{subsection.2.12.2}{Getting More Data}{section.2.12}% 44
-\BOOKMARK [2][-]{subsection.2.12.3}{Ceilling Analysis}{section.2.12}% 45
-\BOOKMARK [0][-]{chapter.3}{Linear Regression}{}% 46
-\BOOKMARK [0][-]{chapter.4}{Linear Classification}{}% 47
-\BOOKMARK [0][-]{chapter.5}{Kernel Methods}{}% 48
-\BOOKMARK [0][-]{chapter.6}{Graphical Models}{}% 49
-\BOOKMARK [0][-]{chapter.7}{Mixture Models and EM}{}% 50
-\BOOKMARK [0][-]{chapter.8}{Approximate Inference}{}% 51
-\BOOKMARK [0][-]{chapter.9}{Sampling Methods}{}% 52
-\BOOKMARK [0][-]{chapter.10}{Continuous Latent Variable}{}% 53
-\BOOKMARK [0][-]{chapter.11}{Sequential Data}{}% 54
-\BOOKMARK [0][-]{chapter.12}{Deep Learning}{}% 55
-\BOOKMARK [1][-]{section.12.1}{Interview of Fame}{chapter.12}% 56
-\BOOKMARK [2][-]{subsection.12.1.1}{Geoffrey Hinton}{section.12.1}% 57
-\BOOKMARK [2][-]{subsection.12.1.2}{Pieter Abbeel}{section.12.1}% 58
-\BOOKMARK [2][-]{subsection.12.1.3}{Ian Goodfellow}{section.12.1}% 59
-\BOOKMARK [2][-]{subsection.12.1.4}{Yoshua Bengio}{section.12.1}% 60
-\BOOKMARK [2][-]{subsection.12.1.5}{Yuanqing Lin}{section.12.1}% 61
-\BOOKMARK [2][-]{subsection.12.1.6}{}{section.12.1}% 62
-\BOOKMARK [2][-]{subsection.12.1.7}{Research}{section.12.1}% 63
-\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 64
-\BOOKMARK [2][-]{subsection.12.2.1}{Advantages}{section.12.2}% 65
-\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 66
-\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 67
-\BOOKMARK [1][-]{section.12.3}{Experiment Practice}{chapter.12}% 68
-\BOOKMARK [2][-]{subsection.12.3.1}{Tunning Hyperparameters}{section.12.3}% 69
-\BOOKMARK [2][-]{subsection.12.3.2}{Designing Networks}{section.12.3}% 70
-\BOOKMARK [1][-]{section.12.4}{Operations \046 Layers Structure}{chapter.12}% 71
-\BOOKMARK [2][-]{subsection.12.4.1}{Operations in Network}{section.12.4}% 72
-\BOOKMARK [2][-]{subsection.12.4.2}{Operations on Network}{section.12.4}% 73
-\BOOKMARK [2][-]{subsection.12.4.3}{Layers}{section.12.4}% 74
-\BOOKMARK [1][-]{section.12.5}{Architectures}{chapter.12}% 75
-\BOOKMARK [2][-]{subsection.12.5.1}{Encoder-Decoder Architecture}{section.12.5}% 76
-\BOOKMARK [1][-]{section.12.6}{Advanced Topic}{chapter.12}% 77
-\BOOKMARK [2][-]{subsection.12.6.1}{Machine Reading Comprehension}{section.12.6}% 78
-\BOOKMARK [2][-]{subsection.12.6.2}{Image Caption}{section.12.6}% 79
-\BOOKMARK [2][-]{subsection.12.6.3}{Referring Segmentation}{section.12.6}% 80
+\BOOKMARK [2][-]{subsection.2.4.1}{Data}{section.2.4}% 21
+\BOOKMARK [2][-]{subsection.2.4.2}{Dataset}{section.2.4}% 22
+\BOOKMARK [2][-]{subsection.2.4.3}{Orthogonalization Practice}{section.2.4}% 23
+\BOOKMARK [2][-]{subsection.2.4.4}{Tunning Hyperparameters}{section.2.4}% 24
+\BOOKMARK [1][-]{section.2.5}{Model Analysis}{chapter.2}% 25
+\BOOKMARK [2][-]{subsection.2.5.1}{Measurements of Problem}{section.2.5}% 26
+\BOOKMARK [2][-]{subsection.2.5.2}{Improving Model}{section.2.5}% 27
+\BOOKMARK [2][-]{subsection.2.5.3}{Evaluating Hypothesis}{section.2.5}% 28
+\BOOKMARK [2][-]{subsection.2.5.4}{Skewed classes}{section.2.5}% 29
+\BOOKMARK [1][-]{section.2.6}{Supervised Learning}{chapter.2}% 30
+\BOOKMARK [1][-]{section.2.7}{Linear Regression}{chapter.2}% 31
+\BOOKMARK [1][-]{section.2.8}{Bayesian Regression}{chapter.2}% 32
+\BOOKMARK [1][-]{section.2.9}{Logistic Regression \(Classification\)}{chapter.2}% 33
+\BOOKMARK [1][-]{section.2.10}{Latent Variable Analysis}{chapter.2}% 34
+\BOOKMARK [2][-]{subsection.2.10.1}{Principal Component Analysis \(PCA\)}{section.2.10}% 35
+\BOOKMARK [2][-]{subsection.2.10.2}{Independent Component Analysis \(ICA\)}{section.2.10}% 36
+\BOOKMARK [2][-]{subsection.2.10.3}{t-SNE}{section.2.10}% 37
+\BOOKMARK [2][-]{subsection.2.10.4}{Anomaly Detection}{section.2.10}% 38
+\BOOKMARK [2][-]{subsection.2.10.5}{Recommender System}{section.2.10}% 39
+\BOOKMARK [1][-]{section.2.11}{Large Scale Machine Learning}{chapter.2}% 40
+\BOOKMARK [2][-]{subsection.2.11.1}{Online Learning}{section.2.11}% 41
+\BOOKMARK [2][-]{subsection.2.11.2}{Map-reduce}{section.2.11}% 42
+\BOOKMARK [0][-]{chapter.3}{Linear Regression}{}% 43
+\BOOKMARK [0][-]{chapter.4}{Linear Classification}{}% 44
+\BOOKMARK [0][-]{chapter.5}{Kernel Methods}{}% 45
+\BOOKMARK [0][-]{chapter.6}{Graphical Models}{}% 46
+\BOOKMARK [0][-]{chapter.7}{Mixture Models and EM}{}% 47
+\BOOKMARK [0][-]{chapter.8}{Approximate Inference}{}% 48
+\BOOKMARK [0][-]{chapter.9}{Sampling Methods}{}% 49
+\BOOKMARK [0][-]{chapter.10}{Continuous Latent Variable}{}% 50
+\BOOKMARK [0][-]{chapter.11}{Sequential Data}{}% 51
+\BOOKMARK [0][-]{chapter.12}{Deep Learning}{}% 52
+\BOOKMARK [1][-]{section.12.1}{Interview of Fame}{chapter.12}% 53
+\BOOKMARK [2][-]{subsection.12.1.1}{Geoffrey Hinton}{section.12.1}% 54
+\BOOKMARK [2][-]{subsection.12.1.2}{Pieter Abbeel}{section.12.1}% 55
+\BOOKMARK [2][-]{subsection.12.1.3}{Ian Goodfellow}{section.12.1}% 56
+\BOOKMARK [2][-]{subsection.12.1.4}{Yoshua Bengio}{section.12.1}% 57
+\BOOKMARK [2][-]{subsection.12.1.5}{Yuanqing Lin}{section.12.1}% 58
+\BOOKMARK [2][-]{subsection.12.1.6}{Andrej Karpathy}{section.12.1}% 59
+\BOOKMARK [2][-]{subsection.12.1.7}{Ruslan Salakhutdinov}{section.12.1}% 60
+\BOOKMARK [2][-]{subsection.12.1.8}{}{section.12.1}% 61
+\BOOKMARK [2][-]{subsection.12.1.9}{Research}{section.12.1}% 62
+\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 63
+\BOOKMARK [2][-]{subsection.12.2.1}{Advantages}{section.12.2}% 64
+\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 65
+\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 66
+\BOOKMARK [1][-]{section.12.3}{Operations \046 Layers Structure}{chapter.12}% 67
+\BOOKMARK [2][-]{subsection.12.3.1}{Operations in Network}{section.12.3}% 68
+\BOOKMARK [2][-]{subsection.12.3.2}{Operations on Network}{section.12.3}% 69
+\BOOKMARK [2][-]{subsection.12.3.3}{Cost}{section.12.3}% 70
+\BOOKMARK [2][-]{subsection.12.3.4}{Layers}{section.12.3}% 71
+\BOOKMARK [1][-]{section.12.4}{Architectures}{chapter.12}% 72
+\BOOKMARK [2][-]{subsection.12.4.1}{Encoder-Decoder Architecture}{section.12.4}% 73
+\BOOKMARK [2][-]{subsection.12.4.2}{Generative Network}{section.12.4}% 74
+\BOOKMARK [1][-]{section.12.5}{Advanced Topic}{chapter.12}% 75
+\BOOKMARK [2][-]{subsection.12.5.1}{Point Cloud Recognition}{section.12.5}% 76
+\BOOKMARK [2][-]{subsection.12.5.2}{Transfer Learning}{section.12.5}% 77
+\BOOKMARK [2][-]{subsection.12.5.3}{Multi-task Learning}{section.12.5}% 78
+\BOOKMARK [2][-]{subsection.12.5.4}{Machine Reading Comprehension}{section.12.5}% 79
+\BOOKMARK [2][-]{subsection.12.5.5}{Image Caption}{section.12.5}% 80
+\BOOKMARK [2][-]{subsection.12.5.6}{Referring Segmentation}{section.12.5}% 81

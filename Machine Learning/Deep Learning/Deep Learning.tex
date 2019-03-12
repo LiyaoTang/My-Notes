@@ -176,6 +176,7 @@
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Works}
 \begin{itemize}
 \item Piecewise Linear Activation (PLU)
@@ -188,22 +189,17 @@
 		\end{itemize}
 	\item Importance
 		\begin{itemize}
-		\item Human Ability
-			\begin{itemize}
-			\item self-teaching, building world-model from perception
-			\end{itemize}
-		\item Unsupervised Learning + Reinforcement Learning
-			\begin{itemize}
-			\item underlying concept across two fields: machine can learn through interactions \\
-			$\Rightarrow$ learning "good" representation (yet, what is "good")
-			\end{itemize}
+		\item human ability: self-teaching, building world-model from perception
 		\end{itemize}
-	\item Possibility
+	\item Unsupervised Learning + Reinforcement Learning
 		\begin{itemize}
-		\item Loss Function
-			\begin{itemize}
-			\item not even defined for each task (not knowing which is good for what?)
-			\end{itemize}
+		\item underlying concept across two fields: machine can learn through interactions \\
+		$\Rightarrow$ learning "good" representation (yet, what is "good")
+		\end{itemize}
+	\item Possible Directions
+		\begin{itemize}
+		\item loss function: not even defined for each task \\ 
+		(not knowing which is good for what?)
 		\end{itemize}
 	\end{itemize}
 \item Attention
@@ -225,6 +221,80 @@
 \item Baidu Lab
 \end{itemize}
 
+\subsection{Andrej Karpathy}
+\subsubsection{Human Benchmark}
+\begin{itemize}
+\item Programming by Showing
+	\begin{itemize}
+	\item Requirement
+		\begin{itemize}
+		\item input + output as specification
+		\item metric as goal
+		\end{itemize}
+	\item Writer
+		\begin{itemize}
+		\item the optimizer
+		\end{itemize}
+	\end{itemize}
+\item Understanding Importance of Benchmark
+	\begin{itemize}
+	\item importance to do better given the current performance on the dataset \\
+	(as important increase after passing human error)
+	\end{itemize}
+\item Understanding Network Behavior
+	\begin{itemize}
+	\item compared to the process of human decision
+	\end{itemize}
+\end{itemize}
+\subsubsection{Transfer Learning}
+\begin{itemize}
+\item Image Task
+	\begin{itemize}
+	\item feature extractor + fine tune/modification onto various task
+	\end{itemize}
+\end{itemize}
+
+\subsection{Ruslan Salakhutdinov}
+\subsubsection{Restricted Boltzmann Machine}
+\begin{itemize}
+\item Auto Encoder
+	\begin{itemize}
+	\item Encoding All Kind of Data
+		\begin{itemize}
+		\item from digit to face, document, etc...
+		\item deeper and deeper structure
+		\end{itemize}
+	\end{itemize}
+\item Training Boltzmann Machine
+	\begin{itemize}
+	\item Pretraining
+		\begin{itemize}
+		\item increase the low boundary by training the previous layer
+		\item then add another layer to train, ...
+		\end{itemize}
+	\item Direct Training (with GPU)
+		\begin{itemize}
+		\item similar, or better result
+		\end{itemize}
+	\end{itemize}
+\item Boltzmann Machine Ability
+	\begin{itemize}
+	\item Generative Model
+		\begin{itemize}
+		\item model coupling distributions in data \\
+		$\Rightarrow$ scalable (more scalable than current model\&operation)
+		\item only way to train the model in the early age
+		\end{itemize}
+	\end{itemize}
+\item Progress on Generative Model
+	\begin{itemize}
+	\item probabilistic max pooling
+	\item variational encoder
+	\item deep energy model
+	\item semi-supervised Model
+	\end{itemize}
+\end{itemize}
+
 \subsection{}
 \subsubsection{title}
 \begin{itemize}
@@ -234,8 +304,55 @@
 \subsection{Research}
 \subsubsection{Topics}
 \begin{itemize}
+\item Point Cloud
+	\begin{itemize}
+	\item Operations on Points: how to embed location in operation
+		\begin{itemize}
+		\item select fixed number of points via coord?: then take weighted average (conv) / max (pooling) on them \\
+		\item need a "select input points" op: like deformable conv?
+		\end{itemize}
+	\item Bounding Box Directly from Points: no voxel
+		\begin{itemize}
+		\item clustering + regression on each cluster?
+		\end{itemize}
+	\end{itemize}
+	
 \item Unsupervised Learning
+	\begin{itemize}
+	\item Deep Belief Nets
+	\end{itemize}
+
 \item Reinforcement Learning
+	\begin{itemize}
+	\item Deep Reinforcement Learning
+		\begin{itemize}
+		\item scalable system
+		\item communicative\& cooperating agents
+		\end{itemize}
+	\end{itemize}
+
+\item One-shot / Transfer Learning
+	\begin{itemize}
+	\item Learning the Ability to Learn
+	\end{itemize}
+
+\item General AI
+	\begin{itemize}
+	\item Structure for General Task
+		\begin{itemize}
+		\item neural network or other structure, shared for multiple tasks \\
+		(instead of breaking down to different parts like segmentation, detection, etc.) \\
+		(instead of the split of cv, nlp, plaining, etc.)
+		\item $\Rightarrow$ a full agent (instead of decomposed function) \\
+		$\Rightarrow$ optimization method/objective need to be carefully defined
+		\end{itemize}
+	\item Attempt for General AL
+		\begin{itemize}
+		\item scaling up supervised learning: imitating human
+		\item unsupervised learning: AIXI, artificial evolution, etc.
+		\end{itemize}
+	\end{itemize}
+
 \item AI Security
 	\begin{itemize}
 	\item Anti Inducing
@@ -250,7 +367,7 @@
 	\item Dealing Societal Issue
 	\item Reflecting Preferred Bias
 	\end{itemize}
-\item \textbf{Auto Optimization (Hyperparameter Tunning)}
+\item Auto Optimization (Hyperparameter Tunning)
 	\begin{itemize}
 	\item Swarm Optimization
 	\item Expectation Maximization
@@ -321,6 +438,7 @@
 		\begin{itemize}
 		\item amount of mentoring
 		\item faster if dedicated supervisor available
+		\item resource
 		\end{itemize}
 	\end{itemize}
 
@@ -331,7 +449,9 @@
 	\item work on a projected and open source it \\
 	$\Rightarrow$ the stage (e.g. github) will bring people to you
 	\item implement the tools: to find out how \& why it works \\
-	$\Rightarrow$ derive theories from the origin
+	$\Rightarrow$ derive theories from the 
+	\item full stack of understanding \\ 
+	$\Rightarrow$ understand the implementation under the deep learning framework
 	\end{itemize}
 \end{itemize}
 
@@ -491,11 +611,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Random Initialization
 		\begin{itemize}
-		\item \hyperref[Init_Xavier]{Xavier Initialization}: for gradient vanishing \& exploding
+		\item \hyperref[DL_Init_Xavier]{Xavier Initialization}: for gradient vanishing \& exploding
 		\end{itemize}
 	\item Activation 
 		\begin{itemize}
-		\item \hyperref[Act_ReLU]{ReLU}: for gradient vanishing
+		\item \hyperref[DL_Act_ReLU]{ReLU}: for gradient vanishing
 		\end{itemize}
 	\end{itemize}	
 \end{itemize}
@@ -555,161 +675,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Gradient Descent}
-\begin{itemize}
-\item Batch Descent
-	\begin{itemize}
-	\item Practice
-		\begin{itemize}
-		\item evaluate on entire training set; then update weights
-		\end{itemize}
-	\item Pros
-		\begin{itemize}
-		\item largest optimization every time
-		\end{itemize}
-	\item Cons
-		\begin{itemize}
-		\item greedy optimizing
-		\item slow \& memory demanding on large dataset
-		\end{itemize}
-	\end{itemize}
-\item Stochastic Gradient Descent
-	\begin{itemize}
-	\item Practice
-		\begin{itemize}
-		\item shuffle data to have training set $X_\text{train}$, further split into $X_\text{train}^{1}, ..., X_\text{train}^{T}$
-		\item train the net iteratively with $\forall t\in[1,T], X_\text{train}^t$ \\
-		i.e. one mini-batch for a gradient descent (weights update)
-		\item after training through all $T$ batches, an epoch of training is finished \\
-		$\Rightarrow 1$ epoch = $1$ full scan of training set
-		\end{itemize}
-	\item Pros
-		\begin{itemize}
-		\item faster: more weight upgrade over the same amount of data
-		\item better chance to reach global change: not greedy anymore
-		\item more affordable for training in GPU memory
-		\end{itemize}
-		$\Rightarrow$ preferred choice
-	\item Cons
-		\begin{itemize}
-		\item observing noisy training loss: not monotonically decreasing (but overall decreasing)
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\section{Recommended Practice}
-
-\subsection{Tunning Hyperparameters}
-\subsubsection{Hyperparameters}
-\begin{itemize}
-\item Overview
-	\begin{itemize}
-	\item Structures and Architectures
-		\begin{itemize}
-		\item type of layers and size of layers
-		\item type of activation
-		\item depth of networks
-		\item so on...
-		\end{itemize}
-	\item Learning
-		\begin{itemize}
-		\item learning rate
-		\item optimizer (learning process)
-		\end{itemize}
-	\end{itemize}
-\item Challenges
-	\begin{itemize}
-	\item NO Consistent Prescience
-		\begin{itemize}
-		\item popular choices from one domain usually NOT carry over to other domains
-		\end{itemize}
-	\item 
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Systematic Searching}
-\begin{itemize}
-\item Random Sampling
-	\begin{itemize}
-	\item Reason
-		\begin{itemize}
-		\item NOT able to know the importance of different hyperparameters \\
-		$\Rightarrow$ not wasting grid search step on the unimportant
-		\item NOT able to know the effective range of a hyperparameters \\
-		$\Rightarrow$ may be skipped by grid search step
-		\item decouple the search for different hyperparameters $\Rightarrow$ more richly explore \\
-		(whereas grid search fix one while searching on others)
-		\end{itemize}
-	\item Coarse to Fine Scheme
-		\begin{itemize}
-		\item explore whole space uniformly (equally random)
-		\item exploit region where good results show up (with more densely sampled)
-		\end{itemize}
-	\item Sampling on Scale
-		\begin{itemize}
-		\item instead of sampling the value of hyperparameter, sample the scale of it \\
-		e.g. sampling learning rate $\alpha = 10^r, r\sim U(-4,0)$
-		\item $\Rightarrow$ distribute the density across desired scale\textbf{s} \\ 
-		(by using transfered scale, e.g. applying $\log, e^x$ e.t.c)
-		\item reason: depends on the 
-			\begin{itemize}
-			\item use of hyperparameter e.g. in an exponential/linear/log way
-			\item whether intend to sample on scale e.g. across one or more scales
-			\end{itemize}
-		\end{itemize}
-	\end{itemize}
-
-\item Swarm Optimization
-	\begin{itemize}
-	\item Intuition
-		\begin{itemize}
-		\item searching over a space with continuous$\times$discrete across various scale \\ 
-		$\Rightarrow$ encoded into a list
-		\item search using permutation / group behavior \\ 
-		$\Rightarrow$ inherently imposing explore-exploit strategy
-		\end{itemize}
-	\item Popular Framework
-		\begin{itemize}
-		\item genetic algorithm (GA)
-		\item particle swarm optimization (PSO)
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Tunning Practice}
-\begin{itemize}
-\item Single Model
-	\begin{itemize}
-	\item Practice
-		\begin{itemize}
-		\item supervising one model at a time
-		\item interactively justify the hyperparameter in training process  \\
-		$\Rightarrow$ gain knowledge through interaction \& ensure a good performance \\
-		$\Rightarrow$ early feedback
-		\end{itemize}
-	\item Reason
-		\begin{itemize}
-		\item too many data (online advertisement, computer vision etc.)
-		\item few computing resource
-		\end{itemize}
-	\end{itemize}
-\item Parallel Training
-	\begin{itemize}
-	\item Practice
-		\begin{itemize}
-		\item shoot out multiple model with various settings
-		\item compare at the end (after trained \& evaluated)
-		\end{itemize}
-	\item Reason
-		\begin{itemize}
-		\item small data/model, enough computability / fast training process
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsection{Designing Networks}
-\subsubsection{}
-
 
 \section{Operations \& Layers Structure}
 \subsection{Operations in Network}
@@ -739,7 +704,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item still, gradient vanishing when $z\rightarrow \pm \infty$
 		\end{itemize}
 	\end{itemize}
-\item Rectified Linear Unit (ReLU) $\max(0, z)$ \label{Act_ReLU}
+\item Rectified Linear Unit (ReLU) $\max(0, z)$ \label{DL_Act_ReLU}
 	\begin{itemize}
 	\item Derivation: approximated by a stack of sigmoid
 		\begin{itemize}
@@ -857,7 +822,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item NOT concern various nets: sampling in a fixed range may not work for all nets
 		\end{itemize}
 	\end{itemize}
-\item Xavier Initialization for Weights \label{Init_Xavier}
+\item Xavier Initialization for Weights \label{DL_Init_Xavier}
 	\begin{itemize}
 	\item Practice
 		\begin{itemize}
@@ -890,6 +855,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \begin{itemize}
 \item $L2$ Regularization
 	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item $\Rightarrow$ also called "weight decay" \\
+		(as in gradient decent, weight is multiplied by a $<1$ number due to L2 term)
+		\end{itemize}
 	\item Understanding
 		\begin{itemize}
 		\item forcing weights to be smaller
@@ -901,6 +871,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 			\end{itemize}
 		$\Rightarrow$ simpler network, less able to fit extreme curly decision boundary \\
 		(hence less able to overfit)
+
 		\end{itemize}
 	\end{itemize}
 	
@@ -1008,6 +979,46 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{Optimization}
 \begin{itemize}
+\item Batch Descent
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item evaluate on entire training set; then update weights
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item largest optimization every time
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item greedy optimizing
+		\item slow \& memory demanding on large dataset
+		\end{itemize}
+	\end{itemize}
+
+\item Stochastic Gradient Descent
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item shuffle data to have training set $X_\text{train}$, further split into $X_\text{train}^{1}, ..., X_\text{train}^{T}$
+		\item train the net iteratively with $\forall t\in[1,T], X_\text{train}^t$ \\
+		i.e. one mini-batch for a gradient descent (weights update)
+		\item after training through all $T$ batches, an epoch of training is finished \\
+		$\Rightarrow 1$ epoch = $1$ full scan of training set
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item faster: more weight upgrade over the same amount of data
+		\item better chance to reach global change: not greedy anymore
+		\item more affordable for training in GPU memory
+		\end{itemize}
+		$\Rightarrow$ preferred choice
+	\item Cons
+		\begin{itemize}
+		\item observing noisy loss: not monotonically decreasing (but overall decreasing)
+		\end{itemize}
+	\end{itemize}
+	
 \item Gradient Descent with Momentum
 	\begin{itemize}
 	\item Definition: exponentially weighted average
@@ -1126,6 +1137,25 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
+\subsection{Cost}
+\subsubsection{Probabilistic Cost}
+\begin{itemize}
+\item Log Maximum Likelihood / Posterior
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item convert the logits into probability-alike prediction \\ 
+		$\Rightarrow$ then interpreted as predicted likelihood $p(\mathbf y|\mathbf w, \mathbf x)$
+		\item bayesian regression $\displaystyle L = -\frac 1 2\sum_{\mathbf y\in \mathbf Y} (\mathbf y - \hat {\mathbf y})^2$ \\
+		(for $\mathbf y$ real number vector label, $\hat {\mathbf y}$ real number vector prediction)
+		\item classification with logistic assumption $\displaystyle L = -\sum_{\mathbf y\in\mathbf Y}(\mathbf y^T \cdot \log \hat {\mathbf y})$ \\
+		($t$ one-hot encoded label, $\hat y$ one-hot encoded prediction)
+		\item to use posterior with Gaussian distribution: add $L2$ regularization term
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
 \subsection{Layers}
 
 \subsubsection{Prediction Layer}
@@ -1200,12 +1230,12 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item a fixed size feature maps for each RoI
 		\end{itemize}
 	\end{itemize}
+\item Probabilistic Max Pooling
 \end{itemize}
-
 
 \section{Architectures}
 \subsection{Encoder-Decoder Architecture}
-\subsubsection{Description}
+\subsubsection{Basic}
 \begin{itemize}
 \item Encoder
 	\begin{itemize}
@@ -1263,18 +1293,158 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item impose multiple requirements to the encoder (via auxiliary loss)
 		\end{itemize}
 	\end{itemize}
+
+\item Variational Auto-Encoder
 \end{itemize}
 
-
-
-
-\section{Deep Learning Framework}
-\subsection{}
+\subsection{Generative Network}
+\subsubsection{Generative Adversarial Network}
 
 
 
 
 \section{Advanced Topic}
+
+\subsection{Point Cloud Recognition}
+
+\subsection{Transfer Learning} \label{DL_Topic_Transfer}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Source Data
+		\begin{itemize}
+		\item a large amount of labeled data
+		\item having different distribution then the desired target data
+		\end{itemize}
+	\item Target Data
+		\begin{itemize}
+		\item a small amount of labeled data, with a large amount of unlabeled data \\
+		(due to hardness of labeling, etc.)
+		\item from the distribution where model need to handle
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Model Performance
+		\begin{itemize}
+		\item good performance on val\&test set (containing target data)
+		\item good generalization ability on the target distribution
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Standard Baseline}
+\begin{itemize}
+\item Pre-training \& Fine-tunning
+	\begin{itemize}
+	\item Assumption
+		\begin{itemize}
+		\item distribution of source \& target data share some common features \\
+		$\Rightarrow$ different task shares some common knowledge
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item train network on source data only
+		\item swap/modify the last few layers (including prediction layer)
+		\item retrain the last layer (limited target data) / all net (enough target data)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item sharing weights/structure: low level feature extraction useful for both \\
+		$\Rightarrow$ based on model ability
+		\end{itemize}
+	\end{itemize}
+\item Transfer Ada Boost (trAdaBoost)
+	\begin{itemize}
+	\item Assumption
+		\begin{itemize}
+		\item distribution of target \& source overlap more or less \\
+		$\Rightarrow$ able to extract helpful guides from source data
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item setup train set with mixed target \& source data
+		\item weighting example from target \& source differently: \\ 
+		for source data weight $= \frac 1 {N_\text{source}}$; target data weight $= \frac 1 {N_\text{target}}$ \\
+		$\Rightarrow$ target data more important (as smaller in number)
+		\item for each weight-update iteration (may contain multiple epochs), update the weight: \\
+		$\Rightarrow$ shift the weight (importance) towards target data \& normalize all the weight
+		\end{itemize}
+		$\Rightarrow$ based on data distribution
+	\item Understanding
+		\begin{itemize}
+		\item learn the shared feature/knowledge with the help of source data
+		\item focus more on target as making progress
+		\end{itemize}
+	\end{itemize}
+\item Feature Projection
+	\begin{itemize}
+	\item Assumption
+		\begin{itemize}
+		\item few or NO overlap between source \& target (as data examples directly)
+		\item source \& target can be mapped onto a shared feature space, where overlap can be discovered
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item project/map the source \& target data onto the same feature space
+		\item transfer learning in the shared space
+		\end{itemize}
+		$\Rightarrow$ based on distribution transformation
+	\item Understanding
+		\begin{itemize}
+		\item try discover common feature through transformation \\ 
+		(may need a decoder to map back to desired output space)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Multi-task Learning}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Multi-labeled Data
+		\begin{itemize}
+		\item one input data corresponds to multiple desired outputs
+		\item $\Rightarrow$ require similarity/common knowledge in different tasks \\
+		(e.g. object detection for multiple object types)
+		\end{itemize}
+	\item Partial-labeled Data
+		\begin{itemize}
+		\item desired outputs may not be all labeled in the input \\ 
+		(i.e. some may be missed)
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item General Solution to Multi-task
+		\begin{itemize}
+		\item give all desired outputs from a single network
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Standard Baseline}
+\begin{itemize}
+\item Single Networks with Multiple Predictions
+	\begin{itemize}
+	\item Sharing
+		\begin{itemize}
+		\item shared low-level layers to extract features from the input
+		\item shared loss as a sum over all prediction for corresponding label
+		\item shared training as back-prop computed as a single network
+		\item shared input data as trained together \\
+		$\Rightarrow$ shared knowledge discovered when training on data for other tasks \\
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item each task help each other, by contributing to the common knowledge
+		\item overcome data shortage: augmented by data for other tasks
+		\item partial labeled still useful: help train the shared layers
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
 \subsection{Machine Reading Comprehension}
 \subsubsection{Problem Formulation}
 \begin{itemize}
@@ -1287,7 +1457,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \subsection{Image Caption}
 \subsubsection{Problem Formulation}
 \begin{itemize}
-\item Input
+\item Input Data
 	\begin{itemize}
 	\item Image 
 		\begin{itemize}

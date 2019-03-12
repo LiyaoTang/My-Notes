@@ -69,107 +69,31 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Recommended Practice}
-\subsection{Data \& Dataset}
-\subsubsection{Train-Val-Test}
-\begin{itemize}
-\item Reason
-	\begin{itemize}
-	\item Iterative Process
-		\begin{figure}[!ht]
-		\includegraphics[width=0.3\linewidth, center]{"./Deep Learning/experiment practice-iterative process".png}
-		\end{figure}
-		\begin{itemize}
-		\item intuition usually do NOT transfer across domains (NLP, CV, Search, etc.)
-		\item do NOT hope to have the correct hyperparameters at the first try
-		\end{itemize}
-		$\Rightarrow$ need feedback from experiment result \\
-		$\Rightarrow$ make sure the feedback is CORRECT and FAST
-	\end{itemize}
-\item Recommended Usage
-	\begin{itemize}
-	\item Splitting 
-		\begin{itemize}
-		\item classic split for small dataset $\Rightarrow$ train:val:test $= 80:20:20$, or K-fold
-		\item in big data (e.g. 100 million) $\Rightarrow$ train:val:test $= 98:1:1$
-		\end{itemize}
-		(as long as val-test sets cover enough data variance)
-	\item Training Set
-		\begin{itemize}
-		\item data used to find the model parameter estimation (used for learning process of model) \\
-		$\Rightarrow$ over-fit by complex model
-		\end{itemize}
-	\item Validation Set (Val)
-		\begin{itemize}
-		\item data to indicate generalization ability of a range of trained models \\
-		$\Rightarrow$ for model comparison, selection \& hyperparameters tunning \\
-		(feedback is correct if enough various input covered)
-		\end{itemize}
-	\item Test Set
-		\begin{itemize}
-		\item evaluate the \textbf{generalization ability} of final selected \& trained model
-		(indication correct if enough various input covered)
-		\end{itemize}
-	\end{itemize}
-	
-\item Special Usage
-	\begin{itemize}
-	\item No Val Set
-		\begin{itemize}
-		\item may use the "test" set as val set $\Rightarrow$ generalization ability NOT reported
-		\end{itemize}
-	\item Training on Train-Val Set
-		\begin{itemize}
-		\item to utilize as many data as possible for ultimate performance \\ 
-		$\Rightarrow$ okay case of "no val set"
-		\end{itemize}
-	\end{itemize}
 
-\item Potential Problem
-	\begin{itemize}
-	\item Mismatched Distribution across Sets
-		\begin{itemize}
-		\item classic supervised learning assumption: all sets drawn from SAME distribution
-		\item other (e.g. transfer/adaptive) learning focus on violation of such assumption
-		\end{itemize}
-		$\Rightarrow$ yet, make sure val\&test set from the SAME distribution as the desired one
-	\item \textbf{Overfitting Val Set}
-		\begin{itemize}
-		\item iteratively tunning model is a processing of learning (fitting to the val set) \\
-		$\Rightarrow$ with enough iteration, val set can be overfitted
-		\item may consider test set as $2^\text{nd}$ val set, and further have $3^\text{rd}, 4^\text{th}...$ val sets
-		\end{itemize}
-	\item Limited Data
-		\begin{itemize}
-		\item better model $\Rightarrow$ more training data 
-		\item $\Rightarrow$ less validation $\Rightarrow$ noisy estimation of generalization ability
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Train-Test}
-\begin{itemize}
-\item K-fold Cross Validation
-	\begin{itemize}
-	\item Procedure
-		\begin{itemize}
-		\item split all data into $K$ folds, $K-1$ folds for train, $1$ for validation
-		
-		\item $\Rightarrow$ average over all $C^1_K$ combination to indicate the generalization ability
-	
-		\item extreme case: leave-out-one $\Rightarrow K=N$, where $N$ is number of all data
-		\end{itemize}
-	
-	\item Cons:
-		\begin{itemize}
-		\item $\mathcal O(K) \Rightarrow$ slow, especially if training process already slow \\
-		$\Rightarrow$ trade off between time vs. constraint on validation
-		\item hence, \textbf{not} often used in big data era
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
+\subsection{Data}
 \subsubsection{Data Augmentation}
-
+\begin{itemize}
+\item Artificial Data Synthesis
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item easily prepare a large amount of similar (yet, different) data \\
+		(e.g. web image classification vs. classification image uploaded by users)
+		\item add canonical noise to the similar data \\ 
+		(e.g. blur the web image)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item convert similar data to the desired distribution
+		\end{itemize}
+	\item Caution
+		\begin{itemize}
+		\item collected canonical noise may only represent a subset of all possible noise \\
+		$\Rightarrow$ may overfit to those collected noise \\
+		(e.g. distortion on image from game for car detection: too less unique cars)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 \subsubsection{Data Preprocessing}
 \begin{itemize}
 \item Mean Centering
@@ -209,120 +133,474 @@
 		$\Rightarrow$ easier to train
 		\end{itemize}
 	\end{itemize}
+
+\item Cleaning Incorrect Label
+	\begin{itemize}
+	\item Practice 
+		\begin{itemize}
+		\item before cleaning: measure its contribution to the error rate \& its cause
+		\item random error (e.g. occasional mistake, etc.) with a big dataset: okay to ignore
+		\item systematic error: should be corrected, at least for val\&test set \\
+		$\Rightarrow$ to evaluate the model on the target data distribution
+		\item if mislabeled data cause inability to evaluate\&compare model: must be cleaned
+		\item val\&test set should be cleaned together \\
+		$\Rightarrow$ to have the same distribution
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item in train set: statistic model (deep net etc.) quite robust to random errors \\
+		while model can learn the systematic error $\Rightarrow$ not able to generalize
+		\item in val set: random error can cause inability  \\ 
+		$\Rightarrow$ 
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
-\subsection{Project Structuring}
+\subsection{Dataset}
+\subsubsection{Train-Val-Test}
+\begin{itemize}
+\item Reason
+	\begin{itemize}
+	\item Iterative Process
+		\begin{figure}[!ht]
+		\includegraphics[width=0.3\linewidth, center]{"./Deep Learning/experiment practice-iterative process".png}
+		\end{figure}
+		\begin{itemize}
+		\item intuition usually do NOT transfer across domains (NLP, CV, Search, etc.)
+		\item do NOT hope to have the correct hyperparameters at the first try
+		\end{itemize}
+		$\Rightarrow$ need feedback from experiment result \\
+		$\Rightarrow$ make sure the feedback is CORRECT and FAST
+	\end{itemize}
+\item Recommended Usage
+	\begin{itemize}
+	\item Splitting 
+		\begin{itemize}
+		\item classic split for small dataset $\Rightarrow$ train:val:test $= 60:20:20$, or K-fold
+		\item in big data (e.g. $100$ million) $\Rightarrow$ train:val:test $= 98:1:1$
+		\end{itemize}
+		(as long as val-test sets cover enough data variance)
+	\item Training Set
+		\begin{itemize}
+		\item to find the model parameter estimation (used for learning process of model) \\
+		$\Rightarrow$ over-fit by complex model
+		\item can incorporate methods to train the model to have desired property \\
+		(where augment data goes)
+		\end{itemize}
+	\item Validation Set (Val)
+		\begin{itemize}
+		\item to indicate generalization ability of a range of trained models on target data \\
+		(correct if enough various input covered) \\
+		$\Rightarrow$ for model comparison, selection \& hyperparameters tunning
+		\item should have consistent distribution with test set \\
+		(as val set is also evaluating the generalization ability)
+		\end{itemize}
+	\item Test Set
+		\begin{itemize}
+		\item to evaluate the \textbf{generalization ability} of final model on target data \\
+		(correct if enough various input covered)
+		\item should represent the distribution of target data \\
+		i.e. data that the deployed model will need to handle
+		\end{itemize}
+	\item Training-Validation Set (Train-Val)
+		\begin{itemize}
+		\item another val set split from original training set
+		\item used if training set are from different distribution then the val/test set \\
+		(e.g. due to augmented data etc.)
+		\item performance gap between train\&val set: variance + distribution mismatch \\
+		$\Rightarrow$ separate each measurement
+		\item performance gap between train\&train-val set: measuring variance \\
+		$\Rightarrow$ performance gap between train-val\&val set: measuring distribution mismatch
+		\end{itemize}
+	\end{itemize}
+
+\item Potential Problem
+	\begin{itemize}
+	\item Mismatched Distribution across Sets
+		\begin{itemize}
+		\item classic supervised learning assumption: all sets drawn from SAME distribution \\
+		(yet transfer/adaptive learning focus on violation of such assumption)
+		\item measured by train-val set
+		\item should ensure at least that val\&test set have the SAME distribution
+		\end{itemize}
+		$\Rightarrow$ yet, make sure val\&test set from the SAME distribution as the desired one
+	\item \textbf{Overfitting Val Set}
+		\begin{itemize}
+		\item iteratively tunning model is a processing of learning (fitting to the val set) \\
+		$\Rightarrow$ with enough iteration, val set can be overfit
+		\item may consider test set as $2^\text{nd}$ val set, and further have $3^\text{rd}, 4^\text{th}...$ val sets
+		\end{itemize}
+	\item Limited Data
+		\begin{itemize}
+		\item better model $\Rightarrow$ more training data 
+		\item $\Rightarrow$ less validation $\Rightarrow$ noisy estimation of generalization ability
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Train-Test}
+\begin{itemize}
+\item No Val Set
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item may use the "test" set as val set $\Rightarrow$ generalization ability NOT reported
+		\item should be confident in that dataset cover/represent true distribution of data \\ 
+		(yet, not recommended)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item to utilize as many data as possible for ultimate performance
+		\end{itemize}
+	\end{itemize}
+	
+\item K-fold Cross Validation
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item split all data into $K$ folds, $K-1$ folds for train, $1$ for validation
+		
+		\item $\Rightarrow$ average over all $C^1_K$ combination to indicate the generalization ability
+	
+		\item extreme case: leave-out-one $\Rightarrow K=N$, where $N$ is number of all data
+		\end{itemize}
+	
+	\item Cons:
+		\begin{itemize}
+		\item $\mathcal O(K) \Rightarrow$ slow, especially if training process already slow \\
+		$\Rightarrow$ trade off between time vs. constraint on validation
+		\item hence, \textbf{not} often used in big data era
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Orthogonalization Practice}
+\subsubsection{Definition}
+\begin{itemize}
+\item Decoupling Goals and Models
+	\begin{itemize}
+	\item Designing Metrics
+		\begin{itemize}
+		\item to evaluate the models \\ 
+		$\Rightarrow$ capture how well the problem solved as desired
+		\item decouple different aspect of concern into different metrics
+		\end{itemize}
+	\item Designing Models
+		\begin{itemize}
+		\item to do well on the previously chosen metrics \\
+		(including training \& tunning hyperparameters)
+		\end{itemize}
+	\end{itemize}
+\item Decoupling Hyperparameters
+	\begin{itemize}
+	\item disjoint set of hyperparameters to optimize for train-val-test set
+	\item hyperparameter taking effect on single goal \\
+	at least, NOT to impose negatively related effect on multiple goals \\
+	(e.g. early stopping on performances on train and val sets $\Rightarrow$ NOT preferred)
+	\item $\Rightarrow$ clearer control on model behaviors
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Practice}
+\begin{itemize}
+\item Designing Metrics (Goals)
+	\begin{itemize}
+	\item Single Metric Reporting Overall Performance
+		\begin{itemize}
+		\item a metric accounting for multiple metrics \\
+		e.g. F1 score instead of precision and recall
+		\item weighted average over metrics \\
+		(capturing tendency by different weights)
+		\end{itemize}
+	\item Satisficing Metrics
+		\begin{itemize}
+		\item optimizing single metric with some minimum requirement must being satisfied \\ 
+		$\Rightarrow$ single optimizing metric + several satisficing metrics \\ 
+		$\Rightarrow$ optimizing under constraints \\
+		e.g. optimizing accuracy with false positive rate $< 0.2$ satisfied
+		\end{itemize}
+	\end{itemize}
+	
+\item Tunning Hyperparameters (Designing Model)
+	\begin{itemize}
+	\item Inherent Separation for Set-level Goals
+		\begin{itemize}
+		\item fit model on train set for good fitting \\
+		$\Rightarrow$ tune model/network structure, optimization, preprocessing, etc.
+
+		\item evaluate on val set for good generalization ability \\
+		$\Rightarrow$ tune regularization, etc.
+
+		\item evaluate on test set for hopefully good generalization ability reported \\
+		$\Rightarrow$ consider bigger val set (if an overfit val set indicated)
+
+		\item apply in real world hopping model to generalize well indeed \\
+		$\Rightarrow$ consider mismatched data distribution, redesign cost function / metrics etc. \\
+		(if failed to generalize)
+		\end{itemize}
+		note: size of dataset can be hyperparameter sometimes
+	\item Separating Tunning for Performance Metrics
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Orthogonalization}
+\begin{itemize}
+\item Definition
+	\begin{itemize}
+	\item Decoupling Tunning for Different Goals
+		\begin{itemize}
+		\item disjoint set of hyperparameters to optimize on train-val-test set
+		\item hyperparameter taking effect on single goal \\
+		(at least, NOT to impose negatively related effect on multiple goals)
+		\end{itemize}
+	\item Single Metric Reporting Performance
+		\begin{itemize}
+		\item a metric accounting for multiple metrics \\
+		e.g. F1 score instead of precision and recall
+		\item optimizing under constraints (must-satisfied metrics) \\
+		e.g. optimizing accuracy with false positive rate $< 0.2$ satisfied
+		\end{itemize}
+	\end{itemize}
+\item Practice
+	\begin{itemize}
+	\item Separating Tuning for Set-level Goals
+		\begin{itemize}
+		\item for train set: model/network structure, optimization, preprocessing, etc.
+		\item for val set:  regularization, etc.
+		\item for test set: bigger val set (as indicating an overfit val set)
+		\item for real world: mismatched cost function / data distribution, etc.
+		\end{itemize}	
+	\item Separating Tunning for Performance Metrics
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\end{itemize}
+\item Understanding
+	\begin{itemize}
+	\item Inherently Separated Goals
+		\begin{itemize}
+		\item fit model on train set: adjust model for good fitting
+		\item evaluate on val set: adjust model for good result on metrics \\ 
+		(indicating generalization ability)
+		\item evaluate on test set: hope to report good generalization ability
+		\item apply in real world: hope to generalize well indeed
+		\end{itemize}
+	\item Clear Control on Behaviors
+		\begin{itemize}
+		\item form iterative process among various goals
+		\item prevent tunning practice with unaware negatively coupled effect on different goals \\
+		(e.g. early stopping on performances on train and val sets $\Rightarrow$ NOT preferred)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Tunning Hyperparameters}
+especially for deep learning
+\subsubsection{Hyperparameters}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Structures and Architectures
+		\begin{itemize}
+		\item type of layers and size of layers
+		\item type of activation
+		\item depth of networks
+		\end{itemize}
+	\item Learning
+		\begin{itemize}
+		\item learning rate
+		\item optimizer (learning process)
+		\end{itemize}
+	\item Robustness and Generalizability
+		\begin{itemize}
+		\item regularization(s)
+		\item data preprocessing/augmentation
+		\end{itemize}
+	\end{itemize}
+\item Challenges
+	\begin{itemize}
+	\item NO Consistent Prescience
+		\begin{itemize}
+		\item popular choices from one domain usually NOT carry over to other domains
+		\end{itemize}
+	\item NOT Predictable Effect
+		\begin{itemize}
+		\item hyperparameter does NOT have predictable effect on specific model behavior \\
+		$\Rightarrow$ need a search for the best one
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Systematic Searching}
+\begin{itemize}
+\item Random Sampling
+	\begin{itemize}
+	\item Reason
+		\begin{itemize}
+		\item NOT able to know the importance of different hyperparameters \\
+		$\Rightarrow$ not wasting grid search step on the unimportant
+		\item NOT able to know the effective range of a hyperparameters \\
+		$\Rightarrow$ may be skipped by grid search step
+		\item decouple the search for different hyperparameters $\Rightarrow$ more richly explore \\
+		(whereas grid search fix one while searching on others)
+		\end{itemize}
+	\item Coarse to Fine Scheme
+		\begin{itemize}
+		\item explore whole space uniformly (equally random)
+		\item exploit region where good results show up (with more densely sampled)
+		\end{itemize}
+	\item Sampling on Scale
+		\begin{itemize}
+		\item instead of sampling the value of hyperparameter, sample the scale of it \\
+		e.g. sampling learning rate $\alpha = 10^r, r\sim U(-4,0)$
+		\item $\Rightarrow$ distribute the density across desired scale\textbf{s} \\ 
+		(by using transfered scale, e.g. applying $\log, e^x$ e.t.c)
+		\item reason: depends on the 
+			\begin{itemize}
+			\item use of hyperparameter e.g. in an exponential/linear/log way
+			\item whether intend to sample on scale e.g. across one or more scales
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+\item Swarm Optimization
+	\begin{itemize}
+	\item Intuition
+		\begin{itemize}
+		\item searching over a space with continuous$\times$discrete across various scale \\ 
+		$\Rightarrow$ encoded into a list
+		\item search using permutation / group behavior \\ 
+		$\Rightarrow$ inherently imposing explore-exploit strategy
+		\end{itemize}
+	\item Popular Framework
+		\begin{itemize}
+		\item genetic algorithm (GA)
+		\item particle swarm optimization (PSO)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Tunning Practice}
+\begin{itemize}
+\item Single Model
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item supervising one model at a time
+		\item interactively justify the hyperparameter in training process  \\
+		$\Rightarrow$ gain knowledge through interaction \& ensure a good performance \\
+		$\Rightarrow$ early feedback
+		\end{itemize}
+	\item Reason
+		\begin{itemize}
+		\item too many data (online advertisement, computer vision etc.)
+		\item few computing resource
+		\end{itemize}
+	\end{itemize}
+\item Parallel Training
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item shoot out multiple model with various settings
+		\item compare at the end (after trained \& evaluated)
+		\end{itemize}
+	\item Reason
+		\begin{itemize}
+		\item small data/model, enough computability / fast training process
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Model Analysis}
 
-\subsection{Bias and Variance}
-\subsubsection{Overview}
+\subsection{Measurements of Problem}
+\subsubsection{Performance Metrics}
+
+\subsubsection{Expected Generalization Ability Measurement}
 \begin{itemize}
-\item Low Bias, High Variance (Over-fitting)
+\item Bayes Optimal Performance
 	\begin{itemize}
-	\item Symptom
+	\item Measurement
 		\begin{itemize}
-		\item good performance on training set \& poor generalization \\
-		(good on train; bad on val)
-		\item $\Rightarrow$ good at fitting training set; bad at representing modeling underlying data source
+		\item the theoretically best performance on all data \\ 
+		$\Rightarrow$ modeling only the indent mapping without the noise (a perfect model) \\
+		(note: in practice, only approximated bayes performance available)
 		\end{itemize}
-	\item Cause
+	\item Understanding
 		\begin{itemize}
-		\item too much representation ability (to fit even the noise)
-		\item directly model the likelihood instead of posterior
-		\end{itemize}
-	\item Remedy
-		\begin{itemize}
-		\item larger dataset
-		\item regularization (model the posterior by accounting prior)
+		\item measure the inherent noise in data as the best possible performance on all data
+		\item $\Rightarrow$ measure \textbf{avoidable} bias: indicate the upper-bound performance
+		\item $\Rightarrow$ measure degree of \textbf{overfitting}: indicate how much the model fit to the noise
 		\end{itemize}
 	\end{itemize}
-\item High Bias, Low Variance (Under-fitting)
+
+\item Human Performance: Approximation to Bayes Performance
 	\begin{itemize}
-	\item Symptom
+	\item Definition
 		\begin{itemize}
-		\item bad at fitting training examples \& modeling underlying data source \\ 
-		(bad at train \& val)
-		\item $\Rightarrow$ poor performance on training set \& good generalization (though meaningless)
+		\item for best approximation: best achievable performance by human \\  (e.g. group of experts, as bayes optimal performance is even better)
+		\item for specific focus: depends on use case \\
+		e.g. for self-diagnose model, may define as the performance of a normal doctor
 		\end{itemize}
-	\item Cause
+	\item Practice
 		\begin{itemize}
-		\item lack of representation ability (not enough flexibility)
+		\item usually done in supervised learning \\
+		note: the label (i.e. $0$-error) is NOT bayes performance
+		\item on unstructured data, human almost achieves bayes performance \\
+		(as human good at natural perception task, like cv, nlp)
 		\end{itemize}
-	\item Remedy
+	\item Cons
 		\begin{itemize}
-		\item try model with better representative ability (more complexity, flexibility)
+		\item hard to distinguish surpassing human performance from overfitting training set
 		\end{itemize}
 	\end{itemize}
-\item High Bias, High Variance (Over\&Under-fitting)
+
+\item (Avoidable) Bias
 	\begin{itemize}
-	\item Symptom
+	\item Measurement
 		\begin{itemize}
-		\item bad at fitting some general cases; while good at some rare and special cases \\
-		(especially in high dimensional space)
+		\item gap between train set performance and bayes performance \\
+		(note: in practice, only approximated bayes performance available)
 		\end{itemize}
-	\item Cause
+	\item Understanding
 		\begin{itemize}
-		\item model probably not suitable for the dataset
-		\end{itemize}
-	\item Remedy
-		\begin{itemize}
-		\item switch to other types of model
-		\item dataset preprocessing
+		\item measure the model capacity of handling given (train) data \\
+		as (approximately) measuring the gap between the theoretically best model
 		\end{itemize}
 	\end{itemize}
-\item Low Bias, Low Variance
+
+\item Variance
 	\begin{itemize}
-	\item Behavior
+	\item Measurement
 		\begin{itemize}
-		\item good at fitting training examples \& modeling underlying data source \\ 
-		(good at train \& val)
-		\item $\Rightarrow$ good performance on training set \& good generalization \\
-		("good"= close to base performance, e.g. human ability in supervised learning)
+		\item performance gap between val set \& train set (if under same distribution)
+		\item if different distribution for train\&val set $\Rightarrow$ train-val set instead of val set
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item measure the generalization ability: \\ 
+		as measuring how much model can cope with unseen data \\ 
+		$\Rightarrow$ model the indent mapping, instead of the noise
+		\end{itemize}
+	\end{itemize}
+
+\item Mismatch Distribution
+	\begin{itemize}
+	\item Measurement
+		\begin{itemize}
+		\item performance gap between train-val set \& val set
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item train-val set contains the unseen train data; val set the unseen target data \\
+		$\Rightarrow$ gap only caused by different distribution between sets
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
-
-\subsubsection{Guideline}
-\begin{itemize}
-\item Solving High Bias
-	\begin{itemize}
-	\item Increasing Model Capability
-		\begin{itemize}
-		\item increase complexity: more weights, latent variable / hidden layer etc.
-		\item use more suitable model specifically designed for the data (e.g. CNN for image)
-		\end{itemize}
-	\end{itemize}
-	$\Rightarrow$ until fitting training set well
-\item Solving High Variance
-	\begin{itemize}
-	\item Data Augment
-		\begin{itemize}
-		\item get/simulate more training data (via crowd sourcing, distortion, GANs, etc.)
-		\end{itemize}
-	\item Model Regularization
-		\begin{itemize}
-		\item control the complexity of model (e.g. L0/1/2 normalization)
-		\end{itemize}
-	\end{itemize}
-\item Solving Trade-off
-	\begin{itemize}
-	\item Iterative Process
-		\begin{itemize}
-		\item solve bias, then solve variance, iteratively
-		\end{itemize}
-	\item Complexity + Data/Regularization
-		\begin{itemize}
-		\item increase complexity to solve bias \\
-		without hurting variance (via more data/regularization)
-		\item more data/regularization to solve variance \\
-		without hurting bias (with enough complexity)
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-L2 regularization also called "weight decay", as in gradient decent, weight is multiplied by a $<1$ number due to L2 term 
 
 2. Interaction with regularization:
 
@@ -371,7 +649,247 @@ L2 regularization also called "weight decay", as in gradient decent, weight is m
 
 **Larger network with regularization ($\lambda$) is more powerful**
 
-\subsubsection{title}
+\subsection{Improving Model}
+
+\subsubsection{Bias-Variance Guideline}
+\begin{itemize}
+\item Solving High (Avoidable) Bias
+	\begin{itemize}
+	\item Increasing Model Capability
+		\begin{itemize}
+		\item increase complexity: more weights, latent variable / hidden layer etc.
+		\item use more suitable model specifically designed for the data (e.g. CNN for image)
+		\end{itemize}
+	\end{itemize}
+	$\Rightarrow$ until fitting training set well
+\item Solving High Variance
+	\begin{itemize}
+	\item Data Augment
+		\begin{itemize}
+		\item get/simulate more training data (via crowd sourcing, distortion, GANs, etc.)
+		\end{itemize}
+	\item Model Regularization
+		\begin{itemize}
+		\item control the complexity of model (e.g. L0/1/2 normalization)
+		\end{itemize}
+	\end{itemize}
+\item Solving Trade-off
+	\begin{itemize}
+	\item Iterative Process
+		\begin{itemize}
+		\item solve bias, then solve variance, iteratively
+		\end{itemize}
+	\item Complexity + Data/Regularization
+		\begin{itemize}
+		\item increase complexity to solve bias \\
+		without hurting variance (via more data/regularization)
+		\item more data/regularization to solve variance \\
+		without hurting bias (with enough complexity)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Behavior Detail}
+\begin{itemize}
+\item Low Bias, High Variance (Over-fitting)
+	\begin{itemize}
+	\item Symptom
+		\begin{itemize}
+		\item good performance on train set \& poor generalization (bad on val) \\
+		\item $\Rightarrow$ good at fitting train set; bad at representing/modeling underlying data source
+		\end{itemize}
+	\item Cause
+		\begin{itemize}
+		\item too much representation ability (to fit even the noise)
+		\item directly model the likelihood instead of posterior
+		\end{itemize}
+	\item Remedy
+		\begin{itemize}
+		\item larger dataset
+		\item regularization (model the posterior by accounting prior)
+		\end{itemize}
+	\end{itemize}
+\item High Bias, Low Variance (Under-fitting)
+	\begin{itemize}
+	\item Symptom
+		\begin{itemize}
+		\item bad at fitting training examples \& modeling underlying data source \\ 
+		(bad at train \& val)
+		\item $\Rightarrow$ poor performance on train set \& good generalization (though meaningless)
+		\end{itemize}
+	\item Cause
+		\begin{itemize}
+		\item lack of representation ability (not enough flexibility)
+		\end{itemize}
+	\item Remedy
+		\begin{itemize}
+		\item try model with better representative ability (more complexity, flexibility)
+		\end{itemize}
+	\end{itemize}
+\item High Bias, High Variance (Over\&Under-fitting)
+	\begin{itemize}
+	\item Symptom
+		\begin{itemize}
+		\item bad at fitting some general cases; while good at some rare and special cases \\
+		(especially in high dimensional space) \\
+		$\Rightarrow$ fitting largely noise
+		\end{itemize}
+	\item Cause
+		\begin{itemize}
+		\item model probably not suitable for the dataset
+		\end{itemize}
+	\item Remedy
+		\begin{itemize}
+		\item switch to other types of model
+		\item dataset preprocessing
+		\end{itemize}
+	\end{itemize}
+\item Low Variance, High Mismatch
+	\begin{itemize}
+	\item Symptom
+		\begin{itemize}
+		\item good at generalizing (on train-val); bad at target data (on val) \\
+		\end{itemize}
+	\item Cause
+		\begin{itemize}
+		\item model not able to generalize across mismatch distribution \\ 
+		(yet generalized well in the same distribution: as good at train-val)
+		\end{itemize}
+	\item Remedy
+		\begin{itemize}
+		\item transform train data towards (more like) target data \\
+		e.g. data synthesis: adding noise that is special in target data, etc.
+		\item ensure train set contains enough / assign larger weight to, the desired target data
+		\item \hyperref[DL_Topic_Transfer]{transfer learning}, adaptive learning, etc.
+		\end{itemize}
+	\end{itemize}
+\item Low Bias, Low Variance, Low Mismatch, High val-test Variance
+	\begin{itemize}
+	\item Symptom
+		\begin{itemize}
+		\item model with specific hyperparameter overfitting the val set \\
+		$\Rightarrow$ val set NO longer reveal model generalizability
+		\end{itemize}
+	\item Cause
+		\begin{itemize}
+		\item val set overfit by iteration of hyperparameter tunning (as a practice of fitting)
+		\end{itemize}
+	\item Remedy
+		\begin{itemize}
+		\item more data for val\&test set
+		\item re-design/choose the model after val set overfitting fixed \\ 
+		(after true generalizability reported)
+		\end{itemize}
+	\end{itemize}
+	
+\item Low Bias, Low Variance
+	\begin{itemize}
+	\item Behavior
+		\begin{itemize}
+		\item good at fitting training examples \& modeling underlying data source \\ 
+		(good at train \& val)
+		\item $\Rightarrow$ good performance on training set \& good generalization
+		\end{itemize}
+	\end{itemize}
+\item High Bias, Low Variance, Lower/Negative Mismatch
+	\begin{itemize}
+	\item Behavior
+		\begin{itemize}
+		\item perform better on val\& test set then on train set \\
+		$\Rightarrow$ target data distribution easier than train set distribution \\
+		$\Rightarrow$ able to do well on desired data, even if not good on train set \\
+		(better convinced by measuring human performance on both distribution)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Error Analysis}
+\begin{itemize}
+\item Categorizing Error Source
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item create histogram on val set reflecting data categories \\
+		(e.g. for image: blurry, rotated, incorrect label, etc...) \\
+		$\Rightarrow$ categorize data first
+		\item $\Rightarrow$ data leading to error scattered into different categories \\
+		$\Rightarrow$ evaluate the contribution to error from different categories
+		\item note: 
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item find out the most important error source \\
+		$\Rightarrow$ prioritize the direction of tunning model
+		\end{itemize}
+	\end{itemize}
+	
+\item Ceiling Analysis
+	\begin{itemize}
+	\item Definition \& Practice
+		\begin{itemize}
+		\item
+		\end{itemize}
+	\item Understanding
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Approaches Analysis}
+\begin{itemize}
+\item End-to-End Approach
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item use single network to learn the mapping from input directly to desired output \\
+		(no intermediate result)
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item reveal the data statics: avoid any specific prior
+		\item large \& auto feature extraction
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item need enough data for effective end-to-end model
+		\item hard to inject effective prior into model \\
+		$\Rightarrow$ exclude potentially hand-designed component/knowledge
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item end-to-end model works only when enough data to reveal the problem complexity
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+1. Aim:
+
+- Decide which modules might be the best use of time to improve
+
+2. Procedure:
+
+- Draw a table with 2 column (Component - Accuracy)
+
+- Component: the modules simulated to be perfect (100% accuracy)
+- Accuracy: the accuracy of the entire system on the test set (define by chosen evaluation matrix)
+
+- |   **Perfect Component**   |             **Accuracy**              |
+| :-----------------------: | :-----------------------------------: |
+|           none            |                  $f$                  |
+|        module $1$         |            $f+\epsilon_1$             |
+|       module $1,2$        |       $f+\epsilon_1+\epsilon_2$       |
+| $\cdot \\ \cdot \\ \cdot$ |       $\cdot \\ \cdot \\ \cdot$       |
+|    module $1,2,...,n$     | $f+\epsilon_1+...+\epsilon_n = 100\%$ |
+
+- => Improving module $x$ will gain at most $\epsilon_x$ improvement in the overall performance
+
+- Choose the module with most significant $\epsilon$ to improve
+
+
+1. Procedure:
+- Algorithm (trained) misclassifies $n$ data in cross validation set
+- Classify these $n$ data and rank them
+- Maybe more features are found
+2. Feature selection => Numerical evaluation
+- => test algorithm with / without this feature on **CV set** (compare error rate)
 
 \subsection{Evaluating Hypothesis}
 
@@ -382,14 +900,6 @@ L2 regularization also called "weight decay", as in gradient decent, weight is m
 - Select a model with lowest $J_{cv}(\theta)$ 
 - Estimate generalization error as $J_{test}(\theta)$ 
 
-\subsection{Error Analysis}
-
-1. Procedure:
-- Algorithm (trained) misclassifies $n$ data in cross validation set
-- Classify these $n$ data and rank them
-- Maybe more features are found
-2. Feature selection => Numerical evaluation
-- => test algorithm with / without this feature on **CV set** (compare error rate)
 
 \subsection{Skewed classes}
 
@@ -1261,32 +1771,6 @@ $\displaystyle J(X,\Theta) = \frac 1 2 \sum_{(i,j):r_{i,j}=1}(x^i\theta^j - y_{i
 
 \section{Large Scale Machine Learning}
 
-\subsection{Gradient Descent with Large Dataset}
-
-1. Stochastic Gradient Descent
-- Problem in Big Data: 
-- Updating $\theta$ becomes computationally expensive in batch gradient decent
-
-- Cost Function: 
-- Cost function on single data: $cost(\theta, (x^i,y^i)) = \frac 1 2 (h_\theta(x^i)-y^i)^2$ 
-- Overall Cost Function: $\displaystyle J_{train}(\theta) = \frac 1 m \sum_{i=1}^m cost(\theta, (x^i,y^i))$
-
-- Procedure:
-
-- Randomly shuffle dataset
-
-- Repeat
-
-	for $i \in [1,m]$ 
-
-		\begin{align}\begin{split} \displaystyle \theta_j &= \theta_j - \alpha \frac {\partial }{\partial \theta_j} cost(\theta,(x^i,y^i)) \\ \displaystyle &= \theta_j - \alpha \space (h_\theta(x^i)-y^i) \cdot  x^i_j \end{split} \\ \text{(for $j=0,...,n$)} \\ \small => \text{make progress with each single data} \end{align}
-
-- Convergence:
-
-- Wanting $\theta$ to converge => slowly decrease $\alpha$ over time (but more parameters)
-
-\( ( \displaystyle \text{E.g } \alpha = \frac {\text{const\_1}} {\text{iteration num + const\_2}} ) \)
-
 - Compute $cost(\theta,(x^i,y^i))$ before updating 
 
 For every $k$ update iterations, plot average $cost(\theta,(x^i,y^i))$ over the last $k$ examples
@@ -1294,24 +1778,6 @@ For every $k$ update iterations, plot average $cost(\theta,(x^i,y^i))$ over the 
 - Checking curves:
 
 Increasing $k$ result in smoother line and less noise, but the result is more delayed
-
-Use smaller learning rate $\alpha$ will generally have slight benefit
-
-Curve goes up => smaller $\alpha$ 
-
-- $vs$ Batch Gradient Descent:
-
-- use $1$ example un each update iteration => make progress earlier => faster
-- Result may not be the optimal but in its neighbourhood
-
-1. Mini-batch Gradient Descent
-- Use $b$ examples in each update iteration
-- $vs$  Batch Gradient Descent:
-- start to make progress earlier => faster
-- Result may not be the optimal but in its neighbourhood
-- $vs$ Stochatistic Gradient Descent:t
-- can partially parallelize computation over $b$ examples => faster under a good vectorized implementation \& appropriate $b$ 
-- introduce extra parameter $b$ 
 
 \subsection{Online Learning}
 
@@ -1334,81 +1800,6 @@ Curve goes up => smaller $\alpha$
 - Contain operation over the whole data set
 
 (Neural Network can be map-reduced)
-
-\section{Building Machine Learning System}
-
-- Under the example of Photo OCR (Optical Character Recognition)
-
-\subsection{Pipeline}
-
-1. Break ML system into modules
-
-2. Example:
-
-- Image -> Text detection -> Character segmentation -> Character recognition
-
-- Text Detection: 
-
-- Sliding window detection: 
-
-	set different sizes of the window (mostly rectangle), for each size:
-
-		take a image patch
-
-		resize the patch into desired size
-
-		run ML algorithm on the small patch
-
-		slide the window by $\text{step\_size}$  (eventually through the image)
-
-- Expansion: expand the related region to create a bigger region
-
-- Chraracter Segmentation:
-
-- 1-D sliding window
-
-- Character Recognition
-
-\subsection{Getting More Data}
-
-1. **Artificial Data Synthesis** 
-- Creating New Data: Use available resource and combine them
-- Example (in Character Recognition): Paste different fonts in the randomly chosen backgrounds
-- Amplify Data Set: Intorduce distortions to the original data set
-- Need to identify the appropriate distortion
-- Usually adding purely/random/meanless noise
-
-- Prerequisite:
-- Having a low bias/high variance hypothesis is 
-
-1. Collect/Label Data Manually
-- Usually a surprise to find how little time it needs to get 10,000 data
-- Caculate the time it needs before decide to/not to collect the data
-
-\subsection{Ceilling Analysis}
-
-1. Aim:
-
-- Decide which modules might be the best use of time to improve
-
-2. Procedure:
-
-- Draw a table with 2 column (Component - Accuracy)
-
-- Component: the modules simulated to be perfect (100% accuracy)
-- Accuracy: the accuracy of the entire system on the test set (define by chosen evaluation matrix)
-
-- |   **Perfect Component**   |             **Accuracy**              |
-| :-----------------------: | :-----------------------------------: |
-|           none            |                  $f$                  |
-|        module $1$         |            $f+\epsilon_1$             |
-|       module $1,2$        |       $f+\epsilon_1+\epsilon_2$       |
-| $\cdot \\ \cdot \\ \cdot$ |       $\cdot \\ \cdot \\ \cdot$       |
-|    module $1,2,...,n$     | $f+\epsilon_1+...+\epsilon_n = 100\%$ |
-
-- => Improving module $x$ will gain at most $\epsilon_x$ improvement in the overall performance
-
-- Choose the module with most significant $\epsilon$ to improve
 
 
 
