@@ -67,7 +67,7 @@
  
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Recommended Practice}
 
 \subsection{Data}
@@ -77,10 +77,8 @@
 	\begin{itemize}
 	\item Practice
 		\begin{itemize}
-		\item easily prepare a large amount of similar (yet, different) data \\
-		(e.g. web image classification vs. classification image uploaded by users)
-		\item add canonical noise to the similar data \\ 
-		(e.g. blur the web image)
+		\item easily prepare a large amount of similar (yet, different) data
+		\item add canonical noise to the similar data
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
@@ -92,6 +90,24 @@
 		$\Rightarrow$ may overfit to those collected noise \\
 		(e.g. distortion on image from game for car detection: too less unique cars)
 		\end{itemize}
+	\item Examples
+		\begin{itemize}
+		\item in the task of classifying image uploaded by users \\ 
+		$\Rightarrow$ collect web image \& blur the image
+		\item in the task of in-car NLP interaction \\
+		$\Rightarrow$ collect well-recorded sentence audio \& add in-car noise
+		\end{itemize}
+	\end{itemize}
+	
+\item Distortion
+	\begin{itemize}
+	\item Practice in Computer Vision
+		\begin{itemize}
+		\item mirroring horizontally/vertically, rotation, shirring, etc.
+		\item random crop a reasonably large subset of image
+		\item color shifting: e.g. PCA color augmentation
+		\end{itemize}
+	\item 
 	\end{itemize}
 \end{itemize}
 \subsubsection{Data Preprocessing}
@@ -513,12 +529,103 @@ especially for deep learning
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+%\subsection{Training Model}
+%\subsubsection{Data Feeding}
+%\begin{itemize}
+%\item Multi-processing/threading
+%	\begin{itemize}
+%	\item Loading Data
+%		\begin{itemize}
+%		\item load the data from disk \& wait for io
+%		\end{itemize}
+%	\item Applying Preprocessing
+%		\begin{itemize}
+%		\item normalization
+%		\item augmentation
+%		\end{itemize}
+%	\end{itemize}
+%\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Model Analysis}
 
 \subsection{Measurements of Problem}
 \subsubsection{Performance Metrics}
+\begin{itemize}
+\item Intersection over Union (IoU)
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item two regions, from prediction and label \\
+		e.g. bounding box, segmentation mask
+		\end{itemize}
+	\item Definition
+		\begin{itemize}
+		\item $\text{I}=$ intersection of the regions
+		\item $\text{U}=$ union of the regions
+		\item $\Rightarrow \text{IoU} = \frac I U$ 
+		\end{itemize}
+	\item Use Case
+		\begin{itemize}
+		\item evaluation of object detection/segmentation
+		\item post-processing in object detection/segmentation \\
+		(e.g. \hyperref[DL_CV_Objdet_nonmax]{non-max suppress})
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item measure how well two regions overlap \\
+		$\Rightarrow$ usually $\text{IoU}>0.5$ considered a decent match
+		\item average IoU over each prediction class \& scale of threshold for an overview report \\
+		(e.g. average over all obstacle types, threshold range $[0.05~0.95]$ with step $0.05$)
+		\end{itemize}
+	\item Extension
+		\begin{itemize}
+		\item intersection over label/prediction region $\Rightarrow$ in case of unstable label/prediction region \\ 
+		(while matching relation considered important in the task)
+		\end{itemize}
+	\end{itemize}
+\item Bilingual Evaluation Understudy (BLEU)
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item one sequence as prediction; other sequence(s) as references \\ 
+		(can be more than one) i.e. label
+		\end{itemize}
+	\item Definition
+		\begin{itemize}
+		\item $n$-gram $g_n$: $n$ continuous tokens
+		\item count of $g_n$: the number of appearance of $g_n$ in a sequence \\
+		$\Rightarrow$ num of $g_n \displaystyle =\sum_{g_n} (\text{count of }g_n) = l-n+1$, in sequence of len $l$
+		\item ref count: $\displaystyle \sum_{g_n\in\text{pred}} (1 \text{ if it appears in any reference; else } 0)$ \\
+		$\Rightarrow$ count of $g_n$ in prediction that also appears in a reference \\
+		$\Rightarrow g_n\in$ pred matched as long as $g_n\in$ a reference
+		\item $\Rightarrow$ precision $\displaystyle = \frac {\text{true positive}} {\text{positive pred}} = \frac {\text{ref count}} {\text{num of }g_n\in \text{pred}}$\\
+		(yet, "the the the the" has high score when $n=1$, as "the" almost always appear)	
+		\item clipped ref count: $\displaystyle \min\{ \text{ count of }g_n \text{ in pred }, \max(\text{ num of }g_n\text{ in a reference }) \}$ \\
+		$\Rightarrow$ count only unique $n$-gram in pred \\
+		$\Rightarrow g_n\in$ pred matched up to the max num of $g_n\in$ reference
+		\item $\Rightarrow$ clipped precision $\displaystyle p_n = \frac {\text{clipped true positive}}{\text{positive pred}} = \frac {\text{clipped ref count}} {\text{num of }g_n \in \text{pred}}$
+		\item $\Rightarrow$ BLUE score $\displaystyle = BP\exp\left(\frac 1N \sum_{n=1}^N p_n\right)$, \\
+		where $BP=1$ if $\text{len}_\text{pred}>\text{len}_\text{ref}$; else $\exp(1-\text{len}_\text{pred}/\text{len}_\text{ref})$ \\
+		$\Rightarrow$ the brevity penalty to penalize too short pred \\
+		(as short pred has larger chance to have all its gram contained in ref)
+		\end{itemize}
+	\item Use Case
+		\begin{itemize}
+		\item machine translation
+		\item image caption
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item clipped ref count: has a maximal number for $g_n$ appearance, given the reference\\
+		$\Rightarrow$ same $g_n$ exceeding the number becomes false positive, as can NOT be matched \\
+		(analogy: metrics in obj detection with bounding box)
+		\item evaluate the appearance of generated tokens (prediction) in references (label)
+		\item highly correlated with human evaluation
+		\item bias towards statistical model (when compared against rule-based model)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
 \subsubsection{Expected Generalization Ability Measurement}
 \begin{itemize}
@@ -760,7 +867,7 @@ especially for deep learning
 		\item transform train data towards (more like) target data \\
 		e.g. data synthesis: adding noise that is special in target data, etc.
 		\item ensure train set contains enough / assign larger weight to, the desired target data
-		\item \hyperref[DL_Topic_Transfer]{transfer learning}, adaptive learning, etc.
+		\item \hyperref[DL_Learning_Transfer]{transfer learning}, adaptive learning, etc.
 		\end{itemize}
 	\end{itemize}
 \item Low Bias, Low Variance, Low Mismatch, High val-test Variance

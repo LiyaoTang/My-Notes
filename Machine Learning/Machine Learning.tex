@@ -13,9 +13,11 @@
     citecolor={blue!50!black},
     urlcolor={blue!80!black}
 }
+
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
 \usepackage[labelformat=empty]{caption}
+\usepackage{subcaption}
 
 \usepackage{amssymb}
 \usepackage[fleqn]{mathtools}
@@ -28,9 +30,11 @@
 \setlength{\belowdisplayskip}{0pt}
 \setlength{\belowdisplayshortskip}{0pt}
 
-% set up command / syntax suger
+% set up syntax suger math notation
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 \makeatletter
 \newcommand{\extp}{\@ifnextchar^\@extp{\@extp^{\,}}} % exterior product

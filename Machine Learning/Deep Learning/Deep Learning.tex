@@ -1,5 +1,6 @@
 \chapter{Deep Learning}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Interview of Fame}
 
 \subsection{Geoffrey Hinton}
@@ -54,6 +55,7 @@
 	\begin{itemize}
 	\item structured knowledge representation in each unit (feature with sets of property)
 	\item $\Rightarrow$ enable nets to vote rather than filtering - thus better generalization
+	\item now working: published in \textbf{2017 NIPS}
 	\end{itemize}
 \end{itemize}
 
@@ -445,9 +447,13 @@
 \item Practice
 	\begin{itemize}
 	\item open-source learning resource
-	\item implement the paper
-	\item work on a projected and open source it \\
-	$\Rightarrow$ the stage (e.g. github) will bring people to you
+	\item open source contribution
+		\begin{itemize}
+		\item contribute to open source framework (e.g. conv on sparse matrix in TF)
+		\item implement the paper, the open source it (as a tool for other)
+		\item work on a projected and open source it \\
+		$\Rightarrow$ the stage (e.g. github) will bring people to you
+		\end{itemize}
 	\item implement the tools: to find out how \& why it works \\
 	$\Rightarrow$ derive theories from the 
 	\item full stack of understanding \\ 
@@ -455,6 +461,7 @@
 	\end{itemize}
 \end{itemize}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Basic Neutral Network}
 
 \subsection{Advantages}
@@ -617,6 +624,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item \hyperref[DL_Act_ReLU]{ReLU}: for gradient vanishing
 		\end{itemize}
+	\item Skip/Concat Connection
+		\begin{itemize}
+		\item \hyperref[DL_Block_Res]{residual block}
+		\item 
+		\end{itemize}
 	\end{itemize}	
 \end{itemize}
 
@@ -676,6 +688,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \end{itemize}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Operations \& Layers Structure}
 \subsection{Operations in Network}
 \subsubsection{Activations}
@@ -1158,10 +1171,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsection{Layers}
 
-\subsubsection{Prediction Layer}
+\subsubsection{Prediction}
 \begin{itemize}
-\item Sigmoid Layer
-\item Softmax Layer
+\item Sigmoid
+
+\item Softmax
 	\begin{itemize}
 	\item Input
 		\begin{itemize}
@@ -1197,12 +1211,122 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ trying to predict the class true with higher probability
 		\end{itemize}
 	\end{itemize}
-\item Normalization Layer
+
+\item Hierarchical Softmax 
+	\begin{itemize}
+	\item uses a binary tree representation of the output layer with the W words as
+	its leaves and, for each node, explicitly represents the relative probabilities of its child nodes \\ 
+	$\Rightarrow$ a random walk that assigns probabilities to classes
+	\end{itemize}
+
+\item Normalization
 \end{itemize}
 
 \subsubsection{Convolution Layer}
 \begin{itemize}
-\item Normal Convolution
+\item Convolution $2D$
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item spatially $2D$ feature maps, usually with multiple channels
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item given hyperparameter: kernel/filter size, stride, padding
+		\item kernel (weights) structured as a matrix (for each input channel)
+		\item input maps padded if required
+		\item an element-wise weighted sum on the spatially corresponding position
+		\item sum across channels: sum over kernel output from each channel $+$ optional bias
+		\item kernel strides spatially across the image, with stride along each axis defined \\
+		$\Rightarrow$ to calculate $\mathbf 1$ channel in the output feature maps \\
+		$\Rightarrow$ for multi-channels output: multiple sets of kernels
+		\begin{figure}[ht]
+		\centering
+		\begin{subfigure}{.7\linewidth}
+		\includegraphics[width=.75\linewidth, right]{"./Deep Learning/layer-conv2d exp".png}
+		\end{subfigure}%
+		\begin{subfigure}{.3\linewidth}
+		\includegraphics[width=.5\linewidth, center]{"./Deep Learning/layer-conv2d kernel movement".png}
+		\end{subfigure}%
+		\end{figure}
+		\item activation then taken after convolution operation, element-wisely
+		\end{itemize}
+	\item Padding
+		\begin{itemize}
+		\item reason
+			\begin{itemize}
+			\item prevent output feature maps from spatially shrinking
+			\item prevent info lost on the edge\&corner of image \\ 
+			(compared to the central part of feature map, multiplied less with the kernel)
+			\end{itemize}
+		\item convention: $0$-padding on both directions of an axis
+		\item valid conv: no padding
+		\item same conv: pad so that output size same as input size
+		\end{itemize}
+	\item Kernel Size
+		\begin{itemize}
+		\item odd square matrix: avoid asymmetric padding \& a central pixel for filter location \\
+		(even becomes a convention)
+		\end{itemize}
+	\item Stride
+		\begin{itemize}
+		\item the step for kernel to move its location as striding over feature maps
+		\item kernel striding over the edge (after padding): NOT convoluted
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item a feature maps with defined output channel \& size \\
+		(output channel depends on the number of sets of kernels)
+		\item on a $2D$ square feature map, with padding at each edge $p$, stride on all axises $s$ \\ 
+		kernel size $k\times k$ , input size $i\times i$, output size $o\times o$ \\
+		$\displaystyle \Rightarrow o = \left\lfloor\frac {i+2p-k} {s} \right\rfloor + 1$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item computer vision filter: learn the weights in filters, instead of hand design \\ 
+		$\Rightarrow$ guided by data statistics
+		\item weights in the $l^\text{th}$ conv layer: $n_c^{l-1} \times k\times k \times n_c^{l}$, where $n_c$ the channel number \\
+		(to output $n_c^l$ channels with $n_c^{l-1}$ input channels from previous layer) \\
+		$\Rightarrow$ invariant to the input size (number of trainable variables fixed on design) \\
+		$\Rightarrow$ less weights (then dense layer), more generalizability, hence less overfitting
+		\item sharing weights spatially: apply same weights over the whole space \\
+		$\Rightarrow$ NO need for special design at each location \\
+		$\Rightarrow$ as need to handle spatial variance in processing images
+		\item sparse connection: output connected only to the local input $\Rightarrow$ as a high-pass bandwidth \\
+		$\Rightarrow$ robust to spatial variance
+		\end{itemize}
+	\item Back Propagation
+	\item Implementation
+		\begin{itemize}
+		\item implement cross-correlation instead of convolution \\ 
+		(skip the flipping operation: as their results are symmetric) \\
+		yet, convolution is associative, due to the flipping
+		\end{itemize}
+	\end{itemize}
+
+\item $1\times1$ Convolution
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item multi-dimension feature maps with multiple channels
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item integrate channels at each spatial location together \\
+		(a weighted sum with bias, as conv definition)
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item feature maps with same dimensions, but different channels
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item shrink the number of channels
+		\item add more non-linearity \& info combination (more representability)
+		\item 
+		\end{itemize}
+	\end{itemize}
+
 \item Atrous Convolution
 \item Deconvolution
 \end{itemize}
@@ -1210,6 +1334,32 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \subsubsection{Pooling Layer}
 \begin{itemize}
 \item Normal Pooling
+	\begin{itemize}
+	\item Input Data
+		\begin{itemize}
+		\item feature maps
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item given hyperparameter: kernel size, stride (usually no padding)
+		\item compute the max/average of the elements covered by kernel
+		\item kernel strides along each axis over the feature maps (like conv) \\
+		$\Rightarrow$ does NOT change the channel \\
+		$\Rightarrow$ one kernel per channel (compared to conv)
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item a downsampled feature maps
+		\item given a $2D$ feature map with kernel size $k \times k$, strides along each axis $s\times s$ \\
+		input size $i\times i$, output size $o\times o$ \\
+		$\Rightarrow o = \left\lfloor \frac {i-k} {s} \right\rfloor + 1$ (same as conv)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item downsampling the feature maps (NO weights to learn) \\ 
+		$\Rightarrow$ if desired features detected anywhere, represent it by local max/average
+		\end{itemize}
+	\end{itemize}
 \item Unpooling
 \item Spatial Pyramid Pooling (SPP)
 \item Region of Interest Pooling (RoI Pooling)
@@ -1233,7 +1383,411 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \item Probabilistic Max Pooling
 \end{itemize}
 
+\subsubsection{Residual Block} \label{DL_Block_Res}
+\begin{itemize}
+\item Structure
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item for the $l+2$ layer, $a^{l+2} = g(z^{l+2} + a^l)$, \\
+		where $g(\cdot)$ the activation, $z^{l+2} = W^{l+2}a^{l+1}+b^{l+2}$ from layer $l+1$ 
+		\end{itemize}
+	\item Main Path
+		\begin{itemize}
+		\item the usual passing of $a^l$ to layer $l+1$, then the $z^{l+2}$ at layer $l+2$
+		\end{itemize}
+	\item Skip Connection (Shortcut)
+		\begin{itemize}
+		\item the passing of $a^{l}$ directly to the layer $l+2$
+		\end{itemize}
+	\item Join
+		\begin{itemize}
+		\item for different size $a^l, a^{l+2}$: adjust $a^l$ by linear transformation or padding \\
+		(can be implemented as matrix/conv with trainable or fixed weights)
+		\item add the result from two paths $\Rightarrow a^{l+2}=g(z^{l+2}+a^l)$
+		\end{itemize}
+	\end{itemize}
+
+\item Understanding
+	\begin{itemize}
+	\item Guaranteed Baseline
+		\begin{itemize}
+		\item with ReLU as activation, easy to learn identity function \\ 
+		$\Rightarrow$ layer $l+2$ only need to make $z^{l+2}=0$ (as weights \& bias initialized near $0$)
+		\item $\Rightarrow$ deeper net can easily guarantee to be at least as good as its shallow version \\
+		(then search for luck to surpass baseline)
+		\end{itemize}
+	\item More Gradient
+		\begin{itemize}
+		\item gradient more easily passed to the early layers \\ 
+		(as shortcuts not attenuating gradients)
+		\item $\Rightarrow$ early layers settle down faster $\Rightarrow$ late layers get a more consistent input
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Inception Block}
+\begin{itemize}
+\item Basic Inception
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item feature maps with multiple channels
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item op1 = $1\times1$ conv
+		\item op2 = $1\times1$ conv, $3\times3$ conv with same padding
+		\item op3 = $1\times1$ conv, $5\times5$ conv with same padding
+		\item op4 = max pooling with same padding and stride $1$, $1\times1$ conv
+		\item channel concate: concatenate the output channel from each op \\
+		(as output size ensured to be the same in each op)
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item feature maps with the same spatial size as input
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item $1\times1$ conv to shrink
+			\begin{itemize}
+			\item less computation for afterwards larger kernel (e.g. $3\times3, 5\times5$)
+			\item prevent output of other ops from being overwhelmed by pooling
+			\end{itemize}
+		\item enable network to learn the desired combination of info \\
+		(instead of predefined hyperparamter) \\
+		$\Rightarrow$ more representability
+		\end{itemize}
+	\end{itemize}
+
+\item Xception
+	\begin{itemize}
+	\item 
+	\end{itemize}	
+\end{itemize}
+
+\subsubsection{RNN Layer}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Input Data
+		\begin{itemize}
+		\item sequence data: includes time/precedence (conventionally arrived from left to right)
+		\item for each time step, data can be vector, feature maps, etc...
+		\end{itemize}
+	\item RNN Cell
+		\begin{itemize}
+		\item consume the input of current time step \& the hidden state from last time step \\
+		(hidden state usually initialized to $\mathbf 0$)
+		\item calculate a hidden state at each time step
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item RNN cell at time $t$, calculate hidden state (activation) $h^t = g_h(w_{h}[h^{t-1},x^t] + b_h)$, \\ 
+		where $g_h(\cdot)$ the activation function, $g_h=\tanh$ by convention \\
+		$[h^{t-1}, x^t]$ the concat of $h^{t-1}$ (hidden state of time $t-1$), $x^t$ (input at time $t$)
+		\item expose its hidden state at each time steps
+		\item calculate its output $y^t=g_y(w_{y}h^t+b_y)$, where $g_y=\sigma, softmax$ or $identity$
+		\end{itemize}
+		\begin{figure}[ht]
+		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/layer-rnn unrolled".png}
+		\end{figure}
+	\item Types of RNN Mapping
+		\begin{itemize}
+		\item many-to-one: encoder scans through the input, only the last output considered
+		\item one-to-many: decoder with single input $x^1$, take $x^t=y^{t-1}$, till $y^{t'}=$ stop
+		\item many-to-many: a many-to-one encoder, followed by a one-to-many decoder \\
+		$\Rightarrow$ able to map between various length
+		\end{itemize}
+	\item Back Propagation through Time
+		\begin{itemize}
+		\item unroll the recurrent operation into a sequential network with length $T$
+		\item given the loss for each time step $L^1,...,L^T \Rightarrow L = \sum_{t=1}^T L^t$
+		\item for time $\displaystyle t=1,...,T-1, \frac {\partial} {\partial a^t} L = \frac {\partial} {\partial a^t} L^t + \sum_{t'=t+1}^T\frac {\partial L^{t'}} {\partial a^{t+1}} \frac {\partial a^{t+1}} {\partial a^t} = \sum_{t'=t}^T \frac {\partial} {\partial a^t} L^{t'}$
+		\end{itemize}
+	\item Truncated Back Propagation through Time
+	\item Challenge
+		\begin{itemize}
+		\item bad at modeling longterm dependency due to gradient vanishing problem \\
+		$\Rightarrow$ loss at late time needs to go through multiple activations to the early time \\
+		(similar to the deep plain net, after unrolled) \\
+		$\Rightarrow$ loss at late time are hard to affect weights when evaluated at early time \\
+		(i.e. larger the $t'$, smaller the $\frac {\partial} {\partial a^t} L^{t'}$) \\
+		$\Rightarrow$ hard to find out error in late time due to observation in early time \\ 
+		$\Rightarrow$ hard to represent longterm dependency 
+		(e.g. Car...is fast vs. Cars...are fast)
+		\item easily affect by local dependency (as longterm dependency lost)
+		\item gradient exploding, due to multiple / too many updates on the same weights \\
+		(solved by gradient clipping)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item sharing weight across time: same weights used on each time step \\
+		$\Rightarrow$ solve various length input by applying weights recurrently on each of them
+		\item information early in the sequence reserved \& passed through in the hidden state
+		\end{itemize}
+	\end{itemize}
+
+\item Long Short Term Memory (LSTM)
+	\begin{itemize}
+	\item Memory Cell
+		\begin{itemize}
+		\item $c^t$ the memory maintained by LSTM cell at time $t$
+		\end{itemize}
+	\item Gates
+		\begin{itemize}
+		\item forget gate $G_f=\sigma(w_f[h^{t-1}, x^t] + b_f)$
+		\item input gate $G_i = \sigma(w_i[h^{t-1}, x^t] + b_i)$ \\
+		$\Rightarrow$ together control the memory update (how past\&current info fused)
+		\item output gate $G_o = \sigma(w_o[h^{t-1}, x^{t}] + b_o)$ \\
+		$\Rightarrow$ control the generation of hidden state
+		\end{itemize}
+	\item Fusing Info
+		\begin{itemize}
+		\item propose candidate $\hat{c}^{t}=\tanh(w_c[c^{t-1}, x^{t}]+b_c)$ for memory update
+		\item update memory as $c^t = G_f c^{t-1} + G_i \hat c^t$
+		\end{itemize}
+	\item Hidden State (Activation)
+		\begin{itemize}
+		\item generate as $h^t = G_o \cdot \tanh(c^t)$
+		\end{itemize}
+	\begin{minipage}[r]{0.5\linewidth}
+	\includegraphics[width=\linewidth, center]{"./Deep Learning/layer-rnn lstm".png}
+	\end{minipage}
+	\begin{minipage}[l]{\linewidth}
+	where, \\ 
+	joint arrows denotes a concatenation \\ 
+	$c_{t-1}, \widetilde c_t, c_t$ the previous/candidate/current memory; \\
+	$h_{t-1},h_t$ the previous/current hidden state; \\ 
+	$f_t, i_t, o_t$ the forget/input/output gate
+	\end{minipage}
+
+	\item Understanding
+		\begin{itemize}
+		\item easy to learn an identity mapping $c^{t-1}\rightarrow c^t$ \\
+		$\Rightarrow$ memory (info) generated early can last for long term \\
+		$\Rightarrow$ better model the long-term dependency
+		\end{itemize}
+
+	\end{itemize}
+
+\item Gated Recurrent Unit (GRU)
+	\begin{itemize}
+	\item Memory Cell
+		\begin{itemize}
+		\item $c^t$ the memory maintained by GRU cell at time $t$
+		\end{itemize}
+	\item Gates
+		\begin{itemize}
+		\item relevance gate $G_r=\sigma(w_r[c^{t-1}, x^t]+b_r)$, a mask $\in [0,1]$ \\ 
+		$\Rightarrow$ control how memory candidate proposed (fusion of last memory \& input)
+		\item update gate $G_u=\sigma(w_u[c^{t-1}, x^t]+b_u)$, a mask $\in [0,1]$ \\
+		$\Rightarrow$ control how memory update happen (fusion of last memory \& candidate)
+		\end{itemize}
+		(two gates computed with the same input, though with different weights)
+	\item Fusing Info
+		\begin{itemize}
+		\item propose memory candidate $\hat{c}^{t}=\tanh(w_c[G_r c^{t-1}, x^{t}]+b_c)$ for the update \\
+		$\Rightarrow$ decide whether the previous memory useful (relevant) with the context $x^t$
+		\item update memory as: $c^{t+1}=G_u \hat{c}^{t+1} + (1-G_u)c^{t-1}$ \\ 
+		$\Rightarrow$ decide how the memory updated \& remained
+		\end{itemize}
+	\item Hidden State (Activation)
+		\begin{itemize}
+		\item $h^t = c^t$
+		\end{itemize}
+		
+	\begin{minipage}[r]{0.5\linewidth}
+	\includegraphics[width=\linewidth, center]{"./Deep Learning/layer-rnn gru".png}
+	\end{minipage}
+	\begin{minipage}[l]{\linewidth}
+	where, \\ 
+	joint arrows denotes a concatenation \\ 
+	$h_{t-1}, \widetilde h_t, h_t$ the previous/candidate/current memory; \\ 
+	$r_t, z_t$ the relevance/update gate
+	\end{minipage}
+	
+	\item Understanding
+		\begin{itemize}
+		\item single gate control the generation of current memory
+		\item memory directly as hidden state
+		\item $\Rightarrow$ less weights, simpler structure $\Rightarrow$ faster \\
+		(basic logic inherent from LSTM $\Rightarrow$ similar performance)
+		\end{itemize}
+	\end{itemize}
+
+
+\item Bidirectional RNN (BRNN/BiRNN)
+	\begin{itemize}
+	\item Structure
+		\begin{itemize}
+		\item one RNN layer scanning as $t=1\rightarrow T$, hidden state exposed as $h_1^t$
+		\item another RNN layer scanning from $t=T\rightarrow 1$, hidden state exposed as $h_2^t$
+		\item generate output $y^t = g(w_y[h_1^t, h_2^t] + b_y)$ \\ 
+		(concat all hidden states at the same time step from each RNN)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item account for the info from both previous \& latter time step \\
+		$\Rightarrow$ global context info acquired
+		\item cons: need the entire input sequence before processing \\
+		$\Rightarrow$ NOT the case in real-time speech recognition etc.
+		\end{itemize}
+		
+	\begin{figure}[!h]
+	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/layer-rnn bidirection".png}
+	\caption{(using LSTM cell)}
+	\end{figure}
+	
+	\end{itemize}
+
+\item Convolutional LSTM (ConvLSTM)
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architectures}
+
+\subsection{Convolutional Networks}
+\subsubsection{Classic Convolutional Networks}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Convolution Part
+		\begin{itemize}
+		\item one or multiple "same" conv layer(s) with stride $s=1$
+		\item followed by a max (rarely average) pooling
+		\item apply on input \& repeat on feature maps afterwards \\
+		$\Rightarrow$ usually decreasing spacial size (width, height), increasing channel
+		\end{itemize}
+	\item Fully Connected (Dense) Part
+		\begin{itemize}
+		\item apply flattening / average pooling on last feature maps \\
+		$\Rightarrow$ generate a single vector as input
+		\item apply fully connected layers \& repeat for $1~2$ times \\
+		$\Rightarrow$ usually with decreasing size
+		\item finally output prediction probability
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item trainable weights are mostly from dense layer \\
+		$\Rightarrow$ conv layers, though large in number, contains far less weights
+		\item conv stride $s=1$ (compare to $s>1$) \\
+		$\Rightarrow$ decouple downsampling into the pooling \\
+		$\Rightarrow$ account for more info/possibility before downsampling \\
+		(also trade-off between required computability)
+		\end{itemize}
+	\end{itemize}
+
+\item Receptive Fields
+	\begin{itemize}
+	\item 
+	\end{itemize}
+
+\item VGG-16
+	\begin{itemize}
+	\item Building Blocks
+		\begin{itemize}
+		\item fixed conv: $3\times3$ kernel, stride $s=1$, same padding, ReLU activation
+		\item fixed pooling: $2\times2$ kernel, stride $s=2$, max pooling
+	\item Notation
+		\begin{itemize}
+		\item{} [conv64] to denote a conv layer with 64 output channels
+		\item pool to denote max pooling
+		\item{} [fc4096] to denote a fully connected layer with output vector of length 4096
+		\end{itemize}
+	\item Structure
+		\item input image: $224\times224\times3$
+		\item{} ([conv64]$\times$2, pool) $\rightarrow$ ([conv128]$\times$2, pool) $\rightarrow$ ([conv256]$\times$3, pool) $\rightarrow$ ([conv512]$\times$3+pool)$\times$2
+		\item last feature maps ($7\time7\times512$) flatten into a input vector of length 4096
+		\item{} [fc4096] $\rightarrow$ [fc4096] $\rightarrow$ logits $\rightarrow$ softmax prediction for $1000$ categories
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item fixed conv \& pooling operation \\
+		$\Rightarrow$ few hyperparameters, yet large in parameters ($\sim$138 million)
+		\item decrease spatial size by $2$ \& increase channel by $2$ on each step \\ 
+		(till small or deep enough e.g. 7$\times$7 size, 512 channels)
+		\end{itemize}
+	\end{itemize}
+
+\item ResNets
+	\begin{itemize}
+	\item Building Blocks
+		\begin{itemize}
+		\item residual block
+		\item batchnorm applied in the conv(s) inside residual block
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item stack of residual block, for hundreds, even thousands of layers
+		\end{itemize}
+	\end{itemize}
+	
+\item Inception Net
+	\begin{itemize}
+	\item Building Blocks
+		\begin{itemize}
+		\item inception block
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item stack of inception blocks
+		\item two auxiliary loss from hidden layers
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Fully Convolutional Networks (FCN)} \label{DL_Arch_FCN}
+\begin{itemize}
+\item FCN for Classification \& Regression
+	\begin{itemize}
+	\item Convolution as Flattening
+		\begin{itemize}
+		\item given input feature maps $i\times i\times c$, with $c$ channels
+		\item perform valid conv with kernel $i\times i \times o$ \\ 
+		$\Rightarrow$ output size $1\times1 \times o$
+		\end{itemize}
+	\item $1\times1$ Convolution as Fully Connected Layer
+		\begin{itemize}
+		\item for flatten vector $1\times1\times i$, perform $1\times1$ conv with kernel size $1\times1\times 0$ \\
+		$\Rightarrow$ output size $1\times1\times o$, with same computation as fc layer
+		\end{itemize}
+	\item Use Case
+		\begin{itemize}
+		\item \hyperref[DL_CV_Objdet]{object detection}
+		\end{itemize}
+	\end{itemize}
+
+\item 
+\end{itemize}
+
+\subsection{Recurrent Neural Network}
+\subsubsection{Classic RNN}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Stacked RNN Layers
+		\begin{itemize}
+		\item the output of layer $l$ becomes the input for layer $l+1$ \\
+		$\Rightarrow$ RNN scanning the output of previous RNN layer
+		\item $3\sim5$ layer considered deep: as RNN can be unrolled into a deep plain net
+		\end{itemize}
+	\item RNN as Encoder-Decoder
+		\begin{itemize}
+		\item encoding the sequence into a vector
+		\item decoding a vector into a sequence
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Attention}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\subsubsection{Transformer}
+
 \subsection{Encoder-Decoder Architecture}
 \subsubsection{Basic}
 \begin{itemize}
@@ -1301,156 +1855,818 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \subsubsection{Generative Adversarial Network}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Computer Vision}
+
+\subsection{Objects Detection} \label{DL_CV_Objdet}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Spatial Information
+		\begin{itemize}
+		\item image maps as $3$-D tensor: width, height, channel (rgb, etc.)
+		\item multi/stereo -images for $3$-D detection
+		\end{itemize}
+	\end{itemize}
+
+\item Goal
+	\begin{itemize}
+	\item Bounding Box Prediction
+		\begin{itemize}
+		\item localization as regression task on box attributes ($x,y,h,w$)
+		\item classification on object classes \& object existence
+		\end{itemize}
+	\item Landmark (Key Point) Prediction
+		\begin{itemize}
+		\item landmarks: the coordinates of key points (of  each type) in image
+		\item label of landmark should be consistent across image
+		\item output real number as regression task \\
+		$\Rightarrow$ used in pose detection, bounding box detection, etc.
+		\end{itemize}
+	\end{itemize}
+
+\item Understanding
+	\begin{itemize}
+	\item multi-object localization \& classification
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Common Postprocessing}
+\begin{itemize}
+\item Non-max Suppression \label{DL_CV_Objdet_nonmax}
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item multiple predicted bounding boxes, with probability of existence ($p_e$) relatively large
+		\end{itemize}
+	\item Goal
+		\begin{itemize}
+		\item clean up \& account for duplicate bounding boxes on the same object \\
+		$\Rightarrow$ for each (predicted) object, finalize prediction to be a single bounding box
+		\end{itemize}
+	\item Naive Operation
+		\begin{itemize}
+		\item choose the bounding boxes with highest (maximal) $p_e$ (for each object classes)
+		\item remove those bounding boxes whose IoU with it are large \\
+		$\Rightarrow$ remove (suppress) bounding boxes with large overlap
+		\item repeat until all bounding boxes have a low IoU with each other \\
+		$\Rightarrow$ remaining boxes are the final predictions
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Classic Approaches}
+\begin{itemize}	
+\item Sliding Window Detection
+	\begin{itemize}
+	\item Bounding Box Proposal
+		\begin{itemize}
+		\item slide the window with various size, across the image \\
+		$\Rightarrow$ propose bounding boxes with predefined size \& location
+		\item feed the window into CNN for classification \\
+		$\Rightarrow$ CNN as classifier, window as bounding box
+		\end{itemize}
+	\item Fast Implementation: Sliding Window as Convolution
+		\begin{itemize}
+		\item implement CNN classification as \hyperref[DL_Arch_FCN]{FCN} \\
+		$\Rightarrow$ as conv independent from input size
+		\item run directly the CNN on the input image (instead of on each sliding window) \\
+		$\Rightarrow$ output size $m\times n \times k$, \\ 
+		where $m\times n$ the total number of sliding windows on the image, $k$ the class number
+		\item $\Rightarrow$ one times running for all sliding windows \\ 
+		(as sliding window essentially is a crop from image)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item though with fast implementation, still not promising regarding result \\
+		$\Rightarrow$ sliding window propose a fixed set of window \\
+		$\Rightarrow$ fail if not matching window size; or missing location/rotation
+		\end{itemize}
+	\end{itemize}
+
+\item You Only Look Once (YOLO)
+	\begin{itemize}
+	\item Preprocessing
+		\begin{itemize}
+		\item grid the input image into disjoint cells \\
+		(apply usually fine grid, e.g. $19\times19$ girds)
+		\item define a serious of anchor box: covering most of the interested objects \\
+		(e.g. tall\&thin box for pedestrian, low\&fat box for car)
+		\item assign the objects to a tuple (cell, anchor box)
+			\begin{itemize}
+			\item assign to cell by its central point $\Rightarrow$ ensure maximal $\mathbf 1$ object in a grid
+			\item assign to one from $B$ anchor boxes depending on its IoU with all $B$ boxes
+			\end{itemize}
+		\end{itemize}
+	\item Anchor Box Selection
+		\begin{itemize}
+		\item run K-means on all  clabel box; use cluster center as the anchor box
+		\end{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item $p_e$ probability of existence for current anchor box in a cell
+		\item $b_x, b_y$ the box location offset relative to the top-left coord of the cell \\
+		$\Rightarrow$ easier to learn, as dense layer not confused by varying locations
+		\item $b_h, b_w$ the box size relative to the size of the cell (allowed to go outside the grid) \\
+		$\Rightarrow$ cope with various girding strategy
+		\item $p_1,...,p_C$ the classification for object inside current box
+		\item $\Rightarrow a_b=[p_e, b_x, b_y, b_h, b_w, p_1,...,p_C]$ the anchor box $b$ \\
+		(note: localization\&classification considered only when $p_e=1$)
+		\item $\Rightarrow [a_1,...,a_B]^T$ the prediction/label in each cell \\
+		(hence, able to match multiple anchor boxes at the same time in one cell)
+		\end{itemize}
+	\item Prediction
+		\begin{itemize}
+		\item each cell predict bboxes with their $p_e$
+		\item each cell predict conditional probability $p(\text{class}|\text{obj})$ \\
+		i.e. the class probability of object, given there is (part of) an object in the cell
+		\item final prediction of each bbox in each cell: $p(class, obj) = p_e\times p(\text{class}|\text{obj})$ \\
+		\end{itemize}
+	\item Bounding Box Prediction
+		\begin{itemize}
+		\item apply FCN on each cell for classification\&localization\\ 
+		(implemented as fast sliding window) \\
+		$\Rightarrow$ output spatial shape = grid shape; channel = bounding box len
+		\item get some predicted bounding boxes in each cell (e.g. fixed to $n$ box per cell)
+		\item non-max suppression used to finalize predicted bounding box (for each object class)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item passthrough layer (skip connection) as downsampling \\
+		$\Rightarrow$ early layer ($26\times26\times512$) stacks its spatially adjacent features together 
+		$\Rightarrow$ form a $13\times13\times2048$ feature map; then concat to late layer \\
+		(a modest $1\%$ performance increase)
+		\item 
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item optimize the sum-squared error (due to its simplicity)
+		\item emphasize the label containing box (object) \\ 
+		$\Rightarrow$ avoid large num of labels without object pushing weights to $0$
+		\item predict the $\sqrt{b_w},\sqrt{b_h}$, instead of $b_w, b_h$ \\ 
+		$\Rightarrow$ reflect that small deviations in large boxes matter less than in small boxes
+		\item for each bbox predicted by a cell
+			\begin{itemize}
+			\item increase the confidence \& adjust coords for box overlapping the most with label
+			\item decrease the confidence for box not overlapping with any label
+			\end{itemize}
+		\item 
+		\item data augmentation: mix classification \& detection dataset \\ 
+		$\Rightarrow$ train the same backbone with different prediction branch
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item multiple anchor boxes: able to predict multiple boxes
+		\item decoupled anchor boxes \& object class: able to predict multiple same-type objects \\
+		(have to use different anchor box)
+		\item $\Rightarrow$ able to handle: multiple objects, each in a different anchor box in one cell
+		\item yet, NOT able to handle: multiple objects in same-type anchor box in one cell \\
+		(NOR when objects more than total anchor boxes) \\
+		$\Rightarrow$ suffer from small objects in group (e.g. birds)
+		\item griding: to increase the chance of predicting \\ 
+		$\Rightarrow$ avoid the failed case (i.e. multiple object in same-type anchor box in one cell)
+		\item with FCN implementation, receptive fields not restricted by grid \\
+		$\Rightarrow$ global knowledge utilized for prediction corresponding to each cell
+		\item one scan to have predictions for all cell $\Rightarrow$ \textbf{fast} \& enable real-time application
+		\end{itemize}
+	\end{itemize}
+
+\item Region Proposal
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item effectively propose a various bounding boxes on the image for potential focused object \\
+		$\Rightarrow$ recall all focused object with preferably fewer boxes (e.g. $\sim 1\text{k}$)
+		\end{itemize}
+	\item Input
+		\begin{itemize}
+		\item segmentation mask by a segmentation network \\
+		$\Rightarrow$ to place bboxes on high-probability blobs
+		\end{itemize}
+	\end{itemize}
+
+\item R-CNN
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item region proposal by selective search
+		\item CNN to predict class \& a bounding box (to refine)
+		\end{itemize}
+	\end{itemize}
+
+\item Fast R-CNN
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item based on r-cnn
+		\item convolution implementation to predict all proposed regions \\
+		(similar to fast sliding window)
+		\end{itemize}
+	\end{itemize}
+
+\item Faster R-CNN
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item based on fast r-cnn
+		\item use CNN for segmentation \& region proposal (faster than selective search)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Research Direction}
+\begin{itemize}
+\item Faster YOLO
+	\begin{itemize}
+	\item Dynamic Grid
+		\begin{itemize}
+		\item similar to spatial pyramid pooling: griding with respect to input image size \\
+		$\Rightarrow$ larger image more grid
+		\item $\Rightarrow$ ultimately, pixel grid: each pixel as a grid cell
+		\end{itemize}
+	\item $\Rightarrow$ Segmentation as Detection
+		\begin{itemize}
+		\item for output mask, giving classification ($p_e$) + localization (regression) \\
+		(instead of giving class probability as per-pixel classification)
+		\item at most as many objects as pixel number \\ 
+		$\Rightarrow$ not possible to lose detection due to griding
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
 
-\section{Advanced Topic}
+\subsection{Face Recognition}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Image 
+		\begin{itemize}
+		\item image from camera
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Identity Recognition
+		\begin{itemize}
+		\item recognize the identity of the face in image
+		\item refuse to recognize if the face does NOT belongs to any stored identity
+		\end{itemize}
+	\item Liveness Detection
+		\begin{itemize}
+		\item make sure the face in image are from a live human \\
+		(instead of picture etc.)
+		\end{itemize}
+	\end{itemize}
+\item Face Verification
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item image from camera \& identity
+		\end{itemize}
+	\item Goal
+		\begin{itemize}
+		\item true/false, regarding whether the image content belongs to the identity
+		\end{itemize}
+	\end{itemize}
+	
+\item Challenge
+	\begin{itemize}
+	\item One-shot Learning
+		\begin{itemize}
+		\item given only single (at most, few) face-identity pair for each identity
+		\item still, need to build a robust system for recognition task
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Classic Approach}
+\begin{itemize}
+\item Siamese Network as Encoder
+	\begin{itemize}
+	\item Structure
+		\begin{itemize}
+		\item CNN + dense layer to encode the input image $x^i$ as a vector $f(x^i)$
+		\end{itemize}
+	\item Learning Goal
+		\begin{itemize}
+		\item minimize $\norm{f(x^i)-f(x^j)}^2$ if $x^i, x^j$ from same identity
+		\item maximize $\norm{f(x^i)-f(x^j)}^2$ if $x^i, x^j$ from different identity
+		\item $\Rightarrow$ learning encoding given a fixed distance function $d(x_1, x_2) \ge 0$\\
+		(here, $d(x_1, x_2)=\norm{x_1-x_2}^2$)
+		\end{itemize}
+	\item Triplet Loss
+		\begin{itemize}
+		\item given an anchor image $A$ representing the identity $I$
+		\item take a positive image $P$ from identity $I$; an negative image $N$ not from identity $I$
+		\item $\Rightarrow L(A,P,N) = \max\left( d(f(A), f(P)) - d(f(A), f(N)) + \alpha, 0 \right)$, where \\
+		$\alpha$ an hyperparamter to make sure the net differentiate them by a margin; \\
+		$\max()$ to make the loss $=0$ as long as the requirement satisfied
+		\end{itemize}
+	\item Training: Hard Negative Mining
+		\begin{itemize}
+		\item due to large variance in the dataset $\Rightarrow$ $d(A,P) << d(A,N)$ in most case
+		\item due to large number of identities $\Rightarrow$ permutation explosion
+		\item $\Rightarrow$ evaluate current net on dataset, use mistakes for the next epoch
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item learn a encoder towards a selected distance function \\
+		$\Rightarrow$ use permutation to have more training examples
+		\item able to precomputing the encoded vector for fast recognition
+		\end{itemize}
+	\end{itemize}
+
+\item Encoder with Binary Classification
+	\begin{itemize}
+	\item Structure
+		\begin{itemize}
+		\item still, CNN + dense layer to encode input image
+		\end{itemize}
+	\item Learning Goal
+		\begin{itemize}
+		\item given two encoded vectors, another net (or logistic regression) to perform binary classification \\
+		$\Rightarrow$ $1$ for two image has same identity; $0$ for different identities
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item still, utilize permutation for larger training set \\ 
+		(use pair, instead of triplet)
+		\item learn the similarity function as well: output directly the result of comparison
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Image Style Transfer}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Content Image $C$
+		\begin{itemize}
+		\item the image containing the spatial info (content)
+		\end{itemize}
+	\item Style Image $S$
+		\begin{itemize}
+		\item the image containing the style of presenting the content
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Generated Image $G$
+		\begin{itemize}
+		\item a image with content from $C$ drawn in style of $S$
+		\begin{figure}[ht]
+		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/topic-image style transfer nst overview".png}
+		\end{figure}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Classic Approach}
+\begin{itemize}
+\item Neural Style Transfer
+	\begin{itemize}
+	\item Learning Goal
+		\begin{itemize}
+		\item given input $C,S$ with output $G$, loss $L = \sum_{l} \left[\alpha L_\text{content}(C,G) + \beta L_\text{style}(C,S)\right]$, \\
+		where $l$ is sum over chosen hidden layers of the CNN
+		\item $\Rightarrow$ minimize content \& style difference
+		\end{itemize}
+	\item Content
+		\begin{itemize}
+		\item given input, the activations from a set of (hidden) layers of the net
+		\item $\Rightarrow$ similarity of $C, G$ measured as $\sum_l d(a^{l(C)}, a^{l(G)})$, \\ 
+		where $a^{l(\cdot)}$ the feature maps at layer $l$ given the input, $d(\cdot)$ a distance function \\
+		(e.g. $d(x_1,x_2) = \norm{x_1 - x_2}^2$)
+		\end{itemize}
+	\item Style
+		\begin{itemize}
+		\item given input, the correlation between activations across channels, for chosen layers \\
+		$\Rightarrow$ correlation matrix across feature map at each channel as style matrix \\
+		(actually, gram matrix)
+		\item let $a_{i,j,k}^l$ the activation at a $h\times w\times c$ conv kernel location $i,j,k$ in layer $l$ \\ 
+		$\Rightarrow$ style (gram) matrix $M^l_{k,k'} = \sum_{i,j}a^l_{ijk}\cdot a^l_{ijk'}$, for all $k,k'\in\{1,...,c\}$
+		\item $\Rightarrow$ similarity of $S, G$ measured as $\sum_l \left[ \frac 1 {(2 h^l w^l c^l)^2} d(M^{l(S)}, M^{l(G)}) \right] $ \\
+		where $M^{l(\cdot)}$ the gram matrix at layer $l$ given the input, $d(\cdot)$ a distance function, with normalization term $\frac 1 {(2 h^l w^l c^l)^2}$ \\
+		(e.g. $d(x_1, x_2) = \norm{x_1-x_2}^2_F$, the euclidean norm between matrices)
+		\begin{figure}[ht]
+		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/topic-image style transfer nst style matrix".png}
+		\end{figure}	
+		\end{itemize}
+	\item z
+	\end{itemize}
+\end{itemize}
 
 \subsection{Point Cloud Recognition}
 
-\subsection{Transfer Learning} \label{DL_Topic_Transfer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Natural Language Processing}
+\subsection{Language Representation} \label{DL_NLP_Langrep}
 \subsubsection{Problem Formulation}
 \begin{itemize}
-\item Input Data
+\item Input
 	\begin{itemize}
-	\item Source Data
+	\item Language Token/Corpus
 		\begin{itemize}
-		\item a large amount of labeled data
-		\item having different distribution then the desired target data
-		\end{itemize}
-	\item Target Data
-		\begin{itemize}
-		\item a small amount of labeled data, with a large amount of unlabeled data \\
-		(due to hardness of labeling, etc.)
-		\item from the distribution where model need to handle
+		\item words, sentences, paragraphs, ... $\Rightarrow$ can be language at various level
 		\end{itemize}
 	\end{itemize}
 \item Goal
 	\begin{itemize}
-	\item Model Performance
+	\item Distributed Vector Representations as Embedding Matrix $E_{M\times N} = [e_1,...,e_N]$
 		\begin{itemize}
-		\item good performance on val\&test set (containing target data)
-		\item good generalization ability on the target distribution
+		\item $e$ the column vectors, $M$ the desired embedding length, $N$ the total tokens num \\
+		$\Rightarrow$ look up for the desired embedding \\
+		(NOT using matrix multiplication due to sparsity from one-hot encoding)
+		\item distributed representation: decomposed yet meaningful \\
+		$\Rightarrow$ fight the curse of dimensionality
+		\end{itemize}
+	\item $\Rightarrow$ Meaningful Vector
+		\begin{itemize}
+		\item able to measure the (dis-)similarity of between tokens (words) \\
+		$\Rightarrow$ semantic meaning: "Germany"-"Berlin" \& "France"-"Paris" \\
+		$\Rightarrow$ syntactic meaning: "quick"-"quickly" \& "slow"-"slowly" \\
+		(e.g. $e_\text{man} - e_\text{woman} \approx e_\text{king} - e_\text{queen}$, where $e_\text{text}$ the embedding for word "text") 
+		\item $\Rightarrow$ allow NLP model to be more robust \& generalize better
+		\end{itemize}
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Problem of Bias
+		\begin{itemize}
+		\item word embedding reflect biases of text used to train the model \\
+		e.g. "father-doctor" as "mother-nurse" $\Rightarrow$ gender bias
+		\item $\Rightarrow$ can cause discrimination when making decision
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
-\subsubsection{Standard Baseline}
+\subsubsection{Overview}
 \begin{itemize}
-\item Pre-training \& Fine-tunning
+\item Character Embedding
 	\begin{itemize}
-	\item Assumption
+	\item One-hot Encoding
 		\begin{itemize}
-		\item distribution of source \& target data share some common features \\
-		$\Rightarrow$ different task shares some common knowledge
-		\end{itemize}
-	\item Practice
-		\begin{itemize}
-		\item train network on source data only
-		\item swap/modify the last few layers (including prediction layer)
-		\item retrain the last layer (limited target data) / all net (enough target data)
-		\end{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item sharing weights/structure: low level feature extraction useful for both \\
-		$\Rightarrow$ based on model ability
+		\item a one-hot vector with length $26$
 		\end{itemize}
 	\end{itemize}
-\item Transfer Ada Boost (trAdaBoost)
+\item Word Embedding
 	\begin{itemize}
-	\item Assumption
+	\item Word Dictionary
 		\begin{itemize}
-		\item distribution of target \& source overlap more or less \\
-		$\Rightarrow$ able to extract helpful guides from source data
+		\item a collection of high-frequency word, embedded as one-hot vector
+		\item special token \textless{}UNK\textgreater{} for unknown word
 		\end{itemize}
-	\item Practice
+	\item Features from Rule Model
 		\begin{itemize}
-		\item setup train set with mixed target \& source data
-		\item weighting example from target \& source differently: \\ 
-		for source data weight $= \frac 1 {N_\text{source}}$; target data weight $= \frac 1 {N_\text{target}}$ \\
-		$\Rightarrow$ target data more important (as smaller in number)
-		\item for each weight-update iteration (may contain multiple epochs), update the weight: \\
-		$\Rightarrow$ shift the weight (importance) towards target data \& normalize all the weight
+		\item number at each vector location denotes the score for the word matching a rule \\
+		(e.g. location for "is\textunderscore{}food" contains score $s\rightarrow1$ for "apple", $s\rightarrow0$ for "man")
 		\end{itemize}
-		$\Rightarrow$ based on data distribution
-	\item Understanding
+	\item Part-of-Speech (POS) Tag
 		\begin{itemize}
-		\item learn the shared feature/knowledge with the help of source data
-		\item focus more on target as making progress
+		\item 
+		\end{itemize}
+	\item \hyperref[DL_NLP_Langrep_word2vec]{Word2Vec Embedding}
+		\begin{itemize}
+		\item construct supervised learning from UNlabeled corpus
+		\end{itemize}
+	\item \hyperref[DL_NLP_Langrep_GloVe]{Global Vector for Word Embedding (GloVe)}
+		\begin{itemize}
+		\item linear model with simple optimization goal
+		\end{itemize}
+	\item RNN Encoder
+		\begin{itemize}
+		\item apply RNN model as encoder on characters in the word \\
+		$\Rightarrow$ no more <UNK> or unknown word
 		\end{itemize}
 	\end{itemize}
-\item Feature Projection
+\item Sentence/paragraph Embedding
 	\begin{itemize}
-	\item Assumption
+	\item RNN Encoder
 		\begin{itemize}
-		\item few or NO overlap between source \& target (as data examples directly)
-		\item source \& target can be mapped onto a shared feature space, where overlap can be discovered
-		\end{itemize}
-	\item Practice
-		\begin{itemize}
-		\item project/map the source \& target data onto the same feature space
-		\item transfer learning in the shared space
-		\end{itemize}
-		$\Rightarrow$ based on distribution transformation
-	\item Understanding
-		\begin{itemize}
-		\item try discover common feature through transformation \\ 
-		(may need a decoder to map back to desired output space)
+		\item apply RNN model as encoder on words in the sentence \\ 
+		(last hidden layer as encoding)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
+\subsubsection{Word2Vec Embedding} \label{DL_NLP_Langrep_word2vec}
+\begin{itemize}
+\item N-gram Model
+	\begin{itemize}
+	\item Learning Objective Setup
+		\begin{itemize}
+		\item simple network to predict the $N+1^\text{th}$ word given previous $N$ words as input \\
+		(e.g. using single softmax layer)
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item $E$ randomly initialized \& all words in corpus encoded in one-hot vector
+		\item forward prop: word in one-hot $\rightarrow$ lookup $E$ $\rightarrow$ linear layer $\rightarrow$ softmax to predict
+		\item training: update linear layer parameters \& matrix $E$ as weights \\ 
+		(with cross-entropy loss)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item learn $P(t|c)$, where $t$ the target word, $c$ the previous $N$ context words
+		\item setup a even larger training set from a large corpus
+		\end{itemize}
+	\item Generalization
+		\begin{itemize}
+		\item more context: take input from both previous and after words
+		\item less \& close context: take only the last word as input $\Rightarrow$ 1-gram model
+		\end{itemize}
+	\end{itemize}
+\item Skip-gram Model
+	\begin{itemize}
+	\item Learning Objective Setup
+		\begin{itemize}
+		\item choose only $1$ single word as context word \\
+		$\Rightarrow$ balance sampling w.r.t. word frequency (e.g. prevent tons of "the", "a", ...)
+		\item randomly choose other word(s) in the sentence as target word(s)
+		\item $\Rightarrow$ to predict target word(s) given only context word as input \\ 
+		$\Rightarrow$ learn word vector representations that are good at predicting the nearby words
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item same as N-gram model
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item harder supervised learning task, yet goal is to learn $E$
+		\item better reflect the statistic: similar word appear in similar context \\
+		(e.g. "soviet"-"union" appears much more often than "soviet"-"sasquatch") \\
+		$\Rightarrow$ embedding for similar target word adjusted with similar gradients \\
+		$\Rightarrow$ lie closer in vector space
+		\item cons: softmax over large word dict $\Rightarrow$ low computation \\
+		$\Rightarrow$ mitigated by hierarchical softmax, noise contrastive estimation (NCE)
+		\end{itemize}
+	\end{itemize}
+\item Skip-gram with Negative Sampling
+	\begin{itemize}
+	\item Learning Objective Setup
+		\begin{itemize}
+		\item choose a pair of context and target word $(c,t)$ as positive example
+		\item generate $k$ negative examples by: same context word $c$ \& random word $t'$ as target
+		\item given a pair of words, binary classification: is a (context, target) pair? \\
+		$\Rightarrow$ distinguish valid target word from $k$ draws from noise distribution
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item detect meaningful $(c,t)$ pair/phrase by heuristic method \\ 
+		e.g. if $c,t$ co-appear within 10-words distance more than a threshold, etc.
+		\item $k=5-20$ for small train set; $k=2-5$ for large train set \\
+		(larger noise to avoid overfitting)
+		\item sample random word $t'$ from modified uniform distribution $\frac 1 Z U(t)^{3/4}$ over words
+		\item subsample frequent words: sampled $t'$ discarded by probability $P(t') = 1-\sqrt{\frac {thr} {f(t')}}$ \\
+		where $thr$ a threshold, $f(t')$ the frequency of $t'$ in corpus \\
+		(to avoid meaningless words like "the", "a", etc.)
+		\item $E$ randomly initialized \& all words in corpus encoded in one-hot vector \\
+		(forward prop similarly)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item learn $P(y=1|c,t)$ via logistic regression \\ 
+		$\Rightarrow$ much computationally affordable compared to giant softmax (less weights) \\
+		$\Rightarrow$ much simpler approach than hierarchical softmax \& NCE
+		\item non-linear model (logistic reg) also prefers linear structure of word embedding \\
+		$\Rightarrow$ cosine distance still measures (dis-)similarity
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
-\subsection{Multi-task Learning}
+\subsubsection{Global Vector for Word Embedding (GloVe)} \label{DL_NLP_Langrep_GloVe}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Context-Target Matrix $X$
+		\begin{itemize}
+		\item $x_{ij}$: the count of times word $w_i$ appear in the context of word $w_j$ \\
+		(context definition can be non-symmetric)
+		\end{itemize}
+	\item Learning Objective Setup
+		\begin{itemize}
+		\item given embedding matrix $E$, minimize $\sum_{i,j}f(x_{ij})(\theta_i^Te_j-\log x_{i,j})^2$, \\
+		where $e_j$ the embedding for $w_j$, $\theta_i$ the weights associated with $w_i$
+		\item $f(x_{ij})$ a weighting term to balance infrequent-frequent words \\
+		($f(x_{ij})$ for $x_{i,j}=0$, preventing $-\inf$ from $\log0$)
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item gradient decent directly optimize the simple objective
+		\item final embedding for word $w, w_e = \frac 1 2 (e_w+\theta_w)$ \\
+		$\Rightarrow$ as $\theta_w, e_w$ in objective interchangeable
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item directly model the linear structure in word representation \\ 
+		(project input $e$ directly to output $\theta^T e$)
+		\item final linear structure probably NOT align with human interpretable axis \\
+		$\Rightarrow$ yet probably a combination of them (from a higher view)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Addressing Bias in Word Embedding}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Input Data
+		\begin{itemize}
+		\item a trained word embedding
+		\end{itemize}
+	\item Goal
+		\begin{itemize}
+		\item identify the bias in embedding
+		\item eliminate the bias if it appears in undesired places
+		\end{itemize}
+	\item Identify Bias Direction
+		\begin{itemize}
+		\item singular value decomposition to identify the axises where biases lie \\
+		(similar to a PCA)
+		\item e.g. principle component of $e_\text{man}-e_\text{woman}, e_\text{male}-e_\text{female}, ...$
+		\end{itemize}
+	\item Neutralize
+		\begin{itemize}
+		\item for all NOT definitional word (where bias should NOT appear) \\
+		$\Rightarrow$ project to axises orthogonal to bias axises (to get rid of bias)
+		\item e.g. project $e_\text{doctor}$ to the axises to reduce component in bias axises
+		\end{itemize}
+	\item Equalize Pairs
+		\begin{itemize}
+		\item for all definitional word (where bias should appear) \\
+		$\Rightarrow$ adjust their distance towards non-definitional word to be the same \\
+		(may train/handpick all definitional words, which is only a small set)
+		\item e.g. make sure $d(e_\text{boy},e_\text{doctor}) = d(e_\text{girl},e_\text{doctor})$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsection{Language Modeling}
 \subsubsection{Problem Formulation}
 \begin{itemize}
 \item Input Data
 	\begin{itemize}
-	\item Multi-labeled Data
+	\item Sequence
 		\begin{itemize}
-		\item one input data corresponds to multiple desired outputs
-		\item $\Rightarrow$ require similarity/common knowledge in different tasks \\
-		(e.g. object detection for multiple object types)
-		\end{itemize}
-	\item Partial-labeled Data
-		\begin{itemize}
-		\item desired outputs may not be all labeled in the input \\ 
-		(i.e. some may be missed)
+		\item a word with sequence of characters
+		\item a sentence with sequence of words/characters
+		\item a paragraph with sequence of sentences/words/characters
 		\end{itemize}
 	\end{itemize}
 \item Goal
 	\begin{itemize}
-	\item General Solution to Multi-task
+	\item Probability Distribution
 		\begin{itemize}
-		\item give all desired outputs from a single network
+		\item model the appearance probability of the sequence $P(\text{z}^1,...,\text{z}^{t})$, \\
+		where $z^t$ the token at time $t$
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
-\subsubsection{Standard Baseline}
+\subsubsection{Classic Approach}
 \begin{itemize}
-\item Single Networks with Multiple Predictions
+\item RNN
 	\begin{itemize}
-	\item Sharing
+	\item Practice
 		\begin{itemize}
-		\item shared low-level layers to extract features from the input
-		\item shared loss as a sum over all prediction for corresponding label
-		\item shared training as back-prop computed as a single network
-		\item shared input data as trained together \\
-		$\Rightarrow$ shared knowledge discovered when training on data for other tasks \\
+		\item at each time, output token distribution conditional on previous token(s) \\
+		$\Rightarrow y^t = p(z^t|z^1,...,z^{t-1})$, where $z^t$ the token at time $t$
+		\item $\Rightarrow$ sequence probability $\displaystyle P(z^1,...,z^{t}) = P(z^1)P(z^2|z^1)...P(z^T|z^1,...,z^{T-1})= \prod^T_{t}y^t$
 		\end{itemize}
-	\item Understanding
+	\item Inference
 		\begin{itemize}
-		\item each task help each other, by contributing to the common knowledge
-		\item overcome data shortage: augmented by data for other tasks
-		\item partial labeled still useful: help train the shared layers
+		\item $\mathbf 0$ vector as both (initial) hidden state \& input at time $0$ \\
+		$\Rightarrow$ estimate $y^1=p(z^1)$, the distribution for being the $1^\text{st}$ token
+		\item for time $t=2,...,T$, take input $x^2,...,x^T$ with hidden state $h^1,...,h^{T-1}$ \\ 
+		$\Rightarrow$ estimate each conditional distribution (conditioning by passing hidden state)
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item for time $1$, input $x^1=\mathbf 0$, previous hidden state $h^0=\mathbf 0$
+		\item for time $t=2,...,T$, input $x^t = {z^*}^{t-1}$ the true token of $t-1$ in the given sequence
+		\end{itemize}
+	\item Generative Model: Sampling New Sequence
+		\begin{itemize}
+		\item sampling the first token $\hat{z}^1$ according to the distribution $y^1$
+		\item for $t=2,...$, take input $x^t=\hat{\text{z}}^{t-1}$, the token sampled from $y^{t-1}$
+		\item until $t>T$ or the end signal sampled (e.g. the period "." in a sentence)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+\subsubsection{Masked Language Model}
 
-\subsection{Machine Reading Comprehension}
-\subsubsection{Problem Formulation}
+\subsection{Name-Entity Recognition}
+\subsubsection{}
 \begin{itemize}
 \item 
 \end{itemize}
 
+\subsection{Sentiment Classification}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item a sentence / paragraph
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item predict the degree of positive/negative attitude
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item small training set
+	\end{itemize}
+\end{itemize}
+\subsubsection{Classic Approach}
+\begin{itemize}
+\item Many-to-one RNN
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item each word encoded by word embedding
+		\item RNN scanning through paragraphs
+		\item last hidden layer as paragraph representation \& used to classify/regress
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Sequence-to-sequence Model}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Sequence 
+		\begin{itemize}
+		\item a sequence, e.g. sentence, paragraphs
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Sequence
+		\begin{itemize}
+		\item a generated sequence given the task requirement \\
+		(e.g. machine translation, etc.)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Classic Approach}
+\begin{itemize}
+\item RNN Encoder-Decoder
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item an RNN encodes the input sequence by its last hidden layer
+		\item input encoding used as initial hidden state for decoder RNN
+		\item decoder RNN generates (conditional) distribution over words at each step \\
+		$\Rightarrow$ for time $t, y^t = p(z^t|x^1,...,x^{T_x}, \hat{z}^1,...,\hat{z}^{t-1})$, \\
+		where $z^t$ the token at time $t$, $\hat{z}^1,...,\hat{z}^{t-1}$ the tokens chosen from $y^1,...,y^{t-1}$ \\
+		($z^t$ a random variable, $\hat{z}^t$ a concrete assignment, $y^t$ a conditional distribution)
+		\item unroll until stop sign generated
+		\end{itemize}
+	\item Understanding: Conditional Language Model
+		\begin{itemize}
+		\item decoder functions like language modeling, only different in its initial hidden state
+		\item $\Rightarrow$ measure the conditional distribution $\displaystyle p(z^1,...,z^{T_y}|x^1,...,x^{T_x})=\prod_{t=1}^{T_y}y_t$, \\
+		where $z^1,...,z^{T_y}$ the generated sequence, $x^1,...,x^{T_x}$ the input sequence
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Choosing Output Sequence}
+\begin{itemize}
+\item Greedy Search
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item choose the words of highest (conditional) probability at each time step
+		\end{itemize}
+	\end{itemize}
+\item Beam Search
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item with a vocabulary size of $N$, a bean with size $b$, input sequence $\mathbf x = x^1,...,x^{T_x}$
+		\item to start, choose top-$b$ tokens (among $N$ tokens) at the $1^\text{st}$ step
+		\item for step $t$, input each previous stored $b$ tokens to have $b$ conditional distributions
+		\item choose the top-$b$ token pairs (among $b\times N$ pairs) regarding joint probability \\
+		$\Rightarrow P(z^1,...,z^t|\mathbf x) = P(z^t|z^1,...,z^{t-1},\mathbf x)P(z^1, ..., z^{t-1}|\mathbf x)$ 
+		\end{itemize}
+	\item Normalization by Length
+		\begin{itemize}
+		\item reason: short sequence with less $y^t\in[0,1] \Rightarrow$ larger in general
+		\item choose $t^\text{th}$ pair regarding the normalized probability $\frac 1 t P(z^1,...,z^t|\mathbf x)$
+		\item $\Rightarrow$ more numerically stable
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item approximately search the sequence with highest joint (conditional) probability \\
+		$\Rightarrow$ try to maximize $P(z^1,...,z^{T_y}|x^1,...x^{T_x})$
+		\item similar to viterbi algorithm in HMM $\Rightarrow b = 1$ reduce to greedy search
+		\item $B$ usually chosen in $10$ in research, $>1000$ in commercial system \\
+		(still faster than BFS/DFS, yet no guarantee on finding best result)
+		\end{itemize}
+	\end{itemize}
+\item 
+\end{itemize}
+
+\subsection{Machine Reading Comprehension}
 \subsubsection{RNN with Attention}
 \subsubsection{Convolution with Self-attention - QAnet}
 
@@ -1532,8 +2748,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
-
-
 \subsubsection{Baseline Approach \& Previous Work}
 \begin{itemize}
 \item Segmentation from Natural Language Expressions
@@ -1756,3 +2970,166 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Special Learning}
+\subsection{Transfer Learning} \label{DL_Learning_Transfer}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Source Data
+		\begin{itemize}
+		\item a large amount of labeled data
+		\item having different distribution then the desired target data
+		\end{itemize}
+	\item Target Data
+		\begin{itemize}
+		\item a small amount of labeled data, with a large amount of unlabeled data \\
+		(due to hardness of labeling, etc.)
+		\item from the distribution where model need to handle
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Model Performance
+		\begin{itemize}
+		\item good performance on val\&test set (containing target data)
+		\item good generalization ability on the target distribution
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Standard Baseline}
+\begin{itemize}
+\item Pre-training \& Fine-tunning
+	\begin{itemize}
+	\item Assumption
+		\begin{itemize}
+		\item distribution of source \& target data share some common features \\
+		$\Rightarrow$ different task shares some common knowledge
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item train network on source data only
+		\item swap/modify the last few layers (including prediction layer)
+		\item retrain the last layer (limited target data) / all net (enough target data)
+		\end{itemize}
+	\item Guideline
+		\begin{itemize}
+		\item small dataset: freeze pretrained network \& use it as fixed feature extractor \\ 
+		$\Rightarrow$ only train the last prediction layer
+		\item medium dataset: freeze fewer layers, design some own last layers
+		\item exceptionally large dataset with large computation budget: train from scratch \\
+		$\Rightarrow$ pretrained weights as initialization (nor preferred in most cases)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item sharing weights/structure: low level feature extraction useful for both \\
+		$\Rightarrow$ based on model ability
+		\end{itemize}
+	\end{itemize}
+\item Transfer Ada Boost (trAdaBoost)
+	\begin{itemize}
+	\item Assumption
+		\begin{itemize}
+		\item distribution of target \& source overlap more or less \\
+		$\Rightarrow$ able to extract helpful guides from source data
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item setup train set with mixed target \& source data
+		\item weighting example from target \& source differently: \\ 
+		for source data weight $= \frac 1 {N_\text{source}}$; target data weight $= \frac 1 {N_\text{target}}$ \\
+		$\Rightarrow$ target data more important (as smaller in number)
+		\item for each weight-update iteration (may contain multiple epochs), update the weight: \\
+		$\Rightarrow$ shift the weight (importance) towards target data \& normalize all the weight
+		\end{itemize}
+		$\Rightarrow$ based on data distribution
+	\item Understanding
+		\begin{itemize}
+		\item learn the shared feature/knowledge with the help of source data
+		\item focus more on target as making progress
+		\end{itemize}
+	\end{itemize}
+\item Feature Projection
+	\begin{itemize}
+	\item Assumption
+		\begin{itemize}
+		\item few or NO overlap between source \& target (as data examples directly)
+		\item source \& target can be mapped onto a shared feature space, where overlap can be discovered
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item project/map the source \& target data onto the same feature space
+		\item transfer learning in the shared space
+		\end{itemize}
+		$\Rightarrow$ based on distribution transformation
+	\item Understanding
+		\begin{itemize}
+		\item try discover common feature through transformation \\ 
+		(may need a decoder to map back to desired output space)
+		\end{itemize}
+	\item Example
+		\begin{itemize}
+		\item \hyperref[DL_NLP_Langrep]{word embedding}: learn word relation as unsupervised learning \\
+		$\Rightarrow$ a shared feature space to represent word
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Multi-task Learning}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Multi-labeled Data
+		\begin{itemize}
+		\item one input data corresponds to multiple desired outputs
+		\item $\Rightarrow$ require similarity/common knowledge in different tasks \\
+		(e.g. object detection for multiple object types)
+		\end{itemize}
+	\item Partial-labeled Data
+		\begin{itemize}
+		\item desired outputs may not be all labeled in the input \\ 
+		(i.e. some may be missed)
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item General Solution to Multi-task
+		\begin{itemize}
+		\item give all desired outputs from a single network
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Standard Baseline}
+\begin{itemize}
+\item Single Networks with Multiple Predictions
+	\begin{itemize}
+	\item Sharing
+		\begin{itemize}
+		\item shared low-level layers to extract features from the input
+		\item shared loss as a sum over all prediction for corresponding label
+		\item shared training as back-prop computed as a single network
+		\item shared input data as trained together \\
+		$\Rightarrow$ shared knowledge discovered when training on data for other tasks \\
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item each task help each other, by contributing to the common knowledge
+		\item overcome data shortage: augmented by data for other tasks
+		\item partial labeled still useful: help train the shared layers
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{K-shot Learning}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Training Set
+	\begin{itemize}
+	\item 
+	\end{itemize}
+\end{itemize}
+
