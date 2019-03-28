@@ -84,11 +84,12 @@
 \BOOKMARK [2][-]{subsection.12.6.2}{Language Modeling}{section.12.6}% 84
 \BOOKMARK [2][-]{subsection.12.6.3}{Name-Entity Recognition}{section.12.6}% 85
 \BOOKMARK [2][-]{subsection.12.6.4}{Sentiment Classification}{section.12.6}% 86
-\BOOKMARK [2][-]{subsection.12.6.5}{Sequence-to-sequence Model}{section.12.6}% 87
-\BOOKMARK [2][-]{subsection.12.6.6}{Machine Reading Comprehension}{section.12.6}% 88
-\BOOKMARK [2][-]{subsection.12.6.7}{Image Caption}{section.12.6}% 89
-\BOOKMARK [2][-]{subsection.12.6.8}{Referring Segmentation}{section.12.6}% 90
-\BOOKMARK [1][-]{section.12.7}{Special Learning}{chapter.12}% 91
-\BOOKMARK [2][-]{subsection.12.7.1}{Transfer Learning}{section.12.7}% 92
-\BOOKMARK [2][-]{subsection.12.7.2}{Multi-task Learning}{section.12.7}% 93
-\BOOKMARK [2][-]{subsection.12.7.3}{K-shot Learning}{section.12.7}% 94
+\BOOKMARK [2][-]{subsection.12.6.5}{Neural Machine Translation}{section.12.6}% 87
+\BOOKMARK [2][-]{subsection.12.6.6}{Speech Recognition}{section.12.6}% 88
+\BOOKMARK [2][-]{subsection.12.6.7}{Machine Reading Comprehension}{section.12.6}% 89
+\BOOKMARK [2][-]{subsection.12.6.8}{Image Caption}{section.12.6}% 90
+\BOOKMARK [2][-]{subsection.12.6.9}{Referring Segmentation}{section.12.6}% 91
+\BOOKMARK [1][-]{section.12.7}{Special Learning}{chapter.12}% 92
+\BOOKMARK [2][-]{subsection.12.7.1}{Transfer Learning}{section.12.7}% 93
+\BOOKMARK [2][-]{subsection.12.7.2}{Multi-task Learning}{section.12.7}% 94
+\BOOKMARK [2][-]{subsection.12.7.3}{K-shot Learning}{section.12.7}% 95

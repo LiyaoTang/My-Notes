@@ -1773,17 +1773,54 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ RNN scanning the output of previous RNN layer
 		\item $3\sim5$ layer considered deep: as RNN can be unrolled into a deep plain net
 		\end{itemize}
-	\item RNN as Encoder-Decoder
+	\item Encoder-Decoder RNN
 		\begin{itemize}
-		\item encoding the sequence into a vector
-		\item decoding a vector into a sequence
+		\item encoder RNN scans the input sequence, last hidden layer as sequence encoding
+		\item decoder RNN takes encoding as initial hidden state, unrolled the output sequence
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
 \subsubsection{Attention}
 \begin{itemize}
-\item 
+\item Overview
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item overcome long-term dependency, via considering all input with different attention
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item a bi-RNN encode rich input context at each hidden state: $h^1,...,h^{T_x}$
+		\item global context after attention at time $t$: $\displaystyle c^t=\sum_{i=1}^{T_x}\alpha^t_i h^i = [h^1,...,h^{T_x}]\alpha^t$, \\
+		where hidden states $h^1,...,h^{T_x}$ and attention $\alpha^t$ column vectors \\
+		$\Rightarrow$ a weighted sum over all hidden states as context
+		\item a small (1-layer) net mapping $[c^{t-1}, h^{i}] \xrightarrow[]{\text{dense}} \text{logits} \xrightarrow[]{\text{softmax}} \alpha^t_i$ \\
+		$\Rightarrow$ attention on $h^i$ depends on previous global context $c^{t-1}$ \& $h^i$ itself \\
+		(softmax to ensure $\sum\alpha^t=1$)
+		\item a decoder RNN taking $c^{t}$ as input, until stop sign generated \\
+		(as $c^t$ can be calculated infinite times)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item use the sequence of hidden states  as encoding \\ 
+		(as sentence encoded in last hidden states can be bias \& have info lost) \\
+		$\Rightarrow$ account input sequence (with different attention at different places) when generating output sequence
+		\item quadratic cost: attention $\alpha$ a $T_x\times T_y$ matrix to be calculated 
+		\end{itemize}
+	\end{itemize}
+\item Attention on Image
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item focus on correct spatial context when generating corresponding caption/sequence
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item calculate weights for a sum over all spatial location of the image encoding \\
+		$\Rightarrow$ calculate a 2-D mask over a 3-D tensor
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{Transformer}
@@ -2588,22 +2625,21 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsection{Sequence-to-sequence Model}
+\subsection{Neural Machine Translation}
 \subsubsection{Problem Formulation}
 \begin{itemize}
 \item Input Data
 	\begin{itemize}
 	\item Sequence 
 		\begin{itemize}
-		\item a sequence, e.g. sentence, paragraphs
+		\item typically sentence, can be also multiple sentences (paragraph)
 		\end{itemize}
 	\end{itemize}
 \item Goal
 	\begin{itemize}
 	\item Sequence
 		\begin{itemize}
-		\item a generated sequence given the task requirement \\
-		(e.g. machine translation, etc.)
+		\item generated sentences in desired language
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -2626,6 +2662,10 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item decoder functions like language modeling, only different in its initial hidden state
 		\item $\Rightarrow$ measure the conditional distribution $\displaystyle p(z^1,...,z^{T_y}|x^1,...,x^{T_x})=\prod_{t=1}^{T_y}y_t$, \\
 		where $z^1,...,z^{T_y}$ the generated sequence, $x^1,...,x^{T_x}$ the input sequence
+		\end{itemize}
+	\item Improvement
+		\begin{itemize}
+		\item combined with attention model
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -2664,6 +2704,84 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \item 
+\end{itemize}
+
+\subsection{Speech Recognition}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Sequence
+		\begin{itemize}
+		\item an audio sample, with each frame as a time step
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Sequence
+		\begin{itemize}
+		\item text (words/sentences) corresponding to the audio
+		\end{itemize}
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Variable Timing
+		\begin{itemize}
+		\item output (letter/words) usually has much less time steps than input (audio frames) \\
+		$\Rightarrow$ multiple input time steps corresponding to same output time step
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Learning Objective}
+\begin{itemize}
+\item Connectionist Temporal Classification (CTC) Loss
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item avoid learning boundaries and timings
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item two sequences considered equivalent if they differ only in alignment, ignoring blanks \\
+		$\Rightarrow$ remove duplicate token (e.g. letters) from both sequence before comparison
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Classic Approach}
+\begin{itemize}
+\item RNN Encoder-Decoder
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item encoder scan through audio frames \& decoder output letter/punctuation/"blank"/"space" \\
+		\item "blank": no symbol v.s. "space": delimiter for letters $\rightarrow$ words
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Trigger Word Detection}
+\begin{itemize}
+\item Goal
+	\begin{itemize}
+	\item trigger word: a specific predefined audio signal to invoke system (e.g. xiaodu xiaodu)
+	\item detect where trigger word included in an audio (if any)
+	\end{itemize}
+\item Labeling
+	\begin{itemize}
+	\item $0$ for frames not corresponding to trigger word; $1$ for frames consisting trigger words
+	\item upsampling positive example: extends $1$ label a few frames after the trigger words \\
+	(as trigger word often appears once in an interaction with system)
+	\end{itemize}
+\item Classic Approach
+	\begin{itemize}
+	\item RNN Encoder-Decoder
+		\begin{itemize}
+		\item encoder scan through audio \& decoder output 0-1 classification at each step \\
+		\end{itemize}
+	\item Conv RNN
+		\begin{itemize}
+		\item a fixed window to better capture context for detecting trigger word
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsection{Machine Reading Comprehension}
