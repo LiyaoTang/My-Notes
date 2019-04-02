@@ -10,7 +10,6 @@
 	
 \item Statistical Meaning
 	\begin{itemize}
-	
 	\item Notation
 		\begin{itemize}
 		\item X,Y: independent random variables, with pdf's given by $f$ and $g$
@@ -23,7 +22,6 @@
 		\end{itemize}
 	\begin{align*} H(z) &= P(Z<z) = P(X+Y<z) \\ &= \int_x P(X=x)P(X+Y<z|X=x) dx \\ &= \int_x f(x)P(Y<z-x)dx \\ &= \int_x f(x)G_Y(z-x)dx  \end{align*} 
 	\begin{align*} \Rightarrow h(x) &= \frac d {dz} H(z) = \frac d {dz} \int_x f(x)G_Y(z-x)dx \\ &= \int_x f(x) \frac {dG_Y(z-x)}{dz} dx \\ &= \int_x f(x) g(z-x)dx \\ &= f * g (z) \end{align*}
-	
 	\end{itemize}
 \end{itemize}
  
@@ -43,7 +41,12 @@
 		\begin{itemize}
 		\item in 1-$D$: +/- represents direction
 		\item in n-$D$: +/- alone each dimension combined to represent an overall direction \\
-			(direction of the n-$D$ numeric - vector)
+		(direction of the n-$D$ numeric - vector)
+		\end{itemize}
+	\item Abstraction
+		\begin{itemize}
+		\item a vector space with operations that can be applied on different math concept \\
+		(e.g. function derivatives is actually in vector space)
 		\end{itemize}
 	\end{itemize}
 
@@ -121,10 +124,10 @@
 		\begin{itemize}
 		\item intuition: lines remain lines \& origin remains origin
 		\item definition: a transformation $L(\cdot)$ is linear if
-			\begin{enumerate}
+			\begin{itemize}
 			\item additivity: $L(\mathbf x_1 + \mathbf x_2) = L(\mathbf x_1) + L(\mathbf x_2)$
 			\item scaling: $L(a\mathbf x) = aL(\mathbf x)$, where $a$ is scaler
-			\end{enumerate}
+			\end{itemize}
 		\end{itemize}
 	\item Features of $L(\cdot)$ given $\mathbf x = x_1e_1 +...+ x_ne_n$
 		\begin{itemize}
@@ -186,10 +189,10 @@
 		$\Rightarrow M$ represent the result of linear transformation for the basis of $S$
 		\item hence, determine a linear space transformation $L:S\rightarrow S'$ using $e_1,...,e_n$ \\
 		for $M_{m\times n}$ matrix: a linear transformation from $n$-D space to $m$-D space
-			\begin{enumerate}
+			\begin{itemize}
 			\item $m<n$: projecting to subspace
 			\item $m>n$: expanding into a hyper-plane/-line/etc (constrained in hyper-space)
-			\end{enumerate}
+			\end{itemize}
 		 
 		\end{itemize}
 	\item Performing Space Transformation
@@ -222,12 +225,12 @@
 		\item given that $L_1(E) = M_1 \Rightarrow L_2(L_1(E)) = M_2 \cdot M_1$ \\ 
 		(due to the derivation of linear transformation as matrix)
 		\item hence, $M_2\cdot M_1$ denotes 
-			\begin{enumerate}
+			\begin{itemize}
 			\item a further $L_2$ transformation on a transformed space $L_1(E)$ \\
 			(all result represented under the original basis $E$)
 			\item the final transformed basis (first $L_1$ then $L_2$) under original basis $E$ \\
 			$\Rightarrow$ denotes a composite transformation of $L_2(L_1(\cdot))$
-			\end{enumerate}
+			\end{itemize}
 		
 		\end{itemize}
 	\item Multiplication between Matrices
@@ -246,6 +249,107 @@
 		\item $(AB)C = A(BC)$
 		\begin{itemize}
 			\item both meaning apply transformation $C$ then $B$ then $A$...
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+\subsubsection{Inverse of Matrix}
+\begin{itemize}
+\item Inverse of Linear Transformation in Square Matrix
+	\begin{itemize}
+	\item Interpretation
+		\begin{itemize}
+		\item a transformation $L^{-1}$ to inverse the effect of another transformation $L$ \\
+		$\Rightarrow \forall \mathbf x, L^{-1}L(\mathbf x) = \mathbf x$
+		\item $\Rightarrow M^{-1}M = I$, where $M$ for $L$, $M^{-1}$ for $L^{-1}$, $I$ the identity matrix
+		\end{itemize}
+	\item Requirement for $M_{n\times n}$
+		\begin{itemize}
+		\item transformed basis in $M$ still span the space! \\
+		(otherwise, transformed vectors projected onto subspace \& can NOT be reversed)
+		\item $\Rightarrow$ column vectors (transformed basis) in $M_{n\times n}$ linearly INdependent
+		\end{itemize}
+	\end{itemize}
+\item Non-Square Matrix
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item left inversion: $M^{-1}_{n\times m}\cdot M_{m\times n} = I_{n\times n}$
+		\item right inversion: $M_{m\times n}\cdot M^{-1}_{n\times m} = I_{m\times m}$
+		\end{itemize}	
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Rank and Dimension}
+\begin{itemize}
+\item Dimension
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item the number of linearly INdependent vectors in a vector space \\
+		$\Rightarrow$ the least number of vector required to span the space
+		\end{itemize}
+	\item Dimension of Column Space
+		\begin{itemize}
+		\item $\Rightarrow$ the linearly independent col vectors \\
+		i.e. the rank of $M$
+		\end{itemize}
+	\end{itemize}
+
+\item Measuring Linear Transformation on Dimension
+	\begin{itemize}
+	\item Measuring the Transformed Space
+		\begin{itemize}
+		\item rank of $M: R(M)=r$: basis in $M$ span a $r$-dimension (column) space \\
+		note: the column space of $M$: transformed space defined by column basis
+		\item full rank: the dimension of column space is as high as possible
+		\end{itemize}
+	\end{itemize}
+	
+\item Null Space (Kernel) of $M_{m\times n}$
+	\begin{itemize}
+	\item Vectors in Null Space
+		\begin{itemize}
+		\item $\forall \mathbf x, M\mathbf x = \mathbf 0$ \\
+		(i.e. all the vectors in null space transformed into $\mathbf 0$ by $M$, hence the name)
+		\item $\mathbf 0$ always in null space
+		\end{itemize}
+	\item Dimension of Null Space
+		\begin{itemize}
+		\item $D(\text{null space}) = n - R(M)$ \\
+		\item understanding: $R(M)$ vectors chosen for basis of col space of $M$ \\ 
+		$\Rightarrow \mathbf x$ able to freely combine the remaining col vectors, with $M\mathbf x=0$ still satisfied
+		\end{itemize}
+	\end{itemize}
+	
+\item Understanding Properties
+	\begin{itemize}
+	\item $R(M_{m\times n}) \leq \min\{m, n\}$
+		\begin{itemize}
+		\item $m<n$: projecting a $n$-D vector to a $m$-D subspace, hence at most of rank $m$
+		\item $m>n$: $M$ consists of $n$ vectors of $m$ dimensions, define at most $n$-D space
+		\end{itemize}
+	\item $R(M_{m\times n}) = \min\{m, n\} \Leftrightarrow M$ Full Rank
+		\begin{itemize}
+		\item from definition, it is as high as possible
+		\item $m$ vectors with $n$ dimensions, span at most a $\min\{m, n\}$ space \\ 
+		either linearly dependent ($m<n$), or not enough independent vectors ($m>n$)
+		\end{itemize}
+	\end{itemize}
+	
+\item Linear Dependency
+	\begin{itemize}
+	\item $R(M_{m\times n})=\min\{m,n\}$ (Full Rank)
+		\begin{itemize}
+		\item $m=n$: $M$ col vectors linear INdependent as $n$ vector spans an $N$-D space
+		\item $m<n$: $M$ col vectors linear dependent as $n$ vector spans an $M$-D subspace
+		\item $m>n$: $M$ col vectors linear INdependent as $n$ vector spans at least an $N$-D space
+		\end{itemize}
+	\item $R(M_{m\times n}) < \min\{m,n\}$
+		\begin{itemize}
+		\item $m\le n$: $M$ col vector linear dependent
+		\item $m > n$: $M$ col vector MAY be linear independent/dependent
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -269,14 +373,18 @@
 			\item for $E=I$, back to the unit orthogonal case
 			\end{enumerate}
 		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item each basis $e_i\in E$ projected to $1$-D space (a scalar) by transformation $\mathbf x/\mathbf y$
+		\item $\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-D line using transformation $\mathbf y/\mathbf x$ \\ 
+		(direction/scaling effect of projection can be alter by choice of basis $E$ though)
+		\end{itemize}
 	\end{itemize}
-$\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-D line using transformation $\mathbf y/\mathbf x$ \\ 
-(direction/scaling effect of projection can be alter by choice of basis $E$ though)
 \item Duality
 	\begin{itemize}
 	\item Dual Vector
 		\begin{itemize}
-		\item the vector represent a projection (linear transformation) to $1$-D line \\
+		\item the vector $\in\mathbb R^n$ represent a projection (linear transformation) to $1$-D line \\
 		(hence the vector equivalent to the matrix with 1 row defining the projection)
 		\item $\Rightarrow$ performing transformation on a vector $\Leftrightarrow$ taking product with the dual vector
 		\end{itemize}
@@ -289,22 +397,44 @@ $\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-
 	\begin{itemize}
 	\item Definition
 		\begin{itemize}
-		\item $k$th exterior product $\wedge^kV$ is a vector space, with a map $\psi:\underbrace{V\times...\times V}_{k \text{ times}} \rightarrow \wedge^kV$ \\
-		note: map $\psi$ called exterior multiplication, element $\psi(\mathbf v_1\wedge...\wedge\mathbf v_k)$ called $k$-blade
+		\item $k$th exterior product $\wedge^kV$ is a vector space, with a map $\psi:\underbrace{V\times...\times V}_{k \text{ times}} \rightarrow \wedge^kV$, \\
+		where $V\in \mathbb R^n$ a vector space, map $\psi$ the exterior multiplication \\ 
+		(note: $\psi(\mathbf v_1,...,\mathbf v_k) = \mathbf v_1\wedge...\wedge\mathbf v_k$, also called $k$-blade or $k$-form)
 		\end{itemize}
-	\item Key Properties for Pair $(\wedge^kV,\psi)$
+	\item Properties of Space $\wedge^kV$
 		\begin{itemize}
 		\item $\psi$ is alternating multilinear map
 		\item for basis $\{e_1,...,e_n\}$ of $V\in\mathbb R^n$ $\Rightarrow \{e_{i_1}\wedge ...\wedge e_{i_k}|1\leq i_1 \leq i_k \leq n\}$ a basis for $\wedge^kV$ \\
 		(due to its alternating multilinearity) \\
 		$\Rightarrow e_{i_1}\wedge ...\wedge e_{i_k}$ can form any permutation of the same input by swapping order \\
 		e.g. for $\wedge^2V: e_1\wedge e_1 = e_2\wedge e_2=\mathbf 0,\space e_1\wedge e_2=-e_2\wedge e_1 \Rightarrow$ not linearly independent
-		\item dim $\wedge^kV=\left(\begin{smallmatrix} n \\ k \end{smallmatrix}\right) = C^k_n$ (due to the form of its basis), \\
-				where $n=$ dim $V$
-		\item sum of $k$-wedge is still in the vector space $\wedge^k V$
-		\item any alternating multilinear map $F:\underbrace{V\times...\times V}_k\rightarrow X$ factors uniquely into: \\ 
-		$\underbrace{V\times...\times V}_k\xrightarrow{\psi} \wedge^k V \xrightarrow{\text{ }\underline F\text{ }} X$, where $\psi$
-		exterior multiplication, $\underline F$ a linear map
+		\item sum of $k$-wedge is still in the vector space $\wedge^k V$ (as can be expressed by its basis)
+		\item $F:\underbrace{V\times...\times V}_k\rightarrow X$ uniquely factors into $\underbrace{V\times...\times V}_k\xrightarrow{\psi} \wedge^k V \xrightarrow{\text{ }\underline F\text{ }} X$, \\ 
+		where $F$ any alternating multilinear map, $\psi$ exterior multiplication, $\underline F$ linear map \\
+		(since $\psi$ also an alternating multilinear map \& $\underline F$ to preserve linearity)
+		\end{itemize}
+	\item Inferred Propositions
+		\begin{itemize}
+		\item with $V\in\mathbb R^n$, dim $\wedge^kV=\left(\begin{smallmatrix} n \\ k \end{smallmatrix}\right) = C^k_n$, due to the form of its basis \\ 
+		note: for $k > n$, $\wedge^kV=\{0\}$ \\
+		(top exterior power)
+		\item $k$-blade $\mathbf v_1\wedge...\wedge\mathbf v_k=0 \Leftrightarrow \mathbf v_1,...,\mathbf v_k$ linearly dependent
+			\begin{itemize}
+			\item if $\mathbf v_1,...,\mathbf v_k$ linearly dependent $\Rightarrow \mathbf v_1\wedge...\wedge\mathbf v_k=0$ as $\psi$ alternating
+			\item if $\mathbf v_1\wedge...\wedge\mathbf v_k=0$, assume $\mathbf v_1,...,\mathbf v_k$ INdependent \\
+			$\Rightarrow \mathbf v_1\wedge...\wedge\mathbf v_k$ a basis of $\wedge^kV \Rightarrow$ basis $=0$ \\
+			$\Rightarrow$ assumption failed, $\mathbf v_1,...,\mathbf v_k$ linearly dependent
+			\end{itemize}
+			(wedge dependence lemma)
+		\item $\mathbf v_1\wedge...\wedge \mathbf v_k = c(\mathbf w_1\wedge...\wedge \mathbf w_k) \Leftrightarrow \text{span}(\mathbf v_1, ..., \mathbf v_k)=\text{span}(\mathbf w_1, ..., \mathbf w_k)$, \\ 
+		where $\mathbf v_1\wedge...\wedge \mathbf v_k, \mathbf w_1\wedge...\wedge\mathbf w_k\in\wedge^kV$ \& non-zero, scalar $c \neq 0$
+			\begin{itemize}
+			\item if $\text{span}(\mathbf v_1, ..., \mathbf v_k)=\text{span}(\mathbf w_1, ..., \mathbf w_k)$ \\
+			$\Rightarrow$ each $\mathbf v_1, ..., \mathbf v_k$ expressed by a linear combination of $\mathbf w_1, ..., \mathbf w_k$ \\
+			$\Rightarrow \mathbf v_1\wedge...\wedge \mathbf v_k = c(\mathbf w_1\wedge...\wedge \mathbf w_k)$ as $\psi$ alternating multilinear \\
+			($c\neq0$ as both pure wedges non-zero)
+			\item if $\mathbf v_1\wedge...\wedge \mathbf v_k = c(\mathbf w_1\wedge...\wedge \mathbf w_k)$
+			\end{itemize}
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -377,89 +507,48 @@ $\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-
 
 \subsubsection{Cross Product}
 \begin{itemize}
-\item Determinant
+\item Calculation via Determinant
 	\begin{itemize}
-	\item $\norm{\mathbf v \times \mathbf w} = \abs{\det([\mathbf v,\mathbf w])}$
+	\item Practice
 		\begin{itemize}
-		\item as determinant measuring the change of unit basis \\
-		$\Rightarrow$ constructing matrix with target vector $\mathbf v, \mathbf w$ as column
-		\item $\Rightarrow$ matrix $[\mathbf v,\mathbf w]$ as the transformation altering the space      
+		\item for $\mathbf v_1,...,\mathbf v_{n-1}\in\mathbb R^n, \mathbf v_1\times...\times \mathbf v_{n-1}=\det\left( \begin{smallmatrix} \text{--- }& \mathbf v_1 &\text{ ---} \\ &\vdots& \\ \text{--- }& \mathbf v_{n-1} &\text{ ---} \\ e_1 & \dots & e_n \end{smallmatrix} \right)$
+		\item construct matrix with each vectors as row \& basis $e_1,...,e_n$ as the last row \\ 
+		$\Rightarrow$ an $N\times N$ matrix (fake $e_1,...,e_n$ as number) \\
+		$\Rightarrow$ re-combined into a vector $\mathbf w=\mathbf v_1\times...\times \mathbf v_{n-1}\in\mathbf R^n$
+		\item actually, carry out the hodge star operator implicitly (via determinant)
 		\end{itemize}
-	\item Direction of $\mathbf v\times\mathbf w$
+	\item Direction
 		\begin{itemize}
-		\item expanding in the perpendicular direction w.r.t the hyper-plane defined by $\mathbf v, \mathbf w$
-		(obeying the "right hand rule")
+		\item perpendicular to the $\text{span}(\mathbf v_1,...,\mathbf v_{n-1})$
 		\end{itemize}
 	\end{itemize}
-\item Linear Transformation
+\item Understanding of Calculation via Determinant
 	\begin{itemize}
-	\item  
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Rank}
-\begin{itemize}
-\item Measuring Linear Transformation on Dimension
-	\begin{itemize}
-	\item Measuring the Transformed Space
+	\item Equivalent Linear Transformation
 		\begin{itemize}
-		\item rank of $M=r$: basis in $M$ span a $r$-dimension (column) space \\
-		note: the column space of $M$: transformed space defined by column basis
-		\item full rank: the dimension of column space is as high as possible
+			\item view the constructed $\det(\cdot)$ as transformation $F:(\mathbf v_1,...,\mathbf v_{n-1}, \mathbf x) \rightarrow y \in R$ \\
+			$\Rightarrow$ a linear transformation to $1$-D number line \\
+			$\Rightarrow \exists \mathbf p\in\mathbb R^n, y=F(\mathbf x) = \mathbf p \cdot \mathbf x$ (due to duality of dot product)
+			\item note that: transformation $\mathbf p$ (or $F$) is generated by vector $\mathbf v_1,...,\mathbf v_{n-1}$
 		\end{itemize}
-	\end{itemize}
-\item Null Space (Kernel) of $M$
-	\begin{itemize}
-	\item Vectors in Null Space
+	\item Algebraic View
 		\begin{itemize}
-		\item $\forall \mathbf x, M\mathbf x = \mathbf 0$ \\
-		(i.e. all the vectors in null space transformed into $\mathbf 0$ by $M$, hence the name)
-		\item $\mathbf 0$ always in null space
+		\item view variable $\mathbf x=x_1,...,x_n$ as the coefficient for each basis $e_1,...,e_n$
+		\item $\Rightarrow \mathbf p$ describes the linear transformation of $F$ on the vector space \\
+		(on arbitrary vector $\mathbf x$)
+		\item $\Rightarrow$ dual vector $\mathbf p=\mathbf v_1\times...\times \mathbf v_{n-1}$
 		\end{itemize}
-	\item Dimension of Null Space
+	\item Geometric View
 		\begin{itemize}
-		\item $D(\text{null space}) = \text{num of column in }M - \text{rank of }M$ \\
-		note: as focusing on column space $\Rightarrow$ num of cols $=$ dimension of input vectors
-		\end{itemize}
-	\end{itemize}
-	
-\item Understanding Properties
-	\begin{itemize}
-	\item $R(M_{m\times n}) \leq \min\{m, n\}$
-		\begin{itemize}
-		\item $m<n$: projecting a $n$-D vector to a $m$-D subspace, hence at most of rank $m$
-		\item $m>n$: $M$ consists of $n$ vectors of $m$ dimensions, define at most $n$-D space
-		\end{itemize}
-	\item $R(M_{m\times n}) = \min\{m, n\} \Leftrightarrow M$ Full Rank
-		\begin{itemize}
-		\item from definition, it is as high as possible
-		\item $m$ vectors with $n$ dimensions, span at most a $\min\{m, n\}$ space \\ 
-		either linearly dependent ($m<n$), or not enough independent vectors ($m>n$)
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Inverse of Matrix}
-\begin{itemize}
-\item Inverse of Linear Transformation
-	\begin{itemize}
-	\item Interpretation
-		\begin{itemize}
-		\item a transformation $L^{-1}$ to inverse the effect of another transformation $L$ \\
-		$\Rightarrow \forall \mathbf x, L^{-1}L(\mathbf x) = \mathbf x$
-		\item $\Rightarrow M^{-1}M = I$, where $M$ for $L$, $M^{-1}$ for $L^{-1}$, $I$ the identity matrix
-		\end{itemize}
-	\item Requirement
-		\begin{itemize}
-		\item transformed basis in $M$ still span the space! \\
-		otherwise, transformed vectors projected onto subspace $\Rightarrow$ information lost!
-		\item hence, following equivalent requirements:
-			\begin{enumerate}
-			\item transformed basis in $M$ linearly INdependent
-			\item $M$ is square and full rank
-			\item $\det(M)\neq 0$
-			\end{enumerate}
-		\end{itemize}
+		\item as $\det(\mathbf v_1,...,\mathbf v_{n-1}, \mathbf x)$ measures their high-dimension volume $y$ \\
+		$\Rightarrow y = \mathbf p \cdot\mathbf x = \norm{\mathbf p}\cdot\mathbf x_{\parallel \mathbf p}$, \\
+		where $\mathbf x_{\parallel \mathbf p}$ the component of $\mathbf x$ parallel to $\mathbf p$
+		\item while $y = \text{volume}(\mathbf v_1,...,\mathbf v_{n-1})\cdot \mathbf x_{\perp \text{span}(\mathbf v_1,...,\mathbf v_{n-1})}$ (integration perspective), \\
+		where $\mathbf x_{\perp \text{span}(\mathbf v_1,...,\mathbf v_{n-1})}$ the component of $\mathbf x$ perpendicular to $\text{span}(\mathbf v_1,...,\mathbf v_{n-1})$
+		\item $\Rightarrow$ find a $\mathbf p$, s.t. $\forall \mathbf x, \det(\mathbf v_1,...,\mathbf v_{n-1})\cdot \mathbf x_{\perp \text{span}(\mathbf v_1,...,\mathbf v_{n-1})} = \norm{\mathbf p}\cdot\mathbf x_{\parallel \mathbf p}$
+		\item $\Rightarrow$ only solution: $\mathbf p\perp\text{span}(\mathbf v_1,...,\mathbf v_{n-1})$ and $\norm{\mathbf p} = \det(\mathbf v_1,...,\mathbf v_{n-1})$ \\ 
+		(naturally accounting for signed volume via direction of $\mathbf p$)
+		\end{itemize} 
 	\end{itemize}
 \end{itemize}
 
@@ -482,30 +571,161 @@ $\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-
 		$\Rightarrow$ finding a start position $\mathbf x$ which, after transformation $A$, lands on $\mathbf v$		
 	\end{itemize}
 
-\item Solutions
+\item Existence of Solution(s)
 	\begin{itemize}
-	\item Transformed Basis Linearly INdependent ($\det(A) \neq 0$)
+	\item Transformed Basis Linearly INdependent
 		\begin{itemize}
-		\item hence, $A\mathbf x=\mathbf v \Leftrightarrow \mathbf x = A^{-1}\mathbf v$ \\
-		(use the inverse transformation $A^{-1}$ to find the input $\mathbf x$ using output $\mathbf v$)
-		\end{itemize}
+		\item single solution exists, as $A\mathbf x=\mathbf v \Leftrightarrow \mathbf x = A^{-1}\mathbf v$ \\
+		(use the inverse transformation $A^{-1}$ to find the input $\mathbf x$ using output $\mathbf v$) \\
 		$\Rightarrow$ single unique $\mathbf x$ found
+		\end{itemize}
 	\item Transformed Basis Linearly Dependent ($\det(A) = 0$)
 		\begin{itemize}
-		\item information lost ($\mathbf x$ projected to subspace) $\Rightarrow$ 
-			\begin{enumerate}
-			\item multiple solutions: basis in $A$ linearly dependent with $\mathbf v$ \\
-			$\Rightarrow$ i.e. $\mathbf v$ in the column space of $A$ \\
-			(special case where $\mathbf v=\mathbf 0$: solution space $=$ null space of $A$)
-			\item no solution: basis in $A$ linearly INdependent with $\mathbf v$ \\
-			$\Rightarrow$ i.e. can NOT possibly be described by basis in $A$
-			\end{enumerate}
+		\item multiple solutions: transformed basis in $A$ linearly dependent with $\mathbf v$ \\
+		$\Rightarrow$ i.e. $\mathbf v$ in the column space of $A$ \\
+		(special case where $\mathbf v=\mathbf 0$: solution space = null space of $A$)
+		\item no solution: basis in $A$ linearly INdependent with $\mathbf v$ \\
+		$\Rightarrow$ i.e. can NOT possibly be described by transformed basis in $A$
+		\end{itemize}
+	\end{itemize}
+
+\item Cramer's Rule
+	\begin{itemize}
+	\item Basis Represented by Determinant
+		\begin{itemize}
+		\item $\forall i = {1,...,n},\det(e_1,...,e_{i-1}, \mathbf x, e_{i+1},...e_n) = \mathbf x_{\parallel e_i}$, \\
+		where $\mathbf x_{\parallel e_i}$ the component of $\mathbf x$ on basis $e_i$ (as the $i^\text{th}$ coord of $\mathbf x$)
+		\item similarly, $\det(a_1,...,a_{i-1}, \mathbf v, a_{i+1}, ..., a_n) = \mathbf v_{\parallel a_n}$, \\
+		where $a_i$ the $i^\text{th}$ col vector of $A$ \\
+		$\Rightarrow$ represent the $i^\text{th}$ coord of transformed vector $\mathbf v$ under transformed basis $A$
+		\end{itemize}
+	\item Transformation Described by Determinant
+		\begin{itemize}
+		\item $\det(A)$ measures the change of unit volume from $I$ to $A$
+		\item $\det(e_1,...,e_{i-1}, \mathbf x, e_{i+1},...e_n) $ the volume before transformation
+		\item $\det (a_1,...,a_{i-1}, \mathbf v, a_{i+1}, ..., a_n)$ the volume after transformation
+		\item  $\Rightarrow \det (a_1,...,a_{i-1}, \mathbf v, a_{i+1}, ..., a_n) = \det(e_1,...,e_{i-1}, \mathbf x, e_{i+1},...e_n) \cdot \det(A)$
+		\end{itemize}
+	\item Solving $\mathbf x$
+		\begin{itemize}
+		\item hence, $\displaystyle \mathbf x_{\parallel e_i} = \det(e_1,...,e_{i-1}, \mathbf x, e_{i+1},...e_n) = \frac {\det (a_1,...,a_{i-1}, \mathbf v, a_{i+1}, ..., a_n)}{\det(A)}$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Eigenvector and Eigenvalue}
+\begin{itemize}
+\item Invariability in Linear Transformation
+	\begin{itemize}
+	\item Invariable Line
+		\begin{itemize}
+		\item vector before and after transformation $A$ are on the same \textbf{line} \\
+		$\Rightarrow A\mathbf x = \lambda\mathbf x$ (under the same basis) \\
+		$\Rightarrow$ transformation $A$ NOT rotate those $\mathbf x$, but only stretch them, by a factor $\lambda$
+		\item $\mathbf x$ the eigenvector for those invariable line; \\ 
+		$\lambda$ the eigenvalue for corresponding stretching factor
+		\end{itemize}
+	\item Representing Transformation
+		\begin{itemize}
+		\item for rotation, the eigenvector\&value can be more expressive than a matrix
+		\end{itemize}
+	\item Solving Eigenvector\&value
+		\begin{itemize}
+		\item solving $A\mathbf x = \lambda \mathbf x$ for $\mathbf x$ and $\lambda$ \\
+		$\Rightarrow$ equivalent with solving $(A-\lambda I)\mathbf x = \mathbf 0$
+		\item a necessary condition for non-zero solution $\mathbf x$: $\det (A-\lambda I) = 0$ \\
+		(understanding 0: as solution existence condition for linear system of equations) \\
+		(understanding 1: non-zero $\mathbf x$ transformed by $A-\lambda I$ into $\mathbf 0$) \\
+		(understanding 2: non-zero $\mathbf x$ perpendicular to all row vectors in $A-\lambda I$) \\
+		(understanding 3: otherwise, $\mathbf x = (A-\lambda I)^{-1}\mathbf 0 = \mathbf 0$)
+		\item $\Rightarrow$ with no/single/multiple $\lambda\in\mathbb R$ solved, bring back to relation $(A-\lambda I)\mathbf x = 0$ \\ 
+		$\Rightarrow$ to solve for a line/span, consisting of eigenvector(s) \\ 
+		(note: no $\lambda\in\mathbb R$ solved, no eigenvector then)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Translation of Basis}
+\begin{itemize}
+\item Translation between Coordinate
+	\begin{itemize}
+	\item Notation
+		\begin{itemize}
+		\item $\mathbf x=(x_1,...,x_n)$: a coordinate under basis $A_{n\times n}$
+		\item $\mathbf b=(b_1,...,b_n)$: a coordinate under basis $E=I$
+		\item $\overrightarrow {v}$: the same vector described by $\mathbf x$ \& $\mathbf b$
+		\item $A_{n\times n}$: the transformed basis described by basis before transformation (i.e. $E$) \\
+		(with col vectors of $A$ linearly INdependent)
+		\item $A_{n\times n}^{-1}$: the transformed basis s.t. $A^{-1}AE=E$ \\ 
+		$\Rightarrow$ describe transformation $A\rightarrow E$ by basis before transformation (i.e. $AE=A$)
+		\item $M_{n\times n}$: a matrix for arbitrary transformation $L:E\rightarrow ?$, described by basis $E$
+		\end{itemize}
+	\item Translating Coordinate
+		\begin{itemize}
+		\item $A\mathbf x$: describe $\overrightarrow {v}$ by basis $E$ \\
+		$\Rightarrow$ translate the vector coord from basis $A$ to basis $E$
+		\item $A^{-1}\mathbf b$: describe $\overrightarrow {v}$ by basis $A$ \\
+		$\Rightarrow$ translate the vector coord from basis $E$ to basis $A$
+		\item $\Rightarrow A\mathbf x = \mathbf b$
+		\end{itemize}
+	\item Translating Transformation
+		\begin{itemize}
+		\item translate coord $\mathbf x$ (under $A$) to be under $E=I$: $A\mathbf x$ \\
+		(translate to the basis where $M$ known)
+		\item transform the vector by $M$: $MA\mathbf x$ (under basis $E$)
+		\item translate the vector back to be under basis $A$: $A^{-1}MA\mathbf x$
+		\item $\Rightarrow \mathbf x' = A^{-1}MA\mathbf x$, where $A^{-1}MA$ the transformation $L$ described under basis $A$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Diagonal Matrix}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item must be a square matrix
+		\item non-zero values allowed only on the diagonal of a matrix
+		\end{itemize}
+	\end{itemize}
+\item Transformation in Diagonal Matrix
+	\begin{itemize}
+	\item Interpretation
+		\begin{itemize}
+		\item as the transformation only stretch original basis $I$ by diagonal value \\
+		$\Rightarrow$ all transformed basis is eigenvectors, with eigenvalue the diagonal value!
+		\end{itemize}
+	\item Eigenbasis
+		\begin{itemize}
+		\item the basis formed by eigenvectors of a matrix $A_{n\times n}$ \\
+		\end{itemize}
+	\end{itemize}
+\item Diagonalizing Matrix
+	\begin{itemize}
+	\item Practice
+		\begin{itemize}
+		\item for transformation $A_{n\times n}$ under basis $I$, solve all eigenvalues $\lambda = [\lambda_1,...,\lambda_m]$
+		\item if $m=n$, check all eigenvectors $Q = [\mathbf v_1,...,\mathbf v_m]$ to be linearly INdependent
+		(i.e. check if eigenvectors able to form a valid basis for $n$-D space) \\
+		$\Leftrightarrow$ check there are $n$ distinct eigenvalues $u$
+		\item if so, $A$ said to be \textbf{diagonalizable}
+		\item $\Rightarrow$ reconstruct transformation $A$ under eigenbasis (view $V$ as transformed basis) \\
+		$\Rightarrow Q^{-1} A Q = \Lambda$, or $A = Q\Lambda Q^{-1}$, where $\Lambda=\text{diag}[\lambda_1,...,\lambda_n]$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item numerical proof: $Q^{-1}AQ = Q^{-1}[\lambda_1 \mathbf v_1,...,\lambda_n\mathbf v_n] = \Lambda$
+		\item translating transformation $A$ into a transformation $A'$ under eigenbasis \\
+		$\Rightarrow$ for $\mathbf x$, transformed into eigenbasis $Q^{-1}\mathbf x$ \\
+		$\Rightarrow$ perform $k$ transformation in eigenbasis $\Lambda^kQ^{-1}\mathbf x$ \\
+		$\Rightarrow$ then transformed back $Q\Lambda^kQ^{-1} \mathbf x$
+		\item $\Rightarrow$ easy to perform any diagonalizable transformation
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
 \subsection{Interchanging Coordinates}
-
 \subsubsection{N-dimensional Spherical Coordinates}
 \begin{itemize}
 \item Notation
@@ -606,6 +826,7 @@ $\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-
 	\end{itemize}
 
 \end{itemize}
+
  
 \section{Calculus}
 
@@ -808,7 +1029,6 @@ $\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-
 \subsection{Expectations and Covariances}
 
 \subsubsection{Expectation}
-
 \begin{itemize}
 \item Definition
 	\begin{itemize}
@@ -971,7 +1191,6 @@ $\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-
 \subsection{Gaussian Distribution}
  
 \subsubsection{Definition}
-
 \begin{itemize}
 \item Univariate Gaussian
 	\begin{itemize}
@@ -1177,7 +1396,7 @@ $\Rightarrow \mathbf x\cdot \mathbf y$: projecting $\mathbf x/\mathbf y$ to $1$-
 \end{itemize}
 
 \subsubsection{Predictive Distribution}
-\begin{itemize}	
+\begin{itemize}
 \item Probabilistic Prediction
 	\begin{itemize}
 	\item Notation

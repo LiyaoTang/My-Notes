@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  28 MAR 2019 17:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  2 APR 2019 19:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -627,21 +627,21 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.40 		\item d
+l.38 		\item d
               istance [1
 
 
 ] [2] [3]
-<./Math/"matrix-performing space transformation".png, id=543, 1634.105pt x 297.
+<./Math/"matrix-performing space transformation".png, id=541, 1634.105pt x 297.
 11pt>
 File: ./Math/"matrix-performing space transformation".png Graphic file (type pn
 g)
 <use ./Math/"matrix-performing space transformation".png>
 Package pdftex.def Info: ./Math/"matrix-performing space transformation".png  u
-sed on input line 202.
+sed on input line 205.
 (pdftex.def)             Requested size: 207.56285pt x 37.73708pt.
 
-Overfull \hbox (6.65565pt too wide) in paragraph at lines 218--221
+Overfull \hbox (6.65565pt too wide) in paragraph at lines 221--224
 []\OT1/cmr/m/n/10 given a ba-sis ma-trix $\OML/cmm/m/it/10 E \OT1/cmr/m/n/10 = 
 [\OML/cmm/m/it/10 e[]; :::; e[]\OT1/cmr/m/n/10 ]$, a trans-formed ba-sis $\OML/
 cmm/m/it/10 L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 E\OT1/cmr/m/n/10 ) = \OML/cmm/
@@ -649,60 +649,69 @@ m/it/10 L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 e[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/
 10 ; :::; L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 e[]\OT1/cmr/m/n/10 )$ 
  []
 
-<"./Math/matrix-composition of transformations".png, id=545, 1568.86125pt x 449
+<"./Math/matrix-composition of transformations".png, id=543, 1568.86125pt x 449
 .68pt>
 File: "./Math/matrix-composition of transformations".png Graphic file (type png
 )
 <use "./Math/matrix-composition of transformations".png>
 Package pdftex.def Info: "./Math/matrix-composition of transformations".png  us
-ed on input line 238.
+ed on input line 241.
 (pdftex.def)             Requested size: 207.56285pt x 59.48969pt.
-[4 <./Math/matrix-performing space transformation.png>] [5 <./Math/matrix-compo
-sition of transformations.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 330--331
+[4 <./Math/matrix-performing space transformation.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 320--321
 
  []
 
-[6] [7] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 540--544
+[5 <./Math/matrix-composition of transformations.png>] [6] [7]
+Underfull \hbox (badness 10000) in paragraph at lines 460--461
 
  []
 
-[9]
-Underfull \hbox (badness 10000) in paragraph at lines 594--598
+[8] [9] [10]
+Underfull \hbox (badness 10000) in paragraph at lines 701--702
 
  []
 
-[10] [11]
-Overfull \hbox (38.03133pt too wide) detected at line 687
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 760--764
+
+ []
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 814--818
+
+ []
+
+[13] [14]
+Overfull \hbox (38.03133pt too wide) detected at line 908
 []
  []
 
-[12] [13] [14] [15] [16] [17]
-<./Math/"multivariate gaussian-mass of distribution".jpg, id=645, 203.8014pt x 
+[15] [16] [17] [18] [19] [20]
+<./Math/"multivariate gaussian-mass of distribution".jpg, id=649, 203.8014pt x 
 149.5989pt>
 File: ./Math/"multivariate gaussian-mass of distribution".jpg Graphic file (typ
 e jpg)
 <use ./Math/"multivariate gaussian-mass of distribution".jpg>
 Package pdftex.def Info: ./Math/"multivariate gaussian-mass of distribution".jp
-g  used on input line 1049.
+g  used on input line 1268.
 (pdftex.def)             Requested size: 207.56285pt x 152.36285pt.
 
-Overfull \hbox (55.29424pt too wide) detected at line 1063
+Overfull \hbox (55.29424pt too wide) detected at line 1282
 []
  []
 
-[18 <./Math/multivariate gaussian-mass of distribution.jpg>] [19] [20]
-Underfull \hbox (badness 10000) in paragraph at lines 1170--1175
+[21 <./Math/multivariate gaussian-mass of distribution.jpg>] [22] [23]
+Underfull \hbox (badness 10000) in paragraph at lines 1389--1394
 
  []
 
-) (./Introduction/Introduction.tex [21]
+) (./Introduction/Introduction.tex [24]
 Chapter 2.
-[22
+[25
 
-] [23]
-<"./Deep Learning/experiment practice-iterative process".png, id=691, 814.04124
+] [26]
+<"./Deep Learning/experiment practice-iterative process".png, id=696, 814.04124
 pt x 555.07375pt>
 File: "./Deep Learning/experiment practice-iterative process".png Graphic file 
 (type png)
@@ -710,25 +719,20 @@ File: "./Deep Learning/experiment practice-iterative process".png Graphic file
 Package pdftex.def Info: "./Deep Learning/experiment practice-iterative process
 ".png  used on input line 182.
 (pdftex.def)             Requested size: 124.53897pt x 84.91753pt.
- [24 <./Deep Learning/experiment practice-iterative process.png>]
-[25] [26] [27] [28] [29] [30] [31] [32]
+ [27 <./Deep Learning/experiment practice-iterative process.png>]
+[28] [29] [30] [31] [32] [33] [34] [35]
 Underfull \hbox (badness 10000) in paragraph at lines 805--806
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 858--859
-
- []
-
-[33] [34]
+[36] [37]
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1028.
 
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1029.
 
-[35]
+[38]
 Overfull \hbox (16.87506pt too wide) in paragraph at lines 1031--1032
 []\OT1/cmr/m/n/10 ![Posiible Pre-ci-sion -Recall curev](../../Machine Learn-ing
 /Statistical 0Ma-chine Learn-ing/Posiible
@@ -740,7 +744,7 @@ LaTeX Font Warning: Command \small invalid in math mode on input line 1040.
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1040.
 
-[36]
+[39]
 Overfull \hbox (22.10822pt too wide) in paragraph at lines 1103--1106
 []$[]\OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^R\OT1/cmr/m/n/10 ) =
  \OMS/cmsy/m/n/10 N\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^R\OMS/cmsy/m/n/10 j\OT1/
@@ -755,11 +759,11 @@ Overfull \hbox (68.40292pt too wide) in paragraph at lines 1144--1145
 []$ 
  []
 
-[37]
+[40]
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1204.
 
-[38]
+[41]
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1233.
 
@@ -800,7 +804,7 @@ Overfull \hbox (61.06946pt too wide) in paragraph at lines 1278--1288
 ls: $[]$
  []
 
-[39]
+[42]
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1321.
 
@@ -810,7 +814,7 @@ LaTeX Font Warning: Command \small invalid in math mode on input line 1325.
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1331.
 
-[40]
+[43]
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1363.
 
@@ -840,7 +844,7 @@ LaTeX Font Warning: Command \small invalid in math mode on input line 1381.
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1414.
 
-[41]
+[44]
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1422.
 
@@ -850,7 +854,7 @@ LaTeX Font Warning: Command \small invalid in math mode on input line 1433.
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1455.
 
-[42]
+[45]
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1483.
 
@@ -863,7 +867,7 @@ LaTeX Font Warning: Command \large invalid in math mode on input line 1523.
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1523.
 
-[43]
+[46]
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 1554.
 
@@ -881,19 +885,19 @@ Overfull \hbox (9.8893pt too wide) detected at line 1592
 []
  []
 
-[44]
+[47]
 Overfull \hbox (58.25821pt too wide) in paragraph at lines 1602--1603
 \OMS/cmsy/m/n/10 ) [][] 
  []
 
-[45]
+[48]
 Overfull \hbox (2.54442pt too wide) in paragraph at lines 1672--1678
 \OML/cmm/m/it/10 VDV[][]$ \OT1/cmr/m/n/10 - $\OMS/cmsy/m/n/10 8\OML/cmm/m/it/10
  n; y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 D[]V[]\OT1/cmr/m/n/10 (\OML/cmm/m/it
 /10 x[] \OMS/cmsy/m/n/10 ^^@ []\OT1/cmr/m/n/10 )[]$ 
  []
 
-[46] [47]
+[49] [50]
 
 LaTeX Font Warning: Command \large invalid in math mode on input line 1808.
 
@@ -915,54 +919,49 @@ LaTeX Font Warning: Command \large invalid in math mode on input line 1838.
 
 LaTeX Font Warning: Command \large invalid in math mode on input line 1839.
 
-[48]) (./Linear Models for Regression/Linear Models for Regression.tex [49]
+[51]) (./Linear Models for Regression/Linear Models for Regression.tex [52]
 Chapter 3.
 ) (./Linear Models for Classification/Linear Models for Classification.tex
-[50
+[53
 
 ]
 Chapter 4.
-) (./Kernel Methods/Kernel Methods.tex [51
+) (./Kernel Methods/Kernel Methods.tex [54
 
 ]
 Chapter 5.
-) (./Graphical Models/Graphical Models.tex [52
+) (./Graphical Models/Graphical Models.tex [55
 
 ]
 Chapter 6.
-) (./Mixture Models and EM/Mixture Models and EM.tex [53
+) (./Mixture Models and EM/Mixture Models and EM.tex [56
 
 ]
 Chapter 7.
-) (./Approximate Inference/Approximate Inference.tex [54
+) (./Approximate Inference/Approximate Inference.tex [57
 
 ]
 Chapter 8.
-) (./Sampling Methods/Sampling Methods.tex [55
+) (./Sampling Methods/Sampling Methods.tex [58
 
 ]
 Chapter 9.
-) (./Continuous Latent Variables/Continuous Latent Variables.tex [56
+) (./Continuous Latent Variables/Continuous Latent Variables.tex [59
 
 ]
 Chapter 10.
-) (./Sequential Data/Sequential Data.tex [57
+) (./Sequential Data/Sequential Data.tex [60
 
 ]
 Chapter 11.
 ) (./Combining Models/Combining Models.tex) (./Deep Learning/Deep Learning.tex
-[58
+[61
 
 ]
 Chapter 12.
-[59
+[62
 
-] [60] [61] [62]
-Underfull \hbox (badness 10000) in paragraph at lines 313--314
-
- []
-
-[63]
+] [63] [64] [65] [66]
 Overfull \hbox (52.47414pt too wide) in paragraph at lines 388--392
 \OMS/cmsy/m/n/10 )$ \OT1/cmr/m/n/10 a ma-trix with $\OML/cmm/m/it/10 n$ \OT1/cm
 r/m/n/10 as row en-try, $\OML/cmm/m/it/10 m$ \OT1/cmr/m/n/10 as col-umn en-try,
@@ -972,50 +971,40 @@ cmr/m/n/10 (\OML/cmm/m/it/10 Z\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 ^^R[]; X\OT1/c
 mr/m/n/10 )$
  []
 
-[64] [65]
-<"./Deep Learning/background-largedata".png, id=931, 1866.975pt x 879.285pt>
+[67] [68]
+<"./Deep Learning/background-largedata".png, id=936, 1866.975pt x 879.285pt>
 File: "./Deep Learning/background-largedata".png Graphic file (type png)
 <use "./Deep Learning/background-largedata".png>
 Package pdftex.def Info: "./Deep Learning/background-largedata".png  used on in
 put line 474.
 (pdftex.def)             Requested size: 207.56285pt x 97.75473pt.
- [66 <./Deep Learning/background-largedata.png>]
+ [69 <./Deep Learning/background-largedata.png>]
 Overfull \hbox (7.07492pt too wide) in paragraph at lines 524--526
 []\OT1/cmr/m/n/10 multiple lay-ers to choose & com-bine use-ful in-for-ma-tion 
 (cre-at-ing new fea-ture/basis) 
  []
 
-[67] [68] [69]
-Underfull \hbox (badness 10000) in paragraph at lines 754--755
-
- []
-
-[70]
-Underfull \hbox (badness 10000) in paragraph at lines 809--812
-
- []
-
-[71] [72]
-<"./Deep Learning/regularization-dropout".jpeg, id=979, 616.3025pt x 329.23pt>
+[70] [71] [72] [73] [74] [75]
+<"./Deep Learning/regularization-dropout".jpeg, id=984, 616.3025pt x 329.23pt>
 File: "./Deep Learning/regularization-dropout".jpeg Graphic file (type jpg)
 <use "./Deep Learning/regularization-dropout".jpeg>
 Package pdftex.def Info: "./Deep Learning/regularization-dropout".jpeg  used on
  input line 939.
 (pdftex.def)             Requested size: 207.56285pt x 110.87672pt.
- [73 <./Deep Learning/regularization-dropout.jpeg>] [74] [75] [76]
+ [76 <./Deep Learning/regularization-dropout.jpeg>] [77] [78] [79]
 Overfull \hbox (10.95439pt too wide) in paragraph at lines 1205--1206
 []\OT1/cmr/m/n/10 contrasting the hard-max func-tion (non dif-fer-en-tiable): $
 \OML/cmm/m/it/10 a[] \OT1/cmr/m/n/10 = 1[] [] [](\OML/cmm/m/it/10 z\OT1/cmr/m/n
 /10 ); []0$ 
  []
 
-<"./Deep Learning/layer-conv2d exp".png, id=1001, 1268.74pt x 713.66624pt>
+<"./Deep Learning/layer-conv2d exp".png, id=1006, 1268.74pt x 713.66624pt>
 File: "./Deep Learning/layer-conv2d exp".png Graphic file (type png)
 <use "./Deep Learning/layer-conv2d exp".png>
 Package pdftex.def Info: "./Deep Learning/layer-conv2d exp".png  used on input 
 line 1246.
 (pdftex.def)             Requested size: 217.94005pt x 122.58485pt.
-<"./Deep Learning/layer-conv2d kernel movement".png, id=1002, 327.2225pt x 464.
+<"./Deep Learning/layer-conv2d kernel movement".png, id=1007, 327.2225pt x 464.
 73625pt>
 File: "./Deep Learning/layer-conv2d kernel movement".png Graphic file (type png
 )
@@ -1023,16 +1012,16 @@ File: "./Deep Learning/layer-conv2d kernel movement".png Graphic file (type png
 Package pdftex.def Info: "./Deep Learning/layer-conv2d kernel movement".png  us
 ed on input line 1249.
 (pdftex.def)             Requested size: 62.26949pt x 88.43553pt.
-[77] [78 <./Deep Learning/layer-conv2d exp.png> <./Deep Learning/layer-conv2d k
-ernel movement.png (PNG copy)>] [79] [80]
-<"./Deep Learning/layer-rnn unrolled".png, id=1025, 2716.1475pt x 713.66624pt>
+[80] [81 <./Deep Learning/layer-conv2d exp.png> <./Deep Learning/layer-conv2d k
+ernel movement.png (PNG copy)>] [82] [83]
+<"./Deep Learning/layer-rnn unrolled".png, id=1029, 2716.1475pt x 713.66624pt>
 File: "./Deep Learning/layer-rnn unrolled".png Graphic file (type png)
 <use "./Deep Learning/layer-rnn unrolled".png>
 Package pdftex.def Info: "./Deep Learning/layer-rnn unrolled".png  used on inpu
 t line 1493.
 (pdftex.def)             Requested size: 207.56285pt x 54.53539pt.
- [81 <./Deep Learning/layer-rnn unrolled.png>]
-<"./Deep Learning/layer-rnn lstm".png, id=1033, 826.08624pt x 844.15375pt>
+ [84 <./Deep Learning/layer-rnn unrolled.png>]
+<"./Deep Learning/layer-rnn lstm".png, id=1037, 826.08624pt x 844.15375pt>
 File: "./Deep Learning/layer-rnn lstm".png Graphic file (type png)
 <use "./Deep Learning/layer-rnn lstm".png>
 Package pdftex.def Info: "./Deep Learning/layer-rnn lstm".png  used on input li
@@ -1043,8 +1032,8 @@ Overfull \hbox (186.28505pt too wide) in paragraph at lines 1554--1564
 $[]$ $[]$ 
  []
 
-[82 <./Deep Learning/layer-rnn lstm.png>]
-<"./Deep Learning/layer-rnn gru".png, id=1039, 840.13875pt x 565.11125pt>
+[85 <./Deep Learning/layer-rnn lstm.png>]
+<"./Deep Learning/layer-rnn gru".png, id=1044, 840.13875pt x 565.11125pt>
 File: "./Deep Learning/layer-rnn gru".png Graphic file (type png)
 <use "./Deep Learning/layer-rnn gru".png>
 Package pdftex.def Info: "./Deep Learning/layer-rnn gru".png  used on input lin
@@ -1055,7 +1044,7 @@ Overfull \hbox (186.28505pt too wide) in paragraph at lines 1600--1609
 []$[]$ $[]$ 
  []
 
-<"./Deep Learning/layer-rnn bidirection".png, id=1040, 1639.12375pt x 777.90625
+<"./Deep Learning/layer-rnn bidirection".png, id=1045, 1639.12375pt x 777.90625
 pt>
 File: "./Deep Learning/layer-rnn bidirection".png Graphic file (type png)
 <use "./Deep Learning/layer-rnn bidirection".png>
@@ -1065,7 +1054,7 @@ nput line 1638.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[83 <./Deep Learning/layer-rnn gru.png>]
+[86 <./Deep Learning/layer-rnn gru.png>]
 Overfull \hbox (45.13087pt too wide) in paragraph at lines 1701--1702
 []\OT1/cmr/m/n/10 ([conv64]$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10 2, pool) $\OMS
 /cmsy/m/n/10 !$ \OT1/cmr/m/n/10 ([conv128]$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10
@@ -1074,22 +1063,18 @@ Overfull \hbox (45.13087pt too wide) in paragraph at lines 1701--1702
 msy/m/n/10 ^^B$\OT1/cmr/m/n/10 3+pool)$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10 2 
  []
 
-[84 <./Deep Learning/layer-rnn bidirection.png>] [85] [86] [87] [88]
-Underfull \hbox (badness 10000) in paragraph at lines 2021--2022
-
- []
-
-[89] [90] [91]
-<"./Deep Learning/topic-image style transfer nst overview".png, id=1097, 732.73
+[87 <./Deep Learning/layer-rnn bidirection.png>] [88] [89] [90] [91] [92]
+[93] [94]
+<"./Deep Learning/topic-image style transfer nst overview".png, id=1101, 732.73
 75pt x 220.825pt>
 File: "./Deep Learning/topic-image style transfer nst overview".png Graphic fil
 e (type png)
 <use "./Deep Learning/topic-image style transfer nst overview".png>
 Package pdftex.def Info: "./Deep Learning/topic-image style transfer nst overvi
-ew".png  used on input line 2257.
+ew".png  used on input line 2256.
 (pdftex.def)             Requested size: 207.56285pt x 62.55165pt.
- [92 <./Deep Learning/topic-image style transfer nst overview.png (PNG copy)>]
-<"./Deep Learning/topic-image style transfer nst style matrix".png, id=1105, 16
+ [95 <./Deep Learning/topic-image style transfer nst overview.png (PNG copy)>]
+<"./Deep Learning/topic-image style transfer nst style matrix".png, id=1109, 16
 06.0pt x 530.98375pt>
 File: "./Deep Learning/topic-image style transfer nst style matrix".png Graphic
  file (type png)
@@ -1097,18 +1082,18 @@ File: "./Deep Learning/topic-image style transfer nst style matrix".png Graphic
 Package pdftex.def Info: "./Deep Learning/topic-image style transfer nst style 
 matrix".png  used on input line 2290.
 (pdftex.def)             Requested size: 207.56285pt x 68.6252pt.
- [93 <./Deep Learning/topic-image style transfer nst style matrix.png>]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 2355
+ [96 <./Deep Learning/topic-image style transfer nst style matrix.png>]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 2356
 .
- (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omlcmr.fd
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 2355.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 2356.
 
- [94]
-[95] [96]
-Overfull \hbox (3.24109pt too wide) in paragraph at lines 2569--2570
+ [97] [98]
+[99]
+Overfull \hbox (3.24109pt too wide) in paragraph at lines 2573--2574
 []$\OMS/cmsy/m/n/10 )$ \OT1/cmr/m/n/10 se-quence prob-a-bil-ity $\OML/cmm/m/it/
 10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = \OML/cmm
 /m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/1
@@ -1118,28 +1103,13 @@ cmsy/m/n/10 j\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = [] \OML/cmm/m/it
 /10 y[]$ 
  []
 
-[97] [98] [99]
-Overfull \hbox (37.54732pt too wide) in paragraph at lines 2756--2757
+[100] [101] [102]
+Overfull \hbox (37.54732pt too wide) in paragraph at lines 2766--2767
 []\OT1/cmr/m/n/10 encoder scan through au-dio frames & de-coder out-put let-ter
 /punctuation/"blank"/"space" 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 2756--2757
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2778--2779
-
- []
-
-[100] [101] [102] [103] [104] [105] [106]
-Underfull \hbox (badness 10000) in paragraph at lines 3233--3235
-
- []
-
-) [107]
+[103] [104] [105] [106] [107] [108] [109]) [110]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 92.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 92.
  (./Machine Learning.aux)
@@ -1150,8 +1120,8 @@ Package rerunfilecheck Info: File `"Machine Learning".out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 92.
  ) 
 Here is how much of TeX's memory you used:
- 10532 strings out of 492639
- 160245 string characters out of 6129286
+ 10527 strings out of 492639
+ 160228 string characters out of 6129286
  286297 words of memory out of 5000000
  13807 multiletter control sequences out of 15000+600000
  17682 words of font info for 66 fonts, out of 8000000 for 9000
@@ -1184,10 +1154,10 @@ ist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2018/texmf-dis
 t/fonts/type1/public/amsfonts/symbols/msam5.pfb></usr/local/texlive/2018/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2018/te
 xmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on "Machine Learning.pdf" (113 pages, 2990580 bytes).
+Output written on "Machine Learning.pdf" (116 pages, 3002745 bytes).
 PDF statistics:
- 1377 PDF objects out of 1440 (max. 8388607)
- 1199 compressed objects within 12 object streams
- 392 named destinations out of 1000 (max. 500000)
+ 1381 PDF objects out of 1440 (max. 8388607)
+ 1200 compressed objects within 12 object streams
+ 387 named destinations out of 1000 (max. 500000)
  831 words of extra memory for PDF output out of 10000 (max. 10000000)
 

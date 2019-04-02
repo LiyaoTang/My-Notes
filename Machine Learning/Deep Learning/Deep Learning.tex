@@ -310,7 +310,7 @@
 	\begin{itemize}
 	\item Operations on Points: how to embed location in operation
 		\begin{itemize}
-		\item select fixed number of points via coord?: then take weighted average (conv) / max (pooling) on them \\
+		\item select fixed number of points via coord?: then take weighted average (conv) / max (pooling) on them
 		\item need a "select input points" op: like deformable conv?
 		\end{itemize}
 	\item Bounding Box Directly from Points: no voxel
@@ -751,7 +751,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Pros
 		\begin{itemize}
-		\item hybrid of tanh \& ReLU: three linear pieces approximating tanh in a given range \\
+		\item hybrid of tanh \& ReLU: three linear pieces approximating tanh in a given range
 		\item more expressive than ReLU: more nonlinear, better to fit smooth nonlinear function
 		\item mitigate gradient vanishing problem: due to linearity
 		\end{itemize}
@@ -808,7 +808,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(from both the weight update in early layers and the input data change)
 		\item regularize the net by adding noise to the input data of hidden layer \\ 
 		(due to computing mean/variance only on mini-batch) \\
-		$\Rightarrow$ enforce robustness against noise, hence unintended slight regularization effect \\
+		$\Rightarrow$ enforce robustness against noise, hence unintended slight regularization effect
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -2018,7 +2018,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item each cell predict bboxes with their $p_e$
 		\item each cell predict conditional probability $p(\text{class}|\text{obj})$ \\
 		i.e. the class probability of object, given there is (part of) an object in the cell
-		\item final prediction of each bbox in each cell: $p(class, obj) = p_e\times p(\text{class}|\text{obj})$ \\
+		\item final prediction of each bbox in each cell: $p(class, obj) = p_e\times p(\text{class}|\text{obj})$
 		\end{itemize}
 	\item Bounding Box Prediction
 		\begin{itemize}
@@ -2048,7 +2048,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 			\item increase the confidence \& adjust coords for box overlapping the most with label
 			\item decrease the confidence for box not overlapping with any label
 			\end{itemize}
-		\item 
 		\item data augmentation: mix classification \& detection dataset \\ 
 		$\Rightarrow$ train the same backbone with different prediction branch
 		\end{itemize}
@@ -2132,7 +2131,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-
 \subsection{Face Recognition}
 \subsubsection{Problem Formulation}
 \begin{itemize}
@@ -2177,6 +2175,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Classic Approach}
 \begin{itemize}
 \item Siamese Network as Encoder
@@ -2259,6 +2258,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Classic Approach}
 \begin{itemize}
 \item Neural Style Transfer
@@ -2338,6 +2338,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Overview}
 \begin{itemize}
 \item Character Embedding
@@ -2503,6 +2504,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Addressing Bias in Word Embedding}
 \begin{itemize}
 \item Overview
@@ -2537,6 +2539,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsection{Language Modeling}
 \subsubsection{Problem Formulation}
 \begin{itemize}
@@ -2558,6 +2561,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Classic Approach}
 \begin{itemize}
 \item RNN
@@ -2588,6 +2592,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Masked Language Model}
 
 \subsection{Name-Entity Recognition}
@@ -2612,6 +2617,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item small training set
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Classic Approach}
 \begin{itemize}
 \item Many-to-one RNN
@@ -2643,6 +2649,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Classic Approach}
 \begin{itemize}
 \item RNN Encoder-Decoder
@@ -2669,6 +2676,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Choosing Output Sequence}
 \begin{itemize}
 \item Greedy Search
@@ -2732,6 +2740,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Learning Objective}
 \begin{itemize}
 \item Connectionist Temporal Classification (CTC) Loss
@@ -2747,17 +2756,19 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Classic Approach}
 \begin{itemize}
 \item RNN Encoder-Decoder
 	\begin{itemize}
 	\item Overview
 		\begin{itemize}
-		\item encoder scan through audio frames \& decoder output letter/punctuation/"blank"/"space" \\
+		\item encoder scan through audio frames \& decoder output letter/punctuation/"blank"/"space"
 		\item "blank": no symbol v.s. "space": delimiter for letters $\rightarrow$ words
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Trigger Word Detection}
 \begin{itemize}
 \item Goal
@@ -2765,17 +2776,23 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item trigger word: a specific predefined audio signal to invoke system (e.g. xiaodu xiaodu)
 	\item detect where trigger word included in an audio (if any)
 	\end{itemize}
-\item Labeling
+\item Train Set Setup
 	\begin{itemize}
-	\item $0$ for frames not corresponding to trigger word; $1$ for frames consisting trigger words
-	\item upsampling positive example: extends $1$ label a few frames after the trigger words \\
-	(as trigger word often appears once in an interaction with system)
+	\item Basic
+		\begin{itemize}
+		\item $0$ for frames not corresponding to trigger word; $1$ for frames consisting trigger words
+		\end{itemize}
+	\item upsampling
+		\begin{itemize}
+		\item upsampling positive example: extends $1$ label a few frames after the trigger words \\
+		(as trigger word often appears once in an interaction with system)
+		\end{itemize}
 	\end{itemize}
 \item Classic Approach
 	\begin{itemize}
 	\item RNN Encoder-Decoder
 		\begin{itemize}
-		\item encoder scan through audio \& decoder output 0-1 classification at each step \\
+		\item encoder scan through audio \& decoder output 0-1 classification at each step
 		\end{itemize}
 	\item Conv RNN
 		\begin{itemize}
@@ -2806,6 +2823,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Baseline Approach \& Previous Work}
 \begin{itemize}
 \item Neural Image Caption
@@ -2866,6 +2884,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 \subsubsection{Baseline Approach \& Previous Work}
 \begin{itemize}
 \item Segmentation from Natural Language Expressions
@@ -2945,8 +2964,10 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item language info still comes late: still after downsampling
 		\end{itemize}
 	\end{itemize}
+\end{itemize}
 
 \subsubsection{Current State-of-The-Art (early 2019)}
+\begin{itemize}
 \item Key-Word-Aware Network for Referring Expression Image Segmentation
 	\begin{itemize}
 	\item Spatial Info
@@ -3231,7 +3252,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item shared loss as a sum over all prediction for corresponding label
 		\item shared training as back-prop computed as a single network
 		\item shared input data as trained together \\
-		$\Rightarrow$ shared knowledge discovered when training on data for other tasks \\
+		$\Rightarrow$ shared knowledge discovered when training on data for other tasks
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
