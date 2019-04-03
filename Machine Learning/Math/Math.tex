@@ -393,7 +393,7 @@
 
 \subsubsection{Exterior (Wedge) Product}
 \begin{itemize}
-\item Introduction
+\item Overview
 	\begin{itemize}
 	\item Definition
 		\begin{itemize}
@@ -404,9 +404,10 @@
 	\item Properties of Space $\wedge^kV$
 		\begin{itemize}
 		\item $\psi$ is alternating multilinear map
-		\item for basis $\{e_1,...,e_n\}$ of $V\in\mathbb R^n$ $\Rightarrow \{e_{i_1}\wedge ...\wedge e_{i_k}|1\leq i_1 \leq i_k \leq n\}$ a basis for $\wedge^kV$ \\
-		(due to its alternating multilinearity) \\
+		\item for basis $\{e_1,...,e_n\}$ of $V\in\mathbb R^n$ \\ 
+		$\Rightarrow \{e_{i_1}\wedge ...\wedge e_{i_k}|1\leq i_1 <...< i_k \leq n\}$ a basis of $\wedge^kV$ \\
 		$\Rightarrow e_{i_1}\wedge ...\wedge e_{i_k}$ can form any permutation of the same input by swapping order \\
+		(due to its alternating multilinearity) \\
 		e.g. for $\wedge^2V: e_1\wedge e_1 = e_2\wedge e_2=\mathbf 0,\space e_1\wedge e_2=-e_2\wedge e_1 \Rightarrow$ not linearly independent
 		\item sum of $k$-wedge is still in the vector space $\wedge^k V$ (as can be expressed by its basis)
 		\item $F:\underbrace{V\times...\times V}_k\rightarrow X$ uniquely factors into $\underbrace{V\times...\times V}_k\xrightarrow{\psi} \wedge^k V \xrightarrow{\text{ }\underline F\text{ }} X$, \\ 
@@ -418,7 +419,8 @@
 		\item with $V\in\mathbb R^n$, dim $\wedge^kV=\left(\begin{smallmatrix} n \\ k \end{smallmatrix}\right) = C^k_n$, due to the form of its basis \\ 
 		note: for $k > n$, $\wedge^kV=\{0\}$ \\
 		(top exterior power)
-		\item $k$-blade $\mathbf v_1\wedge...\wedge\mathbf v_k=0 \Leftrightarrow \mathbf v_1,...,\mathbf v_k$ linearly dependent
+		\item $k$-blade $\mathbf v_1\wedge...\wedge\mathbf v_k=0 \Leftrightarrow \mathbf v_1,...,\mathbf v_k$ linearly dependent \\
+		($k$-blade $\mathbf v_1\wedge...\wedge\mathbf v_k \neq 0 \Leftrightarrow \mathbf v_1,...,\mathbf v_k$ linearly INdependent)
 			\begin{itemize}
 			\item if $\mathbf v_1,...,\mathbf v_k$ linearly dependent $\Rightarrow \mathbf v_1\wedge...\wedge\mathbf v_k=0$ as $\psi$ alternating
 			\item if $\mathbf v_1\wedge...\wedge\mathbf v_k=0$, assume $\mathbf v_1,...,\mathbf v_k$ INdependent \\
@@ -433,16 +435,35 @@
 			$\Rightarrow$ each $\mathbf v_1, ..., \mathbf v_k$ expressed by a linear combination of $\mathbf w_1, ..., \mathbf w_k$ \\
 			$\Rightarrow \mathbf v_1\wedge...\wedge \mathbf v_k = c(\mathbf w_1\wedge...\wedge \mathbf w_k)$ as $\psi$ alternating multilinear \\
 			($c\neq0$ as both pure wedges non-zero)
-			\item if $\mathbf v_1\wedge...\wedge \mathbf v_k = c(\mathbf w_1\wedge...\wedge \mathbf w_k)$
+			\item if $\mathbf v_1\wedge...\wedge \mathbf v_k = c(\mathbf w_1\wedge...\wedge \mathbf w_k)$ \\ 
+			let $U_v = \text{span}(\mathbf v_1,...,\mathbf v_k), U_w = \text{span}(\mathbf w_1,...,\mathbf w_k), U_{vw} = U_v\cap U_w$ \\
+			$\Rightarrow$ assume $U_v \neq U_w$, $U_{vw}$ has dimension $l$\\
+			$\Rightarrow \exists l$ vectors in $\{\mathbf v_1,...,\mathbf v_k\}, \{ \mathbf w_1,...,\mathbf w_k\}$ as 2 sets of basis of $U_{vw}$ \\
+			$\Rightarrow$ change $l$ vectors to be a common basis for $U_{vw}$: $\{ \mathbf u_1,...,\mathbf u_l \}$ \\
+			$\Rightarrow$ now $\mathbf v_1,...,\mathbf v_{k-l}, \mathbf u_1,...,\mathbf u_l, \mathbf w_1,...,\mathbf w_{k-l}$  linearly independent \\
+			$\Rightarrow$ $\psi(v_1,...,\mathbf v_{k-l}, \mathbf u_1,...,\mathbf u_l) \psi(\mathbf w_1,...,\mathbf w_{k-l}, \mathbf u_1,...,\mathbf u_l)$ 2 different basis for $\wedge^kV$ \\
+			while $\psi(\mathbf v_1,...,\mathbf v_{k-l}, \mathbf u_1,...,\mathbf u_l) = c_v\psi(\mathbf v_1,...,\mathbf v_{k})$ \\ 
+			similarly $\psi(\mathbf w_1,...,\mathbf w_{k-l}, \mathbf u_1,...,\mathbf u_l) = c_w\psi(\mathbf w_1,...,\mathbf w_{k})$ \\
+			$\Rightarrow \psi(\mathbf v_1,...,\mathbf v_{k}) \neq c \psi(\mathbf w_1,...,\mathbf w_{k}), (c\neq0)$ (as basis linearly independent) \\
+			$\Rightarrow$ conflict, assumption failed, hence $\text{span}(\mathbf v_1,...,\mathbf v_k) = \text{span}(\mathbf w_1,...,\mathbf w_k)$
 			\end{itemize}
 		\end{itemize}
+	\end{itemize}
+\item Induced Maps
+	\begin{itemize}
+	\item 
 	\end{itemize}
 \end{itemize}
 
 \subsubsection{Determinant}
 \begin{itemize}
-\item Signed Volume
-\item 
+\item Construction from Exterior Product
+	\begin{itemize}
+	\item Definition
+	\item Independence of Basis
+	\item Multiplicativity
+	\item Relationship to Invertibility
+	\end{itemize}
 \item Measuring Linear Transformation on Volume
 	\begin{itemize}
 	\item Unit Volume

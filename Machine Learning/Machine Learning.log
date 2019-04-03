@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  2 APR 2019 19:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  3 APR 2019 14:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -663,27 +663,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 320--321
  []
 
 [5 <./Math/matrix-composition of transformations.png>] [6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 460--461
+Underfull \hbox (badness 10000) in paragraph at lines 481--482
 
  []
 
 [8] [9] [10]
-Underfull \hbox (badness 10000) in paragraph at lines 701--702
+Underfull \hbox (badness 10000) in paragraph at lines 722--723
 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 760--764
+Underfull \hbox (badness 10000) in paragraph at lines 781--785
 
  []
 
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 814--818
+[12] [13]
+Underfull \hbox (badness 10000) in paragraph at lines 835--839
 
  []
 
-[13] [14]
-Overfull \hbox (38.03133pt too wide) detected at line 908
+[14]
+Overfull \hbox (38.03133pt too wide) detected at line 929
 []
  []
 
@@ -694,15 +694,15 @@ File: ./Math/"multivariate gaussian-mass of distribution".jpg Graphic file (typ
 e jpg)
 <use ./Math/"multivariate gaussian-mass of distribution".jpg>
 Package pdftex.def Info: ./Math/"multivariate gaussian-mass of distribution".jp
-g  used on input line 1268.
+g  used on input line 1289.
 (pdftex.def)             Requested size: 207.56285pt x 152.36285pt.
 
-Overfull \hbox (55.29424pt too wide) detected at line 1282
+Overfull \hbox (55.29424pt too wide) detected at line 1303
 []
  []
 
 [21 <./Math/multivariate gaussian-mass of distribution.jpg>] [22] [23]
-Underfull \hbox (badness 10000) in paragraph at lines 1389--1394
+Underfull \hbox (badness 10000) in paragraph at lines 1410--1415
 
  []
 
@@ -1122,7 +1122,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 92.
 Here is how much of TeX's memory you used:
  10527 strings out of 492639
  160228 string characters out of 6129286
- 286297 words of memory out of 5000000
+ 287297 words of memory out of 5000000
  13807 multiletter control sequences out of 15000+600000
  17682 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1154,7 +1154,7 @@ ist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2018/texmf-dis
 t/fonts/type1/public/amsfonts/symbols/msam5.pfb></usr/local/texlive/2018/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2018/te
 xmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on "Machine Learning.pdf" (116 pages, 3002745 bytes).
+Output written on "Machine Learning.pdf" (116 pages, 3003632 bytes).
 PDF statistics:
  1381 PDF objects out of 1440 (max. 8388607)
  1200 compressed objects within 12 object streams
