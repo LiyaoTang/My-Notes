@@ -1986,23 +1986,119 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Preprocessing
 		\begin{itemize}
+		\item grid the input image into disjoint $S \times S$ cells \\
+		(apply usually fine grid, e.g. $S=19$)
+		\item assign the objects to a tuple (cell, anchor box)
+			\begin{itemize}
+			\item assign to cell by its central point $\Rightarrow$ try ensuring maximal $\mathbf 1$ object in a grid
+			\item assign to one from $B$ anchor boxes depending on its IoU with all $B$ boxes
+			\end{itemize}
+		\end{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item $conf=p(\text{obj}) \times \text{IoU}^\text{label}_\text{pred}$ confidence of current box containing an object \\
+		$\Rightarrow 0$ desired if none, IoU between pred and label desired if exist \\
+		where, $p(\text{ob}j)$ the probability of object existence in the CELL
+		\item $x, y \in [0,1]$ the box center in the cell, normalized by cell size\\
+		$\Rightarrow$ easier to learn, as dense layer not confused by varying locations
+		\item $h, w \in [0, 1]$ the box size normalized by image size \\
+		$\Rightarrow$ easier to learn for dense layer
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item $p_1,...,p_C$ the conditional probability $p(\text{class}_c|\text{obj})$ for object inside the CELL \\
+		i.e. the class probability of object, given the object assigned to the cell
+		\item for each cell, predict both $[p_1,...,p_C]$ and $B$ bounding boxes $[conf, x, y, w, h]$ \\
+		$\Rightarrow$ final prediction as a $S\times S \times (C+5B)$ tensor
+		\item $p_c\cdot conf = p(\text{class}_c|\text{obj})\cdot p(\text{obj})\cdot \text{IoU}^\text{label}_\text{pred} = p(\text{class}_c, \text{obj}) \cdot \text{IoU}^\text{label}_\text{pred}$ \\
+		where $p_c$ from the cell, $conf$ from each box in the cell \\
+		$\Rightarrow$ combine the decouple pred for various class-specific boxes prediction
+		\item non-max suppression to fix multiple detection box (at test time)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item $24$ conv layer downsampling from $448\times448\times3$ to $S\times S\times 1024$
+		\item followed by: $\rightarrow$dense with dropout$\rightarrow4096\rightarrow$dense$\rightarrow S\times S\times (C+5B)$ \\
+		(dropout to prevent co-adaption, i.e. dependent units between 2 dense layers)
+		\item leaky ReLu $a=\max(z,0.1z)$ used, except for linear activation in final layer
+		\end{itemize}
+	\item Optimization Goal
+		\begin{itemize}
+		\Item \begin{align*} \displaystyle \text{loss} = & \lambda_\text{obj}\sum_{i=0}^{S^2}\sum_{j=0}^{B} \mathbb{1}^{obj}_{ij} [(x_i-\hat x_i)^2 + (y_i-\hat y_i)^2] +\\
+		& \lambda_\text{obj}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbb 1^{obj}_{ij} [(\sqrt{w_i}-\sqrt{\hat w_i})^2 + (\sqrt{h_i}-\sqrt{\hat h_i})^2] + \\
+		& \sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbb 1^{obj}_{ij} (conf_{ij} - \hat {conf}_{ij})^2 + \lambda_\text{none}\cdot\mathbb 1^{none}_{ij} (conf_{ij} - \hat {conf}_{ij})^2 +\\
+		& \sum_{i=0}^{S^2}\mathbb 1^{obj}_{i}\sum_{c=0}^C (p_{ci} - \hat p_{ci})^2 \end{align*}
+		\item $\lambda_\text{obj} = 5$ to up-weight box with obj, $\lambda_\text{none}=0.5$ for empty box
+			\begin{itemize}
+			\item balance the dataset: avoid large num of empty box pushing $conf$ pred to $0$
+			\item emphasize on predicting box with object: adjust the box pred $x,y,w,h$
+			\end{itemize}
+		\item $\mathbb{1}^{obj}_{ij}$ the indicator: $1$ if obj exists in $j$ box of $i$ cell, similar for $\mathbb 1^{none}_{ij}$
+		\item minimize $\sqrt{w_i}, \sqrt{h_i}$: mitigate various box size into similar scale \\ 
+		(as same error occurred in small box matter more than that in big box)
+		\item $p_{ci}$ the classification prob for $i$ cell (only trained if it contains obj)
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item optimize the sum-squared error (due to its simplicity)
+		\item for each cell: correct its classification if it contains obj
+		\item for each box:
+			\begin{itemize}
+			\item increase $conf$ \& adjust box pred if it overlaps the most with label of its cell
+			\item decrease $conf$ for other box (not responsible for having obj)
+			\end{itemize}
+		\item pre-training: pretrained first 20 conv layers on classification dataset
+		\item data augmentation: random scaling size, adjusting exposure and saturation
+		\end{itemize}
+	\item Limitation
+		\begin{itemize}
+		\item use only coarse feature to predict box \\ 
+		(due to multiple downsampling \& produced by dense layer)
+		\item NOT able to handle: multiple objects in same-type anchor box in one cell \\
+		(NOR when objects more than total anchor boxes) \\
+		$\Rightarrow$ suffer from small objects in group (e.g. birds)
+		\item struggle in box localization
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item bounding box localization \& classification as regression problem \\
+		(predicted totally by a dense layer)
+		\item end-to-end optimizing directly the detection score \\
+		(vs. separate modules: region proposal, bounding box localization, classification)
+		\item global information for each bounding box localization \& classification \\
+		(instead of taking only local info to classify boxes) \\
+		$\Rightarrow$ less false alarm (mistake background as object)
+		\item generalizable representation for detection \\
+		(as feature extraction embedded in the network) \\
+		$\Rightarrow$ able to generalized to art work
+		\item much less predicted box (compared with ~2000 boxes in R-CNN framework)
+		\item fast $\Rightarrow$ ensemble with (fast) R-CNN framework with no overhead \\
+		$\Rightarrow$ mitigate the false alarm in R-CNN framework
+		\end{itemize}
+	\end{itemize}
+	
+\item YOLOv2 (YOLO9000)
+	\begin{itemize}
+	\item Preprocessing
+		\begin{itemize}
 		\item grid the input image into disjoint cells \\
 		(apply usually fine grid, e.g. $19\times19$ girds)
 		\item define a serious of anchor box: covering most of the interested objects \\
 		(e.g. tall\&thin box for pedestrian, low\&fat box for car)
 		\item assign the objects to a tuple (cell, anchor box)
 			\begin{itemize}
-			\item assign to cell by its central point $\Rightarrow$ ensure maximal $\mathbf 1$ object in a grid
+			\item assign to cell by its central point $\Rightarrow$ try ensuring maximal $\mathbf 1$ object in a grid
 			\item assign to one from $B$ anchor boxes depending on its IoU with all $B$ boxes
 			\end{itemize}
 		\end{itemize}
 	\item Anchor Box Selection
 		\begin{itemize}
-		\item run K-means on all  clabel box; use cluster center as the anchor box
+		\item run K-means on all label box; use cluster center as the anchor box
 		\end{itemize}
 	\item Bounding Box Encoding
 		\begin{itemize}
-		\item $p_e$ probability of existence for current anchor box in a cell
+		\item $p_e$ confidence of current box containing an object \\
+		()
 		\item $b_x, b_y$ the box location offset relative to the top-left coord of the cell \\
 		$\Rightarrow$ easier to learn, as dense layer not confused by varying locations
 		\item $b_h, b_w$ the box size relative to the size of the cell (allowed to go outside the grid) \\
@@ -2015,7 +2111,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Prediction
 		\begin{itemize}
-		\item each cell predict bboxes with their $p_e$
+		\item each cell predict $B$ bounding boxes with their $p_e$
 		\item each cell predict conditional probability $p(\text{class}|\text{obj})$ \\
 		i.e. the class probability of object, given there is (part of) an object in the cell
 		\item final prediction of each bbox in each cell: $p(class, obj) = p_e\times p(\text{class}|\text{obj})$
