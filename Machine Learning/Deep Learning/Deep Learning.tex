@@ -835,6 +835,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item NOT concern various nets: sampling in a fixed range may not work for all nets
 		\end{itemize}
 	\end{itemize}
+
 \item Xavier Initialization for Weights \label{DL_Init_Xavier}
 	\begin{itemize}
 	\item Practice
@@ -1212,11 +1213,36 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
-\item Hierarchical Softmax 
+\item Hierarchical Softmax \label{DL_Layers_Hisoftmax}
 	\begin{itemize}
-	\item uses a binary tree representation of the output layer with the W words as
-	its leaves and, for each node, explicitly represents the relative probabilities of its child nodes \\ 
-	$\Rightarrow$ a random walk that assigns probabilities to classes
+	\item Input
+		\begin{itemize}
+		\item arbitrary input $\mathbf z^{L}$ being logits, considered as a flatten tree
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item a tree structure, flatten into $1$-D array
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item for each node (if not leaf), a softmax to predict prob for its direct children \\
+		$\Rightarrow$ multiple softmax connected to various input nodes in $\mathbf z^L$
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item create a Bayesian network with a single root node (e.g. "obj") \\
+		$\Rightarrow$ each node being a conditional probability conditioned on its direct parent
+		\item for absolute probability of each class (represented by a node) \\ 
+		$\Rightarrow$ apply sum rule \& product rule accordingly
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item NOT assuming mutual exclusion between class
+		\item $\Rightarrow$ enable graceful degrade in classification \\
+		e.g. can still recognize by $p(\text{animal})$, if failed with $p(\text{cat}), p(\text{dog})$, etc.
+		\item enable joint training with multiple datasets (involving classification) \\
+		e.g. \hyperref[DL_CV_Objdet_YOLOv2]{YOLOv2(YOLO9000)}
+		\end{itemize}
 	\end{itemize}
 
 \item Normalization
@@ -1382,90 +1408,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \item Probabilistic Max Pooling
 \end{itemize}
-
-\subsubsection{Residual Block} \label{DL_Block_Res}
-\begin{itemize}
-\item Structure
-	\begin{itemize}
-	\item Definition
-		\begin{itemize}
-		\item for the $l+2$ layer, $a^{l+2} = g(z^{l+2} + a^l)$, \\
-		where $g(\cdot)$ the activation, $z^{l+2} = W^{l+2}a^{l+1}+b^{l+2}$ from layer $l+1$ 
-		\end{itemize}
-	\item Main Path
-		\begin{itemize}
-		\item the usual passing of $a^l$ to layer $l+1$, then the $z^{l+2}$ at layer $l+2$
-		\end{itemize}
-	\item Skip Connection (Shortcut)
-		\begin{itemize}
-		\item the passing of $a^{l}$ directly to the layer $l+2$
-		\end{itemize}
-	\item Join
-		\begin{itemize}
-		\item for different size $a^l, a^{l+2}$: adjust $a^l$ by linear transformation or padding \\
-		(can be implemented as matrix/conv with trainable or fixed weights)
-		\item add the result from two paths $\Rightarrow a^{l+2}=g(z^{l+2}+a^l)$
-		\end{itemize}
-	\end{itemize}
-
-\item Understanding
-	\begin{itemize}
-	\item Guaranteed Baseline
-		\begin{itemize}
-		\item with ReLU as activation, easy to learn identity function \\ 
-		$\Rightarrow$ layer $l+2$ only need to make $z^{l+2}=0$ (as weights \& bias initialized near $0$)
-		\item $\Rightarrow$ deeper net can easily guarantee to be at least as good as its shallow version \\
-		(then search for luck to surpass baseline)
-		\end{itemize}
-	\item More Gradient
-		\begin{itemize}
-		\item gradient more easily passed to the early layers \\ 
-		(as shortcuts not attenuating gradients)
-		\item $\Rightarrow$ early layers settle down faster $\Rightarrow$ late layers get a more consistent input
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Inception Block}
-\begin{itemize}
-\item Basic Inception
-	\begin{itemize}
-	\item Input
-		\begin{itemize}
-		\item feature maps with multiple channels
-		\end{itemize}
-	\item Operation
-		\begin{itemize}
-		\item op1 = $1\times1$ conv
-		\item op2 = $1\times1$ conv, $3\times3$ conv with same padding
-		\item op3 = $1\times1$ conv, $5\times5$ conv with same padding
-		\item op4 = max pooling with same padding and stride $1$, $1\times1$ conv
-		\item channel concate: concatenate the output channel from each op \\
-		(as output size ensured to be the same in each op)
-		\end{itemize}
-	\item Output
-		\begin{itemize}
-		\item feature maps with the same spatial size as input
-		\end{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item $1\times1$ conv to shrink
-			\begin{itemize}
-			\item less computation for afterwards larger kernel (e.g. $3\times3, 5\times5$)
-			\item prevent output of other ops from being overwhelmed by pooling
-			\end{itemize}
-		\item enable network to learn the desired combination of info \\
-		(instead of predefined hyperparamter) \\
-		$\Rightarrow$ more representability
-		\end{itemize}
-	\end{itemize}
-
-\item Xception
-	\begin{itemize}
-	\item 
-	\end{itemize}	
-\end{itemize}
-
 \subsubsection{RNN Layer}
 \begin{itemize}
 \item Overview
@@ -1644,6 +1586,102 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \item Convolutional LSTM (ConvLSTM)
 \end{itemize}
 
+\subsection{Blocks}
+\subsubsection{Residual Block} \label{DL_Block_Res}
+\begin{itemize}
+\item Structure
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item for the $l+2$ layer, $a^{l+2} = g(z^{l+2} + a^l)$, \\
+		where $g(\cdot)$ the activation, $z^{l+2} = W^{l+2}a^{l+1}+b^{l+2}$ from layer $l+1$ 
+		\end{itemize}
+	\item Main Path
+		\begin{itemize}
+		\item the usual passing of $a^l$ to layer $l+1$, then the $z^{l+2}$ at layer $l+2$
+		\end{itemize}
+	\item Skip/Passthrough Connection (Shourtcut) \label{DL_Block_Res_Passthrough}
+		\begin{itemize}
+		\item $s(x^l)$: the passing of $x^{l}$, from layer $l$ directly to the layer $l+2$
+		\item different spatial size in $l, {l+2}$: adjust $x^l$ by
+			\begin{itemize}
+			\item padding: pad to the size in layer ${l+2}$
+			\item spatial stack: merge local channels into single channel by stacking \\
+			(e.g. $26\times26\times512\rightarrow13\times13\times2048$)
+			\end{itemize}
+		\item different channel size $l, {l+2}$: adjust $x^l$ by linear linear transformation \\ 
+		(a $1\times1$ conv / matrix with trainable or fixed weights)
+		\end{itemize}
+	\item Join
+		\begin{itemize}
+		\item add the result from two paths $\Rightarrow a^{l+2}=g(z^{l+2}+s(a^l))$
+		\item or, concat the input $\Rightarrow a^{l+2}=g([z^{l+2}, s(z^{l})])$
+		\end{itemize}
+	\end{itemize}
+
+\item Understanding
+	\begin{itemize}
+	\item Guaranteed Baseline
+		\begin{itemize}
+		\item with ReLU as activation, easy to learn identity function \\ 
+		$\Rightarrow$ layer $l+2$ only need to make $z^{l+2}=0$ (as weights \& bias initialized near $0$)
+		\item $\Rightarrow$ deeper net can easily guarantee to be at least as good as its shallow version \\
+		(then search for luck to surpass baseline)
+		\end{itemize}
+	\item Ensemble
+		\begin{itemize}
+		\item contains much more shallow paths than real deep paths \\
+		$\Rightarrow$ ensemble those shallow paths at various level
+		\end{itemize}
+	\item More Gradient
+		\begin{itemize}
+		\item gradient more easily passed to the early layers \\ 
+		(as shortcuts not attenuating gradients)
+		\item $\Rightarrow$ early layers settle down faster $\Rightarrow$ late layers get a more consistent input
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Inception Block}
+\begin{itemize}
+\item Basic Inception
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item feature maps with multiple channels
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item op1 = $1\times1$ conv
+		\item op2 = $1\times1$ conv, $3\times3$ conv with same padding
+		\item op3 = $1\times1$ conv, $5\times5$ conv with same padding
+		\item op4 = max pooling with same padding and stride $1$, $1\times1$ conv
+		\item channel concate: concatenate the output channel from each op \\
+		(as output size ensured to be the same in each op)
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item feature maps with the same spatial size as input
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item $1\times1$ conv to shrink
+			\begin{itemize}
+			\item less computation for afterwards larger kernel (e.g. $3\times3, 5\times5$)
+			\item prevent output of other ops from being overwhelmed by pooling
+			\end{itemize}
+		\item enable network to learn the desired combination of info \\
+		(instead of predefined hyperparamter) \\
+		$\Rightarrow$ more representability
+		\end{itemize}
+	\end{itemize}
+
+\item Xception
+	\begin{itemize}
+	\item 
+	\end{itemize}	
+\end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architectures}
@@ -1715,12 +1753,18 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Building Blocks
 		\begin{itemize}
-		\item residual block
+		\item residual block with addition
 		\item batchnorm applied in the conv(s) inside residual block
 		\end{itemize}
 	\item Structure
 		\begin{itemize}
 		\item stack of residual block, for hundreds, even thousands of layers
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item ensemble nets with shallow \& medium depth $\Rightarrow$ essentially a wide net \\
+		(as the real deep net takes only few paths)
+		\item $\Rightarrow$ avoid the training of real deep net (instead of solving it)
 		\end{itemize}
 	\end{itemize}
 	
@@ -1953,8 +1997,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Classic Approaches}
-\begin{itemize}	
+\subsubsection{Region Proposal Based Approaches}
+\begin{itemize}
 \item Sliding Window Detection
 	\begin{itemize}
 	\item Bounding Box Proposal
@@ -1979,188 +2023,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item though with fast implementation, still not promising regarding result \\
 		$\Rightarrow$ sliding window propose a fixed set of window \\
 		$\Rightarrow$ fail if not matching window size; or missing location/rotation
-		\end{itemize}
-	\end{itemize}
-
-\item You Only Look Once (YOLO)
-	\begin{itemize}
-	\item Preprocessing
-		\begin{itemize}
-		\item grid the input image into disjoint $S \times S$ cells \\
-		(apply usually fine grid, e.g. $S=19$)
-		\item assign the objects to a tuple (cell, anchor box)
-			\begin{itemize}
-			\item assign to cell by its central point $\Rightarrow$ try ensuring maximal $\mathbf 1$ object in a grid
-			\item assign to one from $B$ anchor boxes depending on its IoU with all $B$ boxes
-			\end{itemize}
-		\end{itemize}
-	\item Bounding Box Encoding
-		\begin{itemize}
-		\item $conf=p(\text{obj}) \times \text{IoU}^\text{label}_\text{pred}$ confidence of current box containing an object \\
-		$\Rightarrow 0$ desired if none, IoU between pred and label desired if exist \\
-		where, $p(\text{ob}j)$ the probability of object existence in the CELL
-		\item $x, y \in [0,1]$ the box center in the cell, normalized by cell size\\
-		$\Rightarrow$ easier to learn, as dense layer not confused by varying locations
-		\item $h, w \in [0, 1]$ the box size normalized by image size \\
-		$\Rightarrow$ easier to learn for dense layer
-		\end{itemize}
-	\item Inference
-		\begin{itemize}
-		\item $p_1,...,p_C$ the conditional probability $p(\text{class}_c|\text{obj})$ for object inside the CELL \\
-		i.e. the class probability of object, given the object assigned to the cell
-		\item for each cell, predict both $[p_1,...,p_C]$ and $B$ bounding boxes $[conf, x, y, w, h]$ \\
-		$\Rightarrow$ final prediction as a $S\times S \times (C+5B)$ tensor
-		\item $p_c\cdot conf = p(\text{class}_c|\text{obj})\cdot p(\text{obj})\cdot \text{IoU}^\text{label}_\text{pred} = p(\text{class}_c, \text{obj}) \cdot \text{IoU}^\text{label}_\text{pred}$ \\
-		where $p_c$ from the cell, $conf$ from each box in the cell \\
-		$\Rightarrow$ combine the decouple pred for various class-specific boxes prediction
-		\item non-max suppression to fix multiple detection box (at test time)
-		\end{itemize}
-	\item Structure
-		\begin{itemize}
-		\item $24$ conv layer downsampling from $448\times448\times3$ to $S\times S\times 1024$
-		\item followed by: $\rightarrow$dense with dropout$\rightarrow4096\rightarrow$dense$\rightarrow S\times S\times (C+5B)$ \\
-		(dropout to prevent co-adaption, i.e. dependent units between 2 dense layers)
-		\item leaky ReLu $a=\max(z,0.1z)$ used, except for linear activation in final layer
-		\end{itemize}
-	\item Optimization Goal
-		\begin{itemize}
-		\Item \begin{align*} \displaystyle \text{loss} = & \lambda_\text{obj}\sum_{i=0}^{S^2}\sum_{j=0}^{B} \mathbb{1}^{obj}_{ij} [(x_i-\hat x_i)^2 + (y_i-\hat y_i)^2] +\\
-		& \lambda_\text{obj}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbb 1^{obj}_{ij} [(\sqrt{w_i}-\sqrt{\hat w_i})^2 + (\sqrt{h_i}-\sqrt{\hat h_i})^2] + \\
-		& \sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbb 1^{obj}_{ij} (conf_{ij} - \hat {conf}_{ij})^2 + \lambda_\text{none}\cdot\mathbb 1^{none}_{ij} (conf_{ij} - \hat {conf}_{ij})^2 +\\
-		& \sum_{i=0}^{S^2}\mathbb 1^{obj}_{i}\sum_{c=0}^C (p_{ci} - \hat p_{ci})^2 \end{align*}
-		\item $\lambda_\text{obj} = 5$ to up-weight box with obj, $\lambda_\text{none}=0.5$ for empty box
-			\begin{itemize}
-			\item balance the dataset: avoid large num of empty box pushing $conf$ pred to $0$
-			\item emphasize on predicting box with object: adjust the box pred $x,y,w,h$
-			\end{itemize}
-		\item $\mathbb{1}^{obj}_{ij}$ the indicator: $1$ if obj exists in $j$ box of $i$ cell, similar for $\mathbb 1^{none}_{ij}$
-		\item minimize $\sqrt{w_i}, \sqrt{h_i}$: mitigate various box size into similar scale \\ 
-		(as same error occurred in small box matter more than that in big box)
-		\item $p_{ci}$ the classification prob for $i$ cell (only trained if it contains obj)
-		\end{itemize}
-	\item Training
-		\begin{itemize}
-		\item optimize the sum-squared error (due to its simplicity)
-		\item for each cell: correct its classification if it contains obj
-		\item for each box:
-			\begin{itemize}
-			\item increase $conf$ \& adjust box pred if it overlaps the most with label of its cell
-			\item decrease $conf$ for other box (not responsible for having obj)
-			\end{itemize}
-		\item pre-training: pretrained first 20 conv layers on classification dataset
-		\item data augmentation: random scaling size, adjusting exposure and saturation
-		\end{itemize}
-	\item Limitation
-		\begin{itemize}
-		\item use only coarse feature to predict box \\ 
-		(due to multiple downsampling \& produced by dense layer)
-		\item NOT able to handle: multiple objects in same-type anchor box in one cell \\
-		(NOR when objects more than total anchor boxes) \\
-		$\Rightarrow$ suffer from small objects in group (e.g. birds)
-		\item struggle in box localization
-		\end{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item bounding box localization \& classification as regression problem \\
-		(predicted totally by a dense layer)
-		\item end-to-end optimizing directly the detection score \\
-		(vs. separate modules: region proposal, bounding box localization, classification)
-		\item global information for each bounding box localization \& classification \\
-		(instead of taking only local info to classify boxes) \\
-		$\Rightarrow$ less false alarm (mistake background as object)
-		\item generalizable representation for detection \\
-		(as feature extraction embedded in the network) \\
-		$\Rightarrow$ able to generalized to art work
-		\item much less predicted box (compared with ~2000 boxes in R-CNN framework)
-		\item fast $\Rightarrow$ ensemble with (fast) R-CNN framework with no overhead \\
-		$\Rightarrow$ mitigate the false alarm in R-CNN framework
-		\end{itemize}
-	\end{itemize}
-	
-\item YOLOv2 (YOLO9000)
-	\begin{itemize}
-	\item Preprocessing
-		\begin{itemize}
-		\item grid the input image into disjoint cells \\
-		(apply usually fine grid, e.g. $19\times19$ girds)
-		\item define a serious of anchor box: covering most of the interested objects \\
-		(e.g. tall\&thin box for pedestrian, low\&fat box for car)
-		\item assign the objects to a tuple (cell, anchor box)
-			\begin{itemize}
-			\item assign to cell by its central point $\Rightarrow$ try ensuring maximal $\mathbf 1$ object in a grid
-			\item assign to one from $B$ anchor boxes depending on its IoU with all $B$ boxes
-			\end{itemize}
-		\end{itemize}
-	\item Anchor Box Selection
-		\begin{itemize}
-		\item run K-means on all label box; use cluster center as the anchor box
-		\end{itemize}
-	\item Bounding Box Encoding
-		\begin{itemize}
-		\item $p_e$ confidence of current box containing an object \\
-		()
-		\item $b_x, b_y$ the box location offset relative to the top-left coord of the cell \\
-		$\Rightarrow$ easier to learn, as dense layer not confused by varying locations
-		\item $b_h, b_w$ the box size relative to the size of the cell (allowed to go outside the grid) \\
-		$\Rightarrow$ cope with various girding strategy
-		\item $p_1,...,p_C$ the classification for object inside current box
-		\item $\Rightarrow a_b=[p_e, b_x, b_y, b_h, b_w, p_1,...,p_C]$ the anchor box $b$ \\
-		(note: localization\&classification considered only when $p_e=1$)
-		\item $\Rightarrow [a_1,...,a_B]^T$ the prediction/label in each cell \\
-		(hence, able to match multiple anchor boxes at the same time in one cell)
-		\end{itemize}
-	\item Prediction
-		\begin{itemize}
-		\item each cell predict $B$ bounding boxes with their $p_e$
-		\item each cell predict conditional probability $p(\text{class}|\text{obj})$ \\
-		i.e. the class probability of object, given there is (part of) an object in the cell
-		\item final prediction of each bbox in each cell: $p(class, obj) = p_e\times p(\text{class}|\text{obj})$
-		\end{itemize}
-	\item Bounding Box Prediction
-		\begin{itemize}
-		\item apply FCN on each cell for classification\&localization\\ 
-		(implemented as fast sliding window) \\
-		$\Rightarrow$ output spatial shape = grid shape; channel = bounding box len
-		\item get some predicted bounding boxes in each cell (e.g. fixed to $n$ box per cell)
-		\item non-max suppression used to finalize predicted bounding box (for each object class)
-		\end{itemize}
-	\item Structure
-		\begin{itemize}
-		\item passthrough layer (skip connection) as downsampling \\
-		$\Rightarrow$ early layer ($26\times26\times512$) stacks its spatially adjacent features together 
-		$\Rightarrow$ form a $13\times13\times2048$ feature map; then concat to late layer \\
-		(a modest $1\%$ performance increase)
-		\item 
-		\end{itemize}
-	\item Training
-		\begin{itemize}
-		\item optimize the sum-squared error (due to its simplicity)
-		\item emphasize the label containing box (object) \\ 
-		$\Rightarrow$ avoid large num of labels without object pushing weights to $0$
-		\item predict the $\sqrt{b_w},\sqrt{b_h}$, instead of $b_w, b_h$ \\ 
-		$\Rightarrow$ reflect that small deviations in large boxes matter less than in small boxes
-		\item for each bbox predicted by a cell
-			\begin{itemize}
-			\item increase the confidence \& adjust coords for box overlapping the most with label
-			\item decrease the confidence for box not overlapping with any label
-			\end{itemize}
-		\item data augmentation: mix classification \& detection dataset \\ 
-		$\Rightarrow$ train the same backbone with different prediction branch
-		\end{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item multiple anchor boxes: able to predict multiple boxes
-		\item decoupled anchor boxes \& object class: able to predict multiple same-type objects \\
-		(have to use different anchor box)
-		\item $\Rightarrow$ able to handle: multiple objects, each in a different anchor box in one cell
-		\item yet, NOT able to handle: multiple objects in same-type anchor box in one cell \\
-		(NOR when objects more than total anchor boxes) \\
-		$\Rightarrow$ suffer from small objects in group (e.g. birds)
-		\item griding: to increase the chance of predicting \\ 
-		$\Rightarrow$ avoid the failed case (i.e. multiple object in same-type anchor box in one cell)
-		\item with FCN implementation, receptive fields not restricted by grid \\
-		$\Rightarrow$ global knowledge utilized for prediction corresponding to each cell
-		\item one scan to have predictions for all cell $\Rightarrow$ \textbf{fast} \& enable real-time application
 		\end{itemize}
 	\end{itemize}
 
@@ -2207,17 +2069,271 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
+\subsubsection{One-stage Detection}
+\begin{itemize}
+\item You Only Look Once (YOLO)
+	\begin{itemize}
+	\item Preprocessing
+		\begin{itemize}
+		\item grid the input image into disjoint $S \times S$ cells \\
+		(apply usually fine grid, e.g. $S=19$)
+		\item assign each object to a cell by its central point \\ 
+		$\Rightarrow$ try ensuring maximal $\mathbf 1$ object in a grid
+		\end{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item $conf=p(\text{obj}) \times \text{IoU}^\text{label}_\text{pred}$ confidence of current box containing an object \\
+		$\Rightarrow 0$ desired if none, IoU between pred and label desired if exist \\
+		where, $p(\text{ob}j)$ the probability of object existence in the CELL
+		\item $x, y \in [0,1]$ the box center in the cell, normalized by cell size \\
+		$\Rightarrow$ easier to learn, as dense layer not confused by varying locations
+		\item $h, w \in [0, 1]$ the box size normalized by image size \\
+		$\Rightarrow$ easier to learn for dense layer
+		\end{itemize}
+	\item Classification Encoding
+		\begin{itemize}
+		\item $p_1,...,p_C$ the conditional probability $p(\text{class}_c|\text{obj})$ for object inside the CELL \\
+		i.e. the class probability of object, given object existing \& assigned to the cell
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item for each cell, predict both $[p_1,...,p_C]$ and $B$ bounding boxes $[conf, x, y, w, h]$ \\
+		$\Rightarrow$ final prediction as a $S\times S \times (C+5B)$ tensor
+		\item $p_c\cdot conf = p(\text{class}_c|\text{obj})\cdot p(\text{obj})\cdot \text{IoU}^\text{label}_\text{pred} = p(\text{class}_c, \text{obj}) \cdot \text{IoU}^\text{label}_\text{pred}$ \\
+		where $p_c$ from the cell, $conf$ from each box in the cell \\
+		$\Rightarrow$ combine the decouple pred for various class-specific boxes prediction
+		\item non-max suppression to fix multiple detection box (at test time)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item $24$ conv layer downsampling from $448\times448\times3$ to $S\times S\times 1024$
+		\item followed by: $\rightarrow$dense with dropout$\rightarrow4096\rightarrow$dense$\rightarrow S\times S\times (C+5B)$ \\
+		(dropout to prevent co-adaption, i.e. dependent units between 2 dense layers)
+		\item leaky ReLu $a=\max(z,0.1z)$ used, except for linear activation in final layer
+		\end{itemize}
+	\item Optimization Goal
+		\begin{itemize}
+		\Item \begin{align*} \displaystyle \text{loss} = & \lambda_\text{obj}\sum_{i=0}^{S^2}\sum_{j=0}^{B} \mathbb{1}^{obj}_{ij} [(x_i-\hat x_i)^2 + (y_i-\hat y_i)^2] +\\
+		& \lambda_\text{obj}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbb 1^{obj}_{ij} [(\sqrt{w_i}-\sqrt{\hat w_i})^2 + (\sqrt{h_i}-\sqrt{\hat h_i})^2] + \\
+		& \sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbb 1^{obj}_{ij} (conf_{ij} - \hat {conf}_{ij})^2 + \lambda_\text{none}\cdot\mathbb 1^{none}_{ij} (conf_{ij} - \hat {conf}_{ij})^2 +\\
+		& \sum_{i=0}^{S^2}\mathbb 1^{obj}_{i}\sum_{c=0}^C (p_{ci} - \hat p_{ci})^2 \end{align*}
+		\item $\lambda_\text{obj} = 5$ to up-weight box with obj, $\lambda_\text{none}=0.5$ for empty box
+			\begin{itemize}
+			\item balance the dataset: avoid large num of empty box pushing $conf$ pred to $0$
+			\item emphasize on predicting box with object: adjust the box pred $x,y,w,h$
+			\end{itemize}
+		\item $\mathbb{1}^{obj}_{ij}$ the indicator: $1$ if obj exists in $j$ box of $i$ cell, similar for $\mathbb 1^{none}_{ij}$
+		\item minimize $\sqrt{w_i}, \sqrt{h_i}$: mitigate various box size into similar scale \\ 
+		(as same error occurred in small box matter more than that in big box)
+		\item $p_{ci}$ the classification prob for $i$ cell (only trained if it contains obj)
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item optimize the sum-squared error (due to its simplicity)
+		\item for each cell: correct its classification if it contains obj
+		\item for each box:
+			\begin{itemize}
+			\item increase $conf$ \& adjust box pred if it overlaps the most with label of its cell
+			\item decrease $conf$ for other box (not responsible for having obj)
+			\end{itemize}
+		\item pre-training: pretrained first 20 conv layers on classification dataset
+		\item data augmentation: random scaling size, adjusting exposure and saturation
+		\end{itemize}
+	\item Limitation
+		\begin{itemize}
+		\item use only coarse feature to predict box \\ 
+		(due to multiple downsampling \& produced by dense layer)
+		\item NOT able to handle: multiple objects of the same type in a cell \\
+		(NOR when same-type objects more than total pred boxes) \\
+		$\Rightarrow$ suffer from small objects in group (e.g. birds)
+		\item struggle in box localization
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item bounding box localization \& classification as regression problem \\
+		(predicted totally by a dense layer)
+		\item end-to-end optimizing directly the detection score \\
+		(vs. separate modules: region proposal, bounding box localization, classification)
+		\item global information for each bounding box localization \& classification \\
+		(instead of taking only local info to classify boxes) \\
+		$\Rightarrow$ less false alarm (mistake background as object)
+		\item generalizable representation for detection \\
+		(as feature extraction embedded in the network) \\
+		$\Rightarrow$ able to generalized to art work
+		\item much less predicted box (compared with ~2000 boxes in R-CNN framework)
+		\item fast $\Rightarrow$ ensemble with (fast) R-CNN framework with no overhead \\
+		$\Rightarrow$ mitigate the false alarm in R-CNN framework
+		\end{itemize}
+	\end{itemize}
+
+\item YOLOv2, YOLO9000 \label{DL_CV_Objdet_YOLOv2}
+	\begin{itemize}
+	\item Preprocessing
+		\begin{itemize}
+		\item no more explicit grid, implicitly set by downsampling factor \\
+		(similar to spatial pyramid pooling)
+		\item select $N_A$ anchor boxes: covering most of the interested objects \\
+		(e.g. tall-thin box for pedestrian, low-wide box for car)
+		\item assign the objects to a tuple (cell, anchor/prior box)
+			\begin{itemize}
+			\item assign to cell by its central point $\Rightarrow$ try ensuring maximal $N_A$ object in a cell
+			\item assign to one from $N_A$ anchor boxes depending on its IoU with all $N_A$ boxes \\
+			(NOT assigned, if all $\text{IoU}^\text{\tiny label}_\text{\tiny anchor} < 0.5$)
+			\end{itemize}
+		\end{itemize}
+	\item Anchor Box Selection (Prior)
+		\begin{itemize}
+		\item run K-means on all label box in train set \\
+		with distance $\text{dist}(\text{box}, \text{centroid}) = 1 - \text{IoU}(\text{box}, \text{centroid})$
+		\item use cluster centroid as the anchor box \\
+		$\Rightarrow$ for anchor box $a\in A, a = [w_a,h_a]$
+		\item num of anchor box (centroid) $N_A$ reflect recall $\leftrightarrow$ model complexity trade-off
+		\end{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item $t_x,t_y \in (0,1)$ the box center in the cell, normalized by cell size \\
+		$\Rightarrow$ true pred center $x=c_w\sigma(t_x) + c_x, y=c_h\sigma(t_y) + c_y$ where $c_x,c_y,c_w,c_h$ the cell \\
+		$\Rightarrow$ easier to learn, as YOLO
+		\item $t_w,t_h$ coefficient to adjust anchor box size \\
+		$\Rightarrow$ true pred size $w=w_a{\rm e}^{t_w}, h=h_a{\rm e}^{t_h}$ where $w_a,h_w$ the anchor box size \\
+		$\Rightarrow$ more robust, avoid influence from anchor prior
+		\item $p_1,...,p_C$ classification pred $\Rightarrow$ decouple from cell, each box a classification
+		\end{itemize}
+	\item Classification with Hierarchical Encoding
+		\begin{itemize}
+		\item tree-structure for multi-label: \hyperref[DL_Layers_Hisoftmax]{a hierarchical softmax} \\ 
+		(hence, NOT assuming mutual exclusion between class)
+		\item lookup WordNet for class label \& its path to the selected root "physical object" \\
+		(if multi-path, choose the one with least new word involved) \\
+		$\Rightarrow$ build a WordTree
+		\item multiple softmax: one for each set of direct children of a node (if not leaf) \\
+		e.g. at node "dog": predict $p(\text{malamute dog}|\text{dog}), p(\text{terrier dog}|\text{dog}), ...$ \\
+		$\Rightarrow$ pred a Bayesian network, according to WordTree
+		\item $\Rightarrow t_o$ objectiveness by summing conditional prob accordingly \\
+		$\Rightarrow$ true objectiveness: $conf = p(\text{obj})\cdot \text{IoU}^\text{label}_\text{pred} = \sigma (t_o)$
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item for each cell, $N_A$ bounding boxes: $[\text{spatial info}[t_x, t_y, t_w, t_h], \text{ a flatten WordTree}[p_1,...,p_C]]$ \\
+		$\Rightarrow$ final prediction as a $\frac I{32} \times \frac I{32} \times N_A(4+C)$ tensor (each box a WordTree!)
+		\item objectiveness of each box: from WordTree of each box
+		\item box classification: choose highest confidence path at every node \\ 
+		(till a specified threshold or a leaf node reached)
+		\item non-max suppression to fix multiple detection box (at test time)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item fully conv net: downsample by $32$, directly predict $\frac I{32}\times \frac I{32}\times (C+4N_A)$ tensor
+		\item \hyperref[DL_Block_Res_Passthrough]{passthrough layer} with concat ($1\%\uparrow$) \\
+		e.g. spatially stack $26\times26\times512$ into $13\times13\times1024$ before concat
+		\item batch norm in ALL conv layer ($>2\%$ mAP$\uparrow$)
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item pre-training on classification with data augmentation \\
+		(e.g. random crop, rotation, hue, saturation and shifting shift)
+		\item more time for model fine-tuning on detection dataset ($\sim4\%$ mAP$\uparrow$) \\ 
+		as model takes time to adjust to resolution change
+		\item multi-scale training s.t. model able to cope with varying resolution
+		\item joint training: mix detection \& classification dataset ($\sim5\%\uparrow$) \\
+		$\Rightarrow$ for detection label, full loss available \\
+		$\Rightarrow$ for classification: only classification \& objectiveness loss considered
+			\begin{itemize}
+			\item select responsible pred box by the largest objectiveness
+			\item objectiveness loss: considered if $t_o$ of responsible box $<$ threshold ($0.3$)
+			\item classification loss: only nodes in its WordTree above current label considered \\
+			with $p(\text{physical object})=1$ for label
+			\end{itemize}
+		\item balancing joint dataset: oversampling detection dataset \\
+		$\Rightarrow$ s.t. detection data : classification data = 1:4 
+		\end{itemize}
+	\item Limitation
+		\begin{itemize}
+		\item each box a classification: too much output channel
+		\item still, detectable objects number restricted by anchor box num in a cell \\
+		(e.g. group of small objects)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item still, fast \& global context for box detection
+		\item auto-select prior, better than handpicked \\
+		(examined by using anchor box directly as prediction)
+		\item adjustable speed$\leftrightarrow$accuracy trade-off via input resolution \\
+		(enabled by being fully conv \& multi-scale trained) \\
+		$\Rightarrow$ larger resolution, slower, more accurate
+		\item joint training (with WordTree) \\
+		$\Rightarrow$ enrich classes to detect \& more robust in class-detection \\
+		$\Rightarrow$ graceful degrade on detecting new/unknown data
+		\item decoupled localization \& classification \\
+		$\Rightarrow$ able to handle some multiple same-type objects in same cell
+		\end{itemize}
+	\end{itemize}
+
+\item YOLOv3
+	\begin{itemize}
+	\item Preprocessing
+		\begin{itemize}
+		\item same as YOLOv2
+		\end{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item $t_x,t_y,t_w,t_h$: same as YOLOv2
+		\item $t_o$ the objectiveness, modeling directly $p(\text{obj})$, instead of $p(\text{obj})\cdot\text{IoU}$
+		\item $p_1,...,p_C$ the classification of obj: conditional prob $p(\text{class}_c|\text{obj})$, as YOLO
+		\end{itemize}
+	\item Classification Encoding
+		\begin{itemize}
+		\item independent logistic regression for each class (instead of hierarchical softmax) \\ 
+		$\Rightarrow$ multiple binary classification (NOT assuming mutual exclusive classes) \\
+		$\Rightarrow$ multi-label approach (box may contain more than one class) \\
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item for each cell, $N_A$ bounding boxes $[t_x, t_y, t_w, t_h, t_o, p_1,...,p_C]$ \\
+		($N_A$ the num of anchor box)
+		\item $\Rightarrow$ final prediction as a $\frac I{N^l} \times \frac I{N^l} \times N_A(C+5)$ tensor \\
+		where $N^l$ the size of downsampled feature map (at pred layer $l$)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item residual blocks \& batch norm as YOLOv2
+		\item 2D encoder-decoder structure with concat connection, with $3$ pred branches \\
+		$\Rightarrow$ final num of pred boxes $\displaystyle\sum_{l\in\text{pred layer}}(N^l\times N^l\times N_A)$
+		\begin{figure}[ht]
+		\includegraphics[width=0.9\linewidth, right]{"./Deep Learning/topic-objdet onestage yolov3 architecture".png}
+		\end{figure}
+		\end{itemize}
+	\item Optimization
+		\begin{itemize}
+		\item sum of the binary cross-entropy for classification loss
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item pretrain backbone (feature extractor) on classification
+		\item multi-scale training \& data augmentation as YOLOv2
+		\end{itemize}
+	\item Failed Approach
+		\begin{itemize}
+		\item box $x,y$ as an offset to anchor box position $x_a,y_a$ (stability decreased)
+		\item linear regression for $x,y$ (worse than bounded by logistic)
+		\item focal loss (already solved by decoupled $p(\text{obj})$ \& $p(\text{class}_c|\text{obj})$)
+		\item dual IoU threshold in assigning object (need more tunning for stabilized model)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item real-time applicable detector
+		\item detection at multiple scale, with encoder-decoder structure
+		\item decent localization + great box classification \\
+		$\Rightarrow$ emphasize on box classification, since human insensible to IoU change
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
 \subsubsection{Research Direction}
 \begin{itemize}
-\item Faster YOLO
+\item Faster One-stage
 	\begin{itemize}
-	\item Dynamic Grid
-		\begin{itemize}
-		\item similar to spatial pyramid pooling: griding with respect to input image size \\
-		$\Rightarrow$ larger image more grid
-		\item $\Rightarrow$ ultimately, pixel grid: each pixel as a grid cell
-		\end{itemize}
-	\item $\Rightarrow$ Segmentation as Detection
+	\item Segmentation as Detection
 		\begin{itemize}
 		\item for output mask, giving classification ($p_e$) + localization (regression) \\
 		(instead of giving class probability as per-pixel classification)
@@ -2386,7 +2502,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/topic-image style transfer nst style matrix".png}
 		\end{figure}	
 		\end{itemize}
-	\item z
 	\end{itemize}
 \end{itemize}
 
