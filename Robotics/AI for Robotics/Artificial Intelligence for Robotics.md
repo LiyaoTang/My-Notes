@@ -1,5 +1,85 @@
 # Artificial Intelligence for Robotics
 
+## Math
+
+### Coordinates
+
+#### Homogeneous Coordinate （齐次坐标）
+
+- Derivation
+
+  - Perspective Geometry
+
+    - solving the limitation of euclidean geometry
+
+      (actually euclidean geometry is a subset)
+
+      $\Rightarrow$ describe parallel lines intersect at an infinite point in camera / human eyes
+
+    - create a projective space \& establish transformation between euclidean space
+
+- Definition
+
+  - Point
+
+    - $p'=(x',y')$ in Cartesian coord $\Rightarrow p=(x,y,w)$ in homogeneous coord,
+
+      where $x' = \frac {x} w, y' = \frac {y} w$ 
+
+    - $\Rightarrow (x,y, 0)$ for points at infinity, instead of tedious $(\infty,\infty)$ 
+
+      $\Rightarrow$ $(0,0,1)$ for origin
+
+    - homogeneous as for any normal point, $w$ takes any value except for $0$  
+
+  - Vector
+
+    - $v'=(a,b)$ in Cartesian coord $\Rightarrow v=(a,b,0)$ in homogeneous coord
+
+- Describing Space
+
+  - Line 
+
+    - line $l'=ax'+by'+c = 0$ in Cartesian coord $\Rightarrow l=ax + by + cw = 0$ 
+
+      (by replacing $x',y'$ with $x, y$)
+
+    - $\Rightarrow$ parallel lines intersect at points at infinity
+
+      $\begin{cases} ax + by + c_0 w = 0 \\ ax + by + c_1 w = 0 \end{cases}$ has solutions $(x,y,0)$, where $x,y\in \mathbb R$ 
+
+  - Affine Transformation
+
+    - definition: $y'=A'x'+b'$ in Cartesian space
+
+    - translating into homogeneous space
+
+      $\Rightarrow$ $x = [x'^T,1]^T, A=\begin{bmatrix} A', \mathbf 0 \\ \mathbf 0^T, 1 \end{bmatrix}$ where $\mathbf 0$ a col vector $[0,...,0]^T$ 
+
+      $\Rightarrow$ hence $Ax \text{(homo)} \Leftrightarrow A'x' \text{(Cart)}$ 
+
+      $\Rightarrow \text{construct} T = \begin{bmatrix} A', b \\ \mathbf 0^T, 1 \end{bmatrix}$ 
+      
+      $\Rightarrow y=Tx \text{(homo)}  \Leftrightarrow  y'=A'x'+b' \text{(cart)}$ 
+      
+    - $\Rightarrow$ single matrix for affine transformation 
+
+- Understanding
+
+  - Distinguishing Point vs. Vector
+
+    - normal Cartesian point $p' = (x,y) \Rightarrow (x,y,1)$ 
+
+    - normal Cartesian vector $v' = (x,y) \Rightarrow (x,y, 0)$, as an infinite point
+
+      (as for vector, absolute position does NOT matter) 
+    
+  - Unifed Expression for Affine \& Linear Transformation
+  
+    - easier, simpler \& faster computation
+
+## Topics
+
 ### Localisation & Tracking
 
 - Goal
@@ -155,7 +235,7 @@
 
     - update
 
-      $\begin{align*} y&=z-Hx \\ S&= HPH^T+R & \text{map uncertainty into measurement space} \\ K &= PH^T S^{-1} \\ x' &= x+Ky \\ P' &= (I-KH)P \end{align*}​$ 
+      $\begin{align*} y&=z-Hx \\ S&= HPH^T+R & \text{map uncertainty into measurement space} \\ K &= PH^T S^{-1} \\ x' &= x+Ky \\ P' &= (I-KH)P \end{align*}$ 
 
     - where $Z\text{= measurement}, H\text{= measurement function}, R\text{= measurement noise}$ 
 
