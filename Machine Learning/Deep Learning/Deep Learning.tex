@@ -2350,12 +2350,19 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Raw Data
 		\begin{itemize}
-		\item need to embed detection
+		\item directly from sensor $\Rightarrow$ need to embed detection
 		\end{itemize}
-	\item Detection Result
+	\item Object Representation
 		\begin{itemize}
 		\item bounding box: 2/3-D size, with pose, motion, velocity, etc. estimation available
-		\item point model: no direct size, centroid point with attributes denoting an object
+		\item point model: centroid point with attributes denoting an object (including bbox)
+		\item silhouette: for non-rigid object
+		\item articulate: for articulated model, e.g. human skeletal model
+		\end{itemize}
+	\item Object Existence
+		\begin{itemize}
+		\item probability density for existence
+		\item probability of existence as a feature in representation info
 		\end{itemize}
 	\end{itemize}
 \item Goal
@@ -2363,16 +2370,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Trajectory
 		\begin{itemize}
 		\item recover the true trajectory of the object, including current localization
-		\end{itemize}
-	\end{itemize}
-\item Challenge
-	\begin{itemize}
-	\item Data Association
-		\begin{itemize}
-		\item skipped if no explicit detection performed
-		\item single association: associate observation (detection result) with tracker \\
-		$\Rightarrow$ which observation belongs to which trajectory
-		\item global association: each trajectory considers all observation (with weighting)
 		\end{itemize}
 	\end{itemize}
 \item Evaluation Metrics
@@ -2396,30 +2393,78 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Classic Approach}
+\subsubsection{Detection in Tracking}
 \begin{itemize}
-\item Point-Kalman Filter
+\item Single-frame Detection
 	\begin{itemize}
-	\item Detector
+	\item \hyperref[DL_CV_Objdet]{Bounding Box Detection}
 		\begin{itemize}
-		\item basic rule/statistical model
-		\item point model as detection result
+		\item YOLO, R-CNN, etc.
 		\end{itemize}
-	\item Gated Association
+	\item Point Detection
 		\begin{itemize}
-		\item search for detection in a vicinity of prediction; if failed, prediction used \\
-		$\Rightarrow$ an approximation of JPDA (joint probability Data Association)
+		\item detect landmarks
 		\end{itemize}
-	\item Tracker
+	\item Background Modeling
 		\begin{itemize}
-		\item classic KF, for location, velocity, accelerate
+		\item segmentation, ...
 		\end{itemize}
+	\end{itemize}
+\item Temporal Detection
+	\begin{itemize}
+	\item Optic Flow
+		\begin{itemize}
+		\item able to represent non-rigid, deformable object
+		\item yet, may failed in moving foreground (e.g. birds, fog, smoke...)
+		\end{itemize}
+	\item Motion Detection
 	\item Orientation
 		\begin{itemize}
-		\item frame differencing of current-previous location
+		\item frame differencing of location, ...
+		\end{itemize}
+	\item Background Modeling
+		\begin{itemize}
+		\item adaptive background, ...
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
+\subsubsection{Data Association}
+\begin{itemize}
+\item Gated Association
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item skipped if no explicit detection performed
+		\item single association: associate observation (detection result) with tracker \\
+		$\Rightarrow$ which observation belongs to which trajectory
+		\item global association: each trajectory considers all observation (with weighting)
+		\end{itemize}
+	\end{itemize}
+\item Joint Probability Data Association
+	\begin{itemize}
+	\item 
+	\end{itemize}
+\item Graph Matching with Affinity Constraint
+	\begin{itemize}
+	\item 
+	\end{itemize}
+\item Template Matching
+\end{itemize}
+
+\subsubsection{Detection Based Tracking}
+\begin{itemize}
+\item Kalman Filter
+\item Particle Filter
+\item Multiple Hypothesis Tracking
+\item Contour Tracking
+\item Shape Matching
+\end{itemize}
+\subsubsection{Distributed Tracking}
+
+\subsubsection{Joint Tracking}
+
+\subsubsection{title}
 
 \subsection{Face Recognition}
 \subsubsection{Problem Formulation}
