@@ -2343,6 +2343,84 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
+\subsection{Object Tracking}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Raw Data
+		\begin{itemize}
+		\item need to embed detection
+		\end{itemize}
+	\item Detection Result
+		\begin{itemize}
+		\item bounding box: 2/3-D size, with pose, motion, velocity, etc. estimation available
+		\item point model: no direct size, centroid point with attributes denoting an object
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Trajectory
+		\begin{itemize}
+		\item recover the true trajectory of the object, including current localization
+		\end{itemize}
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Data Association
+		\begin{itemize}
+		\item skipped if no explicit detection performed
+		\item single association: associate observation (detection result) with tracker \\
+		$\Rightarrow$ which observation belongs to which trajectory
+		\item global association: each trajectory considers all observation (with weighting)
+		\end{itemize}
+	\end{itemize}
+\item Evaluation Metrics
+	\begin{itemize}
+	\item Percentage of Time Step with Success
+		\begin{itemize}
+		\item overlap success: IoU of pred-label bounding box $\ge$ threshold $=0.25$
+		\item orientation success: diff of pred-label yaw angle $\le$ threshold $=\ang{10}$
+		\item other success... \\
+		$\Rightarrow$ review the overall estimated quality
+		\end{itemize}
+	\item Normalized Cumulative Sum of Success vs Normalized Time
+		\begin{itemize}
+		\item a plot $\Rightarrow$ review tracking quality over time
+		\end{itemize}
+	\item Trajectory Difference
+		\begin{itemize}
+		\item compare the similarity of pred-label trajectory \\
+		(may consider abrupt change, slowly drift, and etc.)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Classic Approach}
+\begin{itemize}
+\item Point-Kalman Filter
+	\begin{itemize}
+	\item Detector
+		\begin{itemize}
+		\item basic rule/statistical model
+		\item point model as detection result
+		\end{itemize}
+	\item Gated Association
+		\begin{itemize}
+		\item search for detection in a vicinity of prediction; if failed, prediction used \\
+		$\Rightarrow$ an approximation of JPDA (joint probability Data Association)
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item classic KF, for location, velocity, accelerate
+		\end{itemize}
+	\item Orientation
+		\begin{itemize}
+		\item frame differencing of current-previous location
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
 \subsection{Face Recognition}
 \subsubsection{Problem Formulation}
 \begin{itemize}
