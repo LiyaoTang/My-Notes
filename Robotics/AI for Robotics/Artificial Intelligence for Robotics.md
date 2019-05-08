@@ -637,3 +637,51 @@
 
   - University of Washinton
     - Steve Seitz: large image collection 3D reconstruction map
+
+## Application
+
+### Autonomous Driving
+
+- Scenario
+  - Highway
+    - transportation
+    - personal vehicle
+  - Semi-enclosed Area
+    - minibus in airport, port, etc.
+    - valet parking
+    - auto-worker
+  - Restricted Road Condition
+- Open-source Platform
+  - Apollo
+    - cloud: HD map, GPS, auto-update, internet of vehicle, over-the-air update, ...
+    - software: pilot algorithm, user interaction
+    - hardware: compute utility and other control units 
+    - vehicle: 
+- Real-time Requirement
+  - Preference
+    - normal > collision avoidance > light collision > severe collision
+  - Defined Boundary
+    - 
+  - Safety Monitoring & Recording
+    - driver condition
+    - environment, road condition
+  - Redundancy
+    - hardware
+    - software
+  - Degradation
+    - driver intervention alert based on monitoring
+    - 
+  - Fail Safe
+    - stop in safe zone 
+- System Evaluation
+  - Safety
+    - mile per intervention (MPI)
+    - autonomous driving system coverage (ADSC)
+  - Experience
+    - mile per bad experience (MPBE)
+  - Meta-Metric
+    - total miles driven (TMD) $\Rightarrow$ the larger, the more accurate other metrics can be
+- Business Expectation
+  - Platform
+    - as operating system, provide extra-value service
+  - Robo-Taxi
