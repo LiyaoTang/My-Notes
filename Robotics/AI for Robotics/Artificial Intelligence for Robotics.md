@@ -80,6 +80,12 @@
 
 ## Topics
 
+### Perception
+
+#### Vision
+
+#### Radar
+
 ### Localisation & Tracking
 
 - Goal
@@ -665,15 +671,18 @@
   - Safety Monitoring & Recording
     - driver condition
     - environment, road condition
+  - Hardware Survival Capability
+    - temperature, humidity, voltage, impact, EMC, etc.
+    - field test: GMW3172
   - Redundancy
-    - hardware
-    - software
+    - performance: 
+    - information:
+    - timing:
   - Degradation
     - driver intervention alert based on monitoring
-    - 
   - Fail Safe
     - stop in safe zone 
-- System Evaluation
+- System Evaluation Metric
   - Safety
     - mile per intervention (MPI)
     - autonomous driving system coverage (ADSC)

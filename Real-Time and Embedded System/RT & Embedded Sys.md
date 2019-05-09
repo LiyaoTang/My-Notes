@@ -250,6 +250,14 @@
     - No abstraction for large system
     - Hard to read (messy)
 
+#### 3. Design via Real-time Language
+
+-  Program Logic and Hardware Logic
+  - Temporal Logic
+    - need to consider the hardware behaviour according to the program logic
+  - Fault Tolerance
+    - need to consider the hardware ability for program design
+
 
 ### Physical Coupling
 
@@ -300,6 +308,8 @@
     - By time of flight/phase/light: linear; resolution depends on detecting signals
   - Speed:
     - Doppler current profilers
+
+- Example: Lidar
 
 - <u>Effect on Realt-Time Embedded System</u>: 
 
@@ -505,6 +515,14 @@
     - Access: through dual-ported RAM (atomicity from harware support) 
 
     ![TPU (accessed via dual-ported RAM)](.\TPU (accessed via dual-ported RAM).PNG) 
+  
+- Field Programmable Gate Array (FPGA)
+
+  - Components
+    - clock tree
+    - programmable interconnect, configurable logic blocks
+    - RAM, CPU (cores), dedicated multipliers
+    - I/O blocks 
 
 #### 4. Handling Device (More in Scheduling)
 
@@ -760,7 +778,7 @@
 
       ​	procedure declares every potentially raised exception + propagate exception outside static scope if not handled (becomes asynchronous)
 
-      ​$\Rightarrow$ messy
+      $\Rightarrow$ messy
 
   - Uncaught Exception Propagation
 
@@ -886,7 +904,7 @@
 ### Synchronism
 
 - Note on Mutual Exclusion
-  - task safe $\neq​$ interrupt handler safe
+  - task safe $\neq$ interrupt handler safe
     - interrupt handler (a 'procedure') can NOT wait insid a queue (no PCB)
 
 #### 1. Shared Memory
@@ -959,7 +977,7 @@
 
       (Ada: implements via scheduler $\Rightarrow$ task suspended on predicate)
 
-      ​*Note: need hardware support
+      *Note: need hardware support
 
   - Simulated by asynchronous message passing
 
@@ -1451,7 +1469,7 @@
 
   - Practical re-scheduling (for reclaiming)
 
-    - Algorithm without passing tasks $\Rightarrow​$ bounded complexity (by constant)
+    - Algorithm without passing tasks $\Rightarrow$ bounded complexity (by constant)
     - Algorithm with passing $\Rightarrow$ in general $O(logn)$, but bounded with restricted passing
 
 - Practical Reclaiming Algorithm - dealing with <u>Inter-dependent</u> tasks
@@ -1478,11 +1496,11 @@
 
     - Based on $S$: 
 
-      ​$t_{<i} = \{ t_k \mid ft_k < st_i \}$ - finish before $t_i$
+      $t_{<i} = \{ t_k \mid ft_k < st_i \}$ - finish before $t_i$
 
-      ​$t_>i = \{ t_k \mid st_k > ft_i \}$ - start after $t_i$ 
+      $t_>i = \{ t_k \mid st_k > ft_i \}$ - start after $t_i$ 
 
-      ​$t_{\sim i} = \{ t_k \mid (t_k \not\in t_{<i}) \land (t_k \not\in t_{>i}) \}$ - overlap with $t_i$ 
+      $t_{\sim i} = \{ t_k \mid (t_k \not\in t_{<i}) \land (t_k \not\in t_{>i}) \}$ - overlap with $t_i$ 
 
     $\Rightarrow$ allow task in $t_{\sim i}$ running concurrently to $t_i$, but not overlap with $t_{<i}$ or $t_{>i}$ 
 
@@ -1504,7 +1522,7 @@
 
       ​	2. most recent task restricting me (in $t_{<i} \land \boxtimes$) queuing on other processor
 
-      ​$\Rightarrow$ each task stares at at most $m$ tasks ($m$ = num of processors)
+      $\Rightarrow$ each task stares at at most $m$ tasks ($m$ = num of processors)
 
     - Completion Bit Matrix ($CBM$)
 
@@ -1821,3 +1839,9 @@
   - Formalization
     - Proof correctness: Temporal logic, real-time logic
     - Provable predicates for languages
+  
+- Reliability by Design
+
+  - Hardware
+    - optimization problem with constraint $\Rightarrow$ maximize joint survival prob, s.t. cost $\le$ budget
+    - global constraint: intervention between components
