@@ -1461,6 +1461,9 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item easily affect by local dependency (as longterm dependency lost)
 		\item gradient exploding, due to multiple / too many updates on the same weights \\
 		(solved by gradient clipping)
+		\item hard to converge, due to fluctuating gradient in an unroll \\ 
+		(noisy intermediate stage) \\
+		$\Rightarrow$ initial short sequence to overcome plateaus, then long sequence for dependency
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
@@ -2285,7 +2288,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item independent logistic regression for each class (instead of hierarchical softmax) \\ 
 		$\Rightarrow$ multiple binary classification (NOT assuming mutual exclusive classes) \\
-		$\Rightarrow$ multi-label approach (box may contain more than one class) \\
+		$\Rightarrow$ multi-label approach (box may contain more than one class)
 		\end{itemize}
 	\item Inference
 		\begin{itemize}
@@ -2452,19 +2455,112 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \item Template Matching
 \end{itemize}
 
-\subsubsection{Detection Based Tracking}
+\subsubsection{Online Tracking}
 \begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item trade off speed - model complexity, as train on arriving frames
+		\item adaptive
+		\end{itemize}
+	\end{itemize}
 \item Kalman Filter
 \item Particle Filter
 \item Multiple Hypothesis Tracking
 \item Contour Tracking
 \item Shape Matching
 \end{itemize}
-\subsubsection{Distributed Tracking}
+
+\subsubsection{Offline-trained Tracker}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item learn similarity functions between frames offline
+		\item fast, as no training needed
+		\item NOT adaptive $\Rightarrow$ failed in large appearance change, e.g. occlusion etc.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Tracking-by-Detection}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item offline trained detector, online updating tracker
+		\item yet, speed limited by tracker (as online update)
+		\end{itemize}
+	\end{itemize}
+
+\item Re$^3$: Real-time Recurrent Regression Network
+	\begin{itemize}
+	\item Tracking Initialization
+		\begin{itemize}
+		\item image sequence with an initial bounding box over arbitrary object
+		\end{itemize}
+	\item Detector
+		\begin{itemize}
+		\item CNN to extracts multi-scale representation from image \\
+		$\Rightarrow$ more descriptive (human in read/blue shirt)
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item two-layer, factored LSTM, taking tracker input at both layer \\
+		$\Rightarrow$ longer dependency \& more complex object transformation with 2 layers
+		\item hidden state as tracker state \\
+		$\Rightarrow$ forward-prop to update (no training)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item crop $t^\text{th}$ image: center at current bounding box, extended to twice of box size
+		\item crop $t+1^\text{th}$ image: center at bounding box of $t$, twice size
+		\item late fusion: concat CNN output from $t, t+1$ \& fused by dense layer (projection)
+		\item tracker LSTM updates on fused
+		\item dense layer regress the output at last layer for bounding box at $t+1$
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item bounding box defined by up-left, right-bottom coordinates in the crop \\
+		(hence as a ratio of bounding box size)
+		\item $L1$ loss to encourage exact match
+		\item short sequence ($2$ unrolls) \& multi-batch ($64$) to overcome plateaus \\
+		$\Rightarrow$ slowly increase to $32$ unrolls \& batch size $4$
+		\item use ground-truth crop when training with short sequence \\ 
+		$\Rightarrow$ slowly increase probability to use predicted crop, when increasing unrolls \\
+		$\Rightarrow$ to prevent from accumulating drifts
+		\end{itemize}
+	\item Data Augmentation
+		\begin{itemize}
+		\item utilize detection dataset: crop the object with bounding box
+		\item random crop a patch from the same image as background
+		\item occluders randomly taken from the same image
+		\item object with box initialized with velocity with Gaussian noise
+		\end{itemize}
+	\item Tracking
+		\begin{itemize}
+		\item crops fed into net at each time step
+		\item LSTM state reset after each $32$ frames (as maximally trained with $32$ unrolls) \\
+		$\Rightarrow$ hot-start by using the state in $1^\text{st}$ forward pass (instead of $\mathbf 0$) \\
+		$\Rightarrow$ preserve the initial encoding \& recover from drift
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item end-to-end training for both detector and tracker
+		\item model regress changes to the box ratio $\Rightarrow$ easier
+		\item observation usefulness modeled by LSTM tracker
+		\item LSTM tracker needs specialized training, and single-layer LSTM NOT enough \\
+		(or, can hurt performance due to instability)
+		\item LSTM state reset: prevent drift, yet can fail if initial box overlaps other object
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
 \subsubsection{Joint Tracking}
 
-\subsubsection{title}
 
 \subsection{Face Recognition}
 \subsubsection{Problem Formulation}
@@ -2628,8 +2724,117 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsection{Point Cloud Recognition}
-
+\subsection{Point Cloud Data Processing}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Point Cloud
+		\begin{itemize}
+		\item from lidar $\Rightarrow$ $3$-D position x,y,z \& reflection intensity
+		\item from radar $\Rightarrow$ $2$-D bird-view x,y \& intensity (rcs) \& speed (along radial direction)
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item $3$-D Environment Modeling
+		\begin{itemize}
+		\item bounding box
+		\item, segmentation (per-point classification)
+		\item instance segmentation, etc.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Common Preprocessing}
+\begin{itemize}
+\item Voxelization
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item create $3$-D pixel, the voxel
+		\end{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item apply $3$-D grid on the space \\ 
+		$\Rightarrow$ each point resides in a spatial cell, the voxel
+		\end{itemize}
+	\end{itemize}
+\item Bird-view Projection
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item project onto $2$-D map of a bird-view perspective \\
+		$\Rightarrow$ better resolution due to reduced dimension
+		\end{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item apply $2$-D grid on the ground \\
+		$\Rightarrow$ each point resides in a cell, or, each cell consists of several point
+		\item extract height information from points in each cell \\
+		$\Rightarrow$ each pixel with a height $h$
+		\end{itemize}
+	\end{itemize}
+\item Cylindrical Projection (Frontal View)
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item project onto $2$-D map of pilot perspective \\
+		$\Rightarrow$ better align with camera perspective
+		\end{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item given $3$-D cartesian coord $x,y,z$ \\ 
+		$\Rightarrow$ spherical coord $r = \sqrt{x^2+y^2+z^2}, \theta = \arctan{\frac y x}, \phi=\arcsin{\frac {z} {r}}$
+		\item slicing on horizontal \& vertical angle: each point resides in a $3$-D slice \\ 
+		$\Rightarrow$ normalized by angle resolution $\theta' = \floor*{\frac \theta {\delta \theta}}, \phi' = \floor*{\frac \phi {\delta \phi}}$
+		\item each pixel $(\theta', \phi')$ extract depth $d=\sqrt{x^2+y^2}$ \& height $z$ from its point(s)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Point Cloud}
+\begin{itemize}
+\item LMNet
+	\begin{itemize}
+	\item Preprocessing
+		\begin{itemize}
+		\item cylindrical projection
+		\end{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item given a pixel (corresponding to a lidar point) $p$ in a bounding box \\ 
+		$\Rightarrow$ encode box under coord originated at $p$ \\
+		$\Rightarrow$ axises: $x$ along radial direction; $y$ parallel with horizontal plane; $z$ accordingly
+		\item encode $8$ corner $\Rightarrow$ $24$ channel encoding for each box
+		\end{itemize}
+	\item Classification Encoding
+		\begin{itemize}
+		\item per-pixel classification (car, pedestrian, cyclist, none)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item per-pixel regression \& classification $\Rightarrow$ standard CV detection
+		\item non-max suppression as postprocessing\\ 
+		(score modified to be the num of nearby-box)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item convs - max pooling - dilated convs - unpooling - branch for regression/classification
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item point-wise weighting \\
+		$\Rightarrow$ regression: consider box size for each class \\
+		$\Rightarrow$ classification: downsample background pixel (standard)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item real-time timing due to simple structure with dilated conv \\
+		(though performance hurt...)
+		$\Rightarrow$ enable further fusion with image, pertaining real-time timing
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Point Cloud + Image Fusion}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Natural Language Processing}

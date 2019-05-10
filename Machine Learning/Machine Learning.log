@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  8 MAY 2019 21:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  10 MAY 2019 16:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1338,10 +1338,10 @@ t line 1435.
 File: "./Deep Learning/layer-rnn lstm".png Graphic file (type png)
 <use "./Deep Learning/layer-rnn lstm".png>
 Package pdftex.def Info: "./Deep Learning/layer-rnn lstm".png  used on input li
-ne 1497.
+ne 1500.
 (pdftex.def)             Requested size: 184.06284pt x 188.08444pt.
 
-Overfull \hbox (186.28505pt too wide) in paragraph at lines 1496--1506
+Overfull \hbox (186.28505pt too wide) in paragraph at lines 1499--1509
 $[]$ $[]$ 
  []
 
@@ -1350,10 +1350,10 @@ $[]$ $[]$
 File: "./Deep Learning/layer-rnn gru".png Graphic file (type png)
 <use "./Deep Learning/layer-rnn gru".png>
 Package pdftex.def Info: "./Deep Learning/layer-rnn gru".png  used on input lin
-e 1543.
+e 1546.
 (pdftex.def)             Requested size: 184.06284pt x 123.80748pt.
 
-Overfull \hbox (186.28505pt too wide) in paragraph at lines 1542--1551
+Overfull \hbox (186.28505pt too wide) in paragraph at lines 1545--1554
 []$[]$ $[]$ 
  []
 
@@ -1363,11 +1363,11 @@ pt>
 File: "./Deep Learning/layer-rnn bidirection".png Graphic file (type png)
 <use "./Deep Learning/layer-rnn bidirection".png>
 Package pdftex.def Info: "./Deep Learning/layer-rnn bidirection".png  used on i
-nput line 1580.
+nput line 1583.
 (pdftex.def)             Requested size: 207.56285pt x 98.49625pt.
 
 [87 <./Deep Learning/layer-rnn bidirection.png>] [88]
-Overfull \hbox (45.13087pt too wide) in paragraph at lines 1739--1740
+Overfull \hbox (45.13087pt too wide) in paragraph at lines 1742--1743
 []\OT1/cmr/m/n/10 ([conv64]$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10 2, pool) $\OMS
 /cmsy/m/n/10 !$ \OT1/cmr/m/n/10 ([conv128]$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10
  2, pool) $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 ([conv256]$\OMS/cmsy/m/n/10 ^^B$
@@ -1376,57 +1376,58 @@ msy/m/n/10 ^^B$\OT1/cmr/m/n/10 3+pool)$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10 2
  []
 
 [89] [90] [91] [92] [93] [94] [95]
-Overfull \hbox (40.53342pt too wide) in paragraph at lines 2217--2219
+Overfull \hbox (40.53342pt too wide) in paragraph at lines 2220--2222
 []\OT1/cmr/m/n/10 for each cell, $\OML/cmm/m/it/10 N[]$ \OT1/cmr/m/n/10 bound-i
 ng boxes: $[[][\OML/cmm/m/it/10 t[]; t[]; t[]; t[]\OT1/cmr/m/n/10 ]\OML/cmm/m/i
 t/10 ; []\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 p[]; :::; p[]\OT1/cmr/m/n/10 ]]$ 
  []
 
 [96]
-Underfull \hbox (badness 10000) in paragraph at lines 2286--2289
-
- []
-
-[97]
-<"./Deep Learning/topic-objdet onestage yolov3 architecture".png, id=1126, 1204
+<"./Deep Learning/topic-objdet onestage yolov3 architecture".png, id=1121, 1204
 .5pt x 669.50125pt>
 File: "./Deep Learning/topic-objdet onestage yolov3 architecture".png Graphic f
 ile (type png)
 <use "./Deep Learning/topic-objdet onestage yolov3 architecture".png>
 Package pdftex.def Info: "./Deep Learning/topic-objdet onestage yolov3 architec
-ture".png  used on input line 2303.
+ture".png  used on input line 2306.
 (pdftex.def)             Requested size: 373.61061pt x 207.66583pt.
- [98 <./Deep Learning/topic-objdet onestage yolov3 architecture.png>]
-[99] [100] [101]
-<"./Deep Learning/topic-image style transfer nst overview".png, id=1156, 732.73
+ [97] [98 <./Deep Learning/topic-objdet onestage yolov3 architecture.png>]
+[99] [100] [101] [102]
+<"./Deep Learning/topic-image style transfer nst overview".png, id=1160, 732.73
 75pt x 220.825pt>
 File: "./Deep Learning/topic-image style transfer nst overview".png Graphic fil
 e (type png)
 <use "./Deep Learning/topic-image style transfer nst overview".png>
 Package pdftex.def Info: "./Deep Learning/topic-image style transfer nst overvi
-ew".png  used on input line 2591.
+ew".png  used on input line 2687.
 (pdftex.def)             Requested size: 207.56285pt x 62.55165pt.
-<"./Deep Learning/topic-image style transfer nst style matrix".png, id=1157, 16
+ [103 <./Deep Learning/topic-image style transfer nst overview.png (PNG copy)>]
+<"./Deep Learning/topic-image style transfer nst style matrix".png, id=1168, 16
 06.0pt x 530.98375pt>
 File: "./Deep Learning/topic-image style transfer nst style matrix".png Graphic
  file (type png)
 <use "./Deep Learning/topic-image style transfer nst style matrix".png>
 Package pdftex.def Info: "./Deep Learning/topic-image style transfer nst style 
-matrix".png  used on input line 2625.
+matrix".png  used on input line 2721.
 (pdftex.def)             Requested size: 207.56285pt x 68.6252pt.
- [102 <./Deep Learning/topic-image style transfer nst overview.png (PNG copy)>]
- [103 <./Deep Learning/topic-image style transfer nst style matrix.png>]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 2690
+ [104 <./Deep Learning/topic-image style transfer nst style matrix.png>]
+Overfull \hbox (7.40826pt too wide) in paragraph at lines 2821--2822
+[]\OT1/cmr/m/n/10 convs - max pool-ing - di-lated convs - un-pool-ing - branch 
+for re-gres-sion/classification 
+ []
+
+[105]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 2893
 .
  (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 2690.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 2893.
 
-
-[104] [105] [106]
-Overfull \hbox (3.24109pt too wide) in paragraph at lines 2907--2908
+ [106]
+[107] [108] [109]
+Overfull \hbox (3.24109pt too wide) in paragraph at lines 3110--3111
 []$\OMS/cmsy/m/n/10 )$ \OT1/cmr/m/n/10 se-quence prob-a-bil-ity $\OML/cmm/m/it/
 10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = \OML/cmm
 /m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/1
@@ -1436,25 +1437,25 @@ cmsy/m/n/10 j\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = [] \OML/cmm/m/it
 /10 y[]$ 
  []
 
-[107] [108]
-Overfull \hbox (37.54732pt too wide) in paragraph at lines 3100--3101
+[110] [111]
+Overfull \hbox (37.54732pt too wide) in paragraph at lines 3303--3304
 []\OT1/cmr/m/n/10 encoder scan through au-dio frames & de-coder out-put let-ter
 /punctuation/"blank"/"space" 
  []
 
-[109] [110] [111] [112] [113] [114] [115]) [116]
+[112] [113] [114] [115] [116] [117] [118]) [119]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 94.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 94.
  (./Machine Learning.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 94.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 94.
 Package rerunfilecheck Info: File `"Machine Learning".out' has not changed.
-(rerunfilecheck)             Checksum: 60480E6B7A066BF7AC04D78B017E67DA;6676.
+(rerunfilecheck)             Checksum: A10D18B5BF4EA020DDD22A867742AF8F;6680.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 94.
  ) 
 Here is how much of TeX's memory you used:
- 22160 strings out of 492639
- 408674 string characters out of 6129286
+ 22167 strings out of 492639
+ 408746 string characters out of 6129286
  484371 words of memory out of 5000000
  25358 multiletter control sequences out of 15000+600000
  550602 words of font info for 95 fonts, out of 8000000 for 9000
@@ -1487,10 +1488,10 @@ f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2018/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2018/texmf-dist
 /fonts/type1/public/amsfonts/symbols/msam5.pfb>
-Output written on "Machine Learning.pdf" (122 pages, 3202428 bytes).
+Output written on "Machine Learning.pdf" (125 pages, 3208672 bytes).
 PDF statistics:
- 1437 PDF objects out of 1440 (max. 8388607)
- 1247 compressed objects within 13 object streams
- 405 named destinations out of 1000 (max. 500000)
+ 1454 PDF objects out of 1728 (max. 8388607)
+ 1261 compressed objects within 13 object streams
+ 412 named destinations out of 1000 (max. 500000)
  852 words of extra memory for PDF output out of 10000 (max. 10000000)
 
