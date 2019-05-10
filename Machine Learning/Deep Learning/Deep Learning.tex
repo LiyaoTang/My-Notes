@@ -344,7 +344,7 @@
 		\begin{itemize}
 		\item neural network or other structure, shared for multiple tasks \\
 		(instead of breaking down to different parts like segmentation, detection, etc.) \\
-		(instead of the split of cv, nlp, plaining, etc.)
+		(instead of the split of cv, nlp, planning, etc.)
 		\item $\Rightarrow$ a full agent (instead of decomposed function) \\
 		$\Rightarrow$ optimization method/objective need to be carefully defined
 		\end{itemize}
@@ -2740,8 +2740,19 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item $3$-D Environment Modeling
 		\begin{itemize}
 		\item bounding box
-		\item, segmentation (per-point classification)
+		\item segmentation (per-point classification)
 		\item instance segmentation, etc.
+		\end{itemize}
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Sparsity
+		\begin{itemize}
+		\item point gets much sparser in distance (e.g. $>$ 40m)
+		\end{itemize}
+	\item Varying Density
+		\begin{itemize}
+		\item due to occlusion, distance etc.
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -2793,6 +2804,65 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \end{itemize}
 \subsubsection{Point Cloud}
 \begin{itemize}
+\item PointNet
+	\begin{itemize}
+	\item 
+	\end{itemize}
+\item Vote3Deep
+	\begin{itemize}
+	\item 
+	\end{itemize}
+\item VolxelNet
+	\begin{itemize}
+	\item Preprocessing
+		\begin{itemize}
+		\item voxelization
+		\item random sampling points in each voxel to be at most $T$ points a voxel
+		\end{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item $x,y,z$ for center position; $l,w,h$ for size; $\theta$ for orientation, the yaw rate \\
+		$\Rightarrow x_g,y_g,z_g,l_g,w_g,h_g,\theta^g$ the ground truth box \\
+		$\Rightarrow x_a,y_a,z_a,l_a,w_a,h_a,\theta^a$ an anchor box
+		\item normalized residual position: $\Delta x=\frac{x_g-x_a}{\sqrt{l_a^2+w_a^2}}, \Delta y=\frac{y_g-y_a} {\sqrt{l_a^2+w_a^2}}, \Delta z=\frac{z_g-z_a}{h_a}$
+		\item normalized size ratio: $\Delta l=\log(\frac {l_g}{l_a}), \Delta w = \log(\frac{w_g}{w_a}), \Delta h=\log(\frac{h_g}{h_a})$
+		\item residual orientation: $\Delta \theta = \theta_g - \theta_a$
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item voxel map with raw points as input, output $3$-D classification \& regression map
+		\end{itemize}
+	\item Voxel Feature Encoding Layer
+		\begin{itemize}
+		\item voxel $V=\{p_i=[x_i,y_i,z_i,r_i]\in \mathbb R^4 \}_{i=1,...t}, t<T$
+		\item augment each point with its offset to the centroid $(v_x,v_y,v_z)$, the mean of $p\in V$ \\
+		$\Rightarrow p'_i = [x_i,y_i,z_i,r_i,x_i-v_x, y_i-v_y, z_i-v_z]$
+		\item $1\times1$ conv (with batch norm, ReLu) on each feature point: $p'_i\rightarrow f_i$
+		\item element-wise max pooling on $f_i\in V$: voxel-wise feature $\hat f$
+		\item augment each processed feature point with voxel feature: $f_i^\text{out}=[f_i,\hat f]$
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item stacked voxel feature encoding layer: deep net to extract feature for each voxel
+		\item detection model: \hyperref[]{RPN} modified for $3$-D detection
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item per-voxel weighting: balanced according to num of positive example
+		\item smooth L1 for regression loss
+		\item further up-/down-sample positive/negative voxel in classification loss
+		\item predicted box considered positive, if its IoU with label box $> 0.6$ \& is the highest \\
+		(negative, if its IoU with any label box $<0.45$) \\
+		(not-care, if its IoU with any label box $\in [0.45, 0.6]$)
+		\item data augmentation: box (collision-free) perturbation in location, size, rotation
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item range: $[-3,1]\times[-20,20]\times[0,48]$ in height-width-length
+		\item voxel feature extraction: voxel-level PointNet \\ 
+		$\Rightarrow$ able to concat with various detection models (e.g. YOLO, etc.)
+		\end{itemize}
+	\end{itemize}
 \item LMNet
 	\begin{itemize}
 	\item Preprocessing
