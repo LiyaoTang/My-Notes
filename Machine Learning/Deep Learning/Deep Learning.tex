@@ -1355,6 +1355,16 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \item Atrous Convolution
 \item Deconvolution
+
+\item Convolution Implementation
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item span the original input in the extra dimension, by duplicating the input \\
+		$\Rightarrow$ each input location generate its contribution at corresponding output location \\
+		(collected by the sum op in matrix multiplication)
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{Pooling Layer}
@@ -2438,11 +2448,22 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Procedure
 		\begin{itemize}
-		\item skipped if no explicit detection performed
-		\item single association: associate observation (detection result) with tracker \\
+		\item given prediction, its variance and observation noise, filter out an interested area
+		\item consider only observation inside the interested area (satisfying requirements)
+		\item score each observation \& associate observation (detection result) with tracker
 		$\Rightarrow$ which observation belongs to which trajectory
-		\item global association: each trajectory considers all observation (with weighting)
 		\end{itemize}
+	\item Global Nearest Neighbor
+		\begin{itemize}
+		\item choose the best / most probable / nearest
+		\item under the constraint that an observation can associate with at most one track)
+		\end{itemize}
+	\item Nearest Neighbor
+		\begin{itemize}
+		\item choose the best / most probable / nearest \\ 
+		\item thought one observation may be used by multiple track(s)
+		\end{itemize}
+		
 	\end{itemize}
 \item Joint Probability Data Association
 	\begin{itemize}
@@ -2805,10 +2826,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \subsubsection{Point Cloud}
 \begin{itemize}
 \item PointNet
-	\begin{itemize}
-	\item 
-	\end{itemize}
-\item Vote3Deep
 	\begin{itemize}
 	\item 
 	\end{itemize}
