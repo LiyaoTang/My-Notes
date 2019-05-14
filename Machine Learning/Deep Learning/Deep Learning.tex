@@ -2604,7 +2604,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Understanding
 		\begin{itemize}
 		\item learn similarity functions between frames offline
-		\item fast, as no training needed
+		\item fast, as no online training needed
 		\item NOT adaptive $\Rightarrow$ failed in large appearance change, e.g. occlusion etc.
 		\end{itemize}
 	\end{itemize}
@@ -2618,6 +2618,46 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item offline trained detector, online updating tracker
 		\item yet, speed limited by tracker (as online update)
+		\end{itemize}
+	\end{itemize}
+
+\item GOTURN: 
+	\begin{itemize}
+	\item Tracking Initialization
+		\begin{itemize}
+		\item arbitrary target object selected for tracking (treated as ground truth)
+		\end{itemize}
+	\item Detector
+		\begin{itemize}
+		\item CNN
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item no explicit tracker (not modeling temporal info)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item crop $t^\text{th}$ image: centered at current bounding box with context
+		\item crop $t+1^\text{th}$ image: centered at bbox in $t$, doubled size (gating)
+		\item encode both image via CNN detector; concat encoding \& feed to dense layer
+		\item regress the bbox in $t+1^\text{th}$ crop
+		\end{itemize}
+	\item Tracking
+		\begin{itemize}
+		\item $1$-step prediction of location, then predict further on...
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item train with consecutive image pair from sequences
+		\item $L1$ loss for exact match
+		\item data augment: motion noise applied on the $2^\text{th}$ image; random crop on the $1^\text{st}$\\ 
+		(distribution of motion noise chosen from cross-validation)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item $2$-frame model, $1$-step prediction, no explicit temporal tracking \\
+		$\Rightarrow$ net may learn to locate the nearest similar object
+		\item real-time timing ($100$fps)
 		\end{itemize}
 	\end{itemize}
 
@@ -2641,8 +2681,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Inference
 		\begin{itemize}
-		\item crop $t^\text{th}$ image: center at current bounding box, extended to twice of box size
-		\item crop $t+1^\text{th}$ image: center at bounding box of $t$, twice size
+		\item crop $t^\text{th}$ image: centered at current bounding box, extended to twice of box size
+		\item crop $t+1^\text{th}$ image: centered at box of $t$, doubled size (gating)
 		\item late fusion: concat CNN output from $t, t+1$ \& fed into dense layer for fusion
 		\item tracker LSTM updates on fused info
 		\item dense layer regress the tracker output at last layer for bounding box at $t+1$
@@ -2674,7 +2714,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item end-to-end training for both detector and tracker
+		\item end-to-end training for both detector and tracker (improved GOTURN)
 		\item model regress changes to the box ratio $\Rightarrow$ easier
 		\item observation usefulness modeled by LSTM tracker
 		\item LSTM tracker needs specialized training, and single-layer LSTM NOT enough \\
@@ -2725,7 +2765,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Interesting Predicted Bounding Box Encoding
 		\begin{itemize}
 		\item direct encoding: x,y,w,h + full image
-		\item mask: bounding box plot onto a separate mask, concat to the full image
+		\item mask: bounding box plot onto a separate mask, concat to the full image \\
+		\item further, attention mechanism
 		\end{itemize}
 		$\Rightarrow$ enable global track for multiple obj track (single RNN for all track in an image)
 	\item End-to-End MOT
