@@ -2618,7 +2618,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Detector
 		\begin{itemize}
 		\item CNN to extracts multi-scale representation from image \\
-		$\Rightarrow$ more descriptive (human in read/blue shirt)
+		$\Rightarrow$ more descriptive info (human in red/blue shirt)
 		\end{itemize}
 	\item Tracker
 		\begin{itemize}
@@ -2631,9 +2631,9 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item crop $t^\text{th}$ image: center at current bounding box, extended to twice of box size
 		\item crop $t+1^\text{th}$ image: center at bounding box of $t$, twice size
-		\item late fusion: concat CNN output from $t, t+1$ \& fused by dense layer (projection)
-		\item tracker LSTM updates on fused
-		\item dense layer regress the output at last layer for bounding box at $t+1$
+		\item late fusion: concat CNN output from $t, t+1$ \& fed into dense layer for fusion
+		\item tracker LSTM updates on fused info
+		\item dense layer regress the tracker output at last layer for bounding box at $t+1$
 		\end{itemize}
 	\item Training
 		\begin{itemize}
@@ -2715,6 +2715,13 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item mask: bounding box plot onto a separate mask, concat to the full image
 		\end{itemize}
 		$\Rightarrow$ enable global track for multiple obj track (single RNN for all track in an image)
+	\item End-to-End MOT
+		\begin{itemize}
+		\item image $t$ encoded by CNN: $f_t$
+		\item regress the bbox(es) $d_t$; encode the bbox(es) by RNN encoder $c(d_t)$
+		\item fed $f_t, c(d_t)$ to RNN tracker, and output $o_t$
+		\item decode $o_t$ by another RNN decoder (for prediction)
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 

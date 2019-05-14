@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  14 MAY 2019 17:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  14 MAY 2019 18:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1398,39 +1398,40 @@ File: "./Deep Learning/topic-image style transfer nst overview".png Graphic fil
 e (type png)
 <use "./Deep Learning/topic-image style transfer nst overview".png>
 Package pdftex.def Info: "./Deep Learning/topic-image style transfer nst overvi
-ew".png  used on input line 2811.
+ew".png  used on input line 2850.
 (pdftex.def)             Requested size: 207.56285pt x 62.55165pt.
-<"./Deep Learning/topic-image style transfer nst style matrix".png, id=1172, 16
+ [105]
+<"./Deep Learning/topic-image style transfer nst style matrix".png, id=1177, 16
 06.0pt x 530.98375pt>
 File: "./Deep Learning/topic-image style transfer nst style matrix".png Graphic
  file (type png)
 <use "./Deep Learning/topic-image style transfer nst style matrix".png>
 Package pdftex.def Info: "./Deep Learning/topic-image style transfer nst style 
-matrix".png  used on input line 2845.
+matrix".png  used on input line 2884.
 (pdftex.def)             Requested size: 207.56285pt x 68.6252pt.
- [105 <./Deep Learning/topic-image style transfer nst overview.png (PNG copy)>]
- [106 <./Deep Learning/topic-image style transfer nst style matrix.png>]
+ [106 <./Deep Learning/topic-image style transfer nst overview.png (PNG copy)> 
+<./Deep Learning/topic-image style transfer nst style matrix.png>] [107]
 
-LaTeX Warning: Hyper reference `' on page 107 undefined on input line 2967.
+LaTeX Warning: Hyper reference `' on page 108 undefined on input line 3006.
 
-[107]
-Overfull \hbox (7.40826pt too wide) in paragraph at lines 3011--3012
+[108]
+Overfull \hbox (7.40826pt too wide) in paragraph at lines 3050--3051
 []\OT1/cmr/m/n/10 convs - max pool-ing - di-lated convs - un-pool-ing - branch 
 for re-gres-sion/classification 
  []
 
-[108]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 3085
+[109]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 3124
 .
  (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 3085.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 3124.
 
- [109]
-[110] [111]
-Overfull \hbox (3.24109pt too wide) in paragraph at lines 3302--3303
+ [110]
+[111] [112]
+Overfull \hbox (3.24109pt too wide) in paragraph at lines 3341--3342
 []$\OMS/cmsy/m/n/10 )$ \OT1/cmr/m/n/10 se-quence prob-a-bil-ity $\OML/cmm/m/it/
 10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = \OML/cmm
 /m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/1
@@ -1440,8 +1441,8 @@ cmsy/m/n/10 j\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = [] \OML/cmm/m/it
 /10 y[]$ 
  []
 
-[112] [113] [114]
-Overfull \hbox (37.54732pt too wide) in paragraph at lines 3495--3496
+[113] [114]
+Overfull \hbox (37.54732pt too wide) in paragraph at lines 3534--3535
 []\OT1/cmr/m/n/10 encoder scan through au-dio frames & de-coder out-put let-ter
 /punctuation/"blank"/"space" 
  []
@@ -1496,7 +1497,7 @@ dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2018/texmf-dist
 /fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msam5.pfb>
-Output written on "Machine Learning.pdf" (128 pages, 3224921 bytes).
+Output written on "Machine Learning.pdf" (128 pages, 3226462 bytes).
 PDF statistics:
  1473 PDF objects out of 1728 (max. 8388607)
  1276 compressed objects within 13 object streams
