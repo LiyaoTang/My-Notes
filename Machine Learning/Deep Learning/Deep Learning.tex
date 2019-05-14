@@ -2385,6 +2385,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item recover the true trajectory of the object, including current localization
 		\end{itemize}
 	\end{itemize}
+
 \item Evaluation Metrics
 	\begin{itemize}
 	\item Percentage of Time Step with Success
@@ -2448,32 +2449,112 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Procedure
 		\begin{itemize}
-		\item given prediction, its variance and observation noise, filter out an interested area
-		\item consider only observation inside the interested area (satisfying requirements)
-		\item score each observation \& associate observation (detection result) with tracker
-		$\Rightarrow$ which observation belongs to which trajectory
+		\item given prediction, its variance and detection noise, filter out an interested area
+		\item consider only detection inside the interested area (satisfying requirements)
+		\item score each detection \& associate detection (detection result) with tracker
+		$\Rightarrow$ which detection belongs to which trajectory
 		\end{itemize}
 	\item Global Nearest Neighbor
 		\begin{itemize}
-		\item choose the best / most probable / nearest
-		\item under the constraint that an observation can associate with at most one track)
+		\item choose the best / most probable / nearest \\
+		(under the constraint that an detection can associate with at most one track)
+		$\Rightarrow$ assume one detection is produced by single object
+		\item require accurate and sparse detection, with few false alarm
+		$\Rightarrow$ sensible to noise (easily fail in crowded scene)
 		\end{itemize}
 	\item Nearest Neighbor
 		\begin{itemize}
-		\item choose the best / most probable / nearest \\ 
-		\item thought one observation may be used by multiple track(s)
+		\item choose the best / most probable / nearest
+		(thought one detection may be used by multiple tracks)
 		\end{itemize}
-		
+	\item Understanding
+		\begin{itemize}
+		\item 
+		\end{itemize}
 	\end{itemize}
-\item Joint Probability Data Association
+\item Joint Probability Data Association (JPDA)
 	\begin{itemize}
-	\item 
+	\item Procedure
+	\item Understanding
+		\begin{itemize}
+		\item probabilistic perspective for prediction-detection relation \\ 
+		$\Rightarrow$ cooperate with uncertain association: weight all detections by probability
+		\item hence, crowded detections tends to pull multiple tracks together \\ 
+		$\Rightarrow$ coalescence problem
+		\end{itemize}
 	\end{itemize}
-\item Graph Matching with Affinity Constraint
+\item Multiple Hypothesis Tracking
 	\begin{itemize}
-	\item 
+	\item Assumption
+		\begin{itemize}
+		\item Gaussian models for target dynamics and noise in detection
+		\item uniform distribution for false alarm (false-positive detection)
+		\end{itemize}
+	\item Track Hypothesis
+		\begin{itemize}
+		\item association result given track initiation, prediction and detection \\
+		$\Rightarrow$ a sequence of selected detection
+		\item compatibility: tracks are compatible, if they do NOT share any detection \\
+		$\Rightarrow$ any track update using the same detection are INcompatible
+		\end{itemize}
+	\item Track Tree (Clustering)
+		\begin{itemize}
+		\item use incompatibility as edge, track as vertice, sort tracks by time \\
+		$\Rightarrow$ each connected tree becomes a cluster (track family) \\
+		(the tree level denotes time sequence)
+		\item each tree shares a common root node (the initial detection)
+		\item growing: whenever a new detection can be accounted for a track hypothesis (node)  \\ 
+		$\Rightarrow$ the node generates 2 children nodes (tracks): update / not update
+		\end{itemize}
+	\item Global Hypothesis
+		\begin{itemize}
+		\item a global hypothesis contains only compatible track(s) \\ 
+		$\Rightarrow$ the collection of track, with $\le1$ track from each tree/family
+		\end{itemize}
+	\item Track Score
+		\begin{itemize}
+		\item posterior ratio $r=\frac{p(D|T)p(T)}{p(D|F)p(F)}\triangleq \frac{p_T}{p_F}$, \\
+		where $p(D|T), p(D|F)$ the likelihood given detection is true, false alarm \\
+		with $D$ the detections in current track \\
+		$\Rightarrow$ log ratio $lr = \ln \frac{p_T}{p_F}$
+		\item use log ratio as score, at time $t, L(t) = L(t-1) + \Delta L(t)$, \\
+		where $\Delta L(t) = \begin{cases} \ln(1-\hat{P}(D)) & \text{no update} \\ \Delta L_u(t) & \text{update} \end{cases}$, \\
+		with $\hat{P}(D)$ the expected probability of detection; \\ 
+		and $\Delta L_u(t)$ the residual error between prediction and detection \\
+		($\Delta L_u(t)$ may include covariance, density, $\hat P_D$, etc.)
+		\end{itemize}
+	\item Global Hypothesis Score
+		\begin{itemize}
+		\item $s_H = \sum_{k\in K} L_k(t)$, \\ 
+		where $K_H$ all (compatible) tracks in hypothesis $H$, $L_k$ the score for track $k$
+		\end{itemize}
+	\item Global Hypothesis Probability
+		\begin{itemize}
+		\item computed from hypothesis score (a maximum weighted independent set problem)
+		\end{itemize}
+	\item Track Probability
+		\begin{itemize}
+		\item the sum of probability of all hypothesis that contains the track
+		\end{itemize}
+	\item $N$-scan Pruning
+		\begin{itemize}
+		\item given detection at time $t$, eliminate IMplausible tracks originated at $t-N$ \\
+		$\Rightarrow$ suppress tree from exponentially growing;
+		\item $N$ the time step buffer before decision (scan = time), usually $N\ge 5$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item probabilistic perspective towards the result of decisions for data association \\
+		(a larger scope than JPDA)
+		\item defer critical decision into the future \\
+		$\Rightarrow$ make decisions for the past after their observation available
+		\item model track alternatives, each with a probability, by track tree and hypothesis \\ 
+		(for all possible tracks, model joint prob over all detections in a track)
+		\item model global joint probability of all tracks, by global hypothesis
+		\item similar to DP-longest substring: maintain a set of candidates
+		\item essentially, a bread-first search $\Rightarrow$ real-time ability constrained by tree size 
+		\end{itemize}
 	\end{itemize}
-\item Template Matching
 \end{itemize}
 
 \subsubsection{Online Tracking}
@@ -2487,10 +2568,21 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \item Kalman Filter
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item predict covariance $\Rightarrow$ better gating in association
+		\item cooperate with noise \\
+		$\Rightarrow$ able to modified to account association uncertainty
+		\end{itemize}
+	\end{itemize}
+
 \item Particle Filter
-\item Multiple Hypothesis Tracking
-\item Contour Tracking
-\item Shape Matching
+
+\item Interacting Multiple Model
+	\begin{itemize}
+	\item 
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{Offline-trained Tracker}
@@ -2582,6 +2674,49 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{Joint Tracking}
 
+\subsubsection{Research Direction}
+\begin{itemize}
+\item Current State
+	\begin{itemize}
+	\item NN in Data Association
+		\begin{itemize}
+		\item pred association prob of prediction-detection in JPDA
+		\item pred prob of detection being true / false alarm (the existence prob for bbox), used in MHT
+		\end{itemize}
+	\item Tracking Initiation \& Deletion
+		\begin{itemize}
+		\item currently, by rules... \\
+		e.g. 3 observations in 4 consecutive frames; observation missed for 4-7 frames
+		\end{itemize}
+	\item Prediction Encoding
+		\begin{itemize}
+		\item crop the image according the predicted area (gating)
+		\end{itemize}
+	\end{itemize}
+\item End-to-end tracking
+	\begin{itemize}
+	\item End-to-End Regression for Data Association in MOT
+		\begin{itemize}
+		\item directly output association decision
+		\item input: raw image (semantic), current detection, track prediction, track history
+		\item concern for multiple objects: multiple pred, det, track
+			\begin{itemize}
+			\item track oriented: each track+pred, consider all det $\Rightarrow$ ranking the det \\
+			(basically, the current literature?)
+			\item track+all det: concat (tile) track+pred to each det $\Rightarrow$ use fcn, then pooling to regress to a bbox for update \\
+			$\Rightarrow$ fully NN-approach for JPDA
+			\end{itemize}
+		\item directly output decision result of track initiation/deletion \\
+		$\Rightarrow$ regress the decision boundary as well (instead of universal $0.5$)
+		\end{itemize}
+	\item Interesting Predicted Bounding Box Encoding
+		\begin{itemize}
+		\item direct encoding: x,y,w,h + full image
+		\item mask: bounding box plot onto a separate mask, concat to the full image
+		\end{itemize}
+		$\Rightarrow$ enable global track for multiple obj track (single RNN for all track in an image)
+	\end{itemize}
+\end{itemize}
 
 \subsection{Face Recognition}
 \subsubsection{Problem Formulation}
