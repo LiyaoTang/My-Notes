@@ -2354,6 +2354,18 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ not possible to lose detection due to griding
 		\end{itemize}
 	\end{itemize}
+\item No Non-Maximum Suppression
+	\begin{itemize}
+	\item Auto Filtering
+		\begin{itemize}
+		\item regress threshold of objectness as well \\
+		$\Rightarrow$ objectness under threshold not considered by encoder-decoder
+		\end{itemize}
+	\item RNN Encoder-Decoder
+		\begin{itemize}
+		\item encode all bbox, then decode (generate) till end-of-sequence
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsection{Object Tracking}
@@ -2699,14 +2711,15 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item directly output association decision
 		\item input: raw image (semantic), current detection, track prediction, track history
-		\item concern for multiple objects: multiple pred, det, track
-			\begin{itemize}
-			\item track oriented: each track+pred, consider all det $\Rightarrow$ ranking the det \\
-			(basically, the current literature?)
-			\item track+all det: concat (tile) track+pred to each det $\Rightarrow$ use fcn, then pooling to regress to a bbox for update \\
-			$\Rightarrow$ fully NN-approach for JPDA
-			\end{itemize}
-		\item directly output decision result of track initiation/deletion \\
+		\item fully NN approach for JPDA \\
+		$\Rightarrow$ track+all det: concat (tile) track+pred to each det $\Rightarrow$ use fcn, then pooling to regress to a bbox for update
+		\item fully NN approach for MHT ??? \\
+		trace-back available ... encoding past detection as well? (in the tracker?) \\ 
+		N-scan pruning?
+		\end{itemize}
+	\item Track Initiation/Deletion
+		\begin{itemize}
+		\item directly output decision result \\
 		$\Rightarrow$ regress the decision boundary as well (instead of universal $0.5$)
 		\end{itemize}
 	\item Interesting Predicted Bounding Box Encoding
@@ -2717,10 +2730,12 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ enable global track for multiple obj track (single RNN for all track in an image)
 	\item End-to-End MOT
 		\begin{itemize}
-		\item image $t$ encoded by CNN: $f_t$
-		\item regress the bbox(es) $d_t$; encode the bbox(es) by RNN encoder $c(d_t)$
-		\item fed $f_t, c(d_t)$ to RNN tracker, and output $o_t$
-		\item decode $o_t$ by another RNN decoder (for prediction)
+		\item image $t$ encoded by cnn: $f_t$
+		\item regress the bbox(es) $d_t$; encode the bbox(es) by rnn encoder $c(d_t)$
+		\item fed $f_t, c(d_t)$ to rnn tracker, and output $o_t$ \\
+		(track history in tracker rnn state)
+		\item decode $o_t$ by another rnn decoder, to predict bbox(es) \\
+		(generate till end-of-sequence)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
