@@ -1815,8 +1815,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item \hyperref[DL_CV_Objdet]{object detection}
 		\end{itemize}
 	\end{itemize}
-
-\item 
 \end{itemize}
 
 \subsection{Recurrent Neural Network}
@@ -1942,7 +1940,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
-\item Variational Auto-Encoder
+\item Siamese Network
+	\begin{itemize}
+	\item 
+	\end{itemize}
+\item Pseudo Siamese Network
 \end{itemize}
 
 \subsection{Generative Network}
@@ -2567,9 +2569,46 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item essentially, a bread-first search $\Rightarrow$ real-time ability constrained by tree size 
 		\end{itemize}
 	\end{itemize}
+
+\item Inversed Reinforced Learning for Data Association with Markov Decision Process
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item current detected bounding boxes, with objectness
+		\item previously predicted bounding boxes
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item decision of data association between track \& detection
+		\end{itemize}
+	\item Markov Decision Process (MDP) for Association
+		\begin{itemize}
+		\item states: active, tracked, lost, inactive \\
+		$\Rightarrow$ model the state of a track
+		\item probability at each state given by trained model
+		\end{itemize}
+	\item Inversed Reinforcement Learning for Lost Recovery
+		\begin{itemize}
+		\item regression model to associate lost track \& current detection
+		\item regressor trained only when MDP make wrong decision \\
+		(similar to hard-example mining?)
+		\end{itemize}
+	\end{itemize}
+
+\item Siamese Network
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item detection pair: one from current frame, another from last frame
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item confidence that detection pair belongs to the same track
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
-\subsubsection{Online Tracking}
+\subsubsection{Online-trained Tracker}
 \begin{itemize}
 \item Overview
 	\begin{itemize}
@@ -2724,7 +2763,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Joint Tracking}
 
 \subsubsection{Research Direction}
 \begin{itemize}
@@ -2751,8 +2789,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item directly output association decision
 		\item input: raw image (semantic), current detection, track prediction, track history
+		\item track-level info: extended Siamese for relation of: track - current detection \\
+		(instead of only det-det in $2$ frames)
 		\item fully NN approach for JPDA \\
-		$\Rightarrow$ track+all det: concat (tile) track+pred to each det $\Rightarrow$ use fcn, then pooling to regress to a bbox for update
+		$\Rightarrow$ track - all det: concat (tile) track+pred to each det $\Rightarrow$ use fcn, then pooling to regress to a bbox for update \\
+		(direct regress the box, instead of Siamese net + weighted sum)
 		\item fully NN approach for MHT ??? \\
 		trace-back available ... encoding past detection as well? (in the tracker?) \\ 
 		N-scan pruning?
@@ -2863,7 +2904,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
-\item Encoder with Binary Classification
+\item Encoding + Binary Classification
 	\begin{itemize}
 	\item Structure
 		\begin{itemize}
@@ -2879,6 +2920,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item still, utilize permutation for larger training set \\ 
 		(use pair, instead of triplet)
 		\item learn the similarity function as well: output directly the result of comparison
+		\item pre-compute the encoding of Siamese net \\
+		$\Rightarrow$ enable flexible deployment (device performs only bi-classification)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
