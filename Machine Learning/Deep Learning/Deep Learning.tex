@@ -529,6 +529,8 @@
 		$\Rightarrow$ track - all det: concat (tile) track+pred to each det $\Rightarrow$ use fcn, then pooling to regress to a bbox for update \\
 		(direct regress the box, instead of Siamese net + weighted sum) \\
 		(cite: Data-Driven Approximations to NP-Hard Problems)
+		\item $\Rightarrow$ fast JPDA: single RNN encode all detections as $D$, then regress for each track-$D$ for update \\
+		(instead of num of track $\times$ num of det, now only num of track + num of det)
 		\item fully NN approach for MHT ??? \\
 		trace-back available ... encoding past detection as well? (in the tracker?) \\ 
 		N-scan pruning?
@@ -3154,6 +3156,60 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(yet, unnecessary, since $N,M$ fixed i.e. a fixed size mapping)
 		\item utilize given detector $\Rightarrow$ no appearance model (but only location \& size)
 		\item able to maintain at most $N$ track with maximally $M$ detection at a time
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Instance Tracking}
+\begin{itemize}
+\item Fast Online Object Tracking and Segmentation : A Unifying Approach
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item initial bbox $z$ as target template at first frame (exemplar)
+		\item cropped search region $x_t$, centered at target location of $t-1$
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item response map for object localization
+		\item bbox regression for target (with resizing \& \underline{rotation})
+		\item binary segmentation mask i.e. pixel $\in$ (target, not target)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item given $z, x_t$ backbone CNN extract feature as $f(z), f(x_t)$
+		\item cross-correlation response map $g(z,x_t) = f(z)\star f(x_t)$, \\
+		where $f(z)$ used as kernel \\
+		$\Rightarrow g$ as response of candidate window (RoW) \\
+		$\Rightarrow$ encode similarity between $z$ and each candidate window/bbox in $f(x_t)$
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item backbone CNN ResNet-50 as feature extractor, with adjustment \\
+		(dilated conv for better resolution)
+		\item cross-relation between two extracted feature maps \\ 
+		$\Rightarrow$ response map, each location an RoW
+		\item bbox regression: 2$\times$(1-by-1 conv) for $k$ anchors at each RoW
+		\item bbox classification: 2$\times$(1-by-1 conv) for score of $k$ anchors at each RoW
+		\item segmentation: 2$\times$(1-by-1 conv) + upsampling with skip + per-pixel sigmoid \\
+		$\Rightarrow$ upsample into a mask for each RoW location
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item loss $L = \lambda_1 L_\text{mask} +\lambda_2 L_\text{score} +\lambda_3 L_\text{box}$ \\
+		($L_\text{mask}, L_{box}$ considered only at location for ground truth)
+		\item data augmentation: random jitter, translation, rescaling
+		\end{itemize}
+	\item Tracking
+		\begin{itemize}
+		\item one-step update, may use mask to produce 
+		\item multi-object: multiple initialization, each with a net as tracker
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item multi-task training improves all branches \\
+		(semi-supervised video object segmentation, bbox tracking)
+		\item mask branch: output the mask in the context of $x$ for that obj in $z$
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
