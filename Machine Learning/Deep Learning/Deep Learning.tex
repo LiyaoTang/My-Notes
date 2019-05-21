@@ -297,12 +297,6 @@
 	\end{itemize}
 \end{itemize}
 
-\subsection{}
-\subsubsection{title}
-\begin{itemize}
-\item 
-\end{itemize}
-
 \subsection{Research}
 \subsubsection{Topics}
 \begin{itemize}
@@ -458,6 +452,232 @@
 	$\Rightarrow$ derive theories from the 
 	\item full stack of understanding \\ 
 	$\Rightarrow$ understand the implementation under the deep learning framework
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Direction - Detection}
+\begin{itemize}
+\item Faster One-stage
+	\begin{itemize}
+	\item Segmentation as Detection
+		\begin{itemize}
+		\item for output mask, giving classification ($p_e$) + localization (regression) \\
+		(instead of giving class probability as per-pixel classification)
+		\item at most as many objects as pixel number \\ 
+		$\Rightarrow$ not possible to lose detection due to griding
+		\end{itemize}
+	\end{itemize}
+\item \textbf{No Non-Maximum Suppression}
+	\begin{itemize}
+	\item Auto Filtering
+		\begin{itemize}
+		\item regress threshold of objectness as well \\
+		$\Rightarrow$ objectness under threshold not considered by encoder-decoder \\
+		(under the GAN framework ?) \\
+		(under multi-tasking ?)
+		\end{itemize}
+	\item CRF
+		\begin{itemize}
+		\item still not end2end, yet trainable
+		\end{itemize}
+	\item RNN Encoder-Decoder
+		\begin{itemize}
+		\item encode all bbox / spatial feature, then decode (generate) till end-of-sequence \\
+		(as YOLOv1 still use dense layer...)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Direction - Tracking}
+\begin{itemize}
+\item Current State - 2019
+	\begin{itemize}
+	\item NN in Data Association
+		\begin{itemize}
+		\item pred association prob of prediction-detection in JPDA
+		\item pred prob of detection being true / false alarm (the existence prob for bbox), used in MHT
+		\end{itemize}
+	\item Tracking Initiation \& Deletion
+		\begin{itemize}
+		\item currently, by rules... \\
+		e.g. 3 observations in 4 consecutive frames; observation missed for 4-7 frames
+		\end{itemize}
+	\item Prediction Encoding
+		\begin{itemize}
+		\item crop the image according the predicted area (gating)
+		\end{itemize}
+	\end{itemize}
+\item NN in Gating
+	\begin{itemize}
+	\item Region Proposal Network
+		\begin{itemize}
+		\item propose the search region (gating) by RPN \\ 
+		(instead of using rule based on current track location) \\
+		$\Rightarrow$ predict a large region with RPN based on track info
+		\end{itemize}
+	\end{itemize}
+\item End-to-end / unified framework
+	\begin{itemize}
+	\item End-to-End Regression for Data Association in MOT
+		\begin{itemize}
+		\item cite: Online Multi-Target Tracking Using Recurrent Neural Networks
+		\item directly output association decision
+		\item input: raw image (semantic), current detection, track prediction, track history
+		\item track-level info: extended Siamese for relation of: track - current detection \\
+		(instead of only det-det in $2$ frames)
+		\item fully NN approach for JPDA \\
+		$\Rightarrow$ track - all det: concat (tile) track+pred to each det $\Rightarrow$ use fcn, then pooling to regress to a bbox for update \\
+		(direct regress the box, instead of Siamese net + weighted sum) \\
+		(cite: Data-Driven Approximations to NP-Hard Problems)
+		\item fully NN approach for MHT ??? \\
+		trace-back available ... encoding past detection as well? (in the tracker?) \\ 
+		N-scan pruning?
+		\end{itemize}
+	\item Track Initiation/Deletion
+		\begin{itemize}
+		\item directly output decision result \\
+		$\Rightarrow$ regress the decision boundary as well (instead of universal $0.5$)
+		\end{itemize}
+	\item Interesting Predicted Bounding Box Encoding
+		\begin{itemize}
+		\item direct encoding: x,y,w,h, o, + encoding of full image
+		\item mask: bounding box plot onto a separate mask, concat to the (encoding of) full image \\
+		further, attention mechanism \\
+		(soft-crop ???)
+		\end{itemize}
+		$\Rightarrow$ enable global track for multiple obj track (single RNN for all track in an image)
+	\item SOT
+		\begin{itemize}
+		\item directly use cnn + conv-lstm
+		\end{itemize}
+	\item single Obj Tracking for MOT
+		\begin{itemize}
+		\item common cnn encodes image $t$ as $f_t$, detected bbox as $D_t$ (given or trained) \\
+		(prefer to train, as auxiliary loss for multi-tasking ?)
+		\item encode each detection $d_t \in D_t$ as $c(d_t) \in c(D_t)$ \\
+		empty detection always $\in$ $D_t$ \\
+		$\Rightarrow$ track may always have NO compatible det
+		\item one rnn tracker for each $c(d_t)$
+		\item rnn takes in encoded previous prediction $c(p_{t-1})$ (produced by itself), with $f_t$, and each encoded det $c(d_t) \in c(D_t)$ \\
+		$\Rightarrow$ produce as many track as $D_t$, each with a probability \\ 
+		(control the track's death) \\
+		$\Rightarrow$ only the highest remains, others deleted
+		\item remaining track rnn regress pred bbox $p_{t+1}$ (an encoded bbox as well) \\
+		(a decoder at $t$ trying to induce the $d_{t+1}$) \\
+		(GAN ?)
+		\end{itemize}
+	\item MOT as SOT
+		\begin{itemize}
+		\item attention mask contain multiple interest \\
+		$\Rightarrow$ not able to handle birth/death of independent object \\
+		(as modeled all as a whole)
+		\end{itemize}
+	\item End-to-End MOT
+		\begin{itemize}
+		\item design requirement
+			\begin{itemize}
+			\item arbitrary start of track
+			\item arbitrary num of track
+			\item arbitrary end of track
+			\end{itemize}
+		\end{itemize}
+	\item End-to-end MOT with States (Markov Decision Process / Deterministic Finite Automaton)
+		\begin{itemize}
+		\item action at each state given by NN
+		\item history of track in RNN $\Rightarrow$ provided when making decision \\
+		$\Rightarrow$ RNN modeling all the state ??? \\ 
+		(update with different set of weights on different chosen actions ?) \\
+		(design transition instead of states: states as the closure of all actions ?)
+		\item design state for each challenge scene separately (out-of scene, occlusion, long-term lost, etc.) \\
+		$\Rightarrow$ directly tackle each scene \\
+		(state growing: auto-discover state ???)
+		\item RNN for actions ? \\
+		output score for all actions, only legal actions (given current state) considered\&selected, then transfer state accordingly
+		\item trained with RL
+		\end{itemize}
+	\end{itemize}
+\item Training
+	\begin{itemize}
+	\item MDP as Hard-Negative Mining
+	\item Sparse Detection
+		\begin{itemize}
+		\item feed only a few detection, demand NN to fill up using track history\&prediction
+		\end{itemize}
+	\item Other NLP Training
+		\begin{itemize}
+		\item training of n-gram model used on rnn traker ?
+		\end{itemize}
+	\end{itemize}
+\item Fixable Track
+	\begin{itemize}
+	\item Fixing After Lost
+		\begin{itemize}
+		\item backward rnn for re-associated track after lost \\
+		$\Rightarrow$ to fix the previous prediction given current observation \\
+		(than recompute the forward rnn for consecutive tracking)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Directoin - Referring Seg}
+\begin{itemize}
+\item Integrating Encoder-Decoder Architecture
+	\begin{itemize}
+	\item Upsampling
+		\begin{itemize}
+		\item similar to Unet, concat low-level spatial info
+		\item introduce language info as well \\
+		(e.g. early combination, explicit introducing, ...)
+		\end{itemize}
+	\end{itemize}
+\item Info Early Fusion
+	\begin{itemize}
+	\item Tiling at First Conv
+		\begin{itemize}
+		\item as siamese net for joint input
+		\item downsampling more responsible for language info processing \\
+		$\Rightarrow$ hopefully get more fine-tuning alone with conv filters
+		\item can be used with pre-trained net: \\ 
+		$ReLU(conv_1*X_1 + conv_2*X_2) = ReLU( [conv_1,conv_2]*[X_1,X_2] )$
+		\end{itemize}
+	\item Multiple Entries
+		\begin{itemize}
+		\item combining info at different stages of downsampling / upsampling
+		\end{itemize}
+	\end{itemize}
+\item Attention
+	\begin{itemize}
+	\item Attention from Combined Info
+		\begin{itemize}
+		\item as key-word-aware net
+		\end{itemize}
+	\item Attention on Language Info
+		\begin{itemize}
+		\item $1$-D spatial pyramid pooling / attention mask on the sentence encoding
+		\end{itemize}
+	\end{itemize}
+\item Language Info Throughout Network
+	\begin{itemize}
+	\item Encoder-Decoder for Language Info
+		\begin{itemize}
+		\item network asked to recover language info after processing combined info \\ 
+		(potentially via a separate branch only at training time) \\ 
+		$\Rightarrow$ auxiliary loss
+		\end{itemize}
+	\item Language as Conv Filter
+		\begin{itemize}
+		\item Language Info, through a subnet, becoming a set of conv filters \\
+		$\Rightarrow$ then imposed in downsampling, tunnel, upsampling or bridge stage(s)
+		\end{itemize}
+	\end{itemize}
+\item Data Augmentation
+	\begin{itemize}
+	\item Translation Module
+		\begin{itemize}
+		\item using the same image
+		\item expression translated to a middle language and then back to English \\
+		$\Rightarrow$ language info trained more finely
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
@@ -1924,27 +2144,43 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \end{itemize}
 \subsubsection{Extension}
 \begin{itemize}
-\item Multiple Encoder
+\item Siamese Network
 	\begin{itemize}
-	\item Functionality
+	\item Input
 		\begin{itemize}
-		\item project different information into the same space
-		\item combine those information via some shared layers at the end
+		\item image pair $(p_1,p_2)$
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item CNN as feature encoder \\
+		$\Rightarrow$ same CNN process each image, yielding $(f_1, f_2)$ as extracted feature
+		\item jointly process concat $[f_1,f_2]$
+		\end{itemize}
+	\item Variants
+		\begin{itemize}
+		\item joint process from the beginning \\
+		$\Rightarrow$ concat $[p_1,p_2]$, then CNN till the end \\
+		$\Rightarrow$ generally \textbf{better performance}, especially when detailed structure are vital
 		\end{itemize}
 	\end{itemize}
+
+\item Multiple Encoder (Pseudo Siamese Network)
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item project different information into the same space \\
+		(jointly process those information after feature projection/extraction)
+		\end{itemize}		
+	\end{itemize}
+
 \item Multiple Decoder
 	\begin{itemize}
 	\item Functionality
 		\begin{itemize}
-		\item impose multiple requirements to the encoder (via auxiliary loss)
+		\item impose multiple requirements to the encoder (via auxiliary loss) \\
+		$\Rightarrow$ multi-task training (multiple output branch)
 		\end{itemize}
 	\end{itemize}
-
-\item Siamese Network
-	\begin{itemize}
-	\item 
-	\end{itemize}
-\item Pseudo Siamese Network
 \end{itemize}
 
 \subsection{Generative Network}
@@ -2128,16 +2364,16 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Optimization Goal
 		\begin{itemize}
-		\Item \begin{align*} \displaystyle \text{loss} = & \lambda_\text{obj}\sum_{i=0}^{S^2}\sum_{j=0}^{B} \mathbb{1}^{obj}_{ij} [(x_i-\hat x_i)^2 + (y_i-\hat y_i)^2] +\\
-		& \lambda_\text{obj}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbb 1^{obj}_{ij} [(\sqrt{w_i}-\sqrt{\hat w_i})^2 + (\sqrt{h_i}-\sqrt{\hat h_i})^2] + \\
-		& \sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbb 1^{obj}_{ij} (conf_{ij} - \hat {conf}_{ij})^2 + \lambda_\text{none}\cdot\mathbb 1^{none}_{ij} (conf_{ij} - \hat {conf}_{ij})^2 +\\
-		& \sum_{i=0}^{S^2}\mathbb 1^{obj}_{i}\sum_{c=0}^C (p_{ci} - \hat p_{ci})^2 \end{align*}
+		\Item \begin{align*} \displaystyle \text{loss} = & \lambda_\text{obj}\sum_{i=0}^{S^2}\sum_{j=0}^{B} \mathbf{1}^{obj}_{ij} [(x_i-\hat x_i)^2 + (y_i-\hat y_i)^2] +\\
+		& \lambda_\text{obj}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbf 1^{obj}_{ij} [(\sqrt{w_i}-\sqrt{\hat w_i})^2 + (\sqrt{h_i}-\sqrt{\hat h_i})^2] + \\
+		& \sum_{i=0}^{S^2}\sum_{j=0}^{B}\mathbf 1^{obj}_{ij} (conf_{ij} - \hat {conf}_{ij})^2 + \lambda_\text{none}\cdot\mathbf 1^{none}_{ij} (conf_{ij} - \hat {conf}_{ij})^2 +\\
+		& \sum_{i=0}^{S^2}\mathbf 1^{obj}_{i}\sum_{c=0}^C (p_{ci} - \hat p_{ci})^2 \end{align*}
 		\item $\lambda_\text{obj} = 5$ to up-weight box with obj, $\lambda_\text{none}=0.5$ for empty box
 			\begin{itemize}
 			\item balance the dataset: avoid large num of empty box pushing $conf$ pred to $0$
 			\item emphasize on predicting box with object: adjust the box pred $x,y,w,h$
 			\end{itemize}
-		\item $\mathbb{1}^{obj}_{ij}$ the indicator: $1$ if obj exists in $j$ box of $i$ cell, similar for $\mathbb 1^{none}_{ij}$
+		\item $\mathbf{1}^{obj}_{ij}$ the indicator: $1$ if obj exists in $j$ box of $i$ cell, similar for $\mathbf 1^{none}_{ij}$
 		\item minimize $\sqrt{w_i}, \sqrt{h_i}$: mitigate various box size into similar scale \\ 
 		(as same error occurred in small box matter more than that in big box)
 		\item $p_{ci}$ the classification prob for $i$ cell (only trained if it contains obj)
@@ -2344,32 +2580,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Research Direction}
-\begin{itemize}
-\item Faster One-stage
-	\begin{itemize}
-	\item Segmentation as Detection
-		\begin{itemize}
-		\item for output mask, giving classification ($p_e$) + localization (regression) \\
-		(instead of giving class probability as per-pixel classification)
-		\item at most as many objects as pixel number \\ 
-		$\Rightarrow$ not possible to lose detection due to griding
-		\end{itemize}
-	\end{itemize}
-\item No Non-Maximum Suppression
-	\begin{itemize}
-	\item Auto Filtering
-		\begin{itemize}
-		\item regress threshold of objectness as well \\
-		$\Rightarrow$ objectness under threshold not considered by encoder-decoder
-		\end{itemize}
-	\item RNN Encoder-Decoder
-		\begin{itemize}
-		\item encode all bbox, then decode (generate) till end-of-sequence
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
 \subsection{Object Tracking}
 \subsubsection{Problem Formulation}
 \begin{itemize}
@@ -2377,11 +2587,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Raw Data
 		\begin{itemize}
-		\item directly from sensor $\Rightarrow$ need to embed detection
+		\item time-series observation from sensor $\Rightarrow$ need to embed detection
 		\end{itemize}
 	\item Object Representation
 		\begin{itemize}
-		\item bounding box: 2/3-D size, with pose, motion, velocity, etc. estimation available
+		\item bounding box: 2/3-D size, with pose, motion, velocity, etc.
 		\item point model: centroid point with attributes denoting an object (including bbox)
 		\item silhouette: for non-rigid object
 		\item articulate: for articulated model, e.g. human skeletal model
@@ -2389,17 +2599,38 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Object Existence
 		\begin{itemize}
 		\item probability density for existence
-		\item probability of existence as a feature in representation info
+		\item probability of existence as a feature in representation info \\
+		(objectiveness in detection)
 		\end{itemize}
 	\end{itemize}
 \item Goal
 	\begin{itemize}
 	\item Trajectory
 		\begin{itemize}
-		\item recover the true trajectory of the object, including current localization
+		\item recover the true trajectory of the object \\ 
+		(including current location, potentially future prediction)
 		\end{itemize}
 	\end{itemize}
-
+\item Overview
+	\begin{itemize}
+	\item Online Tracking
+		\begin{itemize}
+		\item trade off speed - model complexity, as train on arriving frames
+		\item adaptive, as accounting the history info of a track \\
+		$\Rightarrow$ may provide more info (e.g. covariance matrix from Kalman filter)
+		\end{itemize}
+	\item Offline Tracking
+		\begin{itemize}
+		\item learn similarity functions between frames offline
+		\item fast, as no online training needed
+		\item NOT adaptive $\Rightarrow$ failed in large appearance change, e.g. occlusion etc.
+		\end{itemize}
+	\item Tracking-by-Detection
+		\begin{itemize}
+		\item detect target(s) in each frame; link target into track \\
+		$\Rightarrow$ as a two-stage problem
+		\end{itemize}
+	\end{itemize}
 \item Evaluation Metrics
 	\begin{itemize}
 	\item Percentage of Time Step with Success
@@ -2457,7 +2688,194 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Data Association}
+\subsubsection{Single-Object Tracking}
+\begin{itemize}
+\item Kalman Filter
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item predict covariance $\Rightarrow$ better gating in association
+		\item cooperate with noise \\
+		$\Rightarrow$ able to modified to account association uncertainty
+		\end{itemize}
+	\end{itemize}
+
+\item Particle Filter
+
+\item Interacting Multiple Model
+	\begin{itemize}
+	\item 
+	\end{itemize}
+
+\item GOTURN: 
+	\begin{itemize}
+	\item Detector
+		\begin{itemize}
+		\item CNN
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item no explicit tracker (not modeling temporal info)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item crop $t^\text{th}$ image: centered at current bounding box with context
+		\item crop $t+1^\text{th}$ image: centered at bbox in $t$, doubled size (gating)
+		\item encode both image via CNN detector; concat encoding \& feed to dense layer
+		\item regress the bbox in $t+1^\text{th}$ crop
+		\end{itemize}
+	\item Tracking
+		\begin{itemize}
+		\item arbitrary target object selected for tracking (treated as ground truth)
+		\item $1$-step prediction of location, then predict further on...
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item train with consecutive image pair from sequences
+		\item $L1$ loss for exact match
+		\item data augment: motion noise applied on the $2^\text{th}$ image; random crop on the $1^\text{st}$\\ 
+		(distribution of motion noise chosen from cross-validation)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item $2$-frame model, $1$-step prediction, no explicit temporal tracking \\
+		$\Rightarrow$ net may learn to locate the nearest similar object
+		\item real-time timing ($100$fps)
+		\end{itemize}
+	\end{itemize}
+
+\item Re$^3$: Real-time Recurrent Regression Network
+	\begin{itemize}
+	\item Detector
+		\begin{itemize}
+		\item CNN to extracts multi-scale representation from image \\
+		(more descriptive info e.g. human in red/blue shirt) \\
+		$\Rightarrow$ a siamese net as encoding
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item two-layer, factored LSTM, taking tracker input at both layer \\
+		$\Rightarrow$ longer dependency \& more complex object transformation with 2 layers
+		\item hidden state as tracker state \\
+		$\Rightarrow$ forward-prop to update (no training)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item crop $t^\text{th}$ image: centered at current bounding box, extended to twice of box size
+		\item crop $t+1^\text{th}$ image: centered at box of $t$, doubled size (gating)
+		\item late fusion: concat CNN output from $t, t+1$ \& fed into dense layer for fusion
+		\item LSTM tracker updates on fused info
+		\item dense layer regress the tracker (LSTM) output for bounding box at $t+1$
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item bounding box defined by up-left, right-bottom coordinates in the crop \\
+		(hence as a ratio of bounding box size)
+		\item $L1$ loss to encourage exact match
+		\item short sequence ($2$ unrolls) \& multi-batch ($64$) to overcome plateaus \\
+		$\Rightarrow$ slowly increase to $32$ unrolls \& batch size $4$
+		\item use ground-truth crop when training with short sequence \\ 
+		$\Rightarrow$ slowly increase probability to use predicted crop, when increasing unrolls \\
+		$\Rightarrow$ to prevent from accumulating drifts
+		\end{itemize}
+	\item Data Augmentation
+		\begin{itemize}
+		\item utilize detection dataset: crop the object with bounding box
+		\item random crop a patch from the same image as background
+		\item occluders randomly taken from the same image
+		\item object with box initialized with velocity with Gaussian noise
+		\end{itemize}
+	\item Tracking
+		\begin{itemize}
+		\item an initial bounding box over arbitrary object given at the start
+		\item crops fed into net at each time step
+		\item LSTM state reset after each $32$ frames (as maximally trained with $32$ unrolls) \\
+		$\Rightarrow$ hot-start by using the state in $1^\text{st}$ forward pass (instead of $\mathbf 0$) \\
+		$\Rightarrow$ preserve the initial encoding \& recover from drift
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item end-to-end training for both detector and tracker (improved GOTURN)
+		\item model regress changes to the box ratio $\Rightarrow$ easier
+		\item observation usefulness modeled by LSTM tracker
+		\item LSTM tracker needs specialized training, and single-layer LSTM NOT enough \\
+		(or, can hurt performance due to instability)
+		\item LSTM state reset: prevent drift, yet can fail if initial box overlaps other object
+		\end{itemize}
+	\end{itemize}
+
+\item C-RPN: Siamese Cascaded Region Proposal Network
+	\begin{itemize}
+	\item Tracking Initialization
+		\begin{itemize}
+		\item bounding box at first frame as ground truth / feature template
+		\end{itemize}
+	\item Detector
+		\begin{itemize}
+		\item fully conv siamese net for encoding (multi-scale info utilized) \\
+		$\Rightarrow$ extracts info from target template $x$ and search region $z$ (gating) \\
+		$\Rightarrow \phi_n(\cdot)$ for features at $n^\text{th}$ layer, backwards
+		\item feature fusion $\Phi_l(\cdot) = f \left( \Phi_{l-1}, \phi_l \right)$, with $\Phi_1 = \phi_1$ \\
+		$\Rightarrow$ recursively fuse semantic info with lower-level spatial info
+		\item $f(\Phi_{l-1}, \phi_l) = $feature transform block \\
+		$\Rightarrow$ upsample $\Phi_{l-1}$ by deconv, further 2 convs on $\phi_l$ for channel matching \\
+		$\Rightarrow$ element-wise sum, then interpolation as downsampling
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item no explicit tracker (not modeling temporal info)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item siamese net extracts features from target template \& search region
+		\item $l^\text{st}$ RPN takes input $\Phi_{l}(x), \Phi_{l}(z)$, regresses based on anchor boxes $A_{l}$
+		\item discard any boxes $\in A_l$ with confidence/objectness lower than a threshold \\
+		$\Rightarrow$ produce anchor boxes $A_{l+1}$
+		\item fuse semantic info with lower-level info, for both branch for $x, z$
+		\item $t^\text{th}$ RPN takes 
+		\end{itemize}
+	\item Loss
+		\begin{itemize}
+		\item loss for $l^\text{th}$ RPN $\displaystyle L_l = \sum_{a\in A_{l}}L_\text{cls}(c^l_a, \hat c^l_a) + \lambda \sum_{a\in A_l} \hat c^l_a \cdot L_\text{loc}(r_a^l, \hat r_a^l)$, \\
+		where $c^l_a$/$\hat c^l_a$ the predict/label objectness for anchor $a$; \\
+		with  $r_a^l$/$\hat r_a^l$ the predict/label location for anchor $a$ (encoded as YOLOv2) \\
+		note: label based on current anchor $a\in A_l$ and ground truth $\hat r_a$
+		\item $\Rightarrow$ total loss $\displaystyle L = \sum_{l} L_l$
+		\end{itemize}	
+	\item Training
+		\begin{itemize}
+		\item random sample image from a video \\
+		$\Rightarrow$ forming image pair (target template image, image with/without target)
+		\end{itemize}
+	\item Tracking
+		\begin{itemize}
+		\item arbitrary target object selected for tracking (treated as ground truth) \\
+		$\Rightarrow$ extract the feature template
+		\item gating on frame $t$ based on $t-1$ result
+		\item C-RPN detect target within gated region of frame $t$ \\
+		(the best remained, adjusted, anchor as the target to track)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item multi-stage tracking: each RPN sequentially refine bbox (size \& location)
+		\item hard negative mining by filtering out box proposal at each RPN stage \\
+		$\Rightarrow$ training samples sequentially more balanced \\
+		$\Rightarrow$ RPNs sequentially more discriminative
+		\item fusion of multi-level feature (spatial + semantic info) for RPN
+		\end{itemize}
+	\end{itemize}
+
+\item Fast Online Object Tracking and Segmentation
+	\begin{itemize}
+	\item Detector
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item 
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Multi-Object Tracking \& Data Association}
 \begin{itemize}
 \item Gated Association
 	\begin{itemize}
@@ -2570,6 +2988,28 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
+\item Maximum Net Flow
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item detection
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item association result
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item detection as node, possible association as edge \\
+		$\Rightarrow$ construct a graph, with detection time as layer
+		\item $\Rightarrow$ solve as maximum flow / minimal cost
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item another global optimization, vs. probabilistic perspective in MHT
+		\end{itemize}
+	\end{itemize}
+
 \item Inversed Reinforced Learning for Data Association with Markov Decision Process
 	\begin{itemize}
 	\item Input
@@ -2581,243 +3021,139 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item decision of data association between track \& detection
 		\end{itemize}
-	\item Markov Decision Process (MDP) for Association
+	\item Markov Decision Process (MDP) for Track Management
 		\begin{itemize}
 		\item states: active, tracked, lost, inactive \\
 		$\Rightarrow$ model the state of a track
-		\item probability at each state given by trained model
+		\item probability at each state given by trained model for each state
 		\end{itemize}
-	\item Inversed Reinforcement Learning for Lost Recovery
+	\item Inference
 		\begin{itemize}
-		\item regression model to associate lost track \& current detection
-		\item regressor trained only when MDP make wrong decision \\
+		\item binary classification for track start (given a detection)
+		\item optic flow to track \& association \\
+		(rule model to decide if lost)
+		\item regression model to associate lost track \& current detection \\
+		(measure similarity)
+		\item rule for track death: lost for consecutive $6$ frames
+		\end{itemize}
+	\item Training: Inversed Reinforcement Learning for Lost Recovery
+		\begin{itemize}
+		\item classifier for track start: trained offline
+		\item regressor for lost track association: trained only when MDP make wrong decision \\
 		(similar to hard-example mining?)
+		\end{itemize}
+	\item Tracking
+	`	\begin{itemize}
+		\item one MDP for a track in multi-object tracking \\
+		$\Rightarrow$ multiple tracks may update with same detection (need to tune optic flow)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item explicit expression for track state \\
+		$\Rightarrow$ can design state for hard scenario \\
+		$\Rightarrow$ enable explicit control over optimization
+		\item ugly crashed model for each state $\Rightarrow$ can be all unified to NN(s)
 		\end{itemize}
 	\end{itemize}
 
-\item Siamese Network
+\item Siamese CNN for Association
 	\begin{itemize}
 	\item Input
 		\begin{itemize}
-		\item detection pair: one from current frame, another from last frame
+		\item image pair $(I_1, I_2)$, with optic flow $I_1\rightarrow I_2$ as $(O_1,O_2)$ \\
+		$\Rightarrow D = [I_1,I_2,O_1,O_2]$ (resized \& channel concat)
 		\end{itemize}
 	\item Output
 		\begin{itemize}
-		\item confidence that detection pair belongs to the same track
+		\item probability of data association between two detections
 		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Online-trained Tracker}
-\begin{itemize}
-\item Overview
-	\begin{itemize}
-	\item Understanding
+	\item Inference \& Structure
 		\begin{itemize}
-		\item trade off speed - model complexity, as train on arriving frames
-		\item adaptive
-		\end{itemize}
-	\end{itemize}
-\item Kalman Filter
-	\begin{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item predict covariance $\Rightarrow$ better gating in association
-		\item cooperate with noise \\
-		$\Rightarrow$ able to modified to account association uncertainty
-		\end{itemize}
-	\end{itemize}
-
-\item Particle Filter
-
-\item Interacting Multiple Model
-	\begin{itemize}
-	\item 
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Offline-trained Tracker}
-\begin{itemize}
-\item Overview
-	\begin{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item learn similarity functions between frames offline
-		\item fast, as no online training needed
-		\item NOT adaptive $\Rightarrow$ failed in large appearance change, e.g. occlusion etc.
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Tracking-by-Detection}
-\begin{itemize}
-\item Overview
-	\begin{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item offline trained detector, online updating tracker
-		\item yet, speed limited by tracker (as online update)
-		\end{itemize}
-	\end{itemize}
-
-\item GOTURN: 
-	\begin{itemize}
-	\item Tracking Initialization
-		\begin{itemize}
-		\item arbitrary target object selected for tracking (treated as ground truth)
-		\end{itemize}
-	\item Detector
-		\begin{itemize}
-		\item CNN
-		\end{itemize}
-	\item Tracker
-		\begin{itemize}
-		\item no explicit tracker (not modeling temporal info)
-		\end{itemize}
-	\item Inference
-		\begin{itemize}
-		\item crop $t^\text{th}$ image: centered at current bounding box with context
-		\item crop $t+1^\text{th}$ image: centered at bbox in $t$, doubled size (gating)
-		\item encode both image via CNN detector; concat encoding \& feed to dense layer
-		\item regress the bbox in $t+1^\text{th}$ crop
-		\end{itemize}
-	\item Tracking
-		\begin{itemize}
-		\item $1$-step prediction of location, then predict further on...
+		\item 3 conv layers, max pooling, 4 dense layers
+		\item examine spatio-temporal info: position change \& relative velocity by difference
+		\item NN feature vector concat with handcraft feature
+		\item feed into gradient boosting classifier (with $400$ trees) \\ 
+		$\Rightarrow$ output as binary classification of (match, no match)
 		\end{itemize}
 	\item Training
 		\begin{itemize}
-		\item train with consecutive image pair from sequences
-		\item $L1$ loss for exact match
-		\item data augment: motion noise applied on the $2^\text{th}$ image; random crop on the $1^\text{st}$\\ 
-		(distribution of motion noise chosen from cross-validation)
-		\end{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item $2$-frame model, $1$-step prediction, no explicit temporal tracking \\
-		$\Rightarrow$ net may learn to locate the nearest similar object
-		\item real-time timing ($100$fps)
-		\end{itemize}
-	\end{itemize}
-
-\item Re$^3$: Real-time Recurrent Regression Network
-	\begin{itemize}
-	\item Tracking Initialization
-		\begin{itemize}
-		\item image sequence with an initial bounding box over arbitrary object
-		\end{itemize}
-	\item Detector
-		\begin{itemize}
-		\item CNN to extracts multi-scale representation from image \\
-		$\Rightarrow$ more descriptive info (human in red/blue shirt)
-		\end{itemize}
-	\item Tracker
-		\begin{itemize}
-		\item two-layer, factored LSTM, taking tracker input at both layer \\
-		$\Rightarrow$ longer dependency \& more complex object transformation with 2 layers
-		\item hidden state as tracker state \\
-		$\Rightarrow$ forward-prop to update (no training)
-		\end{itemize}
-	\item Inference
-		\begin{itemize}
-		\item crop $t^\text{th}$ image: centered at current bounding box, extended to twice of box size
-		\item crop $t+1^\text{th}$ image: centered at box of $t$, doubled size (gating)
-		\item late fusion: concat CNN output from $t, t+1$ \& fed into dense layer for fusion
-		\item tracker LSTM updates on fused info
-		\item dense layer regress the tracker output at last layer for bounding box at $t+1$
-		\end{itemize}
-	\item Training
-		\begin{itemize}
-		\item bounding box defined by up-left, right-bottom coordinates in the crop \\
-		(hence as a ratio of bounding box size)
-		\item $L1$ loss to encourage exact match
-		\item short sequence ($2$ unrolls) \& multi-batch ($64$) to overcome plateaus \\
-		$\Rightarrow$ slowly increase to $32$ unrolls \& batch size $4$
-		\item use ground-truth crop when training with short sequence \\ 
-		$\Rightarrow$ slowly increase probability to use predicted crop, when increasing unrolls \\
-		$\Rightarrow$ to prevent from accumulating drifts
-		\end{itemize}
-	\item Data Augmentation
-		\begin{itemize}
-		\item utilize detection dataset: crop the object with bounding box
-		\item random crop a patch from the same image as background
-		\item occluders randomly taken from the same image
-		\item object with box initialized with velocity with Gaussian noise
+		\item true positive: associated ground truth detection in $2$ frames \\
+		(time gap $\le15$ frames)
+		\item negative: wrong association to true detection of other track / false detection
+		\item data augmentation: false alarm, distortion on image
 		\end{itemize}
 	\item Tracking
 		\begin{itemize}
-		\item crops fed into net at each time step
-		\item LSTM state reset after each $32$ frames (as maximally trained with $32$ unrolls) \\
-		$\Rightarrow$ hot-start by using the state in $1^\text{st}$ forward pass (instead of $\mathbf 0$) \\
-		$\Rightarrow$ preserve the initial encoding \& recover from drift
+		\item given current data association probability for all track-detection pair \\
+		$\Rightarrow$ construct a linear program problem (with constraints)
+		$\Rightarrow$ a global optimization for association given probability
+		\item online tracker (e.g. kalman filter)
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item end-to-end training for both detector and tracker (improved GOTURN)
-		\item model regress changes to the box ratio $\Rightarrow$ easier
-		\item observation usefulness modeled by LSTM tracker
-		\item LSTM tracker needs specialized training, and single-layer LSTM NOT enough \\
-		(or, can hurt performance due to instability)
-		\item LSTM state reset: prevent drift, yet can fail if initial box overlaps other object
+		\item NN approach for association probability \\
+		(with fusion of NN \& rule-model via GB classifier) \\
+		$\Rightarrow$ fusion much better than pure NN $\Rightarrow$ spatio-temporal info important
 		\end{itemize}
 	\end{itemize}
-\end{itemize}
 
-
-\subsubsection{Research Direction}
-\begin{itemize}
-\item Current State
+\item Online Multi-Target Tracking Using RNN
 	\begin{itemize}
-	\item NN in Data Association
+	\item Input
 		\begin{itemize}
-		\item pred association prob of prediction-detection in JPDA
-		\item pred prob of detection being true / false alarm (the existence prob for bbox), used in MHT
+		\item $D$ the dimension of bbox encoding (e.g. x, y, w, h, objectiveness, etc.)
+		\item $x_t\in \mathbb{R}^{ND}$ all the $N$ track state (bbox) at time $t$
+		\item $x^\star_{t} \in\mathbb{R}^{ND}$ all the $N$ predicted bboxes for time $t$, from time $t-1$
+		\item $z_t\in \mathbb{R}^{MD}$ all the $M-1$ detected bbox at time $t$, with an empty detection
+		\item $\varepsilon_t\in(0,1)^N  \in\mathbb R^N$ the existence probability (liveness) for all tracks
+		\item $A_t \in \mathbb{R}_{N\times M}$ the probability matrix for data association between track-detection
+		\item $h_t$ hidden state of track RNN at time $t$
+		\item $C_t \in \mathbb{R}_{N\times M}$ the distance matrix between $x^\star_{t}$ and $z_t$ \\ 
+		i.e. $C_t[i,j] = dist(x^\star_{t}[i] - z_t[j])$
+		\item available ground truth: $\widetilde x_t, \widetilde A_t, \widetilde \varepsilon_t$
 		\end{itemize}
-	\item Tracking Initiation \& Deletion
+	\item Inference
 		\begin{itemize}
-		\item currently, by rules... \\
-		e.g. 3 observations in 4 consecutive frames; observation missed for 4-7 frames
+		\item given $x_t,h_t$, track RNN outputs state prediction $x^\star_{t+1}$, compute $h_{t+1}$
+		\item based on pred $x^\star_{t+1}$ and detection $z_{t+1}$, compute $C_{t+1}$
+		\item given $C_{t+1}$ and hidden state for $i^\text{th}$ track $h_{t+1}[i]$ \\ 
+		$\Rightarrow$ association LSTM scans over all detection $z_{t+1}$ \\
+		$\Rightarrow$ regress $A_{t+1}[i, :]$, the association prob for $i^\text{th}$ track and each bbox in $z_{t+1}$ \\
+		(as part of track RNN process)
+		\item given detection $z_{t+1}$, association prob $A_{t+1}$, latest liveness $\varepsilon_t$, with $h_{t+1}$ \\ 
+		$\Rightarrow$ update state to be $x_{t+1}$, estimate liveness $\varepsilon_{t+1}$
 		\end{itemize}
-	\item Prediction Encoding
+	\item Structure
 		\begin{itemize}
-		\item crop the image according the predicted area (gating)
+		\item track RNN consists of a $2$-layer association LSTM
 		\end{itemize}
-	\end{itemize}
-\item End-to-end tracking
-	\begin{itemize}
-	\item End-to-End Regression for Data Association in MOT
+	\item Loss
 		\begin{itemize}
-		\item directly output association decision
-		\item input: raw image (semantic), current detection, track prediction, track history
-		\item track-level info: extended Siamese for relation of: track - current detection \\
-		(instead of only det-det in $2$ frames)
-		\item fully NN approach for JPDA \\
-		$\Rightarrow$ track - all det: concat (tile) track+pred to each det $\Rightarrow$ use fcn, then pooling to regress to a bbox for update \\
-		(direct regress the box, instead of Siamese net + weighted sum)
-		\item fully NN approach for MHT ??? \\
-		trace-back available ... encoding past detection as well? (in the tracker?) \\ 
-		N-scan pruning?
+		\item prediction $L_\text{pred} = \frac \lambda {ND} \sum (x^\star_{t+1} - \widetilde x_{t+1})^2$
+		\item updated state $L_\text{update} = \frac \kappa {ND} \sum (x_{t} - \widetilde x_{t+1})^2$
+		\item liveness $L_\varepsilon = \widetilde \varepsilon_t\log\varepsilon_t + (1-\widetilde \varepsilon_t)\log(1-\varepsilon_t) + \abs{\varepsilon_t - \varepsilon_{t-1}}$ \\
+		$\Rightarrow$ minimize the diff between consecutive liveness estimation $\Rightarrow$ smoothness \\
+		(prevent track from termination for only a single detection lost)
+		\item association $L_a = -\log(A_{t+1}[i,\widetilde{j}])$, where $\widetilde{j}$ the true association for $i^\text{th}$ track
 		\end{itemize}
-	\item Track Initiation/Deletion
+	\item Training
 		\begin{itemize}
-		\item directly output decision result \\
-		$\Rightarrow$ regress the decision boundary as well (instead of universal $0.5$)
+		\item data augmentation: sample synthetic trajectories from each labeled video \\
+		(Gaussian distribution)
 		\end{itemize}
-	\item Interesting Predicted Bounding Box Encoding
+	\item Tracking
 		\begin{itemize}
-		\item direct encoding: x,y,w,h + full image
-		\item mask: bounding box plot onto a separate mask, concat to the full image \\
-		\item further, attention mechanism
+		\item forward unroll track RNN, if liveness $\le0.6$, corresponding track ignored
+		\item liveness $\ge0.6$ again, a new track initiated
 		\end{itemize}
-		$\Rightarrow$ enable global track for multiple obj track (single RNN for all track in an image)
-	\item End-to-End MOT
+	\item Understanding
 		\begin{itemize}
-		\item image $t$ encoded by cnn: $f_t$
-		\item regress the bbox(es) $d_t$; encode the bbox(es) by rnn encoder $c(d_t)$
-		\item fed $f_t, c(d_t)$ to rnn tracker, and output $o_t$ \\
-		(track history in tracker rnn state)
-		\item decode $o_t$ by another rnn decoder, to predict bbox(es) \\
-		(generate till end-of-sequence)
+		\item specialized RNN cell accounting for prediction, update, birth-death of all tracks
+		\item another LSTM cell designed for data association \\
+		$\Rightarrow$ able to learn $1-1$ association by scanning \\
+		(yet, unnecessary, since $N,M$ fixed i.e. a fixed size mapping)
+		\item utilize given detector $\Rightarrow$ no appearance model (but only location \& size)
+		\item able to maintain at most $N$ track with maximally $M$ detection at a time
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -3916,67 +4252,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \end{itemize}
 
 
-\subsubsection{Research Direction}
-\begin{itemize}
-\item Integrating Encoder-Decoder Architecture
-	\begin{itemize}
-	\item Upsampling
-		\begin{itemize}
-		\item similar to Unet, concat low-level spatial info
-		\item introduce language info as well \\
-		(e.g. early combination, explicit introducing, ...)
-		\end{itemize}
-	\end{itemize}
-\item Early Info Combination
-	\begin{itemize}
-	\item Tiling at First Conv
-		\begin{itemize}
-		\item downsampling more responsible for language info processing \\
-		$\Rightarrow$ hopefully get more fine-tuning alone with conv filters
-		\item can be used with pre-trained net: \\ 
-		$ReLU(conv_1*X_1 + conv_2*X_2) = ReLU( [conv_1,conv_2]*[X_1,X_2] )$
-		\end{itemize}
-	\item Multiple Entries
-		\begin{itemize}
-		\item combining info at different stages of downsampling / upsampling
-		\end{itemize}
-	\end{itemize}
-\item Attention
-	\begin{itemize}
-	\item Attention from Combined Info
-		\begin{itemize}
-		\item as key-word-aware net
-		\end{itemize}
-	\item Attention on Language Info
-		\begin{itemize}
-		\item $1$-D spatial pyramid pooling / attention mask on the sentence encoding
-		\end{itemize}
-	\end{itemize}
-\item Language Info Throughout Network
-	\begin{itemize}
-	\item Encoder-Decoder for Language Info
-		\begin{itemize}
-		\item network asked to recover language info after processing combined info \\ 
-		(potentially via a separate branch only at training time) \\ 
-		$\Rightarrow$ auxiliary loss
-		\end{itemize}
-	\item Language as Conv Filter
-		\begin{itemize}
-		\item Language Info, through a subnet, becoming a set of conv filters \\
-		$\Rightarrow$ then imposed in downsampling, tunnel, upsampling or bridge stage(s)
-		\end{itemize}
-	\end{itemize}
-\item Data Augmentation
-	\begin{itemize}
-	\item Translation Module
-		\begin{itemize}
-		\item using the same image
-		\item expression translated to a middle language and then back to English \\
-		$\Rightarrow$ language info trained more finely
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Special Learning}
 \subsection{Transfer Learning} \label{DL_Learning_Transfer}
@@ -4138,4 +4413,3 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item 
 	\end{itemize}
 \end{itemize}
-

@@ -58,40 +58,39 @@
 \BOOKMARK [2][-]{subsection.12.1.5}{Yuanqing Lin}{section.12.1}% 58
 \BOOKMARK [2][-]{subsection.12.1.6}{Andrej Karpathy}{section.12.1}% 59
 \BOOKMARK [2][-]{subsection.12.1.7}{Ruslan Salakhutdinov}{section.12.1}% 60
-\BOOKMARK [2][-]{subsection.12.1.8}{}{section.12.1}% 61
-\BOOKMARK [2][-]{subsection.12.1.9}{Research}{section.12.1}% 62
-\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 63
-\BOOKMARK [2][-]{subsection.12.2.1}{Advantages}{section.12.2}% 64
-\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 65
-\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 66
-\BOOKMARK [1][-]{section.12.3}{Operations \046 Layers Structure}{chapter.12}% 67
-\BOOKMARK [2][-]{subsection.12.3.1}{Operations in Network}{section.12.3}% 68
-\BOOKMARK [2][-]{subsection.12.3.2}{Operations on Network}{section.12.3}% 69
-\BOOKMARK [2][-]{subsection.12.3.3}{Cost}{section.12.3}% 70
-\BOOKMARK [2][-]{subsection.12.3.4}{Layers}{section.12.3}% 71
-\BOOKMARK [2][-]{subsection.12.3.5}{Blocks}{section.12.3}% 72
-\BOOKMARK [1][-]{section.12.4}{Architectures}{chapter.12}% 73
-\BOOKMARK [2][-]{subsection.12.4.1}{Convolutional Networks}{section.12.4}% 74
-\BOOKMARK [2][-]{subsection.12.4.2}{Recurrent Neural Network}{section.12.4}% 75
-\BOOKMARK [2][-]{subsection.12.4.3}{Encoder-Decoder Architecture}{section.12.4}% 76
-\BOOKMARK [2][-]{subsection.12.4.4}{Generative Network}{section.12.4}% 77
-\BOOKMARK [1][-]{section.12.5}{Computer Vision}{chapter.12}% 78
-\BOOKMARK [2][-]{subsection.12.5.1}{Objects Detection}{section.12.5}% 79
-\BOOKMARK [2][-]{subsection.12.5.2}{Object Tracking}{section.12.5}% 80
-\BOOKMARK [2][-]{subsection.12.5.3}{Face Recognition}{section.12.5}% 81
-\BOOKMARK [2][-]{subsection.12.5.4}{Image Style Transfer}{section.12.5}% 82
-\BOOKMARK [2][-]{subsection.12.5.5}{Point Cloud Data Processing}{section.12.5}% 83
-\BOOKMARK [1][-]{section.12.6}{Natural Language Processing}{chapter.12}% 84
-\BOOKMARK [2][-]{subsection.12.6.1}{Language Representation}{section.12.6}% 85
-\BOOKMARK [2][-]{subsection.12.6.2}{Language Modeling}{section.12.6}% 86
-\BOOKMARK [2][-]{subsection.12.6.3}{Name-Entity Recognition}{section.12.6}% 87
-\BOOKMARK [2][-]{subsection.12.6.4}{Sentiment Classification}{section.12.6}% 88
-\BOOKMARK [2][-]{subsection.12.6.5}{Neural Machine Translation}{section.12.6}% 89
-\BOOKMARK [2][-]{subsection.12.6.6}{Speech Recognition}{section.12.6}% 90
-\BOOKMARK [2][-]{subsection.12.6.7}{Machine Reading Comprehension}{section.12.6}% 91
-\BOOKMARK [2][-]{subsection.12.6.8}{Image Caption}{section.12.6}% 92
-\BOOKMARK [2][-]{subsection.12.6.9}{Referring Segmentation}{section.12.6}% 93
-\BOOKMARK [1][-]{section.12.7}{Special Learning}{chapter.12}% 94
-\BOOKMARK [2][-]{subsection.12.7.1}{Transfer Learning}{section.12.7}% 95
-\BOOKMARK [2][-]{subsection.12.7.2}{Multi-task Learning}{section.12.7}% 96
-\BOOKMARK [2][-]{subsection.12.7.3}{K-shot Learning}{section.12.7}% 97
+\BOOKMARK [2][-]{subsection.12.1.8}{Research}{section.12.1}% 61
+\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 62
+\BOOKMARK [2][-]{subsection.12.2.1}{Advantages}{section.12.2}% 63
+\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 64
+\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 65
+\BOOKMARK [1][-]{section.12.3}{Operations \046 Layers Structure}{chapter.12}% 66
+\BOOKMARK [2][-]{subsection.12.3.1}{Operations in Network}{section.12.3}% 67
+\BOOKMARK [2][-]{subsection.12.3.2}{Operations on Network}{section.12.3}% 68
+\BOOKMARK [2][-]{subsection.12.3.3}{Cost}{section.12.3}% 69
+\BOOKMARK [2][-]{subsection.12.3.4}{Layers}{section.12.3}% 70
+\BOOKMARK [2][-]{subsection.12.3.5}{Blocks}{section.12.3}% 71
+\BOOKMARK [1][-]{section.12.4}{Architectures}{chapter.12}% 72
+\BOOKMARK [2][-]{subsection.12.4.1}{Convolutional Networks}{section.12.4}% 73
+\BOOKMARK [2][-]{subsection.12.4.2}{Recurrent Neural Network}{section.12.4}% 74
+\BOOKMARK [2][-]{subsection.12.4.3}{Encoder-Decoder Architecture}{section.12.4}% 75
+\BOOKMARK [2][-]{subsection.12.4.4}{Generative Network}{section.12.4}% 76
+\BOOKMARK [1][-]{section.12.5}{Computer Vision}{chapter.12}% 77
+\BOOKMARK [2][-]{subsection.12.5.1}{Objects Detection}{section.12.5}% 78
+\BOOKMARK [2][-]{subsection.12.5.2}{Object Tracking}{section.12.5}% 79
+\BOOKMARK [2][-]{subsection.12.5.3}{Face Recognition}{section.12.5}% 80
+\BOOKMARK [2][-]{subsection.12.5.4}{Image Style Transfer}{section.12.5}% 81
+\BOOKMARK [2][-]{subsection.12.5.5}{Point Cloud Data Processing}{section.12.5}% 82
+\BOOKMARK [1][-]{section.12.6}{Natural Language Processing}{chapter.12}% 83
+\BOOKMARK [2][-]{subsection.12.6.1}{Language Representation}{section.12.6}% 84
+\BOOKMARK [2][-]{subsection.12.6.2}{Language Modeling}{section.12.6}% 85
+\BOOKMARK [2][-]{subsection.12.6.3}{Name-Entity Recognition}{section.12.6}% 86
+\BOOKMARK [2][-]{subsection.12.6.4}{Sentiment Classification}{section.12.6}% 87
+\BOOKMARK [2][-]{subsection.12.6.5}{Neural Machine Translation}{section.12.6}% 88
+\BOOKMARK [2][-]{subsection.12.6.6}{Speech Recognition}{section.12.6}% 89
+\BOOKMARK [2][-]{subsection.12.6.7}{Machine Reading Comprehension}{section.12.6}% 90
+\BOOKMARK [2][-]{subsection.12.6.8}{Image Caption}{section.12.6}% 91
+\BOOKMARK [2][-]{subsection.12.6.9}{Referring Segmentation}{section.12.6}% 92
+\BOOKMARK [1][-]{section.12.7}{Special Learning}{chapter.12}% 93
+\BOOKMARK [2][-]{subsection.12.7.1}{Transfer Learning}{section.12.7}% 94
+\BOOKMARK [2][-]{subsection.12.7.2}{Multi-task Learning}{section.12.7}% 95
+\BOOKMARK [2][-]{subsection.12.7.3}{K-shot Learning}{section.12.7}% 96
