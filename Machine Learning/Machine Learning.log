@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  21 MAY 2019 22:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  23 MAY 2019 14:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -935,7 +935,7 @@ l.38 		\item d
 
 
 ] [2] [3]
-<./Math/"matrix-performing space transformation".png, id=546, 1634.105pt x 297.
+<./Math/"matrix-performing space transformation".png, id=556, 1634.105pt x 297.
 11pt>
 File: ./Math/"matrix-performing space transformation".png Graphic file (type pn
 g)
@@ -952,7 +952,7 @@ m/it/10 L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 e[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/
 10 ; :::; L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 e[]\OT1/cmr/m/n/10 )$ 
  []
 
-<"./Math/matrix-composition of transformations".png, id=548, 1568.86125pt x 449
+<"./Math/matrix-composition of transformations".png, id=558, 1568.86125pt x 449
 .68pt>
 File: "./Math/matrix-composition of transformations".png Graphic file (type png
 )
@@ -991,7 +991,7 @@ Overfull \hbox (38.03133pt too wide) detected at line 937
  []
 
 [16] [17] [18] [19] [20]
-<./Math/"multivariate gaussian-mass of distribution".jpg, id=654, 203.8014pt x 
+<./Math/"multivariate gaussian-mass of distribution".jpg, id=664, 203.8014pt x 
 149.5989pt>
 File: ./Math/"multivariate gaussian-mass of distribution".jpg Graphic file (typ
 e jpg)
@@ -1014,7 +1014,7 @@ Chapter 2.
 [26
 
 ] [27]
-<"./Deep Learning/experiment practice-iterative process".png, id=705, 814.04124
+<"./Deep Learning/experiment practice-iterative process".png, id=715, 814.04124
 pt x 555.07375pt>
 File: "./Deep Learning/experiment practice-iterative process".png Graphic file 
 (type png)
@@ -1277,7 +1277,7 @@ mr/m/n/10 )$
  []
 
 [69] [70] [71] [72] [73]
-<"./Deep Learning/background-largedata".png, id=965, 1866.975pt x 879.285pt>
+<"./Deep Learning/background-largedata".png, id=976, 1866.975pt x 879.285pt>
 File: "./Deep Learning/background-largedata".png Graphic file (type png)
 <use "./Deep Learning/background-largedata".png>
 Package pdftex.def Info: "./Deep Learning/background-largedata".png  used on in
@@ -1290,7 +1290,7 @@ Overfull \hbox (7.07492pt too wide) in paragraph at lines 746--748
  []
 
 [75] [76] [77] [78] [79] [80]
-<"./Deep Learning/regularization-dropout".jpeg, id=1013, 616.3025pt x 329.23pt>
+<"./Deep Learning/regularization-dropout".jpeg, id=1023, 616.3025pt x 329.23pt>
 
 File: "./Deep Learning/regularization-dropout".jpeg Graphic file (type jpg)
 <use "./Deep Learning/regularization-dropout".jpeg>
@@ -1305,13 +1305,13 @@ Overfull \hbox (10.95439pt too wide) in paragraph at lines 1428--1429
  []
 
 [85]
-<"./Deep Learning/layer-conv2d exp".png, id=1040, 1268.74pt x 713.66624pt>
+<"./Deep Learning/layer-conv2d exp".png, id=1050, 1268.74pt x 713.66624pt>
 File: "./Deep Learning/layer-conv2d exp".png Graphic file (type png)
 <use "./Deep Learning/layer-conv2d exp".png>
 Package pdftex.def Info: "./Deep Learning/layer-conv2d exp".png  used on input 
 line 1494.
 (pdftex.def)             Requested size: 217.94005pt x 122.58485pt.
-<"./Deep Learning/layer-conv2d kernel movement".png, id=1041, 327.2225pt x 464.
+<"./Deep Learning/layer-conv2d kernel movement".png, id=1051, 327.2225pt x 464.
 73625pt>
 File: "./Deep Learning/layer-conv2d kernel movement".png Graphic file (type png
 )
@@ -1321,14 +1321,14 @@ ed on input line 1497.
 (pdftex.def)             Requested size: 62.26949pt x 88.43553pt.
  [86 <./Deep Learning/layer-conv2d exp.png> <./Deep Learning/layer-conv2d kerne
 l movement.png (PNG copy)>] [87] [88]
-<"./Deep Learning/layer-rnn unrolled".png, id=1059, 2716.1475pt x 713.66624pt>
+<"./Deep Learning/layer-rnn unrolled".png, id=1069, 2716.1475pt x 713.66624pt>
 File: "./Deep Learning/layer-rnn unrolled".png Graphic file (type png)
 <use "./Deep Learning/layer-rnn unrolled".png>
 Package pdftex.def Info: "./Deep Learning/layer-rnn unrolled".png  used on inpu
 t line 1667.
 (pdftex.def)             Requested size: 207.56285pt x 54.53539pt.
  [89 <./Deep Learning/layer-rnn unrolled.png>]
-<"./Deep Learning/layer-rnn lstm".png, id=1067, 826.08624pt x 844.15375pt>
+<"./Deep Learning/layer-rnn lstm".png, id=1077, 826.08624pt x 844.15375pt>
 File: "./Deep Learning/layer-rnn lstm".png Graphic file (type png)
 <use "./Deep Learning/layer-rnn lstm".png>
 Package pdftex.def Info: "./Deep Learning/layer-rnn lstm".png  used on input li
@@ -1340,7 +1340,7 @@ $[]$ $[]$
  []
 
 [90 <./Deep Learning/layer-rnn lstm.png>]
-<"./Deep Learning/layer-rnn gru".png, id=1073, 840.13875pt x 565.11125pt>
+<"./Deep Learning/layer-rnn gru".png, id=1083, 840.13875pt x 565.11125pt>
 File: "./Deep Learning/layer-rnn gru".png Graphic file (type png)
 <use "./Deep Learning/layer-rnn gru".png>
 Package pdftex.def Info: "./Deep Learning/layer-rnn gru".png  used on input lin
@@ -1351,7 +1351,7 @@ Overfull \hbox (186.28505pt too wide) in paragraph at lines 1777--1786
 []$[]$ $[]$ 
  []
 
-<"./Deep Learning/layer-rnn bidirection".png, id=1074, 1639.12375pt x 777.90625
+<"./Deep Learning/layer-rnn bidirection".png, id=1084, 1639.12375pt x 777.90625
 pt>
 File: "./Deep Learning/layer-rnn bidirection".png Graphic file (type png)
 <use "./Deep Learning/layer-rnn bidirection".png>
@@ -1376,7 +1376,7 @@ t/10 ; []\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 p[]; :::; p[]\OT1/cmr/m/n/10 ]]$
  []
 
 [101]
-<"./Deep Learning/topic-objdet onestage yolov3 architecture".png, id=1139, 1204
+<"./Deep Learning/topic-objdet onestage yolov3 architecture".png, id=1149, 1204
 .5pt x 669.50125pt>
 File: "./Deep Learning/topic-objdet onestage yolov3 architecture".png Graphic f
 ile (type png)
@@ -1386,45 +1386,45 @@ ture".png  used on input line 2556.
 (pdftex.def)             Requested size: 373.61061pt x 207.66583pt.
  [102] [103 <./Deep Learning/topic-objdet onestage yolov3 architecture.png>] [1
 04] [105] [106] [107] [108] [109] [110] [111] [112] [113]
-<"./Deep Learning/topic-image style transfer nst overview".png, id=1201, 732.73
+<"./Deep Learning/topic-image style transfer nst overview".png, id=1211, 732.73
 75pt x 220.825pt>
 File: "./Deep Learning/topic-image style transfer nst overview".png Graphic fil
 e (type png)
 <use "./Deep Learning/topic-image style transfer nst overview".png>
 Package pdftex.def Info: "./Deep Learning/topic-image style transfer nst overvi
-ew".png  used on input line 3341.
+ew".png  used on input line 3347.
 (pdftex.def)             Requested size: 207.56285pt x 62.55165pt.
-<"./Deep Learning/topic-image style transfer nst style matrix".png, id=1202, 16
+ [114 <./Deep Learning/topic-image style transfer nst overview.png (PNG copy)>]
+<"./Deep Learning/topic-image style transfer nst style matrix".png, id=1220, 16
 06.0pt x 530.98375pt>
 File: "./Deep Learning/topic-image style transfer nst style matrix".png Graphic
  file (type png)
 <use "./Deep Learning/topic-image style transfer nst style matrix".png>
 Package pdftex.def Info: "./Deep Learning/topic-image style transfer nst style 
-matrix".png  used on input line 3375.
+matrix".png  used on input line 3381.
 (pdftex.def)             Requested size: 207.56285pt x 68.6252pt.
- [114 <./Deep Learning/topic-image style transfer nst overview.png (PNG copy)>]
- [115 <./Deep Learning/topic-image style transfer nst style matrix.png>]
+ [115 <./Deep Learning/topic-image style transfer nst style matrix.png>] [116]
 
-LaTeX Warning: Hyper reference `' on page 116 undefined on input line 3497.
+LaTeX Warning: Hyper reference `' on page 117 undefined on input line 3503.
 
-[116]
-Overfull \hbox (7.40826pt too wide) in paragraph at lines 3541--3542
+
+Overfull \hbox (7.40826pt too wide) in paragraph at lines 3547--3548
 []\OT1/cmr/m/n/10 convs - max pool-ing - di-lated convs - un-pool-ing - branch 
 for re-gres-sion/classification 
  []
 
 [117]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 3615
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 3621
 .
  (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 3615.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 3621.
 
  [118]
 [119] [120]
-Overfull \hbox (3.24109pt too wide) in paragraph at lines 3832--3833
+Overfull \hbox (3.24109pt too wide) in paragraph at lines 3838--3839
 []$\OMS/cmsy/m/n/10 )$ \OT1/cmr/m/n/10 se-quence prob-a-bil-ity $\OML/cmm/m/it/
 10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = \OML/cmm
 /m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/1
@@ -1435,19 +1435,19 @@ cmsy/m/n/10 j\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = [] \OML/cmm/m/it
  []
 
 [121] [122] [123]
-Overfull \hbox (37.54732pt too wide) in paragraph at lines 4025--4026
+Overfull \hbox (37.54732pt too wide) in paragraph at lines 4031--4032
 []\OT1/cmr/m/n/10 encoder scan through au-dio frames & de-coder out-put let-ter
 /punctuation/"blank"/"space" 
  []
 
-[124] [125] [126] [127] [128] [129]) [130]
+[124] [125] [126] [127] [128] [129] [130]) [131]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 94.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 94.
  (./Machine Learning.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 94.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 94.
 Package rerunfilecheck Info: File `"Machine Learning".out' has not changed.
-(rerunfilecheck)             Checksum: 264B532EA1827A1C73DF6E4F9CF870A6;6624.
+(rerunfilecheck)             Checksum: 52FB49AB5F975EEDE76FCB84964D68C6;6792.
 
 
 LaTeX Warning: There were undefined references.
@@ -1455,10 +1455,10 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 94.
  ) 
 Here is how much of TeX's memory you used:
- 22149 strings out of 492639
- 408212 string characters out of 6129286
- 484280 words of memory out of 5000000
- 25345 multiletter control sequences out of 15000+600000
+ 22155 strings out of 492639
+ 408294 string characters out of 6129286
+ 484283 words of memory out of 5000000
+ 25347 multiletter control sequences out of 15000+600000
  549674 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  53i,20n,92p,1514b,951s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1490,10 +1490,10 @@ t/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf
 -dist/fonts/type1/public/amsfonts/symbols/msam5.pfb></usr/local/texlive/2018/te
 xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/201
 8/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on "Machine Learning.pdf" (136 pages, 3245183 bytes).
+Output written on "Machine Learning.pdf" (137 pages, 3246484 bytes).
 PDF statistics:
- 1498 PDF objects out of 1728 (max. 8388607)
- 1293 compressed objects within 13 object streams
- 420 named destinations out of 1000 (max. 500000)
- 844 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1515 PDF objects out of 1728 (max. 8388607)
+ 1308 compressed objects within 14 object streams
+ 424 named destinations out of 1000 (max. 500000)
+ 860 words of extra memory for PDF output out of 10000 (max. 10000000)
 
