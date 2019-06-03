@@ -2623,16 +2623,33 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item adaptive, as accounting the history info of a track \\
 		$\Rightarrow$ may provide more info (e.g. covariance matrix from Kalman filter)
 		\end{itemize}
+	\item Near-Online Tracking
+		\begin{itemize}
+		\item look ahead a fixed number of frames, before consolidating a method
+		\end{itemize}
 	\item Offline Tracking
 		\begin{itemize}
 		\item learn similarity functions between frames offline
 		\item fast, as no online training needed
 		\item NOT adaptive $\Rightarrow$ failed in large appearance change, e.g. occlusion etc.
+		\item batch method: generate the track after all frames examined
 		\end{itemize}
 	\item Tracking-by-Detection
 		\begin{itemize}
 		\item detect target(s) in each frame; link target into track \\
 		$\Rightarrow$ as a two-stage problem
+		\end{itemize}
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Appearance Change
+		\begin{itemize}
+		\item shape\&color can be trap: changing clothes etc.
+		\end{itemize}
+	\item Long Term Dependency
+		\begin{itemize}
+		\item re-identification: people leaving and re-entering the scene
+		\item hot standby surveillance
 		\end{itemize}
 	\end{itemize}
 \item Evaluation Metrics

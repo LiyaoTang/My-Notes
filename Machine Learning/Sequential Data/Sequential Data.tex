@@ -1,1 +1,470 @@
 \chapter{Sequential Data}
+
+\begin{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Violated Identically Independent Draw Assumption
+		\begin{itemize}
+		\item current data depends on previous data $\Rightarrow$ i.i.d. assumption NOT hold
+		\item $\Rightarrow$ distribution changing while drawing data
+		\end{itemize}
+	\end{itemize}
+\item Assumption
+	\begin{itemize}
+	\item yet Gaussian still usually assumed s.t. model complexity remains in iterations \\
+	(as exponential family's prior-posterior in the same family)
+	\end{itemize}
+\item Overview
+	\begin{itemize}
+	\item Stationary
+		\begin{itemize}
+		\item data evolves in time; generative distribution stays the same
+		\end{itemize}
+	\item Non-stationary
+		\begin{itemize}
+		\item generative distribution changes along the time
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\section{Markov Model}
+\subsection{Markov Chain}
+\subsubsection{First-order Markov Chain}
+\begin{itemize}
+\item Assumption
+	\begin{itemize}
+	\item each data only depends on the most recent node \\
+	(direct predecessor)
+	\end{itemize}
+\item Description
+	\begin{itemize}
+	\item Bayesian Networks 
+		\begin{itemize}
+		\item \includegraphics[width=0.3\linewidth, left]{"./Sequential Data/MC-1st-order markov chain".jpg}
+		\end{itemize}
+	\item $\Rightarrow$ Distribution
+		\begin{itemize}
+		\item joint distribution: $\displaystyle p(x_1,...,x_N) = p(x_1) \prod_{n=2}^N p(x_n|x_{n-1})$
+		\item conditional dependency: $p(x_n|x_1,...,x_{n-1}) = \cdots = p(x_n|x_{n-1})$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+1. Second-order Markov Chain:
+
+   - Assumption:
+
+     - The trend in previous observations is important
+
+       $\Rightarrow$ have at least 2 observations for a trend
+
+   - Joint distribution:
+
+     - $\displaystyle p(x_1,...,x_N) = p(x_1)p(x_2|x_1) \prod _{n=3}^N p(x_n|x_{n-1},x_{n-2})$ 
+
+     - BNs:
+
+	\includegraphics[width=0.5\linewidth, center]{"./Sequential Data/MC-2nd-order markov chain".PNG}
+
+2. $M^{th}$-order Markov Chain:
+
+   - Joint distribution:
+
+     - $\displaystyle p(x_1,...,x_N) = p(x_1)p(x_2|x_1)\cdots p(x_M|x_1,...,x_{M-1}) \times \prod_{n=M+1}^N p(x_n|x_{n-1},...,x_{n-M}) $ 
+
+   - Analysis of $M$: $\small\text{(assume $K$ states for an observation)}$ 
+
+     - $M=0:$ no Markov parameter, data drawn $\text{i.i.d.}$ 
+
+     - $M=1:$ First-order Markov Chain: $K-1$ for previous observation $\Rightarrow K(K-1)$ parameters
+
+     - $M:$ $M^{\text{th}}$-order Markov Chain: $K-1$ for each of $M$ observation $\Rightarrow K^M(K-1)$ parameters
+
+       $\Rightarrow$ num of parameters grows exponentially with $M$ 
+
+\section{Hidden Markov Model}
+
+1. Problem to solve:
+
+   - Avoid exponentially growing parameters
+   - Avoid assumption in Markov Chain
+   - Allow for sequential correlations in the data - an extension of mixture models
+
+2. Introduce $\text{latent variable}$: 
+
+   - Assumption:
+
+     - Latent variables forms a Markov Chain
+
+     - Latent variables are <u>discrete</u> 
+
+       note: continuous laten variable leads to linear dynamic system
+
+   - One $\text{latent variable}$ $z_n$ for each observation $x_n$ 
+
+	\includegraphics[width=0.5\linewidth, center]{"./Sequential Data/HMM-Hidden Markov model".PNG}
+
+   - Key property:
+
+     - $z_{n+1} \perp\!\!\!\perp z_{n-1} \mid z_n$ 
+
+     - No blocked path between any two observed $x_i,x_j$  
+
+       $\Rightarrow$ prediction depends on all previous observation
+
+3. Distribution:
+
+   - Joint distribution:
+
+      \begin{align} \displaystyle p(x_1,...,x_N,z_1,...,z_N) &= p(z_1)[\prod_{n=2}^N p(z_n|z_{n-1})]\prod_{n=1}^N p(x_n|z_n) \\ &= p(z_1)p(x_1|z_1)\prod_{n=2}^N p(z_n|z_{n-1}) p(x_n|z_n) \end{align} 
+
+     - understanding: extension of mixture distribution
+
+       $\Rightarrow$ 	component densities = $p(x|z)$ 
+       choice of component depends on previous state: $p(z_n|z_{n-1})$ 
+
+   - Transition probabilities:
+
+     - Assume $\text{latent variable }z$ has $K$ states with $1$-in-$K$ coding
+
+     - $p(z_n|z_{n-1}) = \boldsymbol A_{K\times K}\in [0,1]^{K\times K}$   
+
+       where $A_{ik}=p(z_{n,k}=1 \mid z_{n-1,i}=1), \space 0 \le A_{ik}\le 1 \text{ and } \small{\displaystyle \sum_{k=1}^K} \normalsize A_{ik} = 1 \\ \Rightarrow \text{num of independent parameters}=K(K-1) $ 
+
+       $\Rightarrow \displaystyle p(z_n|z_{n-1},A) = \prod_{k=1}^K \prod_{i=1}^K A_{ik}^{z_{n-1,i} \times z_{n,k}}$ 
+
+     - $p(z_1) = \mathbf \pi$ 
+
+       where $\pi_k = p(z_{1k}=1), 0\le\pi_k \le 1  \text{ and } \space \small {\displaystyle\sum_k} \normalsize \pi_k=1$ 
+
+       $\displaystyle \Rightarrow p(z_1|\pi) = \prod_{k=1}^K \pi_k^{z_{1k}}$ 
+
+     - Transition diagram $\&$ Unfolded transition diagram: $\space \small (K=3)$ 
+
+		\includegraphics[width=0.5\linewidth, center]{"./Sequential Data/HMM-transition diagram".PNG}
+
+   - Emission probabilities:
+
+     - $\displaystyle p(x_n|z_n,\phi) = \prod_{k=1}^K p(x_n|\phi_k)^{z_{n,k}}$ 
+
+       where $\phi \text{ is a set of parameters governing the conditional distribution}$ 
+
+4. Homogeneous Hidden Markov Model:
+
+   - Homogeneous:
+
+     - $p(z_n|z_{n-1}) = p(z_{n-1}|z_{n-2}), \forall n=3,...,N$ 
+
+       $\space \text{ (transition probabilities are the same for all)}$ 
+
+   - **Joint distribution**: 
+
+     \begin{align} \displaystyle p(X,Z|\theta) &= p(z_1|\pi) \left[\prod_{n=2}^N p(z_n|z_{n-1},A)\right] \prod_{n=1}^N p(x_n|z_n,\phi) \\ &= \prod_{k=1}^K \pi_k^{z_{1k}} \left[ \prod_{n=2}^N  \prod_{k=1}^K \prod_{i=1}^K A_{ik}^{z_{n-1,i} \times z_{n,k}} \right] \prod_{n=1}^N \prod_{k=1}^Kp(x_n|\phi_k)^{z_{nk}}\end{align}
+
+     $\text{where } X = (x_1,...,x_N), Z=(z_1,...,z_N) \text{ and } \theta = \{\pi,A,\phi\}$ 
+
+5. Variants - by constraints on transition matrix $A$ 
+
+   - Left-to-right HMM:
+
+     - $\forall i>j,A_{ij} = 0 \Rightarrow \text{ can only go to larger num state}$ 
+
+	Transition diagram: \includegraphics[width=0.5\linewidth, center]{"./Sequential Data/HMM-left-to-right HMM".PNG}
+
+
+     - control the maximal change of state ($\Delta$) in one step: 
+
+       Unfolded transition diagram ($\Delta=1$): \includegraphics[width=0.5\linewidth, center]{"./Sequential Data/HMM-left-to-right HMM with maximal state change".PNG}
+
+6. Maximum Likelihood $-\text{ EM}$ algorithm:
+
+   - Goal
+
+     - determine model parameter $\theta$ given observations $X$ 
+     - $\Rightarrow$ maximizing the likelihood $\displaystyle p(X|\theta) = \sum_Z p(X,Z|\theta)$ in hidden Markov models 
+
+   - Notiation:
+
+     - $\gamma(z_n) = p(z_n|X,\theta)$, 
+
+       $\text{where for each } n: \small \displaystyle \gamma(z_n) \in \mathbb R^{K} , \sum_{k=1}^K \gamma(z_{nk}) = 1,\forall k,\gamma(z_{nk})\ge0 \\ \displaystyle\Rightarrow \gamma(z_{nk}) = p(z_{nk}=1|X,\theta) = \sum_{z_n}\gamma(z_n)z_{nk}$ 
+
+     - $\xi(z_{n-1},z_n) = p(z_{n-1},z_n|X,\theta)$, 
+
+       $\text{where for each } n: \small \displaystyle \xi(z_{n-1},z_n)\in\mathbb R^{K\times K},\sum_{i,j=1}^K \xi(z_{n-1,i},z_{nj} ) = 1, \forall i,j, \xi(z_{n-1,i},z_{nj})\ge0 \\ \displaystyle \Rightarrow \xi(z_{n-1,i},z_{nk}) = p(z_{n-1,i}=1,z_{nk}=1|X,\theta) = \sum_{z_{n-1},z_n}\xi(z_{n-1},z_n)z_{n-1,i} z_{nk}$ 
+
+   - $\text{E step}$: evaluate $\text{posterior } P(Z|X,\theta)$ 
+
+     - $\Rightarrow$ evaluate $\gamma(z_n), \xi(z_{n-1},z_n)$ 
+
+   - $\text{M step}$: $\displaystyle \theta = \arg \max_{\theta}\ln P(X|\theta) = \arg\max_{\theta}\sum_Z p(Z|X,\theta^\text{old})\ln p(X,Z|\theta) \text{, where } \theta = \{\pi,A,\phi\} $ 
+
+     - $\displaystyle \arg\max_{\theta}Q = \sum_{k=1}^K \gamma(z_{1k})\ln \pi_k + \sum_{n=2}^N\sum_{i=1}^K\sum_{k=1}^K \xi(z_{n-1,i},z_{nk})\ln A_{ik} + \sum_{n=1}^N \sum_{k=1}^K \gamma(z_{nk}) \ln p(x_n|\phi_k)$
+
+       $\displaystyle \text{where full combination } \small \sum_{Z}\prod_{\text{each combination of }z_{1-n}} = \prod_{X}\sum_{\text{all possibility of each }x}$ 
+
+     - Critical points:
+
+       $\displaystyle \pi_k = \frac {\gamma(z_{1k})} {\displaystyle \sum_{i=1}^K \gamma(z_{1i})}$ 
+
+       $\displaystyle A_{ik} = \frac {\sum_{n=2}^N \xi(z_{n-1,i},z_{nk})} {\sum_{n=2}^N \sum_{j=1}^K \xi(z_{n-1,i},z_{nj})}$ 
+
+       $\text{assume independent } \phi_k \Rightarrow \text{if Gaussian } \begin{cases} \displaystyle \mu_k = \frac {\sum_{n=1}^N \gamma(z_{nk})x_n}{\sum_{n=1}^N \gamma(z_{nk})} \\ \displaystyle \Sigma_k = \frac{\sum_{n=1}^N \gamma(z_{nk}) (x_n-\mu_k)(x_n-\mu_k)^T}{\sum_{n=1}^N \gamma(z_{nk})} \end{cases} $ 
+
+   - Finding $\gamma(z_{nk}),\xi(z_{n-1,i}, z_{nk})$: 
+
+     - sum-product - based on message passing tree structure in $\text{HMM} $ 
+     - $\text{alpha-beta algorithm}$ - known as forward-backward algorithm
+
+     Note: two approaches are equivalent - derive the same recursion formula
+
+   - $\text{alpha-beta algorithm}$: 
+
+     - Independence in $\text{HMM}$:
+
+       All path through $z_n$ is blocked conditioned on $z_n$  
+
+       $\Rightarrow p(X|z_n) = p(x_1,...,x_n|z_n)p(x_{n+1},...,x_N|z_n)$
+
+ \includegraphics[width=0.5\linewidth, center]{"./Sequential Data/HMM-Hidden Markov model".PNG}
+
+          illustration:
+
+          ![](Independence - Hidden Markov Model.PNG) 
+
+          $\displaystyle P(D,B) = \sum_A P(A,B) P(D|A) \\ \displaystyle P(F,B) = \sum_A\left( P(A,B) \sum_C P(C|B)P(F|C) \right) \\ \displaystyle P(D,F,B) =\sum_A \left( P(A,B) P(D|A)\sum_C P(C|B)P(F|C) \right)$ 
+
+          $\Rightarrow P(D|B)P(F|B) = P(D,F|B) \Rightarrow D \perp\!\!\!\perp F | B$ 
+
+     - $\text{Let }\alpha(z_n) = p(x_1,...,x_n,z_n)$ 
+
+       \begin{align} \Rightarrow \alpha(z_n) &= p(x_n|z_n)p(x_1,...,x_{n-1}|z_n)p(z_n) \\ &= \displaystyle p(x_n|z_n)\sum_{z_{n-1}}p(x_1,...,x_{n-1},z_{n-1},z_n) \\ &= p(x_n|z_n) \sum_{z_{n-1}} p(x_1,...,x_{n-1}|z_{n-1})p(z_n|z_{n-1})p(z_{n-1}) \\ &= p(x_n|z_n) \sum_{z_{n-1}}\alpha(z_{n-1}) p(z_n|z_{n-1}) \end{align}
+
+       $\displaystyle \Rightarrow \alpha(z_1) = \prod_{k=1}^K [\pi_k p(x_1|\phi_k)]^{z_{1k}}$ 
+
+     - $\text{Let } \beta(z_n) = p(x_{n+1},...,x_N|z_n)$ 
+
+       \begin{align} \displaystyle \Rightarrow \beta(z_n) &= \frac 1 {p(z_n)} \sum_{z_{n+1}}p(x_{n+1}, ..., x_N, z_n | z_{n+1}) p(z_{n+1}) \\ &= \frac 1 {p(z_n)} \sum_{z_{n+1}}p(x_{n+1}, ..., x_N | z_{n+1})p(z_n | z_{n+1}) p(z_{n+1})  \\ &= \sum_{z_{n+1}}p(x_{n+2},...,x_N|z_{n+1})p(x_{n+1}|z_{n+1}) \frac{p(z_n|z_{n+1})p(z_{n+1}) }{p(z_n)} \\ &= \sum_{z_{n+1}} \beta(z_{n+1}) p(x_{n+1} | z_{n+1}) p(z_{n+1}|z_n) \end{align}
+
+       $\Rightarrow \beta(z_N) = 1, \text{solved from } \gamma(z_N) =  \frac{\alpha(z_N)\beta(z_N)}{p(X)}$ 
+
+     - $\displaystyle \gamma(z_n) = p(z_n|X) = \frac{P(X|z_n)p(z_n)} {p(X)} = \frac{\alpha(z_n) \beta(z_n)}{p(X)}$ 
+
+     - $\displaystyle 1 = \sum_{z_n}\gamma(z_n) = \frac{\sum_{z_n} \alpha(z_n)\beta(z_n)}{p(X)}$ 
+
+       $\displaystyle \Rightarrow p(X) = \sum_{z_n} \alpha(z_n)\beta(z_n)$ 
+
+       $\text{More conveniently, let } \displaystyle z_n=z_N \Rightarrow p(X)=\sum_{z_N}\alpha(z_N)$
+
+       $\Rightarrow \text{complexity: } \mathcal O(n), \text{ instead of } \mathcal O(2^n), \text{ where } n \text{ is the length of the chain}$ 
+
+     - $\displaystyle \xi(z_{n-1}, z_n) = \frac {\alpha(z_{n-1})p(x_n|z_n)p(z_n|z_{n-1})\beta(z_n)} {P(X)}:$ 
+
+       \begin{align} \displaystyle \xi(z_{n-1}, z_n) &= p(z_{n-1},z_n|X) = \frac{p(X|z_{n-1},z_n)p(z_{n-1},z_n)}{p(X)} \\ &= \frac{p(x_1,....,x_{n-1}| z_{n-1},z_n) p(x_n,...,x_N|z_{n-1} ,z_n) \times p(z_n|z_{n-1})p(z_{n-1})} {p(X)} \\ &= \frac{p(x_1,...,x_{n-1}|z_{n-1}) p(x_n|z_n)p(x_{n+1},...,x_N|z_n) \times p(z_n|z_{n-1})p(z_{n-1})} {p(X)} \\ &= \frac {\alpha(z_{n-1})p(x_n|z_n)p(z_n|z_{n-1})\beta(z_n)} {p(X)} \end{align}
+
+       $\text{where factorizing using conditional independence}: \begin{cases} [x_1,...,x_{n-1}],[z_n] &\text{on } z_{n-1} \\ [x_n,...,x_N],[z_{n-1}] &\text{on } z_n  \\ [x_n],[x_{n+1},...,x_N] &\text{on } z_n \end{cases}$ 
+
+       $\small (p(A|B)=p(A) \text{ when } A\perp\!\!\!\perp B) $ 
+
+   - Algorithm description:
+
+     - Initialize $\theta = \{ \pi,A,\phi \}$ 
+
+     - $\text{E step:}$ 
+
+       Forward recursion for $\alpha(z_n)$ 
+
+       Backward recursion for $\beta(z_n)$ 
+
+       Calculate $\gamma(z_n), \xi(z_{n-1}, z_n)$ 
+
+     - $\text{M step:}$ 
+
+       Maximize $Q(\theta,\theta^{\text{old}})$ using critical points
+
+   - Regularized EM
+
+     - add the prior of $\pi, A, \phi$, in the form of $\log p(\theta)$, into $Q(\theta,\theta^\text{old})$ before maximization
+
+7. Prediction
+
+   - Goal
+
+     - predict $x_{N+1}$ given $X=\{x_1,...,x_N\}$ 
+
+   - Algorithm
+
+     - $\alpha$ recusion + summing over $z_N$
+
+       \begin{align} \displaystyle p(x_{N+1}) &= \sum_{z_{N+1}} p(x_{N+1}, z_{N+1}|X) \\ &= \sum_{z_{N+1}} p(x_{N+1}|z_{N+1,X})p(z_{N+1}|X) \\ &= \sum_{z_{N+1}} p(x_{N+1} | z_{N+1}) \sum_{z_N} p(z_{N+1}|z_N,X)p(z_N|X) \\ &= \sum_{z_{N+1}} p(x_{N+1}|z_{N+1}) \sum_{z_N} p(z_{N+1}|z_N)p(z_N|X) \\ &= \frac 1 {P(X)}\sum_{z_{N+1}} p(x_{N+1}| z_{N+1}) \sum_{Z_{N}} p(z_{N+1}|z_N) \alpha(z_N) \end{align}
+
+       $\Rightarrow$ store the $\alpha(z_t)$ for predicting $x_{t+1}$ **and** computing $\alpha(z_{t+1})$ once $x_{t+1}$ observed
+
+     - Intuition: information in $x_1,...,x_N$ stored in $\alpha(z_N)$ 
+
+       $\Rightarrow$ enable real-time application
+
+8. Scaling Factors
+
+   - Original $\alpha-\beta$ Recursion
+
+     - $\displaystyle \alpha(z_n) =  p(x_n|z_n) \sum_{z_{n-1}}\alpha(z_{n-1}) p(z_n|z_{n-1})$
+     - $\displaystyle \beta(z_n) =  \sum_{z_{n+1}} \beta(z_{n+1}) p(x_{n+1} | z_{n+1}) p(z_{n+1}|z_n)$ 
+
+     $\Rightarrow$ $\alpha\rightarrow 0$ exponentially quickly to length of chain
+
+     $\Rightarrow$ for long chain (~100), $\alpha$ can exceed the dynamic range of computer
+
+   - Normalized and Rescaled $\alpha$ 
+
+     - normalize: $\displaystyle \hat\alpha(z_n) = \frac{\alpha(z_n)} {p(x_1,...,x_n)} = p(z_n|x_1,...,x_n)$ 
+
+       $\Rightarrow$ stay in the dynamic range
+
+     - let rescale factor $c_n=p(x_n|x_1,...,x_{n-1})$ 
+
+       \begin{align} \displaystyle \Rightarrow \space & p(x_1,...,x_n) = \prod_{m=1}^n c_m \\ \Rightarrow \space & \alpha(z_n) = (\prod_{m=1}^n c_m) \cdot \hat \alpha(z_n) \\ \Rightarrow \space & c_n\hat\alpha(z_n) = p(x_n|z_n)\sum_{z_{n-1}}\hat\alpha(z_{n-1})p(z_n|z_{n-1}) \end{align}
+
+   - Rescaled $\beta$ 
+
+     - let normalization $\displaystyle \hat\beta(z_n) = \frac {\beta(z_n)}{\displaystyle \prod_{m=n+1}^N c_m} = \frac{p(x_{n+1}, ..., x_N|z_n)}{p(x_{n+1}, ..., x_N|x_1,...,x_n)}$ 
+
+       $\displaystyle \Rightarrow c_{n+1} \hat\beta (z_n) = \sum_{z_{n+1}} \hat\beta(z_{n+1}) p(x_{n+1}|z_{n+1})p(z_{n+1}|z_n)$ 
+       note: $c_{n+1}$ can be re-used from $\alpha$ recursion
+
+   - EM under Rescaled $\alpha-\beta$ 
+
+     - monitoring likelihood: $\displaystyle p(X) = \prod_{n=1}^Nc_n$ 
+
+     - $E$ step:
+
+       \begin{align}\displaystyle \Rightarrow \space & \gamma(z_n) = \hat\alpha(z_n)\hat\beta(z_n) \\ & \xi(z_{n-1},z_n) = c_n \hat\alpha(z_n)p(x_n|z_n)p(z_n|z_{n+1})\hat\beta(z_n) \end{align}
+
+9. Viterbi Algorithm (max-sum algorithm)
+
+   - Goal:
+
+     - find the most probable sequence of latent variable
+
+       $\Rightarrow$ find $\displaystyle\max_{Z} p(Z|X,\theta), \text{ where $Z$ is sequence of latent states}$ 
+
+     - compare with: set of states being individually most probable $\Rightarrow \forall n$, find $\displaystyle \max_{z_n} p(z_n|X,\theta)$ 
+
+       $\Rightarrow$ maximize $\gamma(z_n)$ for all $n$ 
+
+     - efficiency: searches space of paths efficiently ( $\mathcal O(n)$ to the length of chain )
+
+   - Notation:
+
+     - $\displaystyle w(z_n) = \max_{z_1,...,z_{n-1}} \ln p(x_1,...,x_n,z_1,...,z_n)$ 
+
+       note: $w(z_n)$ is a function of $z_n$, with log probability maximized over $z_1,...,z_{n-1}$ 
+
+   - Recursion from Joint Distribution of HMM:
+
+     - $\displaystyle  w(z_{n+1}) = \ln p(x_{n+1}|z_{n+1}) + \max _{z_{n}} \{ \ln p(z_{n+1}|z_{n}) + w(z_{n}) \}$  
+
+       $\displaystyle w(z_1) =\ln p(x_1,z_1) = \ln p(z_1) + \ln p(x_1|z_1) $ 
+
+   - Backtrack
+
+     - maximization over $z_n$ $\Rightarrow$ individually done for each of the $K$ states of $z_{n+1}$
+
+     - maintain a matrix record for each maximization:
+
+       let $\phi(k_n)$ be the state of $z_n$ when $w(z_{n+1})$ getting maximum given $z_{n+1} = k$ (in state $k$) 
+
+       $\Rightarrow k_n^\text{max} = \phi(k_{n+1}^\text{max})$, where $k_n^\text{max}$ is the desired state of $z_n$
+
+       $\displaystyle \Rightarrow k_{N-1}^\text{max} = \phi(k_{N}^\text{max})=\phi(\arg\max_{z_{N}}w(z_{N}))$   
+
+\section{Linear Dynamic System}
+
+1. Goal
+
+   - Continuous Latent Variable
+
+     - sum becomes integral
+
+     - practical sense $\Rightarrow$ multivariated Gaussian distribution assumed
+
+       (so that complexity of posterior dose NOT increase)
+
+   - Senquential Correlation in Contiuous Data
+
+     - an extension to continous latent variable model (such as probablistic PCA)
+
+2. Notation
+
+   - Underlain Procedure
+     - transition: $z_n = A z_{n-1} + w_n, \text{ where noise } w \sim \mathcal N(w|0,\Gamma)$ 
+     - emission: $x_n = Cz_n + v_n, \text{ where noise } v \sim \mathcal N(v|0,\Sigma)$
+     - initialization: $z_1 = \mu_0 + \mu, \text{ where noise } \mu \sim \mathcal N (\mu|0,V_0)$ 
+   - Probabilities
+     - transition: $p(z_n|z_{n-1}) = \mathcal N (z_n|Az_{n-1}, \Gamma)$   
+     - emission: $p(x_n|z_n) = \mathcal N (x_n|C z_n,\Sigma)$ 
+     - initialization: $p(z_1) = \mathcal N(z_1|\mu_0,V_0)$  
+   - Model Parameters
+     - $\theta = \{ A,\Gamma,C,\Sigma,\mu_0,V_0 \}$ 
+
+3. Maximum Likelihood - EM
+
+   - E step 
+
+     - Inference problem - determine the local posterior marginals for latent variables 
+
+       (sum-product algorithm)
+
+   - M step
+
+4. Linear-Gaussian Model Features
+
+   - sequence of individually most probable latent variable $\Leftrightarrow$ the most probable latent sequence
+
+     $\Rightarrow$ no need for Viterbi algorithm
+
+   - Joint Distribution
+
+     - $\displaystyle P(X,Z) = p(z_1) \left[ \sum_{n=2}^Np(z_n|z_{n-1}) \right] \sum_{n=1}^N p(x_n|z_n)$  - same form as HMM
+
+       $\Rightarrow$ an Gaussian (product of Gaussians)
+
+       $\Rightarrow$ standard result available for its marginals and conditionals 
+
+       $\Rightarrow$ sum-product algorithm for faster computation
+
+5. Inference
+
+   - Goal
+
+     - determine marginal distribution $P(Z|X)$ 
+     - prediction: $P(z_n, x_n|x_1,...,x_{n-1}.\theta)$ - used in real-time application
+
+   - Sum-Product Algorithm (Kalman Filter + Kalman Smoother)
+
+     - analogous to $\text{alpha-beta algorithm}$ in HMM
+
+       $\Rightarrow \hat \alpha(z_n) = p(z_n| x_1,...,x_n), \text{ factor } c_n=p(x_n|x_1,...,x_{n-1})$  
+
+       $ \displaystyle \Rightarrow c_n \hat\alpha(z_n) = p(x_n|z_n) \int_{z_{n-1}}\hat\alpha(z_{n-1}) p(z_n|z_{n-1}) \space d z_{n-1}$ 
+
+       \begin{align}\displaystyle \Rightarrow c_n \hat \alpha(z_n) &= c_n \mathcal N(z_n|\mu_n,V_n) \\ &= \mathcal N (x_n|C z_n,\Sigma) \int \mathcal N(z_{n-1} | \mu_{n-1},V_{n-1}) \mathcal N(z_n|Az_{n-1} , \Gamma) \space d z_{n-1} \\ &= \mathcal N (x_n|C z_n,\Sigma) \space \mathcal N (z_n|A\mu_{n-1},P_{n-1}), \\ & \text{where } P_{n-1} = AV_{n-1}A^T+\Gamma \space ( \text{ by integral of } \mathcal N\cdot\mathcal N ) \end{align}
+
+       \begin{align}\displaystyle \Rightarrow \mu_n &= A\mu_{n-1}  + K_n (x_n - CA\mu_{n-1}) \\ V_n &= (I-K_nC) P_{n-1} \\ c_n &= \mathcal N(x_n| CA\mu_{n-1} , CP_{n-1}C^T + \Sigma), \\ & \text{where } K_n = P_{n-1}C^T(CP_{n-1}C^T+\Sigma)^{-1}, \text{ known as Kalman gain matrix} \end{align}
+
+     - Initial Condition
+
+       $\Rightarrow$ $c_1 \hat \alpha (z_1) = p(z_1) p(x_1|z_1), \text{ where } z_1 = p(x_1)$ 
+
+       \begin{align} \displaystyle \Rightarrow \mu_1 &= \mu_0 +K_1 (x_1-C\mu_0) \\ V_1 &= (I-K_1C)V_0 \\ c_1 &= \mathcal N(x_1 |C \mu_0 , CV_0C^T + \Sigma), \\ & \text{where } K_1 = V_0 C^T (CV_0C^T + \Sigma)^{-1} \end{align}
+
+   - Interpretation
+
+     - $A\mu_{n-1}:$ predicted mean of $z_n$, by projecting mean of $z_{n-1}$ one step forward
+     - $CA\mu_{n-1}:$ predicted observation $x_n$, by emitting from predicted mean of $z_n$  
+     - $x_n-CA\mu_{n-1}:$ error between predicted observation and actual observation
+     - $K_n:$ coefficient of error, giving a correction to the predicted mean of $z_{n}$ 
+
+     $\Rightarrow$ making successive predictions \& correcting them in the light of new observation
+
+6. EM - Learning Model Parameters
