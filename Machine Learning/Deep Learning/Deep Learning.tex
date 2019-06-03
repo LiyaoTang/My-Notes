@@ -540,12 +540,14 @@
 		\item directly output decision result \\
 		$\Rightarrow$ regress the decision boundary as well (instead of universal $0.5$)
 		\end{itemize}
-	\item Interesting Predicted Bounding Box Encoding
+	\item \underline{Interesting Predicted Bounding Box Encoding}
 		\begin{itemize}
 		\item direct encoding: x,y,w,h, o, + encoding of full image
 		\item mask: bounding box plot onto a separate mask, concat to the (encoding of) full image \\
 		further, attention mechanism \\
-		(soft-crop ???)
+		(soft-crop ???) \\
+		$\Rightarrow$ naturally develop into \underline{instance tracking}, even tracking in point cloud data
+		\item two masks: one for all bbox from detector, one for current track
 		\end{itemize}
 		$\Rightarrow$ enable global track for multiple obj track (single RNN for all track in an image)
 	\item SOT
@@ -3159,9 +3161,95 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
-\item Collaborative Deep Learning for MOT
+\item Collaborative Deep Reinforcement Learning for MOT
 	\begin{itemize}
-	\item 
+	\item Notation
+		\begin{itemize}
+		\item $I_t$ the $t^\text{th}$ image frame
+		\item $b^\star_{i,t}$ a bbox for $i^\text{th}$ ground truth object $p_i$ at frame $t$
+		\item $B^\star_{i,t}$ a set of bboxes sampled around $b^\star_{t,i}$
+		\item $g(a,b)$ cal the IoU between bbox $a,b$
+		\item $p_{i,t} = \{ b,f \}$, the $i^\text{th}$ detected object at $t$, \\
+		where $b=\{x,y,w,h\}$ the bbox; $f$ the appearance model \\
+		$\Rightarrow$ distance $d(p_1,p_2) = \alpha (1-g(b_1,b_2)) + (1- \underbrace{\frac{f_1^Tf_2}{\norm{f_1}\norm{f_2}}}_\text{(cos dist)})$
+		\item $H=\{ b_1, ..., b_t \}$ the history trajectory of an object \\
+		$\Rightarrow H^K = \{b_{t-K+1}, ..., b_t\}$ the history of past $K$ frames
+		\item an agent for each object $g = \{ H, p \}$
+		\item detections as environment $\hat P_t = \{\hat p_1,...,\hat p_{n_t}\}$
+		\item state at frame $t, s_t=\{G_t, \hat P_t \}$, where $A_t = \{ g_1,...,g_m \}$
+		\item set of actions $\mathcal A=\{\text{update}, \text{ignore}, \text{block}, \text{delete} \}$
+		\end{itemize}
+	\item Prediction Net Inference
+		\begin{itemize}
+		\item crop the frame $t+1$ at the location of estimated bbox $b_{i,t}$ (of frame $t$)
+		\item 3 conv layers, then dense, then concat with $H^{K=10}$ (fuse with temporal info)
+		\item 2 dense layers to regress $b_{i,t+1}$, the bbox for object $i$ of frame $t+1$
+		\end{itemize}
+	\item Prediction Net Training
+		\begin{itemize}
+		\item regression loss $\displaystyle L = \sum_{i,t}\sum_{b\in B_{i,t}} g ( b^\star_{i,\mathbf{t+1}}, \phi(I_t, b, H^{K=10}_i))$, \\
+		where $I_t$ the image frame at time $t$, $\phi$ the mapping of pred net
+		\end{itemize}
+	\item Action
+		\begin{itemize}
+		\item update: $f_{t+1}= (1-\rho_f) \cdot f_t + \rho_f \cdot \hat f_{t+1}$, where $\hat f_{t+1} \in$ selected detection $\hat p_{t+1}$; \\
+		$b_{t+1} = (1-\rho_b) \cdot b_{t} + \rho_b \cdot b'_{t+1}$, where $b'_{t+1}$ predicted position; \\
+		($\rho_f, \rho_b$ pre-selected)
+		\item ignore: no detection suitable, use only prediction for update ($\rho_f=0, \rho_b=1$)
+		\item block: same as ignore, no detection due to occlusion
+		\item delete: remove the agent
+		\end{itemize}
+	\item Reward
+		\begin{itemize}
+		\item for agent $g$ at time $t$, with pred and ground-truth box $b'_{t+1}, b^\star_{t+1}$
+		\item reward for agent $g$ at time $t: r^\star_{t} = r_t + \beta r_{j,t}$, where \\ 
+		$r_t$ for itself; $r_{j,t}$ for its nearest neighbor, $\beta$ a balance factor \\ 
+		($r_t,r_{j,t}$ calculated in the same manner) \\
+		$\Rightarrow$ agents need to collaborate for better reward
+		\item for action $a\in\{\text{update}, \text{ignore}, \text{block}\}$ \\
+		$\Rightarrow r_t = \begin{cases}1 & \text{if }IoU \ge 0.7 \\ 0 & \text{if } 0.5 \le IoU \le 0.7 \\ -1 & \text{otherwise} \end{cases}$ ($IoU$ calculated between $b'_{t+1}$ and $b^\star_{t+1}$) \\
+		for action $a=$ delete $\Rightarrow r_t = 1 \text{ if object disappear; else } -1$
+		\item $\Rightarrow Q(s_t, a_t) = r^\star_{t} + \gamma r^\star_{t+1} + \gamma^2 r^\star_{t+2} + \dotsb$, where $\gamma$ decaying param
+		\end{itemize}
+	\item Decision Net Inference
+		\begin{itemize}
+		\item for each $g\in G_t$ with its current \& predicted location $b_t, b'_{t+1}$
+		\item select a neighbor agent $g_{j} \in G_t-\{g\}$, that is nearest to $b_{t}$
+		\item select the detection $\hat p \in \hat P_{t+1}$ that is nearest to $b'_{t+1}$
+		\item 3 feature maps $(p\in g, p_j\in g_j, \hat p)$, flatten as $1$-D vector input \\
+		$\Rightarrow 3\times$ dense layer to output prob over actions $\pi(a|s,\theta)$, where $\theta$ the weights
+		\end{itemize}
+	\item Decision Net Training
+		\begin{itemize}
+		\item goal $\displaystyle \arg \max_{\theta} L(\theta) = \mathbb E_{s,a} \log (\pi (a|s,\theta)) \cdot Q(s,a)$ \\
+		\begin{align*} \displaystyle \Rightarrow \frac \partial {\partial \theta} L  &= \mathbb E_{s,a} \frac \partial {\partial \theta}[ \log (\pi (a|s,\theta)) \cdot Q(s,a) ] \\ &= \mathbb E_{s,a} [\frac{Q(s,a)}{\pi(a|s,\theta)} \cdot \frac {\partial }{\partial \theta} \pi(a|s,\theta)] \end{align*} \\
+		$\Rightarrow$ increase probability for actions with $Q>0$; decrease for those with $Q<0$
+		\item to speed up converge: value for state $s, \displaystyle V(s) = \frac{\sum_{a}p(a|s)Q(s,a)} {\sum_{a} p(a|s)}$ \\
+		$\Rightarrow$ advantage value $A(s,a) = Q(s,a) - V(s)$ \\
+		(in case all $Q>0$, or all $Q<0$ at the beginning: use expectation as zero-line)
+		\item policy gradient as $L(\theta) = \mathbb E_{s,a} \log(\pi(a|s.\theta)) A(s,a)$
+		\item pre-training: set $\gamma, \beta = 0$ before searching hyper-parameter $\beta,\gamma$
+		\item training set: detection bbox $=\{ \hat b \in \text{detection } \hat P | \text{ IoU}^{\hat b}_\text{label} > 0.5 \} + \{\text{label } b^\star \}$
+		\end{itemize}
+	\item Tracking
+		\begin{itemize}
+		\item initiate a track for each initial detection
+		\item for each agent, predict its location at $t+1$, by pred net
+		\item for each agent $g$, select its closest detection $\hat p \in \hat P_{t+1}$, $p_j\in$ closest agent $g_j$\\
+		$\Rightarrow$ decision net: $(p\in g, \hat p, p_j) \rightarrow$ action $\mathcal A$ 
+		\item track terminates when decision net decides to "delete"
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item prediction net as a detector to give more precise location \\
+		(an implicit self-trained detector)
+		\item decision net to eliminate false alarm \& combine prediction \\ 
+		$\Rightarrow$ robust to different detector/predictor
+		\item decision net trained to collaboratively maximize utility \\ 
+		$\Rightarrow$ mitigate the false negative
+		\item may trapped in false appearance feature $\Rightarrow$ ID switch \\ 
+		(e.g. blue box handed from one person to another person)
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
@@ -3283,7 +3371,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Triplet Loss
 		\begin{itemize}
 		\item given an anchor image $A$ representing the identity $I$
-		\item take a positive image $P$ from identity $I$; an negative image $N$ not from identity $I$
+		\item take a positive image $P\in$ identity $I$; an negative image $N\not\in$ identity $I$
 		\item $\Rightarrow L(A,P,N) = \max\left( d(f(A), f(P)) - d(f(A), f(N)) + \alpha, 0 \right)$, where \\
 		$\alpha$ an hyperparamter to make sure the net differentiate them by a margin; \\
 		$\max()$ to make the loss $=0$ as long as the requirement satisfied
@@ -3321,6 +3409,179 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item pre-compute the encoding of Siamese net \\
 		$\Rightarrow$ enable flexible deployment (device performs only bi-classification)
 		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Recognition at a Distance}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Basic Image-forming Theory
+	\begin{itemize}
+	\item Camera Coordinate
+		\begin{itemize}
+		\item image axises: same as axises for matrix index
+		\item $x,y$ align with the image axises, $z$ align with focal line
+		\end{itemize}
+	\item Resolution
+		\begin{itemize}
+		\item the minimum feature size of the object under inspection \\
+		$\Rightarrow$ finally, represented as the pixel in the image \\
+		(hence, jointly controlled by pixel size, lens, object distance and sensor size)
+		\item pixel count: total number of pixels in the row/col of image
+		\item pixel density: dots/pixels oer inch (dpi)
+		\item sensor resolution: pixel count on sensor and their physical size and spreading
+		\item lens resolution: the impact of optics (diffraction, etc) on light info towards sensor
+		\end{itemize}
+	\item ISO: Light Sensitivity
+		\begin{itemize}
+		\item used to be the light sensitivity of the film
+		\item $\Rightarrow$ in digital camera: the amplification/attenuation for raw sensor value \\
+		$\Rightarrow$ can add noise if amplified too much, due to dark current
+		\item base ISO: 
+		\end{itemize}
+	\item Exposure Time
+		\begin{itemize}
+		\item control incoming light (denoted by shutter speed)
+		\end{itemize}
+	\item Focal Length $F$
+		\begin{itemize}
+		\item the distance from last lens central point to focal point, determined by lens physics
+		\item given a fixed object distance, larger $F$, larger formed object \\
+		(object distance need to be larger than focal length) \\
+		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/topic-rad camera focal len".jpg}
+		\end{itemize}
+	\item Aperture
+		\begin{itemize}
+		\item diameter of entrance pupil $D$: control the size of aperture \\
+		$\Rightarrow$ aperture stop: aperture setting to restrict input pupil size and hence brightness
+		\item larger size ($D$), more incoming light
+		\end{itemize}
+	\item F-Number $N = \frac F D$
+		\begin{itemize}
+		\item reveal the signal to noise ratio, contrast, image brightness
+		\item larger $N$, smaller $D$, less incoming light, larger DOF, larger depth of focus
+		\end{itemize}
+	\item Depth of Field (DOF) \& Depth of Focus
+		\begin{itemize}
+		\item definition: the range on $z$ axis where resolution can be maintained \\
+		before the lens: depth of field (in the field) \\
+		after the lens: depth of focus (inside camera) \\
+		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/topic-rad camera dof".jpg}		
+		\end{itemize}
+	\item Depth of Field
+		\begin{itemize}
+		\item DOF as the range where $1$ pixel can hold all info from $1$ position \\
+		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-rad camera n and dof".png} \\
+		where, dashed line the incoming light; \\ 
+		red line the system resolution (the pixel size, changing with object dist) \\
+		$\Rightarrow$ DOF defined by intersection of two type of lines \\
+		$\Rightarrow$ with large enough DOF, resolution can be bad at the end of DOF \\ 
+		(pixel size too large)
+		\item resolution with DOF \\
+		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-rad camera dof and resolution".png} \\
+		where black boxes a series of pixels, beams in colors as light info from an object \\
+		$\Rightarrow$ the placement of box on beams shows the information contained in a pixel \\
+		$\Rightarrow$ larger DOF, large depth range for acceptable resolution \\ 
+		(as pixel contain more separable info) \\
+		$\Rightarrow$ out of DOF: pixel can not distinguish beams from diff location
+		\end{itemize}
+	\item Depth of Focus
+		\begin{itemize}
+		\item depth of focus as the range where $1$ pixel can hold all info from $1$ position
+		\item resulted from tilted sensor $\Rightarrow$ may not in the ideal position to receive light info \\
+		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-rad camera do focus".png} \\
+		where right-most line as ideal focal plane, left lines as sensor tilted by $12.5/25\mu m$ \\
+		$\Rightarrow$ tilt not influence pixel in the center, but the pixel in the corner \\
+		$\Rightarrow$ out of depth of focus: pixel can not distinguish beams from diff location
+		\end{itemize}
+	\end{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Video
+		\begin{itemize}
+		\item hot standby camera with stationary \& active vision
+		\item stationary vision: wide field of view with low resolution for detection
+		\item active vision: narrow field of view with high resolution for detail analysis
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Recognition in the Wild
+		\begin{itemize}
+		\item large coverage areas: $>100$m range \\
+		$\Rightarrow$ scale beyond the theoretical analysis and practical design advice
+		\item with NO subject cooperation
+		\end{itemize}
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item None Cooperative Subject
+		\begin{itemize}
+		\item not cooperating, may even be evading the system
+		\end{itemize}
+	\item Resolution
+		\begin{itemize}
+		\item low resolution due to the very long object distance
+		\item restricted by lens resolution, which is then restricted by price
+		\item trade-off between wideness (coverage) \& depth (zooming)
+		\end{itemize}
+	\item Illumination
+		\begin{itemize}
+		\item dynamic illumination in the wild scene
+		\item maximum light intensity restricted by aperture size \\
+		(given a fixed exposure time)
+		\end{itemize}
+	\item Distortion and Blur
+		\begin{itemize}
+		\item amplified noise, due to: \\
+		low brightness $\Rightarrow$ low signal-to-noise ratio $\Rightarrow$ ISO amplification
+		\item motion blur (if trade-off between ISO \& exposure time)
+		\item blur from sensor tilt, as a hot standby system
+		\item fog, haze \& atmosphere blur for very long distance recognition
+		\end{itemize}
+	\item Pose
+		\begin{itemize}
+		\item the view angle due the camera position \\ 
+		(usually overhead for less occlusion $\Rightarrow$ downward tilt)
+		\end{itemize}
+	\item Multi-Object
+		\begin{itemize}
+		\item schedule the limited high-resolution vision resource for multiple candidates \\
+		$\Rightarrow$ time window prediction, scheduling \& resource allocation
+		\end{itemize}
+	\item Physical Coupling
+		\begin{itemize}
+		\item expensive field test (mitigated by virtual environment)
+		\end{itemize}
+	\end{itemize}
+\item Application
+	\begin{itemize}
+	\item Watch-list Recognition
+		\begin{itemize}
+		\item an alert when person of interest appear/approach
+		\end{itemize}
+	\item Re-recognition
+		\begin{itemize}
+		\item cross-camera tracking, long-range persistent tracking
+		\end{itemize}
+	\item Logging
+		\begin{itemize}
+		\item catalog best recognized feature (e.g. face) for each person entering a region
+		\item marketing: understand customer activities and behavior
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Stationary Vision}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\subsubsection{3D Imaging}
+\begin{itemize}
+\item 
+	\begin{itemize}
+	\item 
 	\end{itemize}
 \end{itemize}
 
