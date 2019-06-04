@@ -51,8 +51,8 @@
 \BOOKMARK [0][-]{chapter.11}{Sequential Data}{}% 51
 \BOOKMARK [1][-]{section.11.1}{Markov Model}{chapter.11}% 52
 \BOOKMARK [2][-]{subsection.11.1.1}{Markov Chain}{section.11.1}% 53
-\BOOKMARK [1][-]{section.11.2}{Hidden Markov Model}{chapter.11}% 54
-\BOOKMARK [1][-]{section.11.3}{Linear Dynamic System}{chapter.11}% 55
+\BOOKMARK [2][-]{subsection.11.1.2}{Hidden Markov Model}{section.11.1}% 54
+\BOOKMARK [1][-]{section.11.2}{Linear Dynamic System}{chapter.11}% 55
 \BOOKMARK [0][-]{chapter.12}{Deep Learning}{}% 56
 \BOOKMARK [1][-]{section.12.1}{Interview of Fame}{chapter.12}% 57
 \BOOKMARK [2][-]{subsection.12.1.1}{Geoffrey Hinton}{section.12.1}% 58
