@@ -62,21 +62,393 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Decision Theory}
 \subsection{Overview}
-\subsubsection{Fields of Study}
+\subsubsection{Formulation}
+\begin{itemize}
+\item Analysis Target
+	\begin{itemize}
+	\item Human Behavior
+		\begin{itemize}
+		\item goal-directed behaviors in the presence of options (alternative actions)
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Normative Decision Theory
+		\begin{itemize}
+		\item how the decision should be made, in order to be national, etc. \\
+		$\Rightarrow$
+		\item an normative theory is \textit{weakly falsified}, if $\exists$ a decision problem in which an agent can perform in contradiction with the theory without being irrational
+		\item an normative theory is \textit{strictly falsified}, if $\exists$ a decision problem in which an agent performing in accordance with the theory cannot be a rational agent
+		\end{itemize}
+	\item Descriptive Decision Theory
+		\begin{itemize}
+		\item how decisions are actually made in practice
+		\end{itemize}
+	\item Specific Concern
+		\begin{itemize}
+		\item interaction of agents: collective decision-making
+		\item behavior of individuals in decisions
+		\item rationality in decisions
+		\item coordinating decision over time, in a changing environment
+		\end{itemize}
+	\end{itemize}
+\item Preference in Decision Making
+	\begin{itemize}
+	\item Preference Logic
+		\begin{itemize}
+		\item defined relation $\ge$ for two options $a,b$, according to agent's preference \\
+		$\Rightarrow$ form a partially ordered set $(S, \ge)$, where $S$ the set of options
+		\item other relation $<, \equiv$ can be derived from $\ge$
+		\end{itemize}
+	\item Completeness
+		\begin{itemize}
+		\item complete: $\forall i,j\in X, $ a relation is defined \\
+		(otherwise incomplete preference)
+		\item yet, usually incomplete preference, as determining preference takes effort
+		\end{itemize}
+	\item Transitivity
+		\begin{itemize}
+		\item $a\ge b \land b\ge c \rightarrow a\ge c$ holds true for all $a,b,c$ \\
+		(hence all other relation $<,\equiv$)
+		\item $\Rightarrow$ problem of accumulated negligible indifference ($\equiv$) \\
+		e.g. $a_0$ as no sugar, $a_{100}$ as full sugar, given $a_{i}\equiv a_{i+1}$ due to negligible difference \\
+		$\Rightarrow$ finally $a_0\equiv a_{100}$ due to transitivity
+		\end{itemize}
+	\item Guideline
+		\begin{itemize}
+		\item given the constructed partial order set $(S, \ge)$, choose one of its upper bound \\
+		(with prevalent assumption of transitivity and completeness)
+		\end{itemize}
+	\end{itemize}
+\item Utility in Decision Making
+	\begin{itemize}
+	\item Numerical Representation
+		\begin{itemize}
+		\item using pre-defined relation in number, with a preference of maximal utility \\
+		$\Rightarrow$ naturally transitive \& complete
+		\item relative number $\Rightarrow$ meaningful in comparison within current option set \\
+		(i.e. not comparable across different decision making process)
+		\end{itemize} 
+	\item \textbf{Comparability}
+		\begin{itemize}
+		\item only comparable between options in the same decision process
+		\end{itemize}
+	\item Guideline
+		\begin{itemize}
+		\item maximization: choose one of the options with maximal utility \\ 
+		(employed by default)
+		\item satisfying: choose one of the options with sufficient utility
+		\end{itemize}
+	\end{itemize}
+\item Decision Matrices
+	\begin{itemize}
+	\item $\text{Outcome } O_{n\times m}=\text{actions }\{a_1,...,a_n\} \times\text{states }\{s_1,...,s_m\}$
+		\begin{itemize}
+		\item with $\{a_1,a_2\} =$ \{umbrella, no umbrella\}; $\{s_1,s_2\}=$ \{rain, no rain\} \\
+		\begin{tabular*}{0.5\linewidth}{l|ll}
+			            & rain       & no rain    \\
+			\hline
+			umbrella    & dry\&heavy & dry\&heavy \\
+			no umbrella & wet\&light & dry\&light
+		\end{tabular*}
+		\end{itemize}
+	\item Utility Assignment
+		\begin{itemize}
+		\item requirement: shared perspective \\
+		$\Rightarrow$ all participants share a common concern \\
+		(otherwise, different incomparable utility assigned to the same outcome)
+		\item assign each outcomes with utility $\Rightarrow$ utility matrices $U$ \\
+		\begin{tabular*}{0.5\linewidth}{l|ll}
+			            & rain       & no rain    \\
+			\hline
+			umbrella    & 15 & 15 \\
+			no umbrella & 0  & 18
+		\end{tabular*}
+		\end{itemize}
+	\end{itemize}
+\item Probability Estimation of Environment
+	\begin{itemize}
+	\item Modeling State
+		\begin{itemize}
+		\item certainty: deterministic knowledge of the environment after each action \\
+		$\Rightarrow$ thus deterministic outcomes for each action
+		\item risk: complete probabilistic knowledge of environment \\
+		(may conditioned on action)
+		\item uncertainty: partial probabilistic knowledge
+		\item ignorance: no probabilistic knowledge, or not meaningful
+		\end{itemize}
+	\item Objective Probability
+		\begin{itemize}
+		\item based on empirical known frequencies
+		\item indirect estimation (e.g. similar experiment), with calibration \\
+		may use subjective probability, which is unreliable due to psycho-effect \\
+		$\Rightarrow$ better not use subjective estimates of prob
+		\end{itemize}
+	\item Bayesian Description
+		\begin{itemize}
+		\item a coherent and complete set of probabilistic beliefs \\
+		(in compliance with laws of probability)
+		\item probability subjected to the observation
+		\end{itemize}		
+	\end{itemize}
+\item Action Discovering
+	\begin{itemize}
+	\item Category
+		\begin{itemize}
+		\item closure: settle down with current available actions
+		\item active postponement: searching for other possible actions (postpone the decision)
+		\item semi-closure: consider only reversible actions \& searching for other actions
+		\end{itemize}
+	\item Guideline
+		\begin{itemize}
+		\item all current actions have severe drawbacks?
+		\item is searching possible actions costly?
+		\item is problem aggregating over time? \\
+		etc...
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item a meta-decision problem before the scenario-specific decision
+		\end{itemize}
+	\end{itemize}
+\item $\Rightarrow$ Assumption
+	\begin{itemize}
+	\item Closed Set of Actions
+		\begin{itemize}
+		\item no new alternative action allowed to be added \\
+		(v.s. open: new actions can be discovered and taken into consideration)
+		\end{itemize}
+	\item Mutually Exclusive Actions
+		\begin{itemize}
+		\item no two actions can be both realized
+		\end{itemize}
+	\item Defined States
+		\begin{itemize}
+		\item all possible states of environment are recognized
+		\end{itemize}
+	\item Outcome \& Utility
+		\begin{itemize}
+		\item the joint result of environment (state) and chosen action
+		\item utility assigned to each outcome (similar to rewards in RL) \\
+		(though the utility for each result is usually subject to agent) \\
+		$\Rightarrow$ completeness \& transitivity assumed		
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Decision under Risk}
+\begin{itemize}
+\item Maximizing Expected Utility
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item for action $a$, expected utility $\displaystyle u = \mathbb E_{p(s)} U(a,s) = \sum_{s\in S} p(s)U(a,s)$, \\ 
+		where $U(a,s)$ the utility assigned to outcome $O(a,s)$
+		\end{itemize}
+	\item Objective Utility
+		\begin{itemize}
+		\item utility assigned according to the objective rewards (e.g. money)
+		\item $\Rightarrow$ St, Petersburg paradox: a fair coin tossed, if its head comes up at $n^{th}$ toss, $2^n$ gold coins are rewarded, stop tossing if its back comes up \\
+		$\Rightarrow$ expected wealth $=\lim_{n\rightarrow \infty} \frac 12\cdot 1 + \frac 14\cdot 2 + ... + \frac 1{2^n}\cdot 2^{n-1} = +\infty$ \\
+		$\Rightarrow$ should play the game for any finite entry fee
+		\end{itemize}
+	\item Subjective Utility
+		\begin{itemize}
+		\item in economic: utility of next increment of wealth $\propto \frac 1w$, where $w$ the current wealth \\
+		$\Rightarrow$ utility of wealth $=\log(w)$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item objective utility to maintain inter-subjective validity \\
+		(hence expert advice remains effective)
+		\item maximizing utility to maximize long-term outcome \\ 
+		(suitable for large-scale / long-term decision) \\
+		$\Rightarrow$ law of large number to level out randomness
+		\item $\Rightarrow$ suitability depends on the scale (the leveling-out effect) \\ 
+		(e.g. isolated cases may not suitable to maximize expected utility)
+		\item may not suitable in extreme effect, to maintain fairness \\
+		(e.g. avoid imposing high-prob risk on individuals)
+		\end{itemize}
+	\end{itemize}
+\item Variations
+	\begin{itemize}
+	\item Conditionalized Expected Utility
+		\begin{itemize}
+		\item prob of state $p(s)$ described conditional on action \\
+		$\displaystyle \Rightarrow u = \mathbb E_{p(s|a)} U(a,s) = \sum_{s\in S} p(s|a)U(a,s)$
+		\item model the influence of actions on states
+		\end{itemize}
+	\item Generalized Expected Utility
+		\begin{itemize}
+		\item process utility: accounts for attitude towards risk and certainty
+		\item maximize expected (utility of outcome + process utility)
+		\end{itemize}
+	\item Regret Theory
+		\begin{itemize}
+		\item regret: the gap between reward received and highest possible reward from other actions
+		\item maximize expected utility of outcome \& minimize regret
+		\end{itemize}
+	\item Prospect Theory
+		\begin{itemize}
+		\item function f$(0,1)\rightarrow(0,1)$ to adjust probability \\
+		(description to be merely weights, not satisfying prob law)
+		$\Rightarrow$ overweight the prob close to $0\&1$, as tendentious to certainty
+		\item maximize weighted utility
+		\end{itemize}
+	\end{itemize}
+\item Causal Decision
+\end{itemize}
+\subsubsection{Decision under Uncertainty}
+\begin{itemize}
+\item Estimation of Environment
+	\begin{itemize}
+	\item Binary Measure
+		\begin{itemize}
+		\item segment out a range for probability describing the state \\
+		e.g. $p(s)\in(0.05, 0.2)$
+		\end{itemize}
+	\item Second-Order Probability
+		\begin{itemize}
+		\item a Bayesian probability for each state $s$
+		\item a further measurement of the reliability of probability estimates $p(s)$ \\
+		(may consider as a meta subjective prob)
+		\end{itemize}
+	\item Fuzzy Set Membership
+		\begin{itemize}
+		\item vagueness, instead of randomness, to describe uncertainty \\
+		$\Rightarrow$ assign a degree of membership for each $p(s)$ \\
+		$\Rightarrow$ based on laws of fuzzy membership (non-statistical concept)
+		\item measure the degree of "$p(s)$ is the prob of state $s$ happening" being true
+		\end{itemize}
+	\item Epistemic Reliability
+		\begin{itemize}
+		\item a weight $\in (0,1)$ as the measure of reliability of a prob, \\
+		with NO mathematical properties pre-defined
+		\end{itemize}
+	\end{itemize}
+\item Decision Criteria
+	\begin{itemize}
+	\item Maxmin Expected Utility
+		\begin{itemize}
+		\item maximize the minimal expected utility \\
+		$\Rightarrow$ an extremely prudent/pessimistic criterion
+		\end{itemize}
+	\item Reliability-weighted Expected Utility
+		\begin{itemize}
+		\item use the weighted average probability as true probability \\
+		(then reduced to maximizing expected utility) \\
+		$\Rightarrow$ an optimistic criterion
+		\end{itemize}
+	\item Index
+		\begin{itemize}
+		\item $p'$ the best prob estimate and $\rho$ as its degree of confidence \\
+		$\Rightarrow$ calculate $u_\text{best}$ using $p'$; $u_\text{min}$ the minimal expected utility
+		\item summarize as $u = \rho u_\text{best} + (1-\rho)u_\text{min}$ \\
+		$\Rightarrow$ maximize the $u$ (choose the action with maximal $u$)
+		\item $\rho\in(0,1)$ as a balance factor between pessimism \& optimism 
+		\end{itemize}
+	\item Clipped Maxmin Expected Utility
+		\begin{itemize}
+		\item discard any prob with a reliability lower than a threshold \\
+		(then max-min expected utility with remaining prob)
+		\end{itemize}
+	\item Filtered Maxmin Expected Utility
+		\begin{itemize}
+		\item $3$ filters applied in sequential order on actions (rather than prob)
+		\item $E$-test: action $a$ passes, iff $\exists$ reliable prob $p(s)>0$ \& $\forall a'\in A, U(a,s)\ge U(a',s)$ \\
+		(action $a$ is possible to be the best)
+		\item $P$-test: passes, iff it can be the best in all candidates
+		\item $S$-test: passes, iff it is the best under maxmin expected utility in all candidates \\
+		$\Rightarrow$ directly produce action to choose
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Decision under Ignorance}
+\begin{itemize}
+\item Category
+	\begin{itemize}
+	\item Known States
+		\begin{itemize}
+		\item the prob for each state $p(s) > 0 \Rightarrow$ unknown non-zero prob
+		\end{itemize}
+	\item Unknown States
+		\begin{itemize}
+		\item the prob $p(s) \ge 0 \Rightarrow$ unknown prob
+		\end{itemize}
+	\end{itemize}
+\item Unknown Non-zero Prob
+	\begin{itemize}
+	\item Max-Min Utility
+		\begin{itemize}
+		\item maximize the minimal utility (extremely pessimistic)
+		\item lexicographic maximin: consider their $2^\text{nd}$ worst outcome
+		\end{itemize}
+	\item Max-Max Utility
+		\begin{itemize}
+		\item maximize the maximal utility (extremely optimistic)
+		\end{itemize}
+	\item Index
+		\begin{itemize}
+		\item calculate $u_\text{max}, u_\text{min}$ by max-max, max-min
+		\item $u = \alpha u_\text{} + (1-\alpha) u_\text{min}$ \\
+		$\Rightarrow \alpha$ as tge degree of optimism
+		\end{itemize}
+	\item Min-Max Regret
+		\begin{itemize}
+		\item produce a regret matrix $R$ from utility matrix $U$, \\ 
+		where $R(a,s) = $ maximal possible utility in state $s - U(a,s)$
+		\item then, minimize the maximal regret, according to $R$
+		\end{itemize}
+	\item Common Prior
+		\begin{itemize}
+		\item assign uniform distribution over states, thus reduced to decision under risk
+		\item yet, depends on how the states are partitioned \\ 
+		i.e. the num of states affect the prob
+		\end{itemize}
+	\end{itemize}
+\item Unknown Prob
+	\begin{itemize}
+	\item Challenge
+		\begin{itemize}
+		\item action may lead to catastrophic outcomes (unforeseen outcomes) \\
+		$\Rightarrow$ hard to decide if the chance of a severe consequence is negligible or not \\
+		$\Rightarrow$ uncertainty towards severe consequence
+		\end{itemize}
+	\item Empirical Guideline
+		\begin{itemize}
+		\item choosing / not choosing an action may have different uncertainty \\
+		(asymmetry of uncertainty)
+		\item novelty: empirically, novelty brings in more uncertainty
+		\item spatial and temporal limitations: more limitation, less uncertainty
+		\item more interference with complex system, the more uncertainty
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Social Decision}
 \begin{itemize}
 \item Assumption
 	\begin{itemize}
-	\item 
-	\end{itemize}p
-\item Decision under Uncertainty
-	\begin{itemize}
-	\item 
+	\item Conflicting Concern
+		\begin{itemize}
+		\item participants usually have different/conflicting goals\&concerns
+		\end{itemize}
 	\end{itemize}
-\item Intertemporal Decision
+\item Cyclic Preference
+	\begin{itemize}
+	\item No Stable Actions
+		\begin{itemize}
+		\item the directed set (actions, preference) forms a directed graph \\
+		$\Rightarrow \forall$ action $a$, $\exists $ action $a', a' > a$
+		\end{itemize}
+	\item Arrow's Theorem
+		\begin{itemize}
+		\item 4 rationality criteria are satisfied by decision rule \\
+		$\Rightarrow$ then cyclic preference unavoidable
+		\item understanding: some rationality demands are NOT compatible
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
- 
+
 \section{Information Theory}
- 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
