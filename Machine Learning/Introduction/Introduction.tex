@@ -13,7 +13,6 @@
 	\begin{itemize}
 	\item output one or more continuous variable
 	\end{itemize}
-
 \item Classification
 	\begin{itemize}
 	\item assign input to one of a finite number of discrete categories
@@ -448,7 +447,53 @@
 	\end{itemize}
 \end{itemize}
 
+\subsubsection{Decision for Statistical Model}
+\begin{itemize}
+\item Formulation
+	\begin{itemize}
+	\item Probability Description
+		\begin{itemize}
+		\item known distribution $p(\mathbf t|\mathbf x)$ from model inference, where $\mathbf x$ the input, $\mathbf t$ the label \\
+		$\Rightarrow$ all states (label) estimated with probability
+		\end{itemize}		
+	\end{itemize}
+\item Decision Criteria
+	\begin{itemize}
+	\item Minimizing Misclassification Rate (Maximizing Correct-classification Rate)
+		\begin{itemize}
+		\item action: for each class $k$, assign a region $\mathcal R_k$ s.t. if $\mathbf x\in \mathcal R_k$, predict $\hat {\mathbf t} := \mathcal C_k$
+		\begin{align*}\Rightarrow \displaystyle P(\text{mistake}) &= \sum_{k=1}^K P(\mathbf x\not\in \mathcal R_k, \mathbf t=\mathcal C_k) = 1-\underbrace{\sum_{k=1}^K P(\mathbf x\in\mathcal R_k, \mathbf t=\mathcal C_k)}_{P(\text{correct})} \\ &= 1-\sum_k\int_{\mathcal R_k}p(\mathcal C_k|\mathbf x) p(\mathbf x) d\mathbf x \end{align*}
+		$\Rightarrow$ segment $\mathbf x$ to be in region $\mathcal R_k$ governed by the maximal $p(\mathcal C_k | \mathbf x)$ \\
+		i.e. predict $\hat {\mathbf t}$ to be the $\mathcal C_k$ with maximal $p(\mathcal C_k | \mathbf x)$
+		\item in binary classification ($K=2$) with $\mathbf x = x$ being a scalar: \\
+		\includegraphics[width=0.5\linewidth, center]{"./Introduction/decision theory-decision region".jpg}
+		where $\hat x$ a sub-optimal decision region segment, $x_0$ the optimal one
+		\end{itemize}
+	\item Minimizing Expected Loss (Maximizing Expected Utility)
+		\begin{itemize}
+		\item loss for a kind of misclassification can vary from other kinds \\
+		(e.g. recall v.s. precision) \\
+		$\Rightarrow$ a loss function (utility function) $f:$ (label $\mathbf t=\mathcal C_k$, pred ${\mathbf x}\in\mathcal R_j$) $\rightarrow $ loss $L_{kj}$ \\
+		$\Rightarrow L_{kj}$ as the loss of mis-classify $\mathcal C_k$ into $\mathcal C_j$ \\
+		($\forall k, L_{kk}=0$ \& utility as negative loss)
+		\item expected loss $\displaystyle \mathbb E[L] = \sum_{k,j}L_{kj}P(\mathbf x\in \mathcal R_{j}, \mathbf t=\mathcal C_k) = \sum_{k,j}\int_{\mathcal R_j}L_{kj} p(\mathcal C_k|\mathbf x)p(\mathbf x)d\mathbf x$ \\
+		$\Rightarrow$ expected loss from $\displaystyle \mathcal R_j: \sum_k \int_{\mathcal R_j}L_{kj} p(\mathcal C_k|\mathbf x)p(\mathbf x) d\mathbf x$ \\
+		$\Rightarrow$ segment $\mathbf x$ into region $\mathcal R_j$ governed by the minimal $\displaystyle \sum_{k}L_{kj}p(\mathcal C_k|\mathbf x)$ \\
+		i.e. predict $\hat{\mathbf t}$ to be the $\mathcal C_j$ with minimal $\displaystyle \sum_{k}L_{kj}p(\mathcal C_k|\mathbf x)$
+		\end{itemize}
+	\end{itemize}
+\item Regret Region
+	\begin{itemize}
+	\item Decision Error Source
+		\begin{itemize}
+		\item the largest posterior $p(\mathcal C_k|\mathbf x) << 1$
+		\item all posteriors are comparable
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
 \section{Information Theory}
+\subsection{}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

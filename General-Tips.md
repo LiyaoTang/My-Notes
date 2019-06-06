@@ -180,7 +180,7 @@
 
          (shitty POSIX standard: invoke **at least** one thread)
 
-      $\Rightarrow​$ not even a conditional critical region...
+      $\Rightarrow$ not even a conditional critical region...
 
       example code for waiting:
 
@@ -814,3 +814,8 @@
    - Pros
      - more parallel
      - dynamic dispatch at function level
+
+## Research Lib TO DO List
+
+1. glob.glob lib to replace file_traverser class
+2. 
