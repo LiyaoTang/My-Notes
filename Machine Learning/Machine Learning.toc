@@ -169,89 +169,89 @@
 \contentsline {subsubsection}{RNN Layer}{103}{section*.106}
 \contentsline {subsection}{\numberline {12.3.5}Blocks}{106}{subsection.12.3.5}
 \contentsline {subsubsection}{Residual Block}{106}{section*.109}
-\contentsline {subsubsection}{Inception Block}{106}{section*.110}
-\contentsline {section}{\numberline {12.4}Architectures}{107}{section.12.4}
-\contentsline {subsection}{\numberline {12.4.1}Convolutional Networks}{107}{subsection.12.4.1}
-\contentsline {subsubsection}{Classic Convolutional Networks}{107}{section*.111}
-\contentsline {subsubsection}{Fully Convolutional Networks (FCN)}{108}{section*.112}
+\contentsline {subsubsection}{Inception Block}{107}{section*.110}
+\contentsline {section}{\numberline {12.4}Architectures}{108}{section.12.4}
+\contentsline {subsection}{\numberline {12.4.1}Convolutional Networks}{108}{subsection.12.4.1}
+\contentsline {subsubsection}{Classic Convolutional Networks}{108}{section*.111}
+\contentsline {subsubsection}{Fully Convolutional Networks (FCN)}{109}{section*.112}
 \contentsline {subsection}{\numberline {12.4.2}Recurrent Neural Network}{109}{subsection.12.4.2}
 \contentsline {subsubsection}{Classic RNN}{109}{section*.113}
-\contentsline {subsubsection}{Attention}{109}{section*.114}
+\contentsline {subsubsection}{Attention}{110}{section*.114}
 \contentsline {subsubsection}{Transformer}{110}{section*.115}
 \contentsline {subsection}{\numberline {12.4.3}Encoder-Decoder Architecture}{110}{subsection.12.4.3}
 \contentsline {subsubsection}{Basic}{110}{section*.116}
-\contentsline {subsubsection}{Extension}{110}{section*.117}
+\contentsline {subsubsection}{Extension}{111}{section*.117}
 \contentsline {subsection}{\numberline {12.4.4}Generative Network}{111}{subsection.12.4.4}
 \contentsline {subsubsection}{Generative Adversarial Network}{111}{section*.118}
 \contentsline {section}{\numberline {12.5}Computer Vision}{111}{section.12.5}
 \contentsline {subsection}{\numberline {12.5.1}Objects Detection}{111}{subsection.12.5.1}
 \contentsline {subsubsection}{Problem Formulation}{111}{section*.119}
-\contentsline {subsubsection}{Common Postprocessing}{111}{section*.120}
+\contentsline {subsubsection}{Common Postprocessing}{112}{section*.120}
 \contentsline {subsubsection}{Region Proposal Based Approaches}{112}{section*.121}
 \contentsline {subsubsection}{One-stage Detection}{113}{section*.122}
-\contentsline {subsection}{\numberline {12.5.2}Object Tracking}{117}{subsection.12.5.2}
-\contentsline {subsubsection}{Problem Formulation}{117}{section*.124}
-\contentsline {subsubsection}{Detection in Tracking}{118}{section*.125}
+\contentsline {subsection}{\numberline {12.5.2}Object Tracking}{118}{subsection.12.5.2}
+\contentsline {subsubsection}{Problem Formulation}{118}{section*.124}
+\contentsline {subsubsection}{Detection in Tracking}{119}{section*.125}
 \contentsline {subsubsection}{Single-Object Tracking}{119}{section*.126}
 \contentsline {subsubsection}{Multi-Object Tracking \& Data Association}{122}{section*.127}
 \contentsline {subsubsection}{Instance Tracking}{128}{section*.128}
-\contentsline {subsection}{\numberline {12.5.3}Face Recognition}{128}{subsection.12.5.3}
-\contentsline {subsubsection}{Problem Formulation}{128}{section*.129}
-\contentsline {subsubsection}{Classic Approach}{129}{section*.130}
+\contentsline {subsection}{\numberline {12.5.3}Face Recognition}{129}{subsection.12.5.3}
+\contentsline {subsubsection}{Problem Formulation}{129}{section*.129}
+\contentsline {subsubsection}{Classic Approach}{130}{section*.130}
 \contentsline {subsection}{\numberline {12.5.4}Recognition at a Distance}{130}{subsection.12.5.4}
 \contentsline {subsubsection}{Problem Formulation}{130}{section*.131}
-\contentsline {subsubsection}{Stationary Vision}{133}{section*.132}
-\contentsline {subsubsection}{3D Imaging}{133}{section*.133}
-\contentsline {subsection}{\numberline {12.5.5}Image Style Transfer}{133}{subsection.12.5.5}
-\contentsline {subsubsection}{Problem Formulation}{133}{section*.134}
+\contentsline {subsubsection}{Stationary Vision}{134}{section*.132}
+\contentsline {subsubsection}{3D Imaging}{134}{section*.133}
+\contentsline {subsection}{\numberline {12.5.5}Image Style Transfer}{134}{subsection.12.5.5}
+\contentsline {subsubsection}{Problem Formulation}{134}{section*.134}
 \contentsline {subsubsection}{Classic Approach}{134}{section*.136}
-\contentsline {subsection}{\numberline {12.5.6}Point Cloud Data Processing}{134}{subsection.12.5.6}
-\contentsline {subsubsection}{Problem Formulation}{134}{section*.138}
+\contentsline {subsection}{\numberline {12.5.6}Point Cloud Data Processing}{135}{subsection.12.5.6}
+\contentsline {subsubsection}{Problem Formulation}{135}{section*.138}
 \contentsline {subsubsection}{Common Preprocessing}{135}{section*.139}
-\contentsline {subsubsection}{Point Cloud}{135}{section*.140}
+\contentsline {subsubsection}{Point Cloud}{136}{section*.140}
 \contentsline {subsubsection}{Point Cloud + Image Fusion}{137}{section*.141}
 \contentsline {section}{\numberline {12.6}Natural Language Processing}{137}{section.12.6}
 \contentsline {subsection}{\numberline {12.6.1}Language Representation}{137}{subsection.12.6.1}
 \contentsline {subsubsection}{Problem Formulation}{137}{section*.142}
-\contentsline {subsubsection}{Overview}{137}{section*.143}
-\contentsline {subsubsection}{Word2Vec Embedding}{138}{section*.144}
-\contentsline {subsubsection}{Global Vector for Word Embedding (GloVe)}{139}{section*.145}
+\contentsline {subsubsection}{Overview}{138}{section*.143}
+\contentsline {subsubsection}{Word2Vec Embedding}{139}{section*.144}
+\contentsline {subsubsection}{Global Vector for Word Embedding (GloVe)}{140}{section*.145}
 \contentsline {subsubsection}{Addressing Bias in Word Embedding}{140}{section*.146}
-\contentsline {subsection}{\numberline {12.6.2}Language Modeling}{140}{subsection.12.6.2}
-\contentsline {subsubsection}{Problem Formulation}{140}{section*.147}
+\contentsline {subsection}{\numberline {12.6.2}Language Modeling}{141}{subsection.12.6.2}
+\contentsline {subsubsection}{Problem Formulation}{141}{section*.147}
 \contentsline {subsubsection}{Classic Approach}{141}{section*.148}
-\contentsline {subsubsection}{Masked Language Model}{141}{section*.149}
-\contentsline {subsection}{\numberline {12.6.3}Name-Entity Recognition}{141}{subsection.12.6.3}
-\contentsline {subsubsection}{}{141}{section*.150}
-\contentsline {subsection}{\numberline {12.6.4}Sentiment Classification}{141}{subsection.12.6.4}
-\contentsline {subsubsection}{Problem Formulation}{141}{section*.151}
-\contentsline {subsubsection}{Classic Approach}{141}{section*.152}
+\contentsline {subsubsection}{Masked Language Model}{142}{section*.149}
+\contentsline {subsection}{\numberline {12.6.3}Name-Entity Recognition}{142}{subsection.12.6.3}
+\contentsline {subsubsection}{}{142}{section*.150}
+\contentsline {subsection}{\numberline {12.6.4}Sentiment Classification}{142}{subsection.12.6.4}
+\contentsline {subsubsection}{Problem Formulation}{142}{section*.151}
+\contentsline {subsubsection}{Classic Approach}{142}{section*.152}
 \contentsline {subsection}{\numberline {12.6.5}Neural Machine Translation}{142}{subsection.12.6.5}
 \contentsline {subsubsection}{Problem Formulation}{142}{section*.153}
 \contentsline {subsubsection}{Classic Approach}{142}{section*.154}
-\contentsline {subsubsection}{Choosing Output Sequence}{142}{section*.155}
+\contentsline {subsubsection}{Choosing Output Sequence}{143}{section*.155}
 \contentsline {subsection}{\numberline {12.6.6}Speech Recognition}{143}{subsection.12.6.6}
 \contentsline {subsubsection}{Problem Formulation}{143}{section*.156}
-\contentsline {subsubsection}{Learning Objective}{143}{section*.157}
-\contentsline {subsubsection}{Classic Approach}{143}{section*.158}
+\contentsline {subsubsection}{Learning Objective}{144}{section*.157}
+\contentsline {subsubsection}{Classic Approach}{144}{section*.158}
 \contentsline {subsubsection}{Trigger Word Detection}{144}{section*.159}
 \contentsline {subsection}{\numberline {12.6.7}Machine Reading Comprehension}{144}{subsection.12.6.7}
 \contentsline {subsubsection}{RNN with Attention}{144}{section*.160}
 \contentsline {subsubsection}{Convolution with Self-attention - QAnet}{144}{section*.161}
 \contentsline {subsection}{\numberline {12.6.8}Image Caption}{144}{subsection.12.6.8}
 \contentsline {subsubsection}{Problem Formulation}{144}{section*.162}
-\contentsline {subsubsection}{Baseline Approach \& Previous Work}{144}{section*.163}
+\contentsline {subsubsection}{Baseline Approach \& Previous Work}{145}{section*.163}
 \contentsline {subsection}{\numberline {12.6.9}Referring Segmentation}{145}{subsection.12.6.9}
 \contentsline {subsubsection}{Problem Formulation}{145}{section*.164}
-\contentsline {subsubsection}{Baseline Approach \& Previous Work}{145}{section*.165}
-\contentsline {subsubsection}{Current State-of-The-Art (early 2019)}{146}{section*.166}
-\contentsline {section}{\numberline {12.7}Special Learning}{147}{section.12.7}
-\contentsline {subsection}{\numberline {12.7.1}Transfer Learning}{147}{subsection.12.7.1}
-\contentsline {subsubsection}{Problem Formulation}{147}{section*.167}
+\contentsline {subsubsection}{Baseline Approach \& Previous Work}{146}{section*.165}
+\contentsline {subsubsection}{Current State-of-The-Art (early 2019)}{147}{section*.166}
+\contentsline {section}{\numberline {12.7}Special Learning}{148}{section.12.7}
+\contentsline {subsection}{\numberline {12.7.1}Transfer Learning}{148}{subsection.12.7.1}
+\contentsline {subsubsection}{Problem Formulation}{148}{section*.167}
 \contentsline {subsubsection}{Standard Baseline}{148}{section*.168}
-\contentsline {subsection}{\numberline {12.7.2}Multi-task Learning}{149}{subsection.12.7.2}
-\contentsline {subsubsection}{Problem Formulation}{149}{section*.169}
-\contentsline {subsubsection}{Standard Baseline}{149}{section*.170}
+\contentsline {subsection}{\numberline {12.7.2}Multi-task Learning}{150}{subsection.12.7.2}
+\contentsline {subsubsection}{Problem Formulation}{150}{section*.169}
+\contentsline {subsubsection}{Standard Baseline}{150}{section*.170}
 \contentsline {subsection}{\numberline {12.7.3}K-shot Learning}{150}{subsection.12.7.3}
 \contentsline {subsubsection}{Problem Formulation}{150}{section*.171}
 \contentsline {section}{\numberline {12.8}Generative Adversarial Nets}{150}{section.12.8}

@@ -1622,6 +1622,31 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \item Unpooling
 \item Spatial Pyramid Pooling (SPP)
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item feature maps from CNN
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item apply on feature map a series of grids with cell number predefined
+		\item perform pooling on each cell, across all grids, then concat all output \\
+		$\Rightarrow$ gird defined as a proportional slicing \\
+		$\Rightarrow$ actual gird solved at runtime (w.r.t feature map size)
+		\item example: three grids with different cell number; each cell a max pooling \\
+		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/layer-pooling spp".png}
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item a fixed size feature maps
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item output shape of pooling layer pre-defined $\Rightarrow$ map arbitrary input size to fixed size \\
+		$\Rightarrow$ no more crop/resize on input image \\
+		$\Rightarrow$ conv layer need only to handle normal ratio (less burden)
+		\end{itemize}
+	\end{itemize}
 \item Region of Interest Pooling (RoI Pooling)
 	\begin{itemize}
 	\item Input

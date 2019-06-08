@@ -11,4 +11,4 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {11.1}{\ignorespaces $\displaystyle P(D,B) = \DOTSB \sum@ \slimits@ _A P(A,B) P(D|A)$ $\displaystyle P(F,B) = \DOTSB \sum@ \slimits@ _A\left ( P(A,B) \DOTSB \sum@ \slimits@ _C P(C|B)P(F|C) \right )$ $\displaystyle P(D,F,B) =\DOTSB \sum@ \slimits@ _A \left ( P(A,B) P(D|A)\DOTSB \sum@ \slimits@ _C P(C|B)P(F|C) \right )$ $\Rightarrow P(D|B)P(F|B) = P(D,F|B) \Rightarrow D \perp \tmspace -\thinmuskip {.1667em}\tmspace -\thinmuskip {.1667em}\tmspace -\thinmuskip {.1667em}\perp F | B$ \relax }}{73}{figure.caption.67}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {12.2}{\ignorespaces (using LSTM cell)\relax }}{105}{figure.caption.108}
+\contentsline {figure}{\numberline {12.2}{\ignorespaces (using LSTM cell)\relax }}{106}{figure.caption.108}
