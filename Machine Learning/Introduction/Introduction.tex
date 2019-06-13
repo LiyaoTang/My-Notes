@@ -482,12 +482,22 @@
 		i.e. predict $\hat{\mathbf t}$ to be the $\mathcal C_j$ with minimal $\displaystyle \sum_{k}L_{kj}p(\mathcal C_k|\mathbf x)$
 		\end{itemize}
 	\end{itemize}
-\item Regret Region
+\item Regret Option
 	\begin{itemize}
 	\item Decision Error Source
 		\begin{itemize}
-		\item the largest posterior $p(\mathcal C_k|\mathbf x) << 1$
-		\item all posteriors are comparable
+		\item the largest posterior $p(\mathcal C_k|\mathbf x) << 1$ \\
+		$\Rightarrow$ large $p(\mathbf t \neq \mathcal C_k)$ on region $\mathcal R_k$
+		\item $\Leftrightarrow$ all posteriors are comparable
+		\end{itemize}
+	\item Reject by Thresholding
+		\begin{itemize}
+		\item reject to make decision when the maximal posterior $p(\mathcal C_k|\mathbf x) <$ threshold $\theta$ \\
+		($\theta=frac 1 k$ to not reject any example)
+		\end{itemize}
+	\item Reject Criterion to Minimize Expected Loss
+		\begin{itemize}
+		\item consider the expected loss instead of raw posterior
 		\end{itemize}
 	\end{itemize}
 \end{itemize}

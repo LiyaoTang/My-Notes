@@ -218,7 +218,7 @@
 
   - Limitation
 
-    - hard to determine lock ownership: lock acquired by manipulating use-space memory
+    - hard to determine lock ownership: lock acquired by manipulating user-space memory
 
   - Lock in Use Space
 
@@ -305,78 +305,71 @@
     2. raising an error
 ## Python
 
-1. @：numpy 矩阵乘法 => can have difference between *,@,multiply,dot (for matrix/ndarray)
-2. explicit matrix inverse computations should be avoided for reasons of numerical stability
-    => 用 numpy.linalg.solve()
-3. matrix[:,0:1] => 矩阵第一列
-    => 前闭后开
-4. X = PolynomialFeatures(degree=2).fit_transform(X) => X每个features 的 2次多项式展开
-5. np.random.shuffle(idx) => shuffle (index of) data set
+1. gc to release memory explicitly (gc.collect()) $\Rightarrow$ gc short for garbage collection
+2. place the outer python-based library directly under the  folder => then import as usuall
+3. In fact, **EVERYTHING** is object in python
 
+### Numpy
 
-7. 式子中改变+/- 号位置会影响精确度 => 调用opt.fmin_bfgs() 中有warning
+1. matrix
+    1. @：numpy 矩阵乘法 => can have difference between *,@,multiply,dot (for matrix/ndarray)
+    2. explicit matrix inverse computations should be avoided for reasons of numerical stability
+        => 用 numpy.linalg.solve()
+    3. matrix[:,0:-1] => 矩阵第一列
+        => 前闭后开
+2. X = PolynomialFeatures(degree=2).fit_transform(X) => X每个features 的 2次多项式展开
+3. np.random.shuffle(idx) => shuffle (index of) data set
+4. 式子中改变+/- 号位置会影响精确度 => 调用opt.fmin_bfgs() 中有warning
+5. U,S,V = np.linalg.svd(A)
+    =>	S is 1-D array with corresponding number
+      	V is matrix with row vectors being eigenvectors of A.T*A （U==V.T when A = X.T*X）
+6. slicing & view
+    1. `a[2:4,:]`: create a view on array, on the same memory of `a`
+    2. `a[::-1]`: create a reversed view on array `a` 
+    3. `a[3,...]`: `...` to set all axises not specified to be `:` 
 
-8. U,S,V = np.linalg.svd(A)
-     =>	S is 1-D array with corresponding number
-       	V is matrix with row vectors being eigenvectors of A.T*A （U==V.T when A = X.T*X）
+### MatPlotLib
 
-9. OptionParser to accept comman-line parameters
+1. API Overview
+1. `matplotlib.backend_bases.FigureCanvas` : the area onto which the figure is drawn, 
+   2. `matplotlib.backend_bases.Renderer` : object knowing how to draw on `FigureCanvas``
+   3. `matplotlib.artist.Artist` : object knowing how to use a renderer to paint onto the canvas
 
-10. gc to release memory explicitly (gc.collect()) $\Rightarrow$ gc short for garbage collection
+  $\Rightarrow$ `FigureCanvas` and `Renderer`  handle all the details of talking to UI toolkits
 
-11. place the outer python-based library directly under the  folder => then import as usuall
+  $\Rightarrow$ `Artist` handles high level constructs e.g. representing and laying out the figure, text, and lines
 
-12. MatPlotLib
+### Function Decorator
 
+special syntax sugar to manipulate the result of a function
 
-      1. API Overview
-    
-           1. `matplotlib.backend_bases.FigureCanvas` : the area onto which the figure is drawn, 
-           2. `matplotlib.backend_bases.Renderer` : object knowing how to draw on `FigureCanvas``
-           3. `matplotlib.artist.Artist` : object knowing how to use a renderer to paint onto the canvas
-    
-      $\Rightarrow$ `FigureCanvas` and `Renderer`  handle all the details of talking to UI toolkits
-    
-      $\Rightarrow$ `Artist` handles high level constructs e.g. representing and laying out the figure, text, and lines
+1. foundation
 
-13. In fact, **EVERYTHING** is object in python
+   1. function can be assigned into a variable (related to lazy evaluation)
+   2. concept of scope: read-only access to the parent scope
+   3. easily passing arbitrary arguments by `*args`, `**kwargs` 
 
-14. function decorator: special syntax sugar to manipulate the result of a function
+2. define a decorator: define a function to manipulate another function
 
+   (build upon given function)
 
-      1. foundation
+  3. decorate a function: `func = decorator(func)` 
 
+  4. put `@decorator` above the definition of function to be decorated
 
-           1. function can be assigned into a variable (related to lazy evaluation)
-           2. concept of scope: read-only access to the parent scope
-           3. easily passing arbitrary arguments by `*args`, `**kwargs` 
-    
-      2. define a decorator: define a function to manipulate another function
-    
-           (build upon given function)
-    
-      3. decorate a function: `func = decorator(func)` 
-    
-      4. put `@decorator` above the definition of function to be decorated
-    
-           $\Rightarrow$ python interpreter helps decorate automatically! 
-    
-           $\Rightarrow$ easily stack decorators into a pipeline (to decorate a function)
-    
-      5. retain the attributes of original function
+       $\Rightarrow$ python interpreter helps decorate automatically! 
 
+       $\Rightarrow$ easily stack decorators into a pipeline (to decorate a function)
 
-           1. get overwritten by wrapper (e.g. `__doc__`, `__name__` and `__module__`)
-    
-           2. `from functools import wraps`: `@wraps(func)` before self-defined wrapping behaviour
-    
-                $\Rightarrow$ copy all attributes of original function to the one returned by the wrapper
-    
-      6. ability of decorator
+  5. retain the attributes of original function
 
+     1. get overwritten by wrapper (e.g. `__doc__`, `__name__` and `__module__`)
+     2. `from functools import wraps`: `@wraps(func)` before self-defined wrapping behaviour
+     $\Rightarrow$ copy all attributes of original function to the one returned by the wrapper
 
-           1. pre-/post- condition, synchronization, redirect std ouput, async call, etc....
-           2. decorator library: https://wiki.python.org/moin/PythonDecoratorLibrary
+6. ability of decorator
+   1. pre-/post- condition, synchronization, redirect std ouput, async call, etc....
+   2. decorator library: https://wiki.python.org/moin/PythonDecoratorLibrary
 
 ### Inheritance
 
@@ -662,6 +655,11 @@
 
   - Control Flow Swicthing in Python
     - indeed, a wrapper over coroutine...using class as shown above
+  - `threading.Lock()` 
+    - return a `Lock` object, with `release()` and a potential blocking `acquire()` 
+  - `thread.Thread(target=t, args=a)`
+    - create a thread to run function `t` with arguments `a` passed in
+  - 
 
 - `multiprocessing ` Module
 

@@ -465,6 +465,8 @@
 		(instead of giving class probability as per-pixel classification)
 		\item at most as many objects as pixel number \\ 
 		$\Rightarrow$ not possible to lose detection due to griding
+		\item one-step further from ExtremeNet: \\
+		directly segmentation, then use boundary pixel to re-organize into bbox
 		\end{itemize}
 	\end{itemize}
 \item \textbf{No Non-Maximum Suppression}
@@ -684,6 +686,15 @@
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+\subsubsection{Directoin - Tactile Perception}
+\begin{itemize}
+\item Close-range Camera as Tactile Sensor
+	\begin{itemize}
+	\item directly location mapping between camera \& tactile sensor via IMU \\
+	$\Rightarrow$ jointly process in cnn
+	\end{itemize}
+\end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Basic Neutral Network}
@@ -4782,3 +4793,151 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \section{Generative Adversarial Nets}
 \subsection{Temporal Generative Adversarial Nets}
 \subsubsection{Video Generation}
+
+\section{Tactile Sensing}
+\subsection{Tactile Sensor}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Single-point Contact Sensors (single tactile cells)
+		\begin{itemize}
+		\item able to confirm object-sensor contact
+		\item force sensor to detect force at contact point
+		\item biomimetic whiskers (dynamic tactile sensors) to detect vibration at contact point
+		\end{itemize}
+	\item High Resolution Tactile Arrays (fingertips)
+		\begin{itemize}
+		\item sensors array of tactile sensing elements (usually planar array)
+		\item sensing elements: fiber optics, embedded camera, barometers, etc.
+		\end{itemize}
+	\item Large-Area Tactile Sensors (body skins)
+		\begin{itemize}
+		\item usually able to be curved for large robotic skin
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsection{Tactile Sensing and Perception}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Tactile Data
+		\begin{itemize}
+		\item the data after on-board processing on the raw tactile sensor
+		\item come with different form/meaning, depending on the sensor
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Detail Object Recognition
+		\begin{itemize}
+		\item recognize the object shape, material properties, in-hand pose and etc.
+		\item action related: grasp control, slippage detection, etc.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Feature Extraction}
+\begin{itemize}
+\item Acoustic Signal
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item microphone to collect signal from tapping/sliding/scratching
+		\end{itemize}
+	\item Processing
+		\begin{itemize}
+		\item filter/function (e.g. fast Fourier transform) to map to frequency domain
+		\item then analyzed/classified into texture properties
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item fast, low-cost, light-burden
+		\item need interaction
+		\end{itemize}
+	\end{itemize}
+\item Vibration and Force Data
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item robot finger sliding with various speed to detect vibration/friction
+		\item strain gauges sensor to detect stiffness, compliance, elasticity and etc.
+		\end{itemize}
+	\item Processing
+		\begin{itemize}
+		\item transform into frequency domain, then analyze the vibration intensities
+		\item or, directly use kNN, SVM, etc on mechanical impedance data to classify
+		\end{itemize}
+	\end{itemize}
+\item Micro-structure Patterns
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item tactile sensors array for pressed/imprinted surface
+		\end{itemize}
+	\item Processing
+		\begin{itemize}
+		\item sensor data with spatial relation $\Rightarrow$ a small image (usually $14\times6$) \\
+		$\Rightarrow$ image processing (with hand-crafted/learned features)
+		\item learning features: end-to-end learned for various task
+		\end{itemize}
+	\end{itemize}
+\item Spatial-Temporal Data
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item a series acquired local tactile data, each with sensor-object contact location \& time
+		\end{itemize}
+	\item Processing
+		\begin{itemize}
+		\item viewed as a spatial points cloud, then recognize the object contour
+		\item incorporate with LSTM algorithms: e.g. landmarks, grid based, particle filter, etc.
+		\item incorporate sequential model: e.g. KF to sequentially refine object properties
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Application in Robot Tasks}
+\begin{itemize}
+\item Robot Manipulation
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item image from vision sensor, data from tactile sensor
+		\end{itemize}
+	\item Goal
+		\begin{itemize}
+		\item successfully perform task involving object manipulation \\
+		e.g. open a door via door handle
+		\end{itemize}
+	\item Single-Point Contact
+		\begin{itemize}
+		\item structure as spatial-temporal points
+		$\Rightarrow$ in-hand pose estimation (usually with LSTM methods)
+		\item challenge: sensor-object contact influence the environment \\
+		(use lidar?)
+		\end{itemize}
+	\item Tactile Arrays
+		\begin{itemize}
+		\item image processing \& SLAM
+		\end{itemize}
+	\item Tactile \& Vision
+		\begin{itemize}
+		\item 3D vision (from lidar/camera) $\Rightarrow$ sensor fusion for localization
+		\item vision for haptic\&location estimation + tactile for refinement
+		\item vision \& tactile both treated as image: potentially sharing weights (multi-tasking)
+		\end{itemize}
+	\end{itemize}
+\item Sensor Fusion for Environment Modeling
+	\begin{itemize}
+	\item Contact Verification
+		\begin{itemize}
+		\item verify robot-object contact
+		\item active searching ambiguous region in visual perception
+		\item jointly estimate likelihood of contact at each location in the environment
+		\end{itemize}
+	\item Object Properties Refinement
+		\begin{itemize}
+		\item model the in-hand object as in robot manipulation (can be end-to-end) \\
+		e.g. estimate the angle of door handler while gripping
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
