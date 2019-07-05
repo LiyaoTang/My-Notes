@@ -754,7 +754,7 @@
 	\end{itemize}
 \end{itemize}
 
-\subsection{Interchanging Coordinates}
+\subsection{Coordinates}
 \subsubsection{N-dimensional Spherical Coordinates}
 \begin{itemize}
 \item Notation
@@ -853,9 +853,69 @@
 		\item $x_i = \begin{cases} r\cos\phi_1 & i = 1 \\ \displaystyle r\cos\phi_i\prod_{j=1}^{i-1}\sin\phi_j & 2\le i \le N-1 \\ \displaystyle r\sin\theta\prod_{j=1}^{N-2}\sin\phi_j & i=N-1 \\ \displaystyle r\cos\theta\prod_{j=1}^{N-2}\sin\phi_j & i=N \end{cases}$
 		\end{itemize}
 	\end{itemize}
-
 \end{itemize}
 
+\subsubsection{Homogeneous Coordinate}
+\begin{itemize}
+\item Derivation
+	\begin{itemize}
+	\item Perspective Geometry
+		\begin{itemize}
+		\item solving the limitation of euclidean geometry \\
+		(actually euclidean geometry is a subset)
+		\item $\Rightarrow$ describe parallel lines intersect at an infinite point in camera / human eyes
+		\item create a projective space \& establish transformation between euclidean space
+		\end{itemize}
+	\end{itemize}
+\item Definition
+	\begin{itemize}
+	\item Point
+		\begin{itemize}
+		\item $p'=(x',y')$ in Cartesian coord $\Rightarrow p=(x,y,w)$ in homogeneous coord, \\
+		where $x' = \frac {x} w, y' = \frac {y} w$
+		\item $(x,y, 0)$ for points at infinity, instead of tedious $(\infty,\infty)$ \\
+		($(0,0,1)$ for origin)
+		\item homogeneous due to: for any normal point, $w$ takes any value except for $0$
+		\end{itemize}
+	\item Vector
+		\begin{itemize}
+		\item $v'=(a,b)$ in Cartesian coord $\Rightarrow v=(a,b,0)$ in homogeneous coord
+		\end{itemize}
+	\end{itemize}
+\item Describing Space
+	\begin{itemize}
+	\item Line
+		\begin{itemize}
+		\item line $l'=ax'+by'+c = 0$ in Cartesian coord $\Rightarrow l=ax + by + cw = 0$ \\
+		(by replacing $x',y'$ with $x, y$)
+		\item $\Rightarrow$ parallel lines intersect at points at infinity \\
+		$\begin{cases} ax + by + c_0 w = 0 \\ ax + by + c_1 w = 0 \end{cases}$ has solutions $(x,y,0)$, where $x,y\in \mathbb R$ 
+		\end{itemize}
+	\item Affine Transformation
+		\begin{itemize}
+	    \item definition: $y'=A'x'+b'$ in Cartesian space
+	    \item translating into homogeneous space \\
+	    $\Rightarrow$ $x = [x'^T,1]^T, A=\begin{bmatrix} A', \mathbf 0 \\ \mathbf 0^T, 1 \end{bmatrix}$ where $\mathbf 0$ a col vector $[0,...,0]^T$ \\ 
+	    $\Rightarrow$ hence $Ax \text{(homo)} \Leftrightarrow A'x' \text{(Cart)}$ \\
+	    $\Rightarrow \text{construct} T = \begin{bmatrix} A', b \\ \mathbf 0^T, 1 \end{bmatrix}$\\
+	    $\Rightarrow y=Tx \text{(homo)}  \Leftrightarrow  y'=A'x'+b' \text{(cart)}$
+	    \item $\Rightarrow$ single matrix for affine transformation 
+		\end{itemize}
+	\end{itemize}
+\item Understanding
+	\begin{itemize}
+	\item Distinguishing Point vs. Vector
+		\begin{itemize}
+		\item normal Cartesian point $p' = (x,y) \Rightarrow (x,y,1)$
+		\item normal Cartesian vector $v' = (x,y) \Rightarrow (x,y, 0)$, as an infinite point \\
+		(as for vector, absolute position does NOT matter)
+		\end{itemize}
+  	\item Unifed Expression for Affine \& Linear Transformation
+  		\begin{itemize}
+  		\item easier, simpler \& faster computation
+  		\end{itemize}
+	\end{itemize}
+\end{itemize}
  
 \section{Calculus}
 

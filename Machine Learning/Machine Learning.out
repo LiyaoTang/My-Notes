@@ -2,7 +2,7 @@
 \BOOKMARK [1][-]{section.1.1}{Convolution}{chapter.1}% 2
 \BOOKMARK [1][-]{section.1.2}{Linear Algebra}{chapter.1}% 3
 \BOOKMARK [2][-]{subsection.1.2.1}{Essence}{section.1.2}% 4
-\BOOKMARK [2][-]{subsection.1.2.2}{Interchanging Coordinates}{section.1.2}% 5
+\BOOKMARK [2][-]{subsection.1.2.2}{Coordinates}{section.1.2}% 5
 \BOOKMARK [1][-]{section.1.3}{Calculus}{chapter.1}% 6
 \BOOKMARK [2][-]{subsection.1.3.1}{Integral}{section.1.3}% 7
 \BOOKMARK [1][-]{section.1.4}{Probability Theory}{chapter.1}% 8
@@ -80,28 +80,31 @@
 \BOOKMARK [2][-]{subsection.12.4.3}{Encoder-Decoder Architecture}{section.12.4}% 80
 \BOOKMARK [2][-]{subsection.12.4.4}{Generative Network}{section.12.4}% 81
 \BOOKMARK [1][-]{section.12.5}{Computer Vision}{chapter.12}% 82
-\BOOKMARK [2][-]{subsection.12.5.1}{Objects Detection}{section.12.5}% 83
-\BOOKMARK [2][-]{subsection.12.5.2}{Object Tracking}{section.12.5}% 84
-\BOOKMARK [2][-]{subsection.12.5.3}{Face Recognition}{section.12.5}% 85
-\BOOKMARK [2][-]{subsection.12.5.4}{Recognition at a Distance}{section.12.5}% 86
-\BOOKMARK [2][-]{subsection.12.5.5}{Image Style Transfer}{section.12.5}% 87
-\BOOKMARK [2][-]{subsection.12.5.6}{Point Cloud Data Processing}{section.12.5}% 88
-\BOOKMARK [1][-]{section.12.6}{Natural Language Processing}{chapter.12}% 89
-\BOOKMARK [2][-]{subsection.12.6.1}{Language Representation}{section.12.6}% 90
-\BOOKMARK [2][-]{subsection.12.6.2}{Language Modeling}{section.12.6}% 91
-\BOOKMARK [2][-]{subsection.12.6.3}{Name-Entity Recognition}{section.12.6}% 92
-\BOOKMARK [2][-]{subsection.12.6.4}{Sentiment Classification}{section.12.6}% 93
-\BOOKMARK [2][-]{subsection.12.6.5}{Neural Machine Translation}{section.12.6}% 94
-\BOOKMARK [2][-]{subsection.12.6.6}{Speech Recognition}{section.12.6}% 95
-\BOOKMARK [2][-]{subsection.12.6.7}{Machine Reading Comprehension}{section.12.6}% 96
-\BOOKMARK [2][-]{subsection.12.6.8}{Image Caption}{section.12.6}% 97
-\BOOKMARK [2][-]{subsection.12.6.9}{Referring Segmentation}{section.12.6}% 98
-\BOOKMARK [1][-]{section.12.7}{Special Learning}{chapter.12}% 99
-\BOOKMARK [2][-]{subsection.12.7.1}{Transfer Learning}{section.12.7}% 100
-\BOOKMARK [2][-]{subsection.12.7.2}{Multi-task Learning}{section.12.7}% 101
-\BOOKMARK [2][-]{subsection.12.7.3}{K-shot Learning}{section.12.7}% 102
-\BOOKMARK [1][-]{section.12.8}{Generative Adversarial Nets}{chapter.12}% 103
-\BOOKMARK [2][-]{subsection.12.8.1}{Temporal Generative Adversarial Nets}{section.12.8}% 104
-\BOOKMARK [1][-]{section.12.9}{Tactile Sensing}{chapter.12}% 105
-\BOOKMARK [2][-]{subsection.12.9.1}{Tactile Sensor}{section.12.9}% 106
-\BOOKMARK [2][-]{subsection.12.9.2}{Tactile Sensing and Perception}{section.12.9}% 107
+\BOOKMARK [2][-]{subsection.12.5.1}{Visual Sensor}{section.12.5}% 83
+\BOOKMARK [2][-]{subsection.12.5.2}{Objects Detection}{section.12.5}% 84
+\BOOKMARK [2][-]{subsection.12.5.3}{Object Tracking}{section.12.5}% 85
+\BOOKMARK [2][-]{subsection.12.5.4}{Face Recognition}{section.12.5}% 86
+\BOOKMARK [2][-]{subsection.12.5.5}{Recognition at a Distance}{section.12.5}% 87
+\BOOKMARK [2][-]{subsection.12.5.6}{Re-Identification}{section.12.5}% 88
+\BOOKMARK [2][-]{subsection.12.5.7}{Image Style Transfer}{section.12.5}% 89
+\BOOKMARK [2][-]{subsection.12.5.8}{Point Cloud Data Processing}{section.12.5}% 90
+\BOOKMARK [1][-]{section.12.6}{Natural Language Processing}{chapter.12}% 91
+\BOOKMARK [2][-]{subsection.12.6.1}{Language Representation}{section.12.6}% 92
+\BOOKMARK [2][-]{subsection.12.6.2}{Language Modeling}{section.12.6}% 93
+\BOOKMARK [2][-]{subsection.12.6.3}{Name-Entity Recognition}{section.12.6}% 94
+\BOOKMARK [2][-]{subsection.12.6.4}{Sentiment Classification}{section.12.6}% 95
+\BOOKMARK [2][-]{subsection.12.6.5}{Neural Machine Translation}{section.12.6}% 96
+\BOOKMARK [2][-]{subsection.12.6.6}{Speech Recognition}{section.12.6}% 97
+\BOOKMARK [2][-]{subsection.12.6.7}{Machine Reading Comprehension}{section.12.6}% 98
+\BOOKMARK [2][-]{subsection.12.6.8}{Image Caption}{section.12.6}% 99
+\BOOKMARK [2][-]{subsection.12.6.9}{Referring Segmentation}{section.12.6}% 100
+\BOOKMARK [1][-]{section.12.7}{Special Learning}{chapter.12}% 101
+\BOOKMARK [2][-]{subsection.12.7.1}{Transfer Learning}{section.12.7}% 102
+\BOOKMARK [2][-]{subsection.12.7.2}{Multi-task Learning}{section.12.7}% 103
+\BOOKMARK [2][-]{subsection.12.7.3}{K-shot Learning}{section.12.7}% 104
+\BOOKMARK [1][-]{section.12.8}{Interpretable Machine Learning}{chapter.12}% 105
+\BOOKMARK [1][-]{section.12.9}{Generative Adversarial Nets}{chapter.12}% 106
+\BOOKMARK [2][-]{subsection.12.9.1}{Temporal Generative Adversarial Nets}{section.12.9}% 107
+\BOOKMARK [1][-]{section.12.10}{Tactile Sensing}{chapter.12}% 108
+\BOOKMARK [2][-]{subsection.12.10.1}{Tactile Sensor}{section.12.10}% 109
+\BOOKMARK [2][-]{subsection.12.10.2}{Tactile Sensing and Perception}{section.12.10}% 110

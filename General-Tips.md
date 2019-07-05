@@ -308,6 +308,7 @@
 1. gc to release memory explicitly (gc.collect()) $\Rightarrow$ gc short for garbage collection
 2. place the outer python-based library directly under the  folder => then import as usuall
 3. In fact, **EVERYTHING** is object in python
+4. python header files: /usr/include/python\*.\*m
 
 ### Numpy
 

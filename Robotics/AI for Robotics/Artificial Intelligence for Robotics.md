@@ -1,100 +1,44 @@
 # Artificial Intelligence for Robotics
 
-## Math
+## Perception
 
-### Coordinates
+- Goal
+  - Perceiving Surrounding
+    - be aware of others existence
+    - construct surrounding environment model
+- Approaches
+  - Sensor Perception
+    - perceive objects and other things of interests
+  - Environment Modeling
+    - construct local maps with sensor perception result
+    - ego localization in local & global map
 
-#### Homogeneous Coordinate （齐次坐标）
+### Detection
 
-- Derivation
+- Goal
+  - Sensor Detection
+- Approaches
+  - Deep-Learning based
+  - Classic
 
-  - Perspective Geometry
+- Sensors
+  - Camera
+    - 2D perspective detection $\Rightarrow$ 3D vision to map back to 3D
+  - Lidar
+    - point cloud, usually detect in 3D-space
+    - distance, height measured for each point
+  - Radar
+    - point cloud, usually with on-chip processing (hence sparse)
+    - speed measured for each point
 
-    - solving the limitation of euclidean geometry
-
-      (actually euclidean geometry is a subset)
-
-      $\Rightarrow$ describe parallel lines intersect at an infinite point in camera / human eyes
-
-    - create a projective space \& establish transformation between euclidean space
-
-- Definition
-
-  - Point
-
-    - $p'=(x',y')$ in Cartesian coord $\Rightarrow p=(x,y,w)$ in homogeneous coord,
-
-      where $x' = \frac {x} w, y' = \frac {y} w$ 
-
-    - $\Rightarrow (x,y, 0)$ for points at infinity, instead of tedious $(\infty,\infty)$ 
-
-      $\Rightarrow$ $(0,0,1)$ for origin
-
-    - homogeneous as for any normal point, $w$ takes any value except for $0$  
-
-  - Vector
-
-    - $v'=(a,b)$ in Cartesian coord $\Rightarrow v=(a,b,0)$ in homogeneous coord
-
-- Describing Space
-
-  - Line 
-
-    - line $l'=ax'+by'+c = 0$ in Cartesian coord $\Rightarrow l=ax + by + cw = 0$ 
-
-      (by replacing $x',y'$ with $x, y$)
-
-    - $\Rightarrow$ parallel lines intersect at points at infinity
-
-      $\begin{cases} ax + by + c_0 w = 0 \\ ax + by + c_1 w = 0 \end{cases}$ has solutions $(x,y,0)$, where $x,y\in \mathbb R$ 
-
-  - Affine Transformation
-
-    - definition: $y'=A'x'+b'$ in Cartesian space
-
-    - translating into homogeneous space
-
-      $\Rightarrow$ $x = [x'^T,1]^T, A=\begin{bmatrix} A', \mathbf 0 \\ \mathbf 0^T, 1 \end{bmatrix}$ where $\mathbf 0$ a col vector $[0,...,0]^T$ 
-
-      $\Rightarrow$ hence $Ax \text{(homo)} \Leftrightarrow A'x' \text{(Cart)}$ 
-
-      $\Rightarrow \text{construct} T = \begin{bmatrix} A', b \\ \mathbf 0^T, 1 \end{bmatrix}$ 
-      
-      $\Rightarrow y=Tx \text{(homo)}  \Leftrightarrow  y'=A'x'+b' \text{(cart)}$ 
-      
-    - $\Rightarrow$ single matrix for affine transformation 
-
-- Understanding
-
-  - Distinguishing Point vs. Vector
-
-    - normal Cartesian point $p' = (x,y) \Rightarrow (x,y,1)$ 
-
-    - normal Cartesian vector $v' = (x,y) \Rightarrow (x,y, 0)$, as an infinite point
-
-      (as for vector, absolute position does NOT matter) 
-    
-  - Unifed Expression for Affine \& Linear Transformation
-  
-    - easier, simpler \& faster computation
-
-## Topics
-
-### Perception
-
-#### Vision
-
-#### Radar
-
-### Localisation & Tracking
+### Tracking
 
 - Goal
 
-  - Localisation 
+  - Time-series Understanding
     - tracking others location and motion
-    - my localisation in local map
-  - Time-series Prediction
-
+    - time-series prediction
+  
 - Approaches
 
   - Histogram Filters
@@ -151,7 +95,6 @@
          $\Rightarrow r = \frac L {\tan \alpha}$ 
 
          ![](./bicycle model - back wheel radius.png)   
-
 
 #### Histogram Filters
 
@@ -313,9 +256,116 @@
     - calculate updated particles for all particles in the current set
     - represented & approximated by a new set of particles
 
-### Planning
+### Localization
 
-#### Path Planning
+- Goal
+  - Global & Local Localization
+
+- GPS Localization Measurement
+
+  - 2D Localization
+
+    - given coord of $A, B$ and distance of $AC, BC \Rightarrow$ solve for $C$ coord
+
+  - 3D Localization
+
+    - measure distance between receiver and satellite (transmitter)
+
+    - 4 satellites for 4 function to solve $x,y,z,t$, 
+
+      where $x,y,z$ global coord, $t$ the GPS time
+
+  - Satellite Coord
+
+    - transmitter becomes ground stations with known coord
+
+      $\Rightarrow$ solve for GPS coord again 
+
+    - noise canceling: two close stations observe same satellite
+
+      $\Rightarrow$ similar noise, thus able to cancel out each other
+
+  - Satellite - Receiver Distance
+
+    - time-of-fly, time measure by signal phase offset + clock
+
+  - Enhance Accuracy
+
+    - more signal on a carrier wave $\Rightarrow$ more functions to solve coord
+
+  - RTK
+
+    - use carrier wave (high frequency $\Rightarrow$ better accuracy) to estimate distance
+
+  - Understanding
+
+    - distance noise: from atmosphere, Doppler effect, clock granularity jitter
+
+    - multi-path noise: signal bounced between object before received
+
+      $\Rightarrow$ suffer when no direct path available (e.g. indoor, under bridge)
+
+    - followed by tracking filter for more stable localization
+
+- Inertial Navigation System for Localization
+
+  - Accelerometer
+    - correct for gravity, transform back to global coord
+    - integrate for speed, then for location (a vector from initial position to current)
+  - Gyro
+    - measure the orientation of current accelerate
+  - Understanding
+    - noise accumulated & amplified from integration
+
+- 
+
+### Environment Modeling
+
+- HD Map
+
+  - Detailed Static Information
+
+    - beyond perception limit $\Rightarrow$ at a global scale
+
+    - 10-cm accuracy
+
+    - lines-level relation, with on-road objects 
+
+      e.g. curb, board, lane, traffic light, signal, etc, with their detailed classes
+
+    - pre-mapped information $\Rightarrow$ less burden in sensor perception
+
+  - Collection
+
+    - car with sensors: high-quality IMU, lidar, camera, high-accuracy GPS
+
+    - storage & supervision: on-car analyzer
+
+    - repeated collection: different perspective to collect the same region multiple times
+
+      $\Rightarrow$ s.t. $100\%$ recall at raw sensor data level
+
+  - Data Processing
+
+    - off-line sensors perception for objects of interest
+    - motion compensation: compensate for ego-movement
+    - sensor fusion: off-line perceptions + GPS trajectory $\Rightarrow$ mapped back to a global map
+
+  - Supervised Correction
+
+    - crowd-sourcing for quality control
+
+  - Release
+
+    - formulated final result into various open API
+
+- Sensor Fusion
+
+  - 
+
+## Planning
+
+### Classic Path Planning
 
 - Overview
 
@@ -450,7 +500,7 @@
     - pre-cache principle sub-plan $\Rightarrow$ path planning as a table look-up & provable to be optimal
     - example: Google map
 
-#### Smooth Path Planning
+### Smooth Path Planning
 
 - Goal
   - Robot Ability
@@ -488,16 +538,16 @@
     - use distance between obstacles as constraint
     - ...
 
-### Control
+## Control
 
 - Concern
   - Timing
   - Robustness
   - Basins of Attraction
 
-#### Steering Control
+### Steering Control
 
-##### PID Control
+#### PID Control
 
 - Goal
   - Steering

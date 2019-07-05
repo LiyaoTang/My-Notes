@@ -455,6 +455,16 @@
 	\end{itemize}
 \end{itemize}
 
+\subsubsection{Direction - Segmentation}
+\begin{itemize}
+\item  Multi-scale in Segmentation
+	\begin{itemize}
+	\item Per-pixel Classification
+		\begin{itemize}
+		\item not only skipping from encoder to decoder, but also skipping from tunnel to decoder final output layer, by e.g. tiling.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 \subsubsection{Direction - Detection}
 \begin{itemize}
 \item Faster One-stage
@@ -467,6 +477,13 @@
 		$\Rightarrow$ not possible to lose detection due to griding
 		\item one-step further from ExtremeNet: \\
 		directly segmentation, then use boundary pixel to re-organize into bbox
+		\end{itemize}
+	\end{itemize}
+\item Two-stage in One-stage
+	\begin{itemize}
+	\item Attention
+		\begin{itemize}
+		\item attention map as 1st box proposal, as extreme net (instead of RoI)
 		\end{itemize}
 	\end{itemize}
 \item \textbf{No Non-Maximum Suppression}
@@ -1604,7 +1621,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{Pooling Layer}
 \begin{itemize}
-\item Normal Pooling
+\item Max/Average Pooling
 	\begin{itemize}
 	\item Input Data
 		\begin{itemize}
@@ -1629,6 +1646,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item downsampling the feature maps (NO weights to learn) \\ 
 		$\Rightarrow$ if desired features detected anywhere, represent it by local max/average
+		\item average: use the mean as representation of desired region
+		\item max: use the outstanding one as the representation of desired region
 		\end{itemize}
 	\end{itemize}
 \item Unpooling
@@ -2077,6 +2096,47 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
+\subsubsection{Interpretation and Visualization}
+\begin{itemize}
+\item Activation Testing
+	\item Procedure
+		\begin{itemize}
+		\item use a fixed set of bounding box proposals (with different images)
+		\item treat a single hidden unit in network as a detector/classifier \\
+		$\Rightarrow$ use its activation as scoring
+		\item for detection: after non-max suppression, rank the boxes from highest to lowest activation \\
+		$\Rightarrow$ test out which visual mode the feature is sensing
+	\item Understanding on Network
+		\begin{itemize}
+		\item each feature sensing a different object \\
+		e.g. face, red blob, square objects, light reflectance, array of dots, text (like OCR), etc.
+		\item able to learn: class-specific shape \& abstract attributes \\
+		$\Rightarrow$ construct a \underline{distributed representation} of object \\ 
+		(e.g. shape, color, texture, text, material properties, etc.)
+		\item $\Rightarrow$ later dense layer can model a large range of object \\
+		(as combining different distributed object attributes)
+		\end{itemize}
+	\end{itemize}
+\item Layer Ablation
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item after trained, reduce the num of dense layer, until fully conv \\
+		i.e. using previous layer output as prediction at test time
+		\item on test set: evaluate performance drop \\
+		on other dataset: evaluate generalization ability drop
+		\end{itemize}
+	\item Understanding on Network
+		\begin{itemize}
+		\item CNN ability relies on convolution layer, instead of dense layer \\
+		$\Rightarrow$ \underline{conv layer as feature map extractor} for other domain-model
+		\item fine-tuning improves a lot $\Rightarrow$ fine-tunning the dense layer \\
+		(while conv layer are learned to be quite generic)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
 \subsection{Recurrent Neural Network}
 \subsubsection{Classic RNN}
 \begin{itemize}
@@ -2229,6 +2289,198 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Computer Vision}
+\subsection{Visual Sensor}
+\subsubsection{Camera}
+\begin{itemize}
+\item Basic Image-forming Theory
+	\begin{itemize}
+	\item Camera Coordinate
+		\begin{itemize}
+		\item image axises: same as axises for matrix index
+		\item $x,y$ align with the image axises, $z$ align with focal line
+		\end{itemize}
+	\item Resolution
+		\begin{itemize}
+		\item the minimum feature size of the object under inspection \\
+		$\Rightarrow$ finally, represented as the pixel in the image \\
+		(hence, jointly controlled by pixel size, lens, object distance and sensor size)
+		\item pixel count: total number of pixels in the row/col of image
+		\item pixel density: dots/pixels oer inch (dpi)
+		\item sensor resolution: pixel count on sensor and their physical size and spreading
+		\item lens resolution: the impact of optics (diffraction, etc) on light info towards sensor
+		\end{itemize}
+	\item ISO: Light Sensitivity
+		\begin{itemize}
+		\item used to be the light sensitivity of the film
+		\item $\Rightarrow$ in digital camera: the amplification/attenuation for raw sensor value \\
+		$\Rightarrow$ can add noise if amplified too much, due to dark current
+		\item base ISO: 
+		\end{itemize}
+	\item Exposure Time
+		\begin{itemize}
+		\item control incoming light (denoted by shutter speed)
+		\end{itemize}
+	\item Focal Length $F$
+		\begin{itemize}
+		\item the distance from last lens central point to focal point, determined by lens physics
+		\item given a fixed object distance, larger $F$, larger formed object \\
+		(object distance need to be larger than focal length) \\
+		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/topic-vision sensor  camera focal len".jpg}
+		\end{itemize}
+	\item Aperture
+		\begin{itemize}
+		\item diameter of entrance pupil $D$: control the size of aperture \\
+		$\Rightarrow$ aperture stop: aperture setting to restrict input pupil size and hence brightness
+		\item larger size ($D$), more incoming light
+		\end{itemize}
+	\item F-Number $N = \frac F D$
+		\begin{itemize}
+		\item reveal the signal to noise ratio, contrast, image brightness
+		\item larger $N$, smaller $D$, less incoming light, larger DOF, larger depth of focus
+		\end{itemize}
+	\item Depth of Field (DOF) \& Depth of Focus
+		\begin{itemize}
+		\item definition: the range on $z$ axis where resolution can be maintained \\
+		before the lens: depth of field (in the field) \\
+		after the lens: depth of focus (inside camera) \\
+		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/topic-vision sensor  camera dof".jpg}		
+		\end{itemize}
+	\item Depth of Field
+		\begin{itemize}
+		\item DOF as the range where $1$ pixel can hold all info from $1$ position \\
+		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-vision sensor  camera n and dof".png} \\
+		where, dashed line the incoming light; \\ 
+		red line the system resolution (the pixel size, changing with object dist) \\
+		$\Rightarrow$ DOF defined by intersection of two type of lines \\
+		$\Rightarrow$ with large enough DOF, resolution can be bad at the end of DOF \\ 
+		(pixel size too large)
+		\item resolution with DOF \\
+		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-vision sensor  camera dof and resolution".png} \\
+		where black boxes a series of pixels, beams in colors as light info from an object \\
+		$\Rightarrow$ the placement of box on beams shows the information contained in a pixel \\
+		$\Rightarrow$ larger DOF, large depth range for acceptable resolution \\ 
+		(as pixel contain more separable info) \\
+		$\Rightarrow$ out of DOF: pixel can not distinguish beams from diff location
+		\end{itemize}
+	\item Depth of Focus
+		\begin{itemize}
+		\item depth of focus as the range where $1$ pixel can hold all info from $1$ position
+		\item resulted from tilted sensor $\Rightarrow$ may not in the ideal position to receive light info \\
+		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-vision sensor  camera do focus".png} \\
+		where right-most line as ideal focal plane, left lines as sensor tilted by $12.5/25\mu m$ \\
+		$\Rightarrow$ tilt not influence pixel in the center, but the pixel in the corner \\
+		$\Rightarrow$ out of depth of focus: pixel can not distinguish beams from diff location
+		\end{itemize}
+	\end{itemize}
+\item Camera System
+	\begin{itemize}
+	\item Optics
+		\begin{itemize}
+		\item lens: determine focal length, control f-number, thus DOF
+		\item filter: filter out the influence of infer-red
+		\end{itemize}
+	\item Image Sensor
+		\begin{itemize}
+		\item tilted sensor for optic-electric conversion
+		\item determine the pixel-size, thus influence resolution
+		\item dynamic range: range of full electric capacity - smallest signal-to-noise ratio
+		\end{itemize}
+	\item Color Filter Array
+		\begin{itemize}
+		\item a filter for each sensor to allow only light of specified color to reach sensor
+		\item interpolation to recover color info for each pixel \\
+		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-vision sensor camera color filter array".png}
+		\end{itemize} 
+	\item ISP
+		\begin{itemize}
+		\item optimize the raw sensor data to account for:, e.g. \\
+		white balance, motion compensation, tone mapping, denoising, etc.
+		\end{itemize}
+	\item Serdes
+		\begin{itemize}
+		\item serialized output the displayed image
+		\end{itemize}
+	\end{itemize}
+\item Noise
+	\begin{itemize}
+	\item Rolling Shutter
+		\begin{itemize}
+		\item due to image sensor scanning through across the scene \\
+		(instead of snapshot the whole scene) \\
+		$\Rightarrow$ speed of shutter $+$ object movement speed: skewed scene
+		\item scanning scene takes time \& each time step only scanning a roll of sensor
+		\item trade-off: able to continue gather photons, thus more sensitive \\
+		(v.s. global shutter)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Lidar}
+\begin{itemize}
+\item Time of Flight (ToF) System
+	\begin{itemize}
+	\item Light Source
+		\begin{itemize}
+		\item wavelength: 905nm vs. 1550nm
+		\item laser peak power: need to avoid eye damage
+		\item repetition rate: positively related to fps and points intensity
+		\item pulse width
+		\item beam quality
+		\item background noise: more noise for 905nm than 1550nm
+		\end{itemize}
+	\item Scanning
+		\begin{itemize}
+		\item spinning: emit single beam \& scan emit angle across 3D space
+		\item optical phase array: use electricity to control beam angle (solid state streamer)
+		\item flash light: emit laser like flashlight (consume more power)
+		\end{itemize}
+	\item Receiver
+		\begin{itemize}
+		\item sensitivity: determine effective detect distance
+		\item saturability: determine noise and dynamic range
+		\end{itemize}
+	\item A/D Converter
+		\begin{itemize}
+		\item convert received laser to electricity signal
+		\item response curve: usually non-linear
+		\end{itemize}
+	\end{itemize}
+\item 
+\end{itemize}
+\subsubsection{Radar}
+\begin{itemize}
+\item Radar System
+	\begin{itemize}
+	\item Waves
+		\begin{itemize}
+		\item range resolution inversely $\propto$ bandwidth
+		\item frequency $\in (76, 81)$ Ghz
+		\end{itemize}
+	\item Pulse Radar
+		\begin{itemize}
+		\item transmit antenna $G_t$ send pulse signal
+		\item receiver antenna $A_t$ receive signal
+		\item measure range by ToF
+		\end{itemize}
+	\item FMCW Radar
+		\begin{itemize}
+		\item send frequency modulated continuous-wave signal, instead of pulse \\
+		$\Rightarrow$ measure speed (vector) via observing Doppler frequency shift
+		\end{itemize}
+	\end{itemize}
+\item Understanding
+	\begin{itemize}
+	\item Ability
+		\begin{itemize}
+		\item work under extreme condition (-40 to 80$^{\circ}$, rain, dust, etc.)
+		\end{itemize}
+	\item Features
+		\begin{itemize}
+		\item sensitive to metal
+		\item multiple radar interference: receive signal sent by others
+		\item multiple reflectance: waves bounce between parallel metal objects
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
 \subsection{Objects Detection} \label{DL_CV_Objdet}
 \subsubsection{Problem Formulation}
@@ -2264,7 +2516,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Common Postprocessing}
+\subsubsection{Common Processing}
 \begin{itemize}
 \item Non-max Suppression \label{DL_CV_Objdet_nonmax}
 	\begin{itemize}
@@ -2284,6 +2536,38 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ remove (suppress) bounding boxes with large overlap
 		\item repeat until all bounding boxes have a low IoU with each other \\
 		$\Rightarrow$ remaining boxes are the final predictions
+		\end{itemize}
+	\end{itemize}
+\item Selective Search
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item image
+		\end{itemize}
+	\item Goal
+		\begin{itemize}
+		\item class independent regions to distinguish regions of different objects \\
+		$\Rightarrow$ object segmentation: potential region containing object (with classification waived)
+		\end{itemize}
+	\item Hierarchical Grouping
+		\begin{itemize}
+		\item initialize the image with a region proposals method
+		\item compute similarities for each adjacent region pairs
+		\item group the most similar region pair into one region \\
+		(similarity include: size, color in color space, sift, etc.)
+		\item iterate through the process, until whole image grouped into a single region
+		\item diverse settings: color space, similarity measurement, region initialization method
+		\end{itemize}
+	\item Region Scoring
+		\begin{itemize}
+		\item the earliest merged (grouped) images get the highest score in current run \\
+		e.g. last merge (whole image) scored $1$, $2^\text{nd}$ merge scored $2$
+		\item propose region with diverse settings \& accumulate score for the same region
+		\item select regions in first $n^\text{th}$ high score
+		\end{itemize}
+	\item Understand
+		\begin{itemize}
+		\item 
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -2317,26 +2601,78 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
-\item Region Proposal
+\item R-CNN: Regions with CNN Features
 	\begin{itemize}
-	\item Goal
+	\item Bounding Box Encoding
 		\begin{itemize}
-		\item effectively propose a various bounding boxes on the image for potential focused object \\
-		$\Rightarrow$ recall all focused object with preferably fewer boxes (e.g. $\sim 1\text{k}$)
+		\item tightly crop/wrap over regions from region proposal methods
+		\item regressor output refinement of $x, y, w, h$
 		\end{itemize}
-	\item Input
+	\item Inference
 		\begin{itemize}
-		\item segmentation mask by a segmentation network \\
-		$\Rightarrow$ to place bboxes on high-probability blobs
+		\item selective search $\Rightarrow \sim 2000$ regions potentially with object
+		\item each region edged with a tight bounding box, resized according to CNN
+		\item CNN to extract feature for each bounding box, into $4096$-length vector
+		\item class-specific SVMs (one for each class) to classify each box (feature vec)
+		\item per-class linear regressor to refine the proposed box \\ 
+		(better localization mAP $4\%\uparrow$)
 		\end{itemize}
-	\end{itemize}
-
-\item R-CNN
-	\begin{itemize}
-	\item Overview
+	\item Training CNN
 		\begin{itemize}
-		\item region proposal by selective search
-		\item CNN to predict class \& a bounding box (to refine)
+		\item pre-train on classification
+		\item fine-tine on detection: classify resized proposed box into $N+1$ classes \\
+		($+1$ for non-objectness)
+		\item box cropping: the tightest box + some space for context
+		\item $32$ box with object \& $96$ box without object $\Rightarrow$ bias to positive example
+		\item neg example: box proposal with $\text{IoU}^\text{region proposal}_\text{label box} < 0.5$
+		\item pos example: box proposal with $\text{IoU}^\text{region proposal}_\text{label box} > 0.5$ \\
+		(assigned to the label box with max IoU if multiple matched)
+		\item rely on val set, with train set as auxiliary source for pos example \\
+		$\Rightarrow$ regenerate more class-balanced data split \\
+		(avoid annotation noise in train set)
+		\end{itemize}
+	\item Training SVM
+		\begin{itemize}
+		\item input $4096$-length vector, output binary classification for a class
+		\item neg example: box proposal with $\text{IoU}^\text{region proposal}_\text{label box} < 0.3$
+		\item pos example: box proposal with $\text{IoU}^\text{region proposal}_\text{label box} > 0.5$
+		\item box in-between are ignored
+		\item all label box as pos example, hard neg mining on 5k images \\
+		$\Rightarrow$ control data volume, speed up SVM inference
+		\end{itemize}
+	\item Training Linear Regressor
+		\begin{itemize}
+		\item input the feature at CNN logits layer, regress location offset
+		\item regress $x,y$ directly, $w,h$ in the log space
+		\item only regress box nearby:  $\text{IoU}^\text{region proposal}_\text{label box} > 0.6$ \\
+		(assigned to label box with max IoU if multiple matched)
+		\item heavily regularized (as only performing nearby regression)
+		\end{itemize}
+	\item Extension in Segmentation
+		\begin{itemize}
+		\item region proposal switched to that for segmentation
+		\item wrapped bounding box on proposed region
+		\item get conv features with \& without background in box removed (set to $0$)
+		\item output classification for the region
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item first to bridge the gap between classification \& detection
+		\item first to show supervised pre-training on auxiliary dataset is effective \\
+		$\Rightarrow$ multi-tasking is good
+		\item important to distinguish pos-neg examples \\ 
+		$\Rightarrow mAP 5\%\uparrow$ when thr$=0.3$, (v.s. thr$=0.5$) \\
+		$\Rightarrow$ pos-neg balance important
+		\item context in box matters
+		\item by ablation study reveals: CNN ability comes from conv layer \\
+		$\Rightarrow$ \underline{CNN as feature map extractor} for other domain-specific algorithm
+		\item by visualization reveals: CNN is able to learn \underline{distributed representation} \\
+		$\Rightarrow$ recognize abstract attributes e.g. shape, texture, color, material etc.
+		\item speed legged by region proposal
+		\item performance legged by localization (instead of classification, thanks to CNN)
+		\item jittered example: box proposal with $\text{IoU}^\text{region proposal}_\text{label box}\in(0.5, 1)$ but is not ground truth \\
+		$\Rightarrow$ need more careful fine-tunning to avoid SVM (which is used for hard negative mining) \\
+		$\Rightarrow$ problems arise from NOT being end-to-end trained
 		\end{itemize}
 	\end{itemize}
 
@@ -2797,8 +3133,15 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item $2$-frame model, $1$-step prediction, no explicit temporal tracking \\
 		$\Rightarrow$ net may learn to locate the nearest similar object
-		\item real-time timing ($100$fps)
+		\item real-time timing ($100$fps), included in opencv $\Rightarrow$ stable performance
 		\end{itemize}
+	\end{itemize}
+
+\item CFNet: Correlation Filter based Tracking
+	\begin{itemize}
+	\item Inference
+	\item Structure
+	\item Training
 	\end{itemize}
 
 \item Re$^3$: Real-time Recurrent Regression Network
@@ -2858,6 +3201,10 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item LSTM tracker needs specialized training, and single-layer LSTM NOT enough \\
 		(or, can hurt performance due to instability)
 		\item LSTM state reset: prevent drift, yet can fail if initial box overlaps other object
+		\item LSTM tracker maintain track state \\ 
+		$\Rightarrow$ overcome occlusion, update for variance/shape change
+		\item may still, drifted to similar nearby object, known object (e.g. face), large motion \\
+		(comparison \& failure: \url{https://youtu.be/RByCiOLlxug?t=214})
 		\end{itemize}
 	\end{itemize}
 
@@ -2918,6 +3265,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item hard negative mining by filtering out box proposal at each RPN stage \\
 		$\Rightarrow$ training samples sequentially more balanced \\
 		$\Rightarrow$ RPNs sequentially more discriminative
+		\item $\Rightarrow$ hence, more discriminative between similar nearby object \\
+		(compare with Re$^3$)
 		\item fusion of multi-level feature (spatial + semantic info) for RPN
 		\end{itemize}
 	\end{itemize}
@@ -3308,7 +3657,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{Instance Tracking}
 \begin{itemize}
-\item Fast Online Object Tracking and Segmentation : A Unifying Approach
+\item SiamMask: Fast Online Object Tracking and Segmentation : A Unifying Approach
 	\begin{itemize}
 	\item Input
 		\begin{itemize}
@@ -3357,6 +3706,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item multi-task training improves all branches \\
 		(semi-supervised video object segmentation, bbox tracking)
 		\item mask branch: output the mask in the context of $x$ for that obj in $z$
+		\item simple starting point \& fast speed for video object segmentation (compared to $0.1$FPS)
+		\item more descriptive representation for tracked object $\Rightarrow$ more detail in mask
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -3468,86 +3819,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \subsection{Recognition at a Distance}
 \subsubsection{Problem Formulation}
 \begin{itemize}
-\item Basic Image-forming Theory
-	\begin{itemize}
-	\item Camera Coordinate
-		\begin{itemize}
-		\item image axises: same as axises for matrix index
-		\item $x,y$ align with the image axises, $z$ align with focal line
-		\end{itemize}
-	\item Resolution
-		\begin{itemize}
-		\item the minimum feature size of the object under inspection \\
-		$\Rightarrow$ finally, represented as the pixel in the image \\
-		(hence, jointly controlled by pixel size, lens, object distance and sensor size)
-		\item pixel count: total number of pixels in the row/col of image
-		\item pixel density: dots/pixels oer inch (dpi)
-		\item sensor resolution: pixel count on sensor and their physical size and spreading
-		\item lens resolution: the impact of optics (diffraction, etc) on light info towards sensor
-		\end{itemize}
-	\item ISO: Light Sensitivity
-		\begin{itemize}
-		\item used to be the light sensitivity of the film
-		\item $\Rightarrow$ in digital camera: the amplification/attenuation for raw sensor value \\
-		$\Rightarrow$ can add noise if amplified too much, due to dark current
-		\item base ISO: 
-		\end{itemize}
-	\item Exposure Time
-		\begin{itemize}
-		\item control incoming light (denoted by shutter speed)
-		\end{itemize}
-	\item Focal Length $F$
-		\begin{itemize}
-		\item the distance from last lens central point to focal point, determined by lens physics
-		\item given a fixed object distance, larger $F$, larger formed object \\
-		(object distance need to be larger than focal length) \\
-		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/topic-rad camera focal len".jpg}
-		\end{itemize}
-	\item Aperture
-		\begin{itemize}
-		\item diameter of entrance pupil $D$: control the size of aperture \\
-		$\Rightarrow$ aperture stop: aperture setting to restrict input pupil size and hence brightness
-		\item larger size ($D$), more incoming light
-		\end{itemize}
-	\item F-Number $N = \frac F D$
-		\begin{itemize}
-		\item reveal the signal to noise ratio, contrast, image brightness
-		\item larger $N$, smaller $D$, less incoming light, larger DOF, larger depth of focus
-		\end{itemize}
-	\item Depth of Field (DOF) \& Depth of Focus
-		\begin{itemize}
-		\item definition: the range on $z$ axis where resolution can be maintained \\
-		before the lens: depth of field (in the field) \\
-		after the lens: depth of focus (inside camera) \\
-		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/topic-rad camera dof".jpg}		
-		\end{itemize}
-	\item Depth of Field
-		\begin{itemize}
-		\item DOF as the range where $1$ pixel can hold all info from $1$ position \\
-		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-rad camera n and dof".png} \\
-		where, dashed line the incoming light; \\ 
-		red line the system resolution (the pixel size, changing with object dist) \\
-		$\Rightarrow$ DOF defined by intersection of two type of lines \\
-		$\Rightarrow$ with large enough DOF, resolution can be bad at the end of DOF \\ 
-		(pixel size too large)
-		\item resolution with DOF \\
-		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-rad camera dof and resolution".png} \\
-		where black boxes a series of pixels, beams in colors as light info from an object \\
-		$\Rightarrow$ the placement of box on beams shows the information contained in a pixel \\
-		$\Rightarrow$ larger DOF, large depth range for acceptable resolution \\ 
-		(as pixel contain more separable info) \\
-		$\Rightarrow$ out of DOF: pixel can not distinguish beams from diff location
-		\end{itemize}
-	\item Depth of Focus
-		\begin{itemize}
-		\item depth of focus as the range where $1$ pixel can hold all info from $1$ position
-		\item resulted from tilted sensor $\Rightarrow$ may not in the ideal position to receive light info \\
-		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-rad camera do focus".png} \\
-		where right-most line as ideal focal plane, left lines as sensor tilted by $12.5/25\mu m$ \\
-		$\Rightarrow$ tilt not influence pixel in the center, but the pixel in the corner \\
-		$\Rightarrow$ out of depth of focus: pixel can not distinguish beams from diff location
-		\end{itemize}
-	\end{itemize}
 \item Input Data
 	\begin{itemize}
 	\item Video
@@ -3635,6 +3906,179 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \item 
 	\begin{itemize}
 	\item 
+	\end{itemize}
+\end{itemize}
+
+\subsection{Re-Identification}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item Images
+		\begin{itemize}
+		\item captured by camera networks across multiple areas
+		\item may assume to be a crop over interested target \\
+		(e.g. a bounding box crop, instead of the whole image)
+		\item a single image or a images sequence of target
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Identification
+		\begin{itemize}
+		\item retrieve images from gallery/database that has same identification as input
+		\end{itemize}
+	\item Ranking
+		\begin{itemize}
+		\item list out the most probable ID, to ensure recall \\
+		(e.g. in security scenario)
+		\end{itemize}
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Varying Appearance
+		\begin{itemize}
+		\item due to different view point, pose, background change (indoor v.s. outdoor), etc. \\
+		$\Rightarrow$ hard to realize inter-class similarity \& intra-class difference
+		\end{itemize}
+	\item Limited Data
+		\begin{itemize}
+		\item small dataset, hard to learn to use rare feature \\
+		(though rare feature should be a strong identification sign)
+		\end{itemize}
+	\end{itemize}
+\item Metrics
+	\begin{itemize}
+	\item Rank-1 Accuracy
+		\begin{itemize}
+		\item measure the match of ID with highest predict prob
+		\end{itemize}
+	\item mean Average Precision
+		\begin{itemize}
+		\item measure the accuracy of match of whole ranking \\
+		$\Rightarrow$ account for the hard case (same ID can be multi-viewed in camera net)
+		\end{itemize}
+	\end{itemize}
+\item Trends
+	\begin{itemize}
+	\item Local \& Distributed Representation
+		\begin{itemize}
+		\item feature on human body with human body model (e.g. skeleton model) as a prior
+		\item region proposal for different local area on human body
+		\item salient partitions with attention
+		\end{itemize}
+	\item Multi-scale Representation
+		\begin{itemize}
+		\item concat local feature, features at multi-scales
+		\item spatial attention
+		\end{itemize}
+	\item Surpassing Human Performance
+	\end{itemize}
+\end{itemize}
+\subsubsection{People Re-ID}
+\begin{itemize}
+\item PCB-RPP: Person Retrieval with Refined Part Pooling
+	\begin{itemize}
+	\item Inference 
+		\begin{itemize}
+		\item CNN extracts feature map, vertically "soft" partitioned into $p$ parts
+		\item each of $p$ branch independently performs average pooling, processing \& output 
+		\item $p$ output concat into together to measure overall similarity
+		\end{itemize}
+	\item PCB (Part-based Convolution Baseline) Structure
+		\begin{itemize}
+		\item ResNet-50 as backbone, before the global average pooling \\
+		(last downsampling removed $\Rightarrow$ richer feature granularity)
+		\item vertically partitioned into $p$ parts, average pooling on each part \\
+		$\Rightarrow$ part average pooling (centroid representation as part-level feature)
+		\item 1x1 conv over $p$ vec to extract channel-wise info \& dimension reduction \\
+		(sharing weights between parts here)
+		\item each vec a separate dense layer for output \\
+		$\Rightarrow p$ vector, each able to independently measure similarity / predict ID
+		\end{itemize}
+	\item RPP (Refined Part Pooling) Structure
+		\begin{itemize}
+		\item observe within-part INconsistency in hard-uniform partition \\
+		$\Rightarrow$ violate part-level feature assumption \\
+		(violate: feature vec in same part are similar \& dissimilar to vec in other parts)
+		\item $\Rightarrow$ a softmax classifier to predict the part a feature vec should belong to \\
+		$\Rightarrow$ model $P(P_i\mid f)$, where $P_i$ $i^\text{th}$ part, $f$ the feature vec
+		\item feature representation for $i^\text{th}$ part $\displaystyle = \sum_{f\in\{P_i\}} P(P_i\mid f)\cdot f$ \\
+		(weighted average, instead of simple part average pooling) \\
+		$\Rightarrow$ essentially, use attention for a "soft-adaptive" partition
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item train initial PCB net with all $p$ cross-entropy loss to convergence
+		\item replace $p$-part average pooling with $p$ part classifiers (attention generator)
+		\item with PCB net fixed, train only part classifiers to convergence \\
+		$\Rightarrow$ ensure part-based attention is learned \\
+		(since there lacks direct supervision for attention to be part-focused) \\
+		$\Rightarrow$ force to collect part-consistent feature (close to original part feature)
+		\item train whole net to convergence for fine-tunning \\ 
+		$\Rightarrow$ further jointly refine consistency \& performance
+		\item augmented by horizontal flip, 60+10+10 epochs
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item model prior on people: more diverse in vertical, more similar in horizontal (as symmetric) \\
+		(can be visualized by activation testing on their corresponding final classifier - dense layer)
+		\item separate supervision \& independent classifier on each branch is superior \\
+		$\Rightarrow$ vital to learn\&use discriminative \underline{part-level features}
+		\item waive the need of learning part partitioning algorithm \\
+		$\Rightarrow$ less noise source \& NOT depends on other realms e.g. human pose estimation \\
+		(as there are gaps between pose estimation \& re-ID)
+		\item setting $p$ needs validation $\Rightarrow p=6$ empirically \\
+		(small $p$: just global feature, large $p$: some redundant parts being repeated/empty)
+		\item within-part INconsistency observed in PCB: \\ 
+		by clustering vec \& compute similarity with the average pooling of each part
+		\begin{minipage}[r]{0.5\linewidth}
+		\includegraphics[width=\linewidth, left]{"./Deep Learning/topic-reid pcb-rpp within-part inconsistency".png}
+		\end{minipage}
+		\begin{minipage}[l]{\linewidth}
+		where, \\
+		partitioned to $p=6$ parts, \\ 
+		vec in feature map colored to its closest part \\
+		(by similarity between vec \& per-part average pooling) \\
+		$\Rightarrow$ overall consistent, yet with some outliers
+		\end{minipage}
+		\item RPP emphasize \text{within-part consistency}, by refining pre-partitioned parts \\
+		$\Rightarrow$ protect part-level feature assumption \\
+		(s.t. feature vec within same part are similar \& dissimilar to vec in other parts)
+		\item attention as "soft-adaptive" partition \\ 
+		$\Rightarrow$ over whole feature maps to aggregate feature for each part \\ 
+		$\Rightarrow$ avoid outliers in "hard-uniform" partition \\
+		$\Rightarrow$ hence better partition for deep part feature
+		\item: \underline{EM-like iterative training for desired effect} (better than only joint training) \\
+		(more supervision)
+		\end{itemize}
+	\end{itemize}
+\item MGNet: Discriminative Features with Multiple Granularities
+	\begin{itemize}
+	\item Inference
+		\begin{itemize}
+		\item CNN extracts feature map, each branch vertically partitioned with various granularity
+		\item each branch output part/global-level representation accordingly
+		\item all representation concat as global representation
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item ResNet-50 as backbone
+		\item global branch:
+		\item part $1$ branch: $1$ vertical split ($2$ strips)
+		\item part $2$ branch: $2$ vertical split ($3$ strips)
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item multi-scale feature $\Rightarrow$ global + local at different scale
+		\item provide only equal split of image: \\
+		$\Rightarrow$ let network itself determine the feature of each split
+		\item less \& simpler prior: only fixed split without explicit structure model
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
@@ -3875,6 +4319,33 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 \subsubsection{Point Cloud + Image Fusion}
+\begin{itemize}
+\item MV3D: Multi-view 3D Object Detection
+	\begin{itemize}
+	\item Preprocessing
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item location
+		\item size
+		\item orientation
+		\end{itemize}
+	\item 3D Proposal Network
+		\begin{itemize}
+		\item bird-view of point cloud $\Rightarrow$ propose reliable 3D bbox
+		\end{itemize}
+	\item Region-based Fusion Network
+		\begin{itemize}
+		\item project 3D proposal to feature maps of multi-view
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Natural Language Processing}
@@ -4789,6 +5260,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item 
 	\end{itemize}
 \end{itemize}
+
+\section{Interpretable Machine Learning}
 
 \section{Generative Adversarial Nets}
 \subsection{Temporal Generative Adversarial Nets}
