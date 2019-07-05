@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  5 JUL 2019 13:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.13)  5 JUL 2019 23:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1653,65 +1653,102 @@ ture".png  used on input line 2930.
 (pdftex.def)             Requested size: 373.61061pt x 207.66583pt.
  [123 <./Deep Learning/topic-objdet onestage yolov3 architecture.png>]
 [124] [125] [126] [127] [128] [129] [130] [131] [132] [133]
-Underfull \hbox (badness 10000) in paragraph at lines 3619--3620
+Underfull \hbox (badness 10000) in paragraph at lines 3626--3627
 
  []
 
 [134] [135] [136] [137] [138] [139]
+Overfull \hbox (3.72078pt too wide) in paragraph at lines 4031--4033
+\OT1/cmr/m/n/10 (small $\OML/cmm/m/it/10 p$\OT1/cmr/m/n/10 : just global fea-tu
+re, large $\OML/cmm/m/it/10 p$\OT1/cmr/m/n/10 : some re-dun-dant parts be-ing r
+e-peated/empty) 
+ []
+
 <"./Deep Learning/topic-reid pcb-rpp within-part inconsistency".png, id=1466, 7
 44.7825pt x 391.4625pt>
 File: "./Deep Learning/topic-reid pcb-rpp within-part inconsistency".png Graphi
 c file (type png)
 <use "./Deep Learning/topic-reid pcb-rpp within-part inconsistency".png>
 Package pdftex.def Info: "./Deep Learning/topic-reid pcb-rpp within-part incons
-istency".png  used on input line 4027.
+istency".png  used on input line 4036.
 (pdftex.def)             Requested size: 174.71286pt x 91.82645pt.
 
-Overfull \hbox (176.93507pt too wide) in paragraph at lines 4024--4036
+Overfull \hbox (176.93507pt too wide) in paragraph at lines 4033--4045
 []$ $[]$ 
  []
 
 [140 <./Deep Learning/topic-reid pcb-rpp within-part inconsistency.png>]
-<"./Deep Learning/topic-image style transfer nst overview".png, id=1472, 732.73
+<"./Deep Learning/topic-reid PGN".png, id=1472, 1351.0475pt x 844.15375pt>
+File: "./Deep Learning/topic-reid PGN".png Graphic file (type png)
+<use "./Deep Learning/topic-reid PGN".png>
+Package pdftex.def Info: "./Deep Learning/topic-reid PGN".png  used on input li
+ne 4072.
+(pdftex.def)             Requested size: 174.71286pt x 109.15132pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 4075--4080
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4075--4080
+
+ []
+
+
+Overfull \hbox (176.93507pt too wide) in paragraph at lines 4068--4081
+[]$ $[]$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4085--4086
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4091--4094
+
+ []
+
+[141 <./Deep Learning/topic-reid PGN.png>]
+<"./Deep Learning/topic-image style transfer nst overview".png, id=1478, 732.73
 75pt x 220.825pt>
 File: "./Deep Learning/topic-image style transfer nst overview".png Graphic fil
 e (type png)
 <use "./Deep Learning/topic-image style transfer nst overview".png>
 Package pdftex.def Info: "./Deep Learning/topic-image style transfer nst overvi
-ew".png  used on input line 4093.
+ew".png  used on input line 4138.
 (pdftex.def)             Requested size: 207.56285pt x 62.55165pt.
-<"./Deep Learning/topic-image style transfer nst style matrix".png, id=1473, 16
+<"./Deep Learning/topic-image style transfer nst style matrix".png, id=1479, 16
 06.0pt x 530.98375pt>
 File: "./Deep Learning/topic-image style transfer nst style matrix".png Graphic
  file (type png)
 <use "./Deep Learning/topic-image style transfer nst style matrix".png>
 Package pdftex.def Info: "./Deep Learning/topic-image style transfer nst style 
-matrix".png  used on input line 4127.
+matrix".png  used on input line 4172.
 (pdftex.def)             Requested size: 207.56285pt x 68.6252pt.
+ [142 <./Deep Learning/topic-image style transfer nst overview.png (PNG copy)>]
+ [143 <./Deep Learning/topic-image style transfer nst style matrix.png>]
 
-[141 <./Deep Learning/topic-image style transfer nst overview.png (PNG copy)>]
-[142 <./Deep Learning/topic-image style transfer nst style matrix.png>]
+LaTeX Warning: Hyper reference `' on page 144 undefined on input line 4294.
 
-LaTeX Warning: Hyper reference `' on page 143 undefined on input line 4249.
-
-[143]
-Overfull \hbox (7.40826pt too wide) in paragraph at lines 4293--4294
+[144]
+Overfull \hbox (7.40826pt too wide) in paragraph at lines 4338--4339
 []\OT1/cmr/m/n/10 convs - max pool-ing - di-lated convs - un-pool-ing - branch 
 for re-gres-sion/classification 
  []
 
-[144]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 4394
+[145]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 4439
 .
  (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 4394.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 4439.
 
- [145]
-[146] [147]
-Overfull \hbox (3.24109pt too wide) in paragraph at lines 4611--4612
+ [146]
+[147] [148]
+Overfull \hbox (3.24109pt too wide) in paragraph at lines 4656--4657
 []$\OMS/cmsy/m/n/10 )$ \OT1/cmr/m/n/10 se-quence prob-a-bil-ity $\OML/cmm/m/it/
 10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = \OML/cmm
 /m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/1
@@ -1721,13 +1758,13 @@ cmsy/m/n/10 j\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = [] \OML/cmm/m/it
 /10 y[]$ 
  []
 
-[148] [149] [150]
-Overfull \hbox (37.54732pt too wide) in paragraph at lines 4804--4805
+[149] [150] [151]
+Overfull \hbox (37.54732pt too wide) in paragraph at lines 4849--4850
 []\OT1/cmr/m/n/10 encoder scan through au-dio frames & de-coder out-put let-ter
 /punctuation/"blank"/"space" 
  []
 
-[151] [152] [153] [154] [155] [156] [157] [158] [159]) [160]
+[152] [153] [154] [155] [156] [157] [158] [159] [160]) [161]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 95.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 95.
 
@@ -1743,10 +1780,10 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 95.
  ) 
 Here is how much of TeX's memory you used:
- 22652 strings out of 492639
- 419049 string characters out of 6129286
+ 22658 strings out of 492639
+ 419240 string characters out of 6129286
  491376 words of memory out of 5000000
- 25711 multiletter control sequences out of 15000+600000
+ 25715 multiletter control sequences out of 15000+600000
  550020 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  53i,20n,92p,1530b,928s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1780,10 +1817,10 @@ fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-d
 ist/fonts/type1/public/amsfonts/symbols/msam5.pfb></usr/local/texlive/2018/texm
 f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2018/
 texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on "Machine Learning.pdf" (166 pages, 4643619 bytes).
+Output written on "Machine Learning.pdf" (167 pages, 4931235 bytes).
 PDF statistics:
- 1815 PDF objects out of 2073 (max. 8388607)
- 1551 compressed objects within 16 object streams
- 524 named destinations out of 1000 (max. 500000)
- 1041 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1821 PDF objects out of 2073 (max. 8388607)
+ 1554 compressed objects within 16 object streams
+ 525 named destinations out of 1000 (max. 500000)
+ 1046 words of extra memory for PDF output out of 10000 (max. 10000000)
 

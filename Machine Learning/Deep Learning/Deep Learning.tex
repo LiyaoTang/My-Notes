@@ -4059,25 +4059,58 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item CNN extracts feature map, each branch vertically partitioned with various granularity
 		\item each branch output part/global-level representation accordingly
-		\item all representation concat as global representation
+		\item all (global + multi-granularity) representation concat as final representation
 		\end{itemize}
 	\item Structure
 		\begin{itemize}
-		\item ResNet-50 as backbone
-		\item global branch:
-		\item part $1$ branch: $1$ vertical split ($2$ strips)
-		\item part $2$ branch: $2$ vertical split ($3$ strips)
+		\item ResNet-50 as backbone (before and including res\_conv4\_1)
+		\item global branch: res\_conv5\_1 block + global max pooling + 1x1 conv
+		\item part-$n$ branch: split into $n$ strips, each strip a max pooling + 1x1 conv \\
+		(max pooling \& 1x1 conv before split to generate branch-level global feature $f^{P_n}_g$) \\
+		$\Rightarrow$ employ part-$2$ \& part-$3$ branch \\
+		\begin{minipage}[r]{0.5\linewidth}
+		\includegraphics[width=\linewidth, left]{"./Deep Learning/topic-reid PGN".png}
+		\end{minipage}
+		\begin{minipage}[l]{\linewidth}
+		res\_conv5\_1 block + max pooling + 1x1 conv \\ \\
+		$n$ strips, each a max pooling + 1x1 conv \\
+		\phantom{x}\hspace{1cm} + \\
+		max pooling \& 1x1 conv before split into strips \\ 
+		($\Rightarrow$ branch-level global feature $f^{P_n}_g$) \\
+		\end{minipage}
 		\end{itemize}
 	\item Training
 		\begin{itemize}
-		\item 
+		\item pre-trained on ImageNet \& horizontal flip for data augmentation
+		\item each branch a softmax loss \& triplet loss \\
+		\item softmax: learning basic discrimination in ReID as multi-classification problem \\ 
+		(classification to all number of class in dataset) \\
+		$\Rightarrow$ no bias/activation for better discrimination
+		\item batch-hard triplet: metric learning \& better ranking performance \\
+		(embed on final feature after 1x1 conv on each branch)
+		\item classfication-before-metric, as shown \\
+		(softmax loss on part feature \& before each global feature) \\
+		(triplet loss after softmax \& only on each global feature) \\
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item multi-scale feature $\Rightarrow$ global + local at different scale
-		\item provide only equal split of image: \\
-		$\Rightarrow$ let network itself determine the feature of each split
-		\item less \& simpler prior: only fixed split without explicit structure model
+		\item multi-scale feature matters $\Rightarrow$ global + multi-granularity local feature \\
+		$\Rightarrow$ global branch with downsampling: \underline{global \& coarse feature} \\
+		$\Rightarrow$ local branch with no strided conv: \underline{local \& fine feature} \\
+		(better than PCB-RPP by a large margin, especially mAP and in hard scene)
+		\item able to learn to focus on various part based on its split region \\
+		e.g. global branch: main body, part-$3$: small salient feature \& limbs \\
+		$\Rightarrow$ enhanced ability to notice \underline{infrequent yet discriminative} feature \\
+		(by fine-local feature)
+		\item NOT applying triplet loss on local feature of any branch \\
+		(local feature not enough for identification, hence not bother to confuse model)
+		\item NOT using single feature map for different split of granularity \\
+		$\Rightarrow$ s.t. each branch can further mining better feature for its split setting
+		\item extra weights are NOT main contributor (experimented)
+		\item ensembling helps, yet still better if multi-branch jointly trained \\
+		(sharing backbone for joint goal: branches mutually complement others)
+		\item $\Rightarrow$ overlap in split matter: branches part-$2/4$ worse than branches part-$3/4$
+		\item triplet loss further help network to capture fine-local feature
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
