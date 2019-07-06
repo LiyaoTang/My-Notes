@@ -5,13 +5,50 @@
 - Goal
   - Perceiving Surrounding
     - be aware of others existence
-    - construct surrounding environment model
+    - construct surrounding environment model in ego-coord
+  - Predicting Environment
+    - predict the state of environment given the past perception
+    - understand the intending of other agents 
+  
 - Approaches
   - Sensor Perception
+    
     - perceive objects and other things of interests
+    
   - Environment Modeling
     - construct local maps with sensor perception result
     - ego localization in local & global map
+    
+  - Cooperate with Robotics System
+  
+    - pre-defined prior in HD map $\Rightarrow$ perceive only minimal info
+  
+      (yet, HD map is expensive...)
+  
+    - vehicle network (IoT for car - V2X): collabrative system
+  
+- Current State
+
+  - Accurate
+
+    - perception usually at cm-level error
+
+  - Environment Recognition
+
+    - inferior...NOT able to recover the semantic of the local environment
+
+      (need machine reasoning?)
+
+### Sensor
+
+- Camera
+  - 2D perspective detection $\Rightarrow$ 3D vision to map back to 3D
+- Lidar
+  - point cloud, usually detect in 3D-space
+  - distance, height measured for each point
+- Radar
+  - point cloud, usually with on-chip processing (hence sparse)
+  - speed measured for each point
 
 ### Detection
 
@@ -21,15 +58,6 @@
   - Deep-Learning based
   - Classic
 
-- Sensors
-  - Camera
-    - 2D perspective detection $\Rightarrow$ 3D vision to map back to 3D
-  - Lidar
-    - point cloud, usually detect in 3D-space
-    - distance, height measured for each point
-  - Radar
-    - point cloud, usually with on-chip processing (hence sparse)
-    - speed measured for each point
 
 ### Tracking
 
@@ -259,9 +287,15 @@
 ### Localization
 
 - Goal
-  - Global & Local Localization
-
-- GPS Localization Measurement
+  
+- Localization under Coordinate
+    - pose estimation (yaw, pitch, roll)
+    - x, y, z location (in GPS coord or in a predefined region)
+  - Self-Estimation
+    - velocity $v_x,v_y,v_z$
+    - angler velocity $w_x,w_y,w_z$ 
+  
+- GPS Localization (electronic signal based)
 
   - 2D Localization
 
@@ -297,6 +331,10 @@
 
     - use carrier wave (high frequency $\Rightarrow$ better accuracy) to estimate distance
 
+  - Localization
+
+    - solve the echo coord by satellite coord (which is again solved by ground stations coord)
+
   - Understanding
 
     - distance noise: from atmosphere, Doppler effect, clock granularity jitter
@@ -307,19 +345,17 @@
 
     - followed by tracking filter for more stable localization
 
-- Inertial Navigation System for Localization
+- Inertial Navigation System for Localization (trajectory inference based)
 
   - Accelerometer
     - correct for gravity, transform back to global coord
     - integrate for speed, then for location (a vector from initial position to current)
   - Gyro
     - measure the orientation of current accelerate
+  - Localization
+    - given initial state measurement, observe the change \& update the state accordingly
   - Understanding
     - noise accumulated & amplified from integration
-
-- 
-
-### Environment Modeling
 
 - HD Map
 
@@ -359,6 +395,31 @@
 
     - formulated final result into various open API
 
+  - Localization
+
+    - localization by landmark measurement (SLAM)
+
+      (need cooperation with sensor perception for reconstruct local 3D environment)
+
+  - Understanding
+
+    - provide beyond-range information (prior)
+
+- Fusion Localization
+
+  - Units
+    - IMU: high frequency $\Rightarrow$ enable the real-time update on ego state
+    - GPS, HD map \& Sensor: infrequent yet more accurate measurement
+  - Fusion
+    - estimate the error model for each sensor \& cancel out the error
+    - kalman filter: provide variance matrix for error range estimation
+  - Understanding
+    - complementary sensor for general localization in diverse scenario
+
+### Environment Modeling
+
+- 3D Modelling
+  - 
 - Sensor Fusion
 
   - 
@@ -744,3 +805,52 @@
   - Platform
     - as operating system, provide extra-value service
   - Robo-Taxi
+
+### Internet of Thing for Car: V2X
+
+- Goal
+
+  -  Cooperative and Interactive System
+    - car-car communication
+    - car-pedestrian communication
+    - car-infrastructure communication
+
+- Overview
+
+  - Central Station
+  - Roadside Station
+  - Access Unit
+  - Vehicle Station
+
+- Understanding
+
+  - Large Range
+    - real-time information beyond-range (v.s. fixed prior in HD map)
+    - enlarge the effective environment model for each car
+
+- Current State
+
+  - Dedicated Short Range Communication
+    - dedicated radio bands, similar to wifi
+    - pros: robust, low delay, light on-car equipment
+    - cons: need dedicated infrastructure, each has a limited coverage
+  - C-V2X
+    - share bands with 5G
+    - pros: robust, do NOT need dedicated station (as shared)
+    - cons: network jitter (as sharing)
+
+- Expectation
+
+  - Collaborative Perception
+
+    - sharing local environment model, provide info for occluded area
+
+      (e.g. inform anomaly in advance)
+
+    - active reporting current intending \& state 
+
+  - HD Map Real-time Update
+
+    - update HD map with more real-time info
+
+      $\Rightarrow$ real-time recognition of state of road \& traffic for all cars

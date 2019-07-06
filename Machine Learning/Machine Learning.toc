@@ -195,16 +195,16 @@
 \contentsline {subsection}{\numberline {12.5.2}Objects Detection}{116}{subsection.12.5.2}
 \contentsline {subsubsection}{Problem Formulation}{116}{section*.126}
 \contentsline {subsubsection}{Common Processing}{117}{section*.127}
-\contentsline {subsubsection}{Region Proposal Based Approaches}{117}{section*.128}
-\contentsline {subsubsection}{One-stage Detection}{119}{section*.129}
+\contentsline {subsubsection}{Region Proposal Based Approaches}{118}{section*.128}
+\contentsline {subsubsection}{One-stage Detection}{120}{section*.129}
 \contentsline {subsection}{\numberline {12.5.3}Object Tracking}{124}{subsection.12.5.3}
 \contentsline {subsubsection}{Problem Formulation}{124}{section*.131}
 \contentsline {subsubsection}{Detection in Tracking}{125}{section*.132}
 \contentsline {subsubsection}{Single-Object Tracking}{126}{section*.133}
 \contentsline {subsubsection}{Multi-Object Tracking \& Data Association}{129}{section*.134}
 \contentsline {subsubsection}{Instance Tracking}{135}{section*.135}
-\contentsline {subsection}{\numberline {12.5.4}Face Recognition}{135}{subsection.12.5.4}
-\contentsline {subsubsection}{Problem Formulation}{135}{section*.136}
+\contentsline {subsection}{\numberline {12.5.4}Face Recognition}{136}{subsection.12.5.4}
+\contentsline {subsubsection}{Problem Formulation}{136}{section*.136}
 \contentsline {subsubsection}{Classic Approach}{136}{section*.137}
 \contentsline {subsection}{\numberline {12.5.5}Recognition at a Distance}{137}{subsection.12.5.5}
 \contentsline {subsubsection}{Problem Formulation}{137}{section*.138}
