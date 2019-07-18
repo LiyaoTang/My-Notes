@@ -525,6 +525,10 @@
 		\begin{itemize}
 		\item crop the image according the predicted area (gating)
 		\end{itemize}
+	\item Deep Backbone
+		\begin{itemize}
+		\item deeper wider siamrpn
+		\end{itemize}
 	\end{itemize}
 \item NN in Gating
 	\begin{itemize}
@@ -1851,7 +1855,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 
 
-\item Bidirectional RNN (BRNN/BiRNN)
+\item Bidirectional RNN (BRNN/Bi-RNN)
 	\begin{itemize}
 	\item Structure
 		\begin{itemize}
@@ -1876,6 +1880,79 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 
 \item Convolutional LSTM (ConvLSTM)
+\end{itemize}
+
+\subsubsection{Attention}
+\begin{itemize}
+\item Global Attention
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item overcome long-term dependency, via considering all input with different attention
+		\item focus on different attributes/features based on various requirement
+		\end{itemize}
+	\item Input
+		\begin{itemize}
+		\item a vector, feature map, volume, etc.
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item a function over all spatial location: $[f_i, \mathbf r]\rightarrow \text{logits}_i$, \\ 
+		where $f_i$ the feature at location $i$, $\mathbf r$ task specific requirement
+		\item construct a distribution over all location: $\text{logits} \xrightarrow[]{\text{softmax}} \alpha$, \\
+		where $\alpha$ the attention over all location $i$
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item a probability distribution over all location of the input
+		\end{itemize}
+	\item Practice in Seq-to-Seq RNN
+		\begin{itemize}
+		\item a bi-RNN encode rich input context at each hidden state: $h^1,...,h^{T_x}$
+		\item global context after attention at time $t$: $\displaystyle c^t=\sum_{i=1}^{T_x}\alpha^t_i h^i = [h^1,...,h^{T_x}]\alpha^t$, \\
+		where hidden states $h^1,...,h^{T_x}$ and attention $\alpha^t$ column vectors \\
+		$\Rightarrow$ a weighted sum over all hidden states as context
+		\item a small (1-layer) net mapping $[c^{t-1}, h^{i}] \xrightarrow[]{\text{dense}} \text{logits} \xrightarrow[]{\text{softmax}} \alpha^t_{i}$ \\
+		$\Rightarrow$ attention on $h^i$ depends on previous global context $c^{t-1}$ \& $h^i$ itself \\
+		(softmax to ensure $\sum_{i=1}^{T_x}\alpha^t_i=1$)
+		\item a decoder RNN taking $c^{t}$ as input, until stop sign generated \\
+		(as $c^t$ can be calculated infinite times)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item seq2seq RNN encoder-decoder may fail if input sequence longer than training seq \\
+		$\Rightarrow$ aggregate all location of input seq to feed decoder rnn at each time step \\
+		(instead of decoder RNN feed itself using its last prediction) \\
+		$\Rightarrow$ capture the relationship between input-output sequence
+		\item use the sequence of hidden states as encoding \\ 
+		(as sentence encoded in last hidden states can be bias \& have info lost) \\
+		$\Rightarrow$ account input sequence (with different attention at different places) when generating output sequence
+		\item quadratic cost: attention $\alpha$ a $T_x\times T_y$ matrix to be calculated 
+		\end{itemize}
+	\end{itemize}
+	
+\item Attention on Image
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item focus on correct spatial context when generating corresponding caption/sequence
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item calculate weights for a sum over all spatial location of the image encoding \\
+		$\Rightarrow$ calculate a 2-D mask over a 3-D tensor
+		\end{itemize}
+	\end{itemize}
+
+\item Self Attention
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item in seq2seq: capture the relationship inside input/output seq \\ 
+		(compare with global attention)
+		\end{itemize}
+	\end{itemize}
+\item Attention in Attention
 \end{itemize}
 
 \subsection{Blocks}
@@ -2157,46 +2234,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \end{itemize}
 
 \subsubsection{Attention}
-\begin{itemize}
-\item Overview
-	\begin{itemize}
-	\item Goal
-		\begin{itemize}
-		\item overcome long-term dependency, via considering all input with different attention
-		\end{itemize}
-	\item Practice
-		\begin{itemize}
-		\item a bi-RNN encode rich input context at each hidden state: $h^1,...,h^{T_x}$
-		\item global context after attention at time $t$: $\displaystyle c^t=\sum_{i=1}^{T_x}\alpha^t_i h^i = [h^1,...,h^{T_x}]\alpha^t$, \\
-		where hidden states $h^1,...,h^{T_x}$ and attention $\alpha^t$ column vectors \\
-		$\Rightarrow$ a weighted sum over all hidden states as context
-		\item a small (1-layer) net mapping $[c^{t-1}, h^{i}] \xrightarrow[]{\text{dense}} \text{logits} \xrightarrow[]{\text{softmax}} \alpha^t_i$ \\
-		$\Rightarrow$ attention on $h^i$ depends on previous global context $c^{t-1}$ \& $h^i$ itself \\
-		(softmax to ensure $\sum\alpha^t=1$)
-		\item a decoder RNN taking $c^{t}$ as input, until stop sign generated \\
-		(as $c^t$ can be calculated infinite times)
-		\end{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item use the sequence of hidden states  as encoding \\ 
-		(as sentence encoded in last hidden states can be bias \& have info lost) \\
-		$\Rightarrow$ account input sequence (with different attention at different places) when generating output sequence
-		\item quadratic cost: attention $\alpha$ a $T_x\times T_y$ matrix to be calculated 
-		\end{itemize}
-	\end{itemize}
-\item Attention on Image
-	\begin{itemize}
-	\item Goal
-		\begin{itemize}
-		\item focus on correct spatial context when generating corresponding caption/sequence
-		\end{itemize}
-	\item Practice
-		\begin{itemize}
-		\item calculate weights for a sum over all spatial location of the image encoding \\
-		$\Rightarrow$ calculate a 2-D mask over a 3-D tensor
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
 
 \subsubsection{Transformer}
 
@@ -2685,9 +2722,14 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item convolution implementation to predict all proposed regions \\
 		(similar to fast sliding window)
 		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item region proposal postponed to a shared feature map \\
+		$\Rightarrow$ feature extraction once for all proposal
+		\end{itemize}
 	\end{itemize}
 
-\item Faster R-CNN
+\item RPN: Faster R-CNN
 	\begin{itemize}
 	\item Overview
 		\begin{itemize}
@@ -3043,6 +3085,31 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item compare the similarity of pred-label trajectory \\
 		(may consider abrupt change, slowly drift, and etc.)
 		\end{itemize}
+	\item Success Plot
+		\begin{itemize}
+		\item success: IoU of pred \& label larger than a threshold
+		\item $\Rightarrow$ setting a series of threshold from $0$ to $1$ to obtain a line
+		\end{itemize}
+	\item VOT Metrics
+		\begin{itemize}
+		\item robustness: failure times (frame cnt of lost track)
+		\item accuracy: average overlap while tracking successfully
+		\item expected average overlap (EAO): accounts for both accuracy \& robustness
+		\end{itemize}
+	\end{itemize}
+\item Dataset
+	\begin{itemize}
+	\item Video (Single) Object Tracking
+		\begin{itemize}
+		\item Youtube-BB
+			\begin{itemize}
+			\item $>100,000$ videos, annotated once every $30$ frames
+			\end{itemize}
+		\item ILSVRC (ImageNet) VID
+			\begin{itemize}
+			\item $\sim4000$ videos annotated frame-by-frame
+			\end{itemize}
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
@@ -3125,24 +3192,26 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Training
 		\begin{itemize}
-		\item train with consecutive image pair from sequences
-		\item $L1$ loss for exact match
+		\item train with consecutive image pair froxm sequences
+		\item $L1$ loss for exact match, as it does NOT smooth out in $(0^-, 0^+)$ as $L2$ loss \\ 
+		$\Rightarrow$ mitigate the introduced motion noise
 		\item data augment: motion noise applied on the $2^\text{th}$ image; random crop on the $1^\text{st}$\\ 
-		(distribution of motion noise chosen from cross-validation)
+		(motion noise $\sim$ Laplace distribution and prefer smooth \& small motion)
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item $2$-frame model, $1$-step prediction, no explicit temporal tracking \\
-		$\Rightarrow$ net may learn to locate the nearest similar object
+		\item $2$-frame model as a simple local generic detector, no explicit temporal tracking \\
+		$\Rightarrow$ learn to locate the nearest similar object by comparing $t-1,t$ frame \\
+		$\Rightarrow$ learn to discover relationship between object appearance \\ 
+		(by the Siamese setting) \\
+		$\Rightarrow$ refine bbox for nearest similar object with one proposal ($t-1$ bbox)
+		\item $\Rightarrow$ able to specialize tracker for specific object tracking \\
+		e.g. fine-tune on car video for car tracker
+		\item can NOT handle large drastic target change: preferring local \& smooth change 
+		\item Not good at exact frozen scene: training augmented with noisy motion \\
+		(could be worse if NOT using $L1$ loss)
 		\item real-time timing ($100$fps), included in opencv $\Rightarrow$ stable performance
 		\end{itemize}
-	\end{itemize}
-
-\item CFNet: Correlation Filter based Tracking
-	\begin{itemize}
-	\item Inference
-	\item Structure
-	\item Training
 	\end{itemize}
 
 \item Re$^3$: Real-time Recurrent Regression Network
@@ -3196,16 +3265,105 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item end-to-end training for both detector and tracker (improved GOTURN)
-		\item model regress changes to the box ratio $\Rightarrow$ easier
-		\item observation usefulness modeled by LSTM tracker
+		\item end-to-end training for both detector and tracker
+		\item model regress changes to the box ratio $\Rightarrow$ easier as bbox refinement
+		\item LSTM tracker maintain track state $\Rightarrow$ temporal fusion \\
+		$\Rightarrow$ overcome occlusion, update for variance/shape change \\
+		(observation usefulness modeled by LSTM tracker)
 		\item LSTM tracker needs specialized training, and single-layer LSTM NOT enough \\
 		(or, can hurt performance due to instability)
 		\item LSTM state reset: prevent drift, yet can fail if initial box overlaps other object
-		\item LSTM tracker maintain track state \\ 
-		$\Rightarrow$ overcome occlusion, update for variance/shape change
 		\item may still, drifted to similar nearby object, known object (e.g. face), large motion \\
 		(comparison \& failure: \url{https://youtu.be/RByCiOLlxug?t=214})
+		\end{itemize}
+	\end{itemize}
+
+\item SiamRPN: Tracking with Siamese Region Proposal Network
+	\begin{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item anchor box $x^\text{an},y^\text{an},w^\text{an},h^\text{an}$, ground truth box $x^\text{gt},y^\text{gt},w^\text{gt},h^\text{gt}$
+		\item perfect prediction as $\delta x = \frac {x^\text{gt}-x^\text{an}}{w^\text{an}}, \delta y = \frac{y^\text{gt}-y^\text{an}}{y^\text{an}}, \delta w = \ln \frac {w^\text{gt}}{w^\text{an}}, \delta h = \frac{h^\text{gt}}{h^\text{an}}$ \\
+		$\Rightarrow$ predict box as $x^\text{p}=\delta xw^\text{an} + x^\text{an}, y^\text{p}=\delta yh^\text{an} +y^\text{an}, w^\text{p}=e^{\delta w}w^\text{an}, h^\text{p}=e^{\delta h}h^\text{an}$
+		\end{itemize}
+	\item Tracking Initialization
+		\begin{itemize}
+		\item take initial frame \& given bbox as template $z$
+		\item CNN (modified AlexNet) obtains a feature map $\varphi(z)$ \\
+		(crop $(w+p)\times (h+p)$ with padding $p=\frac {w+h}2$ \& resized to $227\times227$)
+		\end{itemize}
+	\item Detector
+		\begin{itemize}
+		\item in $t>1$ frames, each frame as detection frame $x$
+		\item same CNN (modified AlexNet) extracts feature maps into $\varphi(x)$\\
+		(crop $2(w+p)\times2(h+p)$ \& resized to $255\times255$)
+		\item $2$ independent \& identical branch in RPN: classification/regression branch \\
+		$\Rightarrow$ conv to get $\zeta[\varphi(z)], \zeta[\varphi(x)]$ \& conv with $\zeta[\varphi(z)]$ as kernel over $\zeta[\varphi(x)]$ \\
+		(with different output branch)
+		\item use kernel from template branch to convolute on feature map of detection branch \\
+		(same channel num) \\
+		$\Rightarrow$ regress bbox based on response map
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item not explicitly modeled
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item take template volume as kernel, convolute on feature map of current frame \\
+		$\Rightarrow$ RPN takes resulted response map as proposal \& regress bboxes
+		\item select top $K$ response in classification branch as set of $\{(i_k,j_k,c_k)\mid k\in(0,K)\}$ \\
+		$\Rightarrow$ use the location $\{(i_k,j_k,c_k)\}$ to obtain corresponding anchor \& pred \\
+		$\Rightarrow$ generate $K$ proposal as $\{x_k^\text{pro}, y_k^\text{pro}, w_k^\text{pro}, h_k^\text{pro}\}$
+		\item box refinement: only central $g\times g$ anchors remain considered \\ 
+		(use the center size of search region)
+		\item size change penalty $\displaystyle e^{k*\max(\frac {r_t}{r_{t-1}}, \frac {r_{t-1}}{r_{t}})*\max(\frac {s_t}{s_{t-1}}, \frac {s_t}{s_{t-1}})}$, \\
+		where $r_t$ the bbox $\frac w h$ ratio of frame $t$, $s^2=(w+p)(h+p)$ with padding $p=\frac {w+h} 2$ \\
+		$\Rightarrow$ bbox score (objectness/classification response) multiplied by penalty
+		\item non-max suppression on re-ranked boxes for final bbox \\ 
+		(target size updated by linear interpolation for smooth translation)
+		\end{itemize}
+	\item Tracking
+		\begin{itemize}
+		\item with prepared $\varphi(z) \& \zeta[\varphi(z)]$, template branch pruned for speed up
+		\item each $t>1$ frame, perform feature extraction, detection with kernel $\zeta[\varphi()z]$ \& bbox regression \\
+		$\Rightarrow$ formulate as task of a one-shot learning for detection
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item cross-entropy loss for classification \& smooth $L1$ loss for regression
+		\item pos-neg example: dual IoU threshold $(0,0.3,0.6)$
+		\item batch: size $64$, with at most $16$ positive examples
+		\item fine-tune only last $2$ conv layers in AlexNet
+		\item dataset: image pair from imagenet VID \& youtube-BB
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item $2$-frame model: tracking as one-shot detection \\
+		$\Rightarrow 1^\text{st}$ bbox as only examplar to learn the conv kernel in RPN \\
+		(which is used in following frames for bbox proposal) \\
+		$\Rightarrow$ Siamese net learns to efficiently map $z$ to weights $[\varphi (z)]$ (learning to learn) \\
+		(yet, not using temporal cue)
+		\item proposal refinement by RPN to replace online fine-tuning
+		\item template branch to extract feature discriminate fore-/back-ground \\
+		$\Rightarrow$ predict detection kernel by input $z$ and its weight in $[\varphi(\cdot)]$ as a meta learner
+		\item detection branch able to propose \& refine a compact bbox \\ 
+		$\Rightarrow$ no need for online learning, nor multi-scale test
+		\item NOT able to handle large search region (use only limited center size in refinement) \\
+		(not discriminative enough)
+		\end{itemize}
+	\end{itemize}
+
+\item CFNet: Correlation Filter based Tracking (SiamFC v2)
+	\begin{itemize}
+	\item Inference
+	\item Structure
+	\item Training
+	\item Understanding
+		\begin{itemize}
+		\item enable ultra-lightweight network comparative with deep net \\
+		(though correlation filter layer does NOT improve the ceiling performance)
+		\item updating template on each frame (v.s. using always $1^\text{st}$ frame)
 		\end{itemize}
 	\end{itemize}
 
@@ -3213,16 +3371,17 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Tracking Initialization
 		\begin{itemize}
-		\item bounding box at first frame as ground truth / feature template
+		\item extract feature of template branch $z$ based on bbox at $1^\text{st}$ frame
 		\end{itemize}
 	\item Detector
 		\begin{itemize}
-		\item fully conv siamese net for encoding (multi-scale info utilized) \\
-		$\Rightarrow$ extracts info from target template $x$ and search region $z$ (gating) \\
+		\item modified AlexNet for encoding (multi-scale info utilized) \\
+		$\Rightarrow$ extracts info from search region $x$ with gating \\ 
+		(target template $z$ already prepared) \\
 		$\Rightarrow \phi_n(\cdot)$ for features at $n^\text{th}$ layer, backwards
 		\item feature fusion $\Phi_l(\cdot) = f \left( \Phi_{l-1}, \phi_l \right)$, with $\Phi_1 = \phi_1$ \\
-		$\Rightarrow$ recursively fuse semantic info with lower-level spatial info
-		\item $f(\Phi_{l-1}, \phi_l) = $feature transform block \\
+		$\Rightarrow$ recursively fuse semantic info with lower-level spatial infoz
+		\item $f(\Phi_{l-1}, \phi_l)$: feature transfer block for fusion \\
 		$\Rightarrow$ upsample $\Phi_{l-1}$ by deconv, further 2 convs on $\phi_l$ for channel matching \\
 		$\Rightarrow$ element-wise sum, then interpolation as downsampling
 		\end{itemize}
@@ -3232,8 +3391,9 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Inference
 		\begin{itemize}
-		\item siamese net extracts features from target template \& search region
-		\item $l^\text{st}$ RPN takes input $\Phi_{l}(x), \Phi_{l}(z)$, regresses based on anchor boxes $A_{l}$
+		\item same CNN extracts features from search region
+		\item $l^\text{st}$ RPN convolute $\Phi_{l}(z)$ on $\Phi_{l}(x)$ \\
+		$\Rightarrow$ regresses boxes based on response map \& anchor boxes $A_{l}$
 		\item discard any boxes $\in A_l$ with confidence/objectness lower than a threshold \\
 		$\Rightarrow$ produce anchor boxes $A_{l+1}$
 		\item fuse semantic info with lower-level info, for both branch for $x, z$
@@ -3258,7 +3418,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ extract the feature template
 		\item gating on frame $t$ based on $t-1$ result
 		\item C-RPN detect target within gated region of frame $t$ \\
-		(the best remained, adjusted, anchor as the target to track)
+		(the best remained \& adjusted anchor as the target to track)
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
@@ -3267,7 +3427,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ training samples sequentially more balanced \\
 		$\Rightarrow$ RPNs sequentially more discriminative
 		\item $\Rightarrow$ hence, more discriminative between similar nearby object \\
-		(compare with Re$^3$)
+		(compare with Re$^3$ \& SiamRPN)
 		\item fusion of multi-level feature (spatial + semantic info) for RPN
 		\end{itemize}
 	\end{itemize}
@@ -3817,6 +3977,40 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
+\subsection{Stereo Vision}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input
+	\begin{itemize}
+	\item Visual Perception
+		\begin{itemize}
+		\item image from mono-camera
+		\item images pair from stereo-/multi-cameras
+		\item video sequence from mono-/stereo-cameras
+		\end{itemize}
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item Depth Perception
+		\begin{itemize}
+		\item directly output a depth map
+		\item output a disparity map as indirect depth perception
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Unsupervised Learning}
+\begin{itemize}
+\item Unsupervised Monocular Depth Estimation with Left-Right Consistency
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item epipolar constraint with image reconstruction loss \\
+		$\Rightarrow$ unsupervised depth from mono-camera \\
+		$\Rightarrow$ avoid stereo-/multi-camera in practice use \& avoid pixel-level labeling
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
 \subsection{Recognition at a Distance}
 \subsubsection{Problem Formulation}
 \begin{itemize}
@@ -4172,6 +4366,127 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{figure}[ht]
 		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/topic-image style transfer nst style matrix".png}
 		\end{figure}	
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Video Generation}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input
+	\begin{itemize}
+	\item Image
+		\begin{itemize}
+		\item as the first frame of the video
+		\end{itemize}
+	\item Caption
+		\begin{itemize}
+		\item specifying the video content
+		\end{itemize}
+	\end{itemize}
+\item Output
+	\begin{itemize}
+	\item a video sequence
+	\end{itemize}
+\item Metrics
+	\begin{itemize}
+	\item Similarity / Distance
+		\begin{itemize}
+		\item between generated \& original video \\
+		(original video usually uniformly sampled \& with its image downsampled)
+		\end{itemize}
+	\item Use Study
+		\begin{itemize}
+		\item unique human answering question \\
+		e.g. which video more realistic / more suitable for the given caption? etc.
+		\end{itemize}
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Consistency
+		\begin{itemize}
+		\item consistent scenes between frames
+		\end{itemize}
+	\item Realistic Motion
+		\begin{itemize}
+		\item especially human/animal motion due to their high complexity
+		\end{itemize}
+	\item Conditioning Video Generation
+		\begin{itemize}
+		\item control the content, style, etc. \\
+		(given initial frame: overlap with video prediction realm) \\
+		(while caption provides more control)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Generation from Caption}
+\begin{itemize}
+\item CFT-GAN: Conditional Video Generation Using Action-Appearance Captions
+	\begin{itemize}
+	\item Inference (Generation)
+		\begin{itemize}
+		\item encode caption with randomness: encode the description of subject, action \& background, etc.
+		\item generate optical flow to represent action given $\psi, z_\text{flow}\sim p_z$
+		\end{itemize}
+	\item Caption Encoding
+		\begin{itemize}
+		\item caption feature: $\psi$ by Fisher Vectors with HGLMM
+		\item conditioning augmentation: $\mathbf c = \psi*(1+\epsilon)$, where $*$ element-wise product \\
+		$\Rightarrow$ avoid coarse distribution of $\psi$ by adding noise $\epsilon\sim\mathcal N(0,1)$ \\
+		$\Rightarrow \mathbf c \sim \mathcal N(\psi, 1)$
+		\end{itemize}
+	\item Latent Variables
+		\begin{itemize}
+		\item random variable (vector) $z\sim\mathcal N(0,1)$
+		\end{itemize}
+	\item Motion Generator FlowGAN
+		\begin{itemize}
+		\item input: concat [sampled $\mathbf c=\mathbf c_\text{flow}$, sampled $z=z_\text{flow}$]
+		\item based on VGAN: generate optical flow $\mathbf f = m(z)*f(z)$, ($*$ element-wise product)\\ 
+		where $m(z)$ a mask to fuse foreground $f(z)$ \& background $b(z)=0$ \\
+		($b(z)=0$ due to static camera, as background NOT generating optic flow)
+		\item for each time step, upsampled to $64\times 64$ feature map \& mask \\
+		$\Rightarrow$ 3D conv for volume of $64\times64\times t$
+		\end{itemize}
+	\item Motion Discriminator
+		\begin{itemize}
+		\item concat an input flow \& a corresponding real flow, downsample
+		\item dense layer to compress original caption feature $\psi$ as $\psi'$
+		\item tile $\psi'$ into downsampled feature map \& discriminate if input flow is real or fake \\
+		(further discriminate if flow related to caption)
+		\end{itemize}
+	\item Appearance Generator TextureGAN
+		\begin{itemize}
+		\item input: optic flow $\mathbf f$ \& concat [sampled $\mathbf c=\mathbf c_\text{tex}$, sampled $z=z_\text{tex}$]
+		\item condition variables map $\mathbf f_c$: upsample [$\mathbf c, z$] by 2 upsampling blocks
+		\item $\mathbf f$ as U-net input \& $\mathbf f_c$ concat in downsampling stage \\
+		$\Rightarrow$ retain spatial info: reflect edges in $\mathbf f$ as shape of moving target \\
+		$\Rightarrow$ output both foreground $f$ \& mask $m$ of shape $64\times64\times t$
+		\item background $b$: upsampled from [$\mathbf c, z$] for a single frame \& replicated $t$ times
+		\item fusion: video $v = f*m + (1-m)*b$
+		\end{itemize}
+	\item Video Discriminator
+		\begin{itemize}
+		\item concat input video \& a corresponding real video, downsample
+		\item downsample the optic flow for input video $\mathbf f$ as $\mathbf f'$ \& further downsample
+		\item dense layer compress caption $\psi$ as $\psi'$ \& concat to downsampled feature map \\
+		(also discriminate if video related to caption)
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item textureGAN trained initially using real optic flow calculated from real video \\
+		(until flowGAN more stable \& trained to a extend, to avoid wasted training)
+		\item use existing video dataset \& adding action-appearance caption
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item demonstrate ability for finer control on video content \\ 
+		(not only action, but background, appearance) \\ 
+		$\Rightarrow$ two-stage (action + appearance) generation for each frame for realistic complex scene\\
+		$\Rightarrow$ caption for more descriptive control (v.s. initial frame)
+		\item more abstract \& general control \\ 
+		$\Rightarrow$ reflect more variety of complex actions and appearances by captions \\ 
+		(compared to use image as initialization)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -5296,10 +5611,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \end{itemize}
 
 \section{Interpretable Machine Learning}
-
-\section{Generative Adversarial Nets}
-\subsection{Temporal Generative Adversarial Nets}
-\subsubsection{Video Generation}
 
 \section{Tactile Sensing}
 \subsection{Tactile Sensor}
