@@ -3163,8 +3163,29 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \item Particle Filter
 
-\item Interacting Multiple Model
+\item Correlation Filter
 	\begin{itemize}
+	\item Detector
+		\begin{itemize}
+		\item online-training to learn the object appearance at previous frame \\
+		$\Rightarrow$ conv over test (current) frame for similarity response
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item no explicitly modeled, though can augment online-training data with past images
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item $\mathbf w$ the weight to learn $\mathbf x$ input image of current frame, $y$ the desire response
+		\item $\mathbf x[\tau]$ the circular shift of $\mathbf x$ by $\tau=[\tau_x, \tau_y]$ pixel
+		\item formulated as regression problem \\ 
+		$\Rightarrow \displaystyle \arg_{\mathbf w}\min\frac 1 2\sum_{n\in N}\norm{\mathbf x[\tau_n]^T\star \mathbf w - y_{\tau_n}}^2 + \frac \lambda 2 \norm{ \mathbf w}^2$ \\
+		(mosse: minimum output sum of squared error, with regularization)
+		\item original solution for regression $(X^T X + \lambda I)^{-1}$, where $X=\{\mathbf x[\tau_n]\mid n = 1,...,N\}$ \\
+		(corresponding $\mathbf y = \{y_{\tau_n}\mid n =1,...,N\}$) \\
+		$\Rightarrow \mathcal O(N^3)$, where $N$ the num of training example in $X$
+		\item since $\mathbf x[\tau_n]$ a circulant toeplitz matrix $\Rightarrow$ fourier transform into diagonal matrix
+		\end{itemize}
 	\item 
 	\end{itemize}
 
@@ -3207,10 +3228,60 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ refine bbox for nearest similar object with one proposal ($t-1$ bbox)
 		\item $\Rightarrow$ able to specialize tracker for specific object tracking \\
 		e.g. fine-tune on car video for car tracker
+		\item can NOT possess intrinsic invariance of object movement at various direction \\
+		$\Rightarrow$ detector needs to be trained by data augmentation for object at all positions \\
+		(due to dense layer)
 		\item can NOT handle large drastic target change: preferring local \& smooth change 
 		\item Not good at exact frozen scene: training augmented with noisy motion \\
 		(could be worse if NOT using $L1$ loss)
 		\item real-time timing ($100$fps), included in opencv $\Rightarrow$ stable performance
+		\end{itemize}
+	\end{itemize}
+
+\item SiamFC: Fully-Conv Siamese Network for Object Tracking
+	\begin{itemize}
+	\item Detector
+		\begin{itemize}
+		\item siamese CNN to extract feature from exemplar \& search image
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item no explicit tracker, yet cross-correlation to measure spatial similarity
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item exemplar and search image cropped with target in the center \& feature extracted into $z, x$ \\
+		(at most $T$ frames apart)
+		\item conv exemplar $z$ on search image $x$ for response map of similarity
+		\item maximum score in response map as object in cur frame \& fit a box accordingly
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item AlexNet as CNN
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item logistic loss for final response map from final cross-correlation \\
+		(cosine window applied to penalize large displacements)
+		\item weighted for pos-neg balance
+		\item bbox encoded as a mask with a square area of $1s$
+		\item image cropped with padding \& scaled to $127\times127$ \& $255\times255$ for convenience
+		\item $50$ epochs ($50000$ examples per epoch), batch size $8$
+		\end{itemize}
+	\item Tracking
+		\begin{itemize}
+		\item crop with padding on box of $1^\text{st}$ frame, crop with $t-1^\text{th}$ box padded to $4\times$ size on frame $t$
+		\item tracking with scale: processing multi-scaled version of search image ($5$ scale $1.025^{\{-2,-1,0,1,2\}}$)
+		\item produce response map of similarity \& upsampled to $272\times272$ for better localization
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item $2$-frame model: measuring spatial similarity by correlation for localization \\
+		$\Rightarrow$ an unrolled RNN trained with length $2$ \\ 
+		$\Rightarrow$ strong initialization for RNN-based tracker
+		\item learning strong offline embedding for exemplar-search similarity measurement \\
+		$\Rightarrow$ complementary to online tracker
+		\item updating exemplar $z$ in time series NOT gaining much (as initial box assumed to be a great one)
 		\end{itemize}
 	\end{itemize}
 
@@ -3280,12 +3351,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \item SiamRPN: Tracking with Siamese Region Proposal Network
 	\begin{itemize}
-	\item Bounding Box Encoding
-		\begin{itemize}
-		\item anchor box $x^\text{an},y^\text{an},w^\text{an},h^\text{an}$, ground truth box $x^\text{gt},y^\text{gt},w^\text{gt},h^\text{gt}$
-		\item perfect prediction as $\delta x = \frac {x^\text{gt}-x^\text{an}}{w^\text{an}}, \delta y = \frac{y^\text{gt}-y^\text{an}}{y^\text{an}}, \delta w = \ln \frac {w^\text{gt}}{w^\text{an}}, \delta h = \frac{h^\text{gt}}{h^\text{an}}$ \\
-		$\Rightarrow$ predict box as $x^\text{p}=\delta xw^\text{an} + x^\text{an}, y^\text{p}=\delta yh^\text{an} +y^\text{an}, w^\text{p}=e^{\delta w}w^\text{an}, h^\text{p}=e^{\delta h}h^\text{an}$
-		\end{itemize}
 	\item Tracking Initialization
 		\begin{itemize}
 		\item take initial frame \& given bbox as template $z$
@@ -3306,7 +3371,13 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Tracker
 		\begin{itemize}
-		\item not explicitly modeled
+		\item tracking as detection by similarity, no explicit tracker
+		\end{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item anchor box $x^\text{an},y^\text{an},w^\text{an},h^\text{an}$, ground truth box $x^\text{gt},y^\text{gt},w^\text{gt},h^\text{gt}$
+		\item perfect prediction as $\delta x = \frac {x^\text{gt}-x^\text{an}}{w^\text{an}}, \delta y = \frac{y^\text{gt}-y^\text{an}}{y^\text{an}}, \delta w = \ln \frac {w^\text{gt}}{w^\text{an}}, \delta h = \frac{h^\text{gt}}{h^\text{an}}$ \\
+		$\Rightarrow$ predict box as $x^\text{p}=\delta xw^\text{an} + x^\text{an}, y^\text{p}=\delta yh^\text{an} +y^\text{an}, w^\text{p}=e^{\delta w}w^\text{an}, h^\text{p}=e^{\delta h}h^\text{an}$
 		\end{itemize}
 	\item Inference
 		\begin{itemize}
@@ -3339,15 +3410,14 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item $2$-frame model: tracking as one-shot detection \\
+		\item $2$-frame model: tracking as one-shot detection (with response map of similarity) \\
 		$\Rightarrow 1^\text{st}$ bbox as only examplar to learn the conv kernel in RPN \\
 		(which is used in following frames for bbox proposal) \\
 		$\Rightarrow$ Siamese net learns to efficiently map $z$ to weights $[\varphi (z)]$ (learning to learn) \\
 		(yet, not using temporal cue)
-		\item proposal refinement by RPN to replace online fine-tuning
 		\item template branch to extract feature discriminate fore-/back-ground \\
 		$\Rightarrow$ predict detection kernel by input $z$ and its weight in $[\varphi(\cdot)]$ as a meta learner
-		\item detection branch able to propose \& refine a compact bbox \\ 
+		\item detection branch (RPN) to propose \& refine a compact bbox (instead of online fine-tuning) \\ 
 		$\Rightarrow$ no need for online learning, nor multi-scale test
 		\item NOT able to handle large search region (use only limited center size in refinement) \\
 		(not discriminative enough)
@@ -3356,11 +3426,38 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \item CFNet: Correlation Filter based Tracking (SiamFC v2)
 	\begin{itemize}
+	\item Detector
+		\begin{itemize}
+		\item siamese CNN 
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item correlation filter embedded in forward prop $\Rightarrow$ online-learning $1$-step tracker
+		\end{itemize}
+	\item Correlation Filter Block
+		\begin{itemize}
+		\item input training img $x\in \mathbb R^{m\times m}$, test img $z$
+		\item $w\star x$ construct 
+		\end{itemize}
 	\item Inference
+		\begin{itemize}
+		\item crop $t$ frame at box center of $t-1$ frame, with $4\times$ larger \& siamese CNN extracts feature from \\
+		$\Rightarrow$ extracted last frame feature (train) \& cur frame feature (test) into $x, z$
+		\item solving correlation filter optimization: get circular shift of $x$ by circular linear matrix $k$ \\
+		$\Rightarrow$ via Lagrangian dual, turn optimization into linear equations system \\
+		$\Rightarrow$ solve for equations system \& construct back prop map \\
+		(can even learn the desired response $y$ instead of assuming it to be Gaussian)
+		\item crop CF output \& convolve with test image $z$ to regress box
+		\end{itemize}
 	\item Structure
+		\begin{itemize}
+		\item 
+		\end{itemize}
 	\item Training
 	\item Understanding
 		\begin{itemize}
+		\item correlation filter embedded in forward prop \\ 
+		$\Rightarrow$ utilize online-learning to acquire prior for target (while tracking generic object)
 		\item enable ultra-lightweight network comparative with deep net \\
 		(though correlation filter layer does NOT improve the ceiling performance)
 		\item updating template on each frame (v.s. using always $1^\text{st}$ frame)
