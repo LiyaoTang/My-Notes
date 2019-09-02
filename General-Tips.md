@@ -1,29 +1,8 @@
 # Tips-for-programming
 
-1. 不要拒绝新的数据结构（堆、栈等），尽早接触为好
-2. 注意待处理数据的范围，注意数据溢出
-3. 先判断下角标 再判断其他数据。防止越界
-4. 蛋疼的题处处有，蛋疼的要求满大街。。。考验耐心，学会持久战吧= =、
-5. 对数据结构的值的范围要敏感！~ 用了unsigned这种之后要注意不能有负数，而且负数会循环到最大值处。。。
-   （圈圈模型）
-6. 压位<->位表
-7. 答案明显可以分成几个部分组成的就妥妥的分成几个部分去计算吧。。。分治
-8. 写程序也要分治。。。即分块，先处理干净再进入下一步骤。。。
-9. DP。。。最优子结构。。。不断大事化小。。。处理每步都出现多分支、总处理步数与所输入数据量有关的问题
-10. 具有对称性时可考虑逆向DP
-11. 先自己模拟过程，抓住特征，再码
-12. 两种类型栈共用一个下标 -> 多类型栈
-13. 用笔记下各种思路
-14. 预处理很重要
-15. 卡用例很可能是哪里手贱写残了，或是复制粘贴漏改了
-16. 坚持第2条100年不变，注意数据范围！！！
-17. 分块！！！ 一个模块一个模块的写，一个模块一个模块的调
-18. 任何一种成熟数据结构都有存在的理由
-19. 用数组存储明显方便时，又需要避开一个一个挪（下标逐个移动），可采用静态链表
-20. 尽量先做数学变换
-21. 01背包相关问题可先考虑DP
-
 ## C++
+
+### Usual Usage
 
 1. 用`char`类型读入大数字
 
@@ -51,30 +30,30 @@
 
 5. rvalue(右值): literal constant, cannot be assigned (can ONLY appear at the Right of "=")
 
-6.  C++ is based on class instead of on object, which means that objects of the same class can access each other's private fields without restriction
+6. C++ is based on class instead of on object, which means that objects of the same class can access each other's private fields without restriction
 
-7.  `int& a = 0;` NOT okay - not able to change integer literal 
+7. `int& a = 0;` NOT okay - not able to change integer literal 
 
-    `int const& a=0;` okay - as reference to a const)
+   `int const& a=0;` okay - as reference to a const)
 
-8.  `&&` meaning: reference for rvalue
+8. `&&` meaning: reference for rvalue
 
-    1. move semantics: copy constructor by moving things on mem 
+   1. move semantics: copy constructor by moving things on mem 
 
-       $\Rightarrow$ obviate copy-destroy process for some intermediate result 
+      $\Rightarrow$ obviate copy-destroy process for some intermediate result 
 
-       (e.g. initialization from function return)
+      (e.g. initialization from function return)
 
-    2. forwarding reference in template: offer a systematic mechanism to auto-forward literal into a copy, instead of overloading function for e.g. `int&` vs. `int const&` when defining template
+   2. forwarding reference in template: offer a systematic mechanism to auto-forward literal into a copy, instead of overloading function for e.g. `int&` vs. `int const&` when defining template
 
-    3. property:
+   3. property:
 
-       1. when the function parameter type is of the form `T&&` where `T` is a template parameter, and the function argument is an lvalue of type `A`, the type `A&` is used for template argument deduction.
-       2. For overload resolution, lvalues prefer binding to lvalue references and rvalues prefer binding to rvalue references. Hence why temporaries prefer invoking a move constructor / move assignment operator over a copy constructor / assignment operator.
-       3. rvalue references will implicitly bind to rvalues and to temporaries that are the result of an implicit conversion. i.e. `float f = 0f; int&& i = f;` is okay because `float` is implicitly convertible to `int`; the reference would be to a temporary that is the result of the conversion.
-       4. named rvalue references are lvalues. Unnamed rvalue references are rvalues. This is important to understand why the `std::move` call is necessary in: `foo&& r = foo(); foo f = std::move(r);`
+      1. when the function parameter type is of the form `T&&` where `T` is a template parameter, and the function argument is an lvalue of type `A`, the type `A&` is used for template argument deduction.
+      2. For overload resolution, lvalues prefer binding to lvalue references and rvalues prefer binding to rvalue references. Hence why temporaries prefer invoking a move constructor / move assignment operator over a copy constructor / assignment operator.
+      3. rvalue references will implicitly bind to rvalues and to temporaries that are the result of an implicit conversion. i.e. `float f = 0f; int&& i = f;` is okay because `float` is implicitly convertible to `int`; the reference would be to a temporary that is the result of the conversion.
+      4. named rvalue references are lvalues. Unnamed rvalue references are rvalues. This is important to understand why the `std::move` call is necessary in: `foo&& r = foo(); foo f = std::move(r);`
 
-       NOTE: https://stackoverflow.com/questions/5481539/what-does-t-double-ampersand-mean-in-c11
+      NOTE: https://stackoverflow.com/questions/5481539/what-does-t-double-ampersand-mean-in-c11
 
 9. alignment trick: `union` with unused `long int` $\Rightarrow$ cpu needs to fetch mem exactly once to get the struct
 
@@ -114,6 +93,138 @@
     3. `final` with `virtual`: ensure function is itself virtual and can NOT be further overridden by derived class; ill-formed otherwise (a compiler check + forbidding further overriding)
     4. `final` with `class`: ensure the class can NOT be a base for derived class
     5. Note: `override` and `final` is keyword only in declaration, NOT reserved in other context
+
+16. `class`  forward declaration
+
+    1. to reduce coupling between header files
+
+       $\Rightarrow$ no need to re-compile all otherwise cascaded headers
+
+       (hence faster compilation after modification) 
+
+    2. can use only pointer $\Rightarrow$ cannot include instance 
+
+       (cannot instantiate as no definition provided)
+
+17. return a reference
+
+    1. note canNOT return a constant then (e.g. nullptr NOT allowed)
+    2. => NO need to return reference of a pointer
+
+18. vector::push
+
+    1. implies a "copy construction" $\Rightarrow$ safe to use local constructed variables
+
+19. protobuf
+
+    1. nested structure: 
+       1. `mutable_xxx()` to get an allocated object (auto delete previous allocated mem)
+       2. `set_allocated_xxx()` to point the pointer (inside proto class) to the allocated mem
+    
+20. function object
+
+    1. override `()` operator $\Rightarrow$ class instance has behaviour similar to function
+
+21. `lambda` function
+
+    1. syntax: `auto lambda_func = [var] (T1 var1) -> T2 {return ...}` 
+
+       full syntax: `[ capture-list ] ( params ) mutable(optional) constexpr(optional)(c++17) exception attribute -> ret { body } `
+
+    2. meaning:
+
+       1. `-> T2` to specify return type, can be omitted \& rely on type deduction
+       2. `[x]` to capture local accessible variable $\Rightarrow$ to be stored \& used in the lambda
+
+    3. `[]` capture
+
+       1. create a function class : a class with `()` operator overridden $\Rightarrow$ callable object
+
+       2. `[x]`: copy the local variable `x` $\Rightarrow$ class equipped with non-static member
+
+       3. `mutable`: create stateful lambda, by enabling modification 
+
+          1. `auto lambda_func = [var] (T1 var1) mutable {var += 1; ...}` 
+
+          2. by creating a non-const `()` override
+
+          3. `[&x]`: create reference to local variable `x` $\Rightarrow$ can be always modified
+
+             (no need for explicit mutable)
+
+             $\Rightarrow$ can be controlled outside the lambda **!** 
+
+       4. type of capturing variable
+
+          1. `[]`: no variable
+          2. `[=]`: copy all accessible local variable by value (copy) 
+          3. `[x]`: capture only `x` by copy
+          4. `[&x]`: capture only `x` by reference
+          5. `[=, &x]`: capture all var by copy, but `x` by reference
+          6. `[&, x]`: capture all var by reference, but `x` by copy
+          7. `[this]`: capture current object instance (by pointer)
+          8. `[*this]`: a copy of current object instance (by value)
+
+       5. danger
+
+          1. capture by reference: dangerous for dangling reference, i.e. local variable released 
+
+             (out-of-scope)
+
+          2. capture all var by copy: dangerous for implicitly capture `this`, a pointer to current instance
+
+             $\Rightarrow$ local member may be released while `lamda` func still using it
+
+       6. in c++ 14: enable more type of var capture \& initialization of captured var
+
+    4. functionality
+
+       1. can NOT be assigned to other function (v.s. function pointer), by deleting assignment op
+       2. can use copy constructor
+
+    5. use case
+
+       1. simple callback function: passed in as parameter, e.g. in `qsort`, ...
+    
+22. `std::function`
+
+    1. erasure object: hide the detail of operations \& provide a uniform runtime interface
+    2. coverability: any callable object
+
+### Format Convention
+
+- Instantiation
+  - init list: as a col: each meber a line
+
+### Template
+
+- Compiler perspective
+
+  - Dealing with Template
+
+    - recognize template in `.hpp` in linking
+    - compile all `.hpp` into library, generate template specialization for all encountered cases
+    - compile `.cpp` & look up corresponding implementation for each usage of specialized template 
+
+  - Pure Template all in `.hpp` 
+
+    - recognized by `#include` & being specialized when used by other code with concret type
+
+    - $\Rightarrow$ compiler auto-generates implementation before compiling `.cpp` 
+
+      (yet may becomes gigantic; eventually very slow compilation)
+
+  - Pure Template in `.hpp` & `.cpp`
+
+    - pure template implmentation in `.cpp` NOT recognized in linking stage
+    - canNOT auto-generate due to missing implementation 
+    - $\Rightarrow$ report `undefined reference` error when looking up for `.cpp` 
+
+  - Pure Template & Specialization in `.cpp`
+
+    - no implementation recognized in linking stage
+    - look up in pre-implementated cases, `undefined reference` if unforseen usage found
+    - $\Rightarrow$ use with macro to make pre-spcialization (fast compilation)
 
 ### Concurrency in C++ (POSIX Library)
 
@@ -813,6 +924,33 @@ special syntax sugar to manipulate the result of a function
    - Pros
      - more parallel
      - dynamic dispatch at function level
+
+
+
+ ======================== Random Staff from Bachelor Life =================================== 
+
+1. 不要拒绝新的数据结构（堆、栈等），尽早接触为好
+2. 注意待处理数据的范围，注意数据溢出
+3. 先判断下角标 再判断其他数据。防止越界
+4. 蛋疼的题处处有，蛋疼的要求满大街。。。考验耐心，学会持久战吧= =、
+5. 对数据结构的值的范围要敏感！~ 用了unsigned这种之后要注意不能有负数，而且负数会循环到最大值处。。。
+   （圈圈模型）
+6. 压位<->位表
+7. 答案明显可以分成几个部分组成的就妥妥的分成几个部分去计算吧。。。分治
+8. 写程序也要分治。。。即分块，先处理干净再进入下一步骤。。。
+9. DP。。。最优子结构。。。不断大事化小。。。处理每步都出现多分支、总处理步数与所输入数据量有关的问题
+10. 具有对称性时可考虑逆向DP
+11. 先自己模拟过程，抓住特征，再码
+12. 两种类型栈共用一个下标 -> 多类型栈
+13. 用笔记下各种思路
+14. 预处理很重要
+15. 卡用例很可能是哪里手贱写残了，或是复制粘贴漏改了
+16. 坚持第2条100年不变，注意数据范围！！！
+17. 分块！！！ 一个模块一个模块的写，一个模块一个模块的调
+18. 任何一种成熟数据结构都有存在的理由
+19. 用数组存储明显方便时，又需要避开一个一个挪（下标逐个移动），可采用静态链表
+20. 尽量先做数学变换
+21. 01背包相关问题可先考虑DP
 
 ## Research Lib TO DO List
 
