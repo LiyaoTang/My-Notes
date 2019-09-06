@@ -3060,11 +3060,24 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Appearance Change
 		\begin{itemize}
 		\item shape\&color can be trap: changing clothes etc.
+		$\Rightarrow$ learning directly transformation by image pair (e.g. siamRPN)
 		\end{itemize}
 	\item Long Term Dependency
 		\begin{itemize}
 		\item re-identification: people leaving and re-entering the scene
 		\item hot standby surveillance
+		\end{itemize}
+	\item Initialization \& Termination Criteria
+		\begin{itemize}
+		\item bad initialization: overlapped box due to overlapped object \\
+		(e.g. two closely standing people)
+		\item termination vs. occlusion \\
+		$\Rightarrow$ need to tell leaving the view or temporally occluded
+		\end{itemize}
+	\item Fast Motion
+		\begin{itemize}
+		\item large search area, hence more background noise, hence similarity can fail
+		\item motion blur (which can be modeled as appearance change)
 		\end{itemize}
 	\end{itemize}
 \item Evaluation Metrics
@@ -3349,6 +3362,46 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
+\item CFNet: Correlation Filter based Tracking (SiamFC v2)
+	\begin{itemize}
+	\item Detector
+		\begin{itemize}
+		\item siamese CNN 
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item correlation filter embedded in forward prop $\Rightarrow$ online-learning $1$-step tracker
+		\end{itemize}
+	\item Correlation Filter Block
+		\begin{itemize}
+		\item input training img $x\in \mathbb R^{m\times m}$, test img $z$
+		\item $w\star x$ construct 
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item crop $t$ frame at box center of $t-1$ frame, with $4\times$ larger \& siamese CNN extracts feature from \\
+		$\Rightarrow$ extracted last frame feature (train) \& cur frame feature (test) into $x, z$
+		\item solving correlation filter optimization: get circular shift of $x$ by circular linear matrix $k$ \\
+		$\Rightarrow$ via Lagrangian dual, turn optimization into linear equations system \\
+		$\Rightarrow$ solve for equations system \& construct back prop map \\
+		(can even learn the desired response $y$ instead of assuming it to be Gaussian)
+		\item crop CF output \& convolve with test image $z$ to regress box
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Training
+	\item Understanding
+		\begin{itemize}
+		\item correlation filter embedded in forward prop \\ 
+		$\Rightarrow$ utilize online-learning to acquire prior for target (while tracking generic object)
+		\item enable ultra-lightweight network comparative with deep net \\
+		(though correlation filter layer does NOT improve the ceiling performance)
+		\item updating template on each frame (v.s. using always $1^\text{st}$ frame)
+		\end{itemize}
+	\end{itemize}
+
 \item SiamRPN: Tracking with Siamese Region Proposal Network
 	\begin{itemize}
 	\item Tracking Initialization
@@ -3402,6 +3455,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Training
 		\begin{itemize}
+		\item crop input by $\sqrt{(w+p)*(h+p)}$, where padding $p=\frac{w+h}2$ \& then resize to fixed size \\
+		$\Rightarrow$ treat box as square \& has always the same percentage of target in the input
 		\item cross-entropy loss for classification \& smooth $L1$ loss for regression
 		\item pos-neg example: dual IoU threshold $(0,0.3,0.6)$
 		\item batch: size $64$, with at most $16$ positive examples
@@ -3419,48 +3474,26 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ predict detection kernel by input $z$ and its weight in $[\varphi(\cdot)]$ as a meta learner
 		\item detection branch (RPN) to propose \& refine a compact bbox (instead of online fine-tuning) \\ 
 		$\Rightarrow$ no need for online learning, nor multi-scale test
-		\item NOT able to handle large search region (use only limited center size in refinement) \\
+		\item crop the kernel-branch: crop out edge case to avoid noise \\
+		$\Rightarrow$ NOT able to handle large search region (use only limited center size in refinement) \\
 		(not discriminative enough)
-		\end{itemize}
-	\end{itemize}
-
-\item CFNet: Correlation Filter based Tracking (SiamFC v2)
-	\begin{itemize}
-	\item Detector
-		\begin{itemize}
-		\item siamese CNN 
-		\end{itemize}
-	\item Tracker
-		\begin{itemize}
-		\item correlation filter embedded in forward prop $\Rightarrow$ online-learning $1$-step tracker
-		\end{itemize}
-	\item Correlation Filter Block
-		\begin{itemize}
-		\item input training img $x\in \mathbb R^{m\times m}$, test img $z$
-		\item $w\star x$ construct 
-		\end{itemize}
-	\item Inference
-		\begin{itemize}
-		\item crop $t$ frame at box center of $t-1$ frame, with $4\times$ larger \& siamese CNN extracts feature from \\
-		$\Rightarrow$ extracted last frame feature (train) \& cur frame feature (test) into $x, z$
-		\item solving correlation filter optimization: get circular shift of $x$ by circular linear matrix $k$ \\
-		$\Rightarrow$ via Lagrangian dual, turn optimization into linear equations system \\
-		$\Rightarrow$ solve for equations system \& construct back prop map \\
-		(can even learn the desired response $y$ instead of assuming it to be Gaussian)
-		\item crop CF output \& convolve with test image $z$ to regress box
-		\end{itemize}
-	\item Structure
-		\begin{itemize}
-		\item 
-		\end{itemize}
-	\item Training
-	\item Understanding
-		\begin{itemize}
-		\item correlation filter embedded in forward prop \\ 
-		$\Rightarrow$ utilize online-learning to acquire prior for target (while tracking generic object)
-		\item enable ultra-lightweight network comparative with deep net \\
-		(though correlation filter layer does NOT improve the ceiling performance)
-		\item updating template on each frame (v.s. using always $1^\text{st}$ frame)
+		\item yet, using both VID \& youtub-bb dataset \\
+		$\Rightarrow$ youtube-bb contain larger transform between frames (due to one labeled frame in every 30 frames) \\
+		$\Rightarrow$ needs larger center-size \& context to overcome large transformation
+		\item tracking based on both \underline{similarity v.s. transformation v.s. semantic } \\
+		\item similarity: from correlation
+		\item transformation: from using $z$-$x$ pair from a large frame range ($\sim100$)
+		(as encoding bbox through crop \& both template-search img are cropped by label box) \\
+		(instead of box from previous frame as in Re$^3$) \\
+		$\Rightarrow$ learning appearance transformation, instead of object motion
+		\item semantic: from using RPN \& pretrain on classification dataset \& tracking only general object \\
+		$\Rightarrow$ use anchor for obejct different $w$-$h$ ratio
+		\item fail in large \& fast moving object, potentail reason: \\
+		large search area contains too much noise \& similarity get more response
+		\item fail with different image crop: training with only a specific crop strategy \\
+		(model trained with a fix 255x255 crop, with a fixed ratio of region being target object) \\
+		$\Rightarrow$ overfit the chosen scale \& NOT able to handle different scale \\
+		$\Rightarrow$ not fully explore the discriminative ability from the semantic
 		\end{itemize}
 	\end{itemize}
 
@@ -3528,6 +3561,12 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item fusion of multi-level feature (spatial + semantic info) for RPN
 		\end{itemize}
 	\end{itemize}
+
+\item DaSiamRPN
+
+\item SiamRPN++
+
+\item Deeper and Wider Siam
 
 \item Fast Online Object Tracking and Segmentation
 	\begin{itemize}

@@ -190,6 +190,26 @@
 
     1. erasure object: hide the detail of operations \& provide a uniform runtime interface
     2. coverability: any callable object
+    
+23. `static` 
+
+    1. can be viewed as: a global variable associated/binded to a class
+
+    2. $\Rightarrow$ need to not only declare in the class, but also declare again outside the class
+
+       $\Rightarrow$ to register in the corresponding scope (outside a class instance)
+
+       $\Rightarrow$ need to register only once, hence in `.cpp` 
+
+       (potentially multiple declarations if declared in `.hpp`) 
+       
+    3. potential error
+    
+       1. multiple delarations, due to being declared in `hpp` \& included by multiple files
+    
+       2. undefined symbol, due to not declared outside the class and thus not recognized globally
+    
+          (especially when compiled into `.so`)
 
 ### Format Convention
 
