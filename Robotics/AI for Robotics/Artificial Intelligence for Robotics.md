@@ -42,13 +42,44 @@
 ### Sensor
 
 - Camera
+  
   - 2D perspective detection $\Rightarrow$ 3D vision to map back to 3D
+  
 - Lidar
   - point cloud, usually detect in 3D-space
   - distance, height measured for each point
+  
 - Radar
   - point cloud, usually with on-chip processing (hence sparse)
   - speed measured for each point
+  
+- Inertial Measurement Unit (IMU)
+
+  - Class
+
+    - low: several dollar, used in phone, error prone
+
+    - mid: ~thousand\$, used in vehicle, try to eliminate the error
+
+      (but still has the problem of error accumulation, especially after a long time)
+
+    - high: use in missle, satellite, >10 million\$, able to restrain the error in long-term
+
+  - Working Principles
+
+    - a known object kep inside \& its inertance would change the capacitance (by changing the gap)
+
+    - electricity signal used to estimate the true inertance (eliminate noise, e.g. accumulated error)
+
+      $\Rightarrow$ mesurea the acceleration in one direction
+
+    - a hanged metal slice form capacitance: positvely related to  angular velocity $w$ 
+
+  - Error Source
+
+    - origin-offset: non-zero output if when not accelrating or turning
+    - temprature: as affect the capcitance
+    - integration: need to perform $2$ integration to get the position (from acceleration)
 
 ### Detection
 
@@ -410,8 +441,10 @@
   - Units
     - IMU: high frequency $\Rightarrow$ enable the real-time update on ego state
     - GPS, HD map \& Sensor: infrequent yet more accurate measurement
-  - Fusion
-    - estimate the error model for each sensor \& cancel out the error
+  - Kalman Filter Fusion
+    - IMU result used as prediction (higher frequency)
+    - GPS result used as observation
+    - use kalman filter to correct the estimated position
     - kalman filter: provide variance matrix for error range estimation
   - Understanding
     - complementary sensor for general localization in diverse scenario

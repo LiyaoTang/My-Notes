@@ -3486,14 +3486,18 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(as encoding bbox through crop \& both template-search img are cropped by label box) \\
 		(instead of box from previous frame as in Re$^3$) \\
 		$\Rightarrow$ learning appearance transformation, instead of object motion
-		\item semantic: from using RPN \& pretrain on classification dataset \& tracking only general object \\
-		$\Rightarrow$ use anchor for obejct different $w$-$h$ ratio
+		\item semantic: from using detection net (RPN) \\
+		$\Rightarrow$ anchor for obejct different $w$-$h$ ratio \\
 		\item fail in large \& fast moving object, potentail reason: \\
 		large search area contains too much noise \& similarity get more response
 		\item fail with different image crop: training with only a specific crop strategy \\
 		(model trained with a fix 255x255 crop, with a fixed ratio of region being target object) \\
 		$\Rightarrow$ overfit the chosen scale \& NOT able to handle different scale \\
 		$\Rightarrow$ not fully explore the discriminative ability from the semantic
+		\item may fall back to simple detector if backbone can not extract meaningful template \\
+		(potential reason: not fully trained, training set do not have hard negative, ...,) \\ 
+		by meaningful: discriminative enough for two similar object - need to able to recognize tiny feature \\
+		(similar to requirement in re-ID)
 		\end{itemize}
 	\end{itemize}
 
