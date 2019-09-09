@@ -522,6 +522,54 @@ special syntax sugar to manipulate the result of a function
     - $\Rightarrow$ intermediate class need to take extra parameters to pass along the MRO
     - $\Rightarrow$ force designer to be aware of the MRO precedence!
 
+### Object & Memory
+
+- `id`
+
+  - show the identity (memory address) of an object $\Rightarrow$ used by `is` 
+
+- Basic Data Types
+
+  - `int, float, double, complex, string, bool`  
+
+    - will not be associated \& can not be changed
+
+  - created by variable copy
+
+    - `v = 1`
+
+      `l = [v] * 10`
+
+    - `v, l[0], l[1]` will have same `id` on construction, as `l` contains copy of `v`, a pointer to `int` 
+
+    - BUT, modifying either of them, would result in "copy on write"
+
+      $\Rightarrow$ would not affect each other
+
+- Complicated Types
+
+  - `list, dict, set, ... & other container, & class` 
+
+    - $\Rightarrow$ contain double pointer
+
+  - created by cariable copy
+
+    - `v = [1]`
+
+      `l = [v] * 10`
+
+    - will have the same `id`, as copying `v`, a pointer to a container `tuple` 
+
+    - modify either of them would modify ALL of them
+
+      $\Rightarrow$ NOT assignment, hence not recognized by python
+
+      $\Rightarrow$ keep the same pointer (to a container), but the content inside is modifed 
+
+      e.g. `v[0] = -1`, would result in `l == [[-1], [-1]]` 
+
+    - yet, `l[0] = [-1]` can be recognized \& hence `l[1], v` not influenced
+
 ### Concurrency in Python
 
 - Generator Functions

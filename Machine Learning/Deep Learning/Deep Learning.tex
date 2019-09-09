@@ -3501,6 +3501,19 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
+\item DaSiamRPN
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item using negative pair with semantic object $\Rightarrow$ more discriminative \\
+		$\Rightarrow$ model realize difference between similar object \\
+		(instead of only foreground-background)
+		\item $\Rightarrow$ hence meaningful score \\ 
+		$\Rightarrow$ able to use score to denote lost-recovery in noisy \& big search region \\
+		(otherwise, may pick up random object to track with high score)
+		\end{itemize}
+	\end{itemize}
+
 \item C-RPN: Siamese Cascaded Region Proposal Network
 	\begin{itemize}
 	\item Tracking Initialization
@@ -3565,8 +3578,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item fusion of multi-level feature (spatial + semantic info) for RPN
 		\end{itemize}
 	\end{itemize}
-
-\item DaSiamRPN
 
 \item SiamRPN++
 
