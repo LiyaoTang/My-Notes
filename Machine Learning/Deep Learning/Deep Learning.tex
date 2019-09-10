@@ -727,7 +727,7 @@
 	\begin{itemize}
 	\item Curve given Amount of Data
 	\begin{figure}[ht]
-	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/background-largedata".png}
+	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/background-largedata".png}
 	\end{figure}
 	\item Reasons
 		\begin{itemize}
@@ -1193,7 +1193,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ reduce the chance of relying on small set of features
 		\end{itemize}
 	\begin{figure}[ht]
-	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/regularization-dropout".jpeg}
+	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/regularization-dropout".jpeg}
 	\end{figure}
 	\item Cons
 		\begin{itemize}
@@ -1525,10 +1525,10 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{figure}[ht]
 		\centering
 		\begin{subfigure}{.7\linewidth}
-		\includegraphics[width=.75\linewidth, right]{"./Deep Learning/layer-conv2d exp".png}
+		\includegraphics[width=.75\linewidth, right]{"./Deep Learning/plot/layer-conv2d exp".png}
 		\end{subfigure}%
 		\begin{subfigure}{.3\linewidth}
-		\includegraphics[width=.5\linewidth, center]{"./Deep Learning/layer-conv2d kernel movement".png}
+		\includegraphics[width=.5\linewidth, center]{"./Deep Learning/plot/layer-conv2d kernel movement".png}
 		\end{subfigure}%
 		\end{figure}
 		\item activation then taken after convolution operation, element-wisely
@@ -1668,7 +1668,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ gird defined as a proportional slicing \\
 		$\Rightarrow$ actual gird solved at runtime (w.r.t feature map size)
 		\item example: three grids with different cell number; each cell a max pooling \\
-		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/layer-pooling spp".png}
+		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/layer-pooling spp".png}
 		\end{itemize}
 	\item Output
 		\begin{itemize}
@@ -1725,7 +1725,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item calculate its output $y^t=g_y(w_{y}h^t+b_y)$, where $g_y=\sigma, softmax$ or $identity$
 		\end{itemize}
 		\begin{figure}[ht]
-		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/layer-rnn unrolled".png}
+		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/layer-rnn unrolled".png}
 		\end{figure}
 	\item Types of RNN Mapping
 		\begin{itemize}
@@ -1790,7 +1790,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item generate as $h^t = G_o \cdot \tanh(c^t)$
 		\end{itemize}
 	\begin{minipage}[r]{0.5\linewidth}
-	\includegraphics[width=\linewidth, center]{"./Deep Learning/layer-rnn lstm".png}
+	\includegraphics[width=\linewidth, center]{"./Deep Learning/plot/layer-rnn lstm".png}
 	\end{minipage}
 	\begin{minipage}[l]{\linewidth}
 	where, \\ 
@@ -1836,7 +1836,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 		
 	\begin{minipage}[r]{0.5\linewidth}
-	\includegraphics[width=\linewidth, center]{"./Deep Learning/layer-rnn gru".png}
+	\includegraphics[width=\linewidth, center]{"./Deep Learning/plot/layer-rnn gru".png}
 	\end{minipage}
 	\begin{minipage}[l]{\linewidth}
 	where, \\ 
@@ -1873,7 +1873,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 		
 	\begin{figure}[!h]
-	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/layer-rnn bidirection".png}
+	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/layer-rnn bidirection".png}
 	\caption{(using LSTM cell)}
 	\end{figure}
 	
@@ -2362,7 +2362,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item the distance from last lens central point to focal point, determined by lens physics
 		\item given a fixed object distance, larger $F$, larger formed object \\
 		(object distance need to be larger than focal length) \\
-		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/topic-vision sensor  camera focal len".jpg}
+		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/plot/topic-vision sensor camera focal len".jpg}
 		\end{itemize}
 	\item Aperture
 		\begin{itemize}
@@ -2380,19 +2380,19 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item definition: the range on $z$ axis where resolution can be maintained \\
 		before the lens: depth of field (in the field) \\
 		after the lens: depth of focus (inside camera) \\
-		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/topic-vision sensor  camera dof".jpg}		
+		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/plot/topic-vision sensor  camera dof".jpg}		
 		\end{itemize}
 	\item Depth of Field
 		\begin{itemize}
 		\item DOF as the range where $1$ pixel can hold all info from $1$ position \\
-		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-vision sensor  camera n and dof".png} \\
+		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/plot/topic-vision sensor  camera n and dof".png} \\
 		where, dashed line the incoming light; \\ 
 		red line the system resolution (the pixel size, changing with object dist) \\
 		$\Rightarrow$ DOF defined by intersection of two type of lines \\
 		$\Rightarrow$ with large enough DOF, resolution can be bad at the end of DOF \\ 
 		(pixel size too large)
 		\item resolution with DOF \\
-		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-vision sensor  camera dof and resolution".png} \\
+		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/plot/topic-vision sensor  camera dof and resolution".png} \\
 		where black boxes a series of pixels, beams in colors as light info from an object \\
 		$\Rightarrow$ the placement of box on beams shows the information contained in a pixel \\
 		$\Rightarrow$ larger DOF, large depth range for acceptable resolution \\ 
@@ -2403,7 +2403,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item depth of focus as the range where $1$ pixel can hold all info from $1$ position
 		\item resulted from tilted sensor $\Rightarrow$ may not in the ideal position to receive light info \\
-		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-vision sensor  camera do focus".png} \\
+		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/plot/topic-vision sensor camera do focus".png} \\
 		where right-most line as ideal focal plane, left lines as sensor tilted by $12.5/25\mu m$ \\
 		$\Rightarrow$ tilt not influence pixel in the center, but the pixel in the corner \\
 		$\Rightarrow$ out of depth of focus: pixel can not distinguish beams from diff location
@@ -2426,7 +2426,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item a filter for each sensor to allow only light of specified color to reach sensor
 		\item interpolation to recover color info for each pixel \\
-		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/topic-vision sensor camera color filter array".png}
+		\includegraphics[width=0.7\linewidth, left]{"./Deep Learning/plot/topic-vision sensor camera color filter array".png}
 		\end{itemize} 
 	\item ISP
 		\begin{itemize}
@@ -2970,7 +2970,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item 2D encoder-decoder structure with concat connection, with $3$ pred branches \\
 		$\Rightarrow$ final num of pred boxes $\displaystyle\sum_{l\in\text{pred layer}}(N^l\times N^l\times N_A)$
 		\begin{figure}[ht]
-		\includegraphics[width=0.9\linewidth, right]{"./Deep Learning/topic-objdet onestage yolov3 architecture".png}
+		\includegraphics[width=0.9\linewidth, right]{"./Deep Learning/plot/topic-objdet onestage yolov3 architecture".png}
 		\end{figure}
 		\end{itemize}
 	\item Optimization
@@ -3057,8 +3057,9 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \item Challenge
 	\begin{itemize}
-	\item Appearance Change
+	\item Appearance Model
 		\begin{itemize}
+		\item robust target-specific model
 		\item shape\&color can be trap: changing clothes etc.
 		$\Rightarrow$ learning directly transformation by image pair (e.g. siamRPN)
 		\end{itemize}
@@ -3082,9 +3083,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \item Evaluation Metrics
 	\begin{itemize}
-	\item Percentage of Time Step with Success
+	\item Success
 		\begin{itemize}
-		\item overlap success: IoU of pred-label bounding box $\ge$ threshold $=0.25$
+		\item overlap success rate: average pred-label box IoU
+		\item overlap success plot: the rate of pred-label box IoU $\ge$ a given threshold \\
+		$\Rightarrow$ can have AUC
 		\item orientation success: diff of pred-label yaw angle $\le$ threshold $=\ang{10}$
 		\item other success... \\
 		$\Rightarrow$ review the overall estimated quality
@@ -3097,11 +3100,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item compare the similarity of pred-label trajectory \\
 		(may consider abrupt change, slowly drift, and etc.)
-		\end{itemize}
-	\item Success Plot
-		\begin{itemize}
-		\item success: IoU of pred \& label larger than a threshold
-		\item $\Rightarrow$ setting a series of threshold from $0$ to $1$ to obtain a line
 		\end{itemize}
 	\item VOT Metrics
 		\begin{itemize}
@@ -3122,6 +3120,32 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 			\begin{itemize}
 			\item $\sim4000$ videos annotated frame-by-frame
 			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\item State-of-the-Art
+	\begin{itemize}
+	\item Pos-Neg Balance
+		\begin{itemize}
+		\item avoid simple negative (foreground-background in siamese tracker) \\
+		$\Rightarrow$ use negative box with semantic instance (discussed in DaSiam) \\
+		$\Rightarrow$ cascaded RPN to filter out hard negative
+		\item triplet loss: mine the relation of (template, positive instance, negative instance)
+		\end{itemize}
+	\item Deep Power
+		\begin{itemize}
+		\item revealed to be central bias in deepnet
+		\end{itemize}
+	\item $\Rightarrow$ Discriminative Ability
+		\begin{itemize}
+		\item deep feature via deepnet
+		\item mining pos-neg for better discriminative ability
+		\item use background info in tracking stage, instead of only in training phase \\
+		(introducing optimization approach?)
+		\end{itemize}
+	\item Finer Detail
+		\begin{itemize}
+		\item instance tracking via multi-tasking with video segmentation
+		\item $\Rightarrow$ attention based cropping?
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -3402,7 +3426,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
-\item SiamRPN: Tracking with Siamese Region Proposal Network
+\item \textbf{SiamRPN: Tracking with Siamese Region Proposal Network}
 	\begin{itemize}
 	\item Tracking Initialization
 		\begin{itemize}
@@ -3469,18 +3493,19 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow 1^\text{st}$ bbox as only examplar to learn the conv kernel in RPN \\
 		(which is used in following frames for bbox proposal) \\
 		$\Rightarrow$ Siamese net learns to efficiently map $z$ to weights $[\varphi (z)]$ (learning to learn) \\
-		(yet, not using temporal cue)
+		$\Rightarrow$ has learned transformation of target, hence update template has mere improvement
 		\item template branch to extract feature discriminate fore-/back-ground \\
 		$\Rightarrow$ predict detection kernel by input $z$ and its weight in $[\varphi(\cdot)]$ as a meta learner
 		\item detection branch (RPN) to propose \& refine a compact bbox (instead of online fine-tuning) \\ 
 		$\Rightarrow$ no need for online learning, nor multi-scale test
 		\item crop the kernel-branch: crop out edge case to avoid noise \\
-		$\Rightarrow$ NOT able to handle large search region (use only limited center size in refinement) \\
-		(not discriminative enough)
-		\item yet, using both VID \& youtub-bb dataset \\
-		$\Rightarrow$ youtube-bb contain larger transform between frames (due to one labeled frame in every 30 frames) \\
+		$\Rightarrow$ NOT able to handle large search region \\ 
+		(use only limited center size in refinement)
+		\item yet, using both VID \& youtube-bb dataset \\
+		$\Rightarrow$ youtube-bb contain larger transform between frames \\
+		(due to one labeled frame in every 30 frames) \\
 		$\Rightarrow$ needs larger center-size \& context to overcome large transformation
-		\item tracking based on both \underline{similarity v.s. transformation v.s. semantic } \\
+		\item tracking based on \underline{similarity \& transformation \& semantic}
 		\item similarity: from correlation
 		\item transformation: from using $z$-$x$ pair from a large frame range ($\sim100$)
 		(as encoding bbox through crop \& both template-search img are cropped by label box) \\
@@ -3498,6 +3523,9 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(potential reason: not fully trained, training set do not have hard negative, ...,) \\ 
 		by meaningful: discriminative enough for two similar object - need to able to recognize tiny feature \\
 		(similar to requirement in re-ID)
+		\item offline transformation + semantic learning to take the place of online learning \\
+		$\Rightarrow$ NOT using background info of each video \\
+		(use only foreground info via similarity)
 		\end{itemize}
 	\end{itemize}
 
@@ -3579,19 +3607,74 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
+\item Learning Discriminative Model Prediction for Tracking
+	\begin{itemize}
+	\item 
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
 \item SiamRPN++
 
 \item Deeper and Wider Siam
 
-\item Fast Online Object Tracking and Segmentation
+\item Triplet Loss in Siamese Tracker
 	\begin{itemize}
-	\item Detector
+	\item Tracker
 		\begin{itemize}
-		\item 
+		\item two-frame siamese net as tracker
+		\item inference as siamese tracker: init \& track
 		\end{itemize}
-	\item 
+	\item Loss
+		\begin{itemize}
+		\item triplet: exemplar (template) $z$, positive instance $x_i$, negative instance $x_j$,
+		where positive/negative instance the search image with/without target
+		\item matching prob: $\displaystyle prob(vp_i, vn_j)=\frac{e^{vp_i}}{e^{vp_i} + e^{vn_j}}$, \\
+		where $vp_i / vn_j$ the predicted prob of $x_i/x_j$ to be pos-/neg-ative \\
+		$\Rightarrow$ a softmax over prediction on pos-neg instance (with different search img)
+		\item joint prob: $\displaystyle \frac {1}{MN} \prod_{i}^M\prod_j^N prob(vp_i, vn_j)$, where \\
+		$M/N$ the number of instance in the positive/negative set
+		\begin{align*} \Rightarrow \text{triplet loss } \displaystyle L_t &= - \frac 1 {MN} \sum_{i}^M\sum_{j}^N\log prob(vp_i, vn_j) \\
+		&= \frac 1 {MN} \sum_{i}^M\sum_{j}^N \log(1+e^{vn_j-vp_i}) 
+		\end{align*}
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item train another $10$ epoch with the triplet loss after the original training
+		\end{itemize}
+	\item Analysis
+		\begin{itemize}
+		\item scale the normal logistic loss (used due to binary classification) accordingly \\
+		\begin{align*}
+		\Rightarrow \displaystyle L_l &= \sum_i^M \frac 1 {2M}\log(1+e^{-vp_i}) + \sum_{j}^N \frac 1 {2N}\log(1+vn_j) \\
+		&= \frac 1 {MN} \sum_i^M\sum_j^N \frac 1 2 (\log(1+e^{-vp_i}) + \log(1+e^{vn_j}))
+		\end{align*}
+		i.e. repeat $N$ times for $M$ positive instance; $M$ times for $N$ negative instance
+		\item thus, logistic v.s. triplet lies in their term inside sum \\ 
+		i.e. $\underbrace{\frac 1 2 (\log(1+e^{-vp_i}) + \log(1+e^{vn_j}))}_{T_l} \text{ v.s. } \underbrace{\log(1+e^{vn_j-vp_i})}_{T_t}$
+		\item for logistic: $\frac {\partial T_l}{\partial vp} = \frac {-1}{2(1+e^{vp})}, \frac {\partial T_l}{\partial vn} = \frac {1}{2(1+e^{-vn})}$
+		\item for triplet: $\frac {\partial T_t}{\partial vp} = \frac {-1}{1+e^{vp-vn}}, \frac {\partial T_t}{\partial vn} = \frac {1}{1+e^{vp-vn}}$
+		\item $\Rightarrow$ gradient value: \\
+		\includegraphics[width=0.6\linewidth, left]{"./Deep Learning/plot/topic-obj track triplet loss vs logistic loss".png} \\
+		$\Rightarrow$ triplet loss offers larger absolute gradient when $vp < vn$ (up-left triangular) \\
+		$\Rightarrow$ logistic loss: focus on making $vp$ larger \& $vn$ smaller, separately \\
+		($\frac {\partial T_l}{\partial vp} \rightarrow 0$ when $vp \rightarrow +\infty$, similar for $vn$) \\
+		$\Rightarrow$ while, triplet loss: focus on having $vp > vn$ (to ensure the correct decision)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item mine the relationship between exemplar-positive-negative \\
+		$\Rightarrow$ larger absolute gradient under wrong classification (predict $vp \le vn$) \\
+		$\Rightarrow$ focus on correct prediction, instead of only high score
+		\item form more training examples: num of examples increases from $M+N$ to $MN$ \\
+		$\Rightarrow$ more importantly, form a more diverse dataset
+		\item all model trained with triplet loss outperform its original logistic loss version \\
+		(compared with training extra $10$ epoch with logistic loss) \\
+		(though not outperforming in every scenario, e.g. low resolution)
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 
 \subsubsection{Multi-Object Tracking \& Data Association}
 \begin{itemize}
@@ -4379,7 +4462,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item within-part INconsistency observed in PCB: \\ 
 		by clustering vec \& compute similarity with the average pooling of each part
 		\begin{minipage}[r]{0.5\linewidth}
-		\includegraphics[width=\linewidth, left]{"./Deep Learning/topic-reid pcb-rpp within-part inconsistency".png}
+		\includegraphics[width=\linewidth, left]{"./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency".png}
 		\end{minipage}
 		\begin{minipage}[l]{\linewidth}
 		where, \\
@@ -4415,7 +4498,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(max pooling \& 1x1 conv before split to generate branch-level global feature $f^{P_n}_g$) \\
 		$\Rightarrow$ employ part-$2$ \& part-$3$ branch \\
 		\begin{minipage}[r]{0.5\linewidth}
-		\includegraphics[width=\linewidth, left]{"./Deep Learning/topic-reid PGN".png}
+		\includegraphics[width=\linewidth, left]{"./Deep Learning/plot/topic-reid PGN".png}
 		\end{minipage}
 		\begin{minipage}[l]{\linewidth}
 		res\_conv5\_1 block + max pooling + 1x1 conv \\ \\
@@ -4481,7 +4564,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item a image with content from $C$ drawn in style of $S$
 		\begin{figure}[ht]
-		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/topic-image style transfer nst overview".png}
+		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/topic-image style transfer nst overview".png}
 		\end{figure}
 		\end{itemize}
 	\end{itemize}
@@ -4515,7 +4598,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		where $M^{l(\cdot)}$ the gram matrix at layer $l$ given the input, $d(\cdot)$ a distance function, with normalization term $\frac 1 {(2 h^l w^l c^l)^2}$ \\
 		(e.g. $d(x_1, x_2) = \norm{x_1-x_2}^2_F$, the euclidean norm between matrices)
 		\begin{figure}[ht]
-		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/topic-image style transfer nst style matrix".png}
+		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/topic-image style transfer nst style matrix".png}
 		\end{figure}	
 		\end{itemize}
 	\end{itemize}
