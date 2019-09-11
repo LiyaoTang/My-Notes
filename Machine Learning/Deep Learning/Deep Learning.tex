@@ -3124,12 +3124,17 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \item State-of-the-Art
 	\begin{itemize}
-	\item Pos-Neg Balance
+	\item Data Balance
 		\begin{itemize}
 		\item avoid simple negative (foreground-background in siamese tracker) \\
 		$\Rightarrow$ use negative box with semantic instance (discussed in DaSiam) \\
 		$\Rightarrow$ cascaded RPN to filter out hard negative
-		\item triplet loss: mine the relation of (template, positive instance, negative instance)
+		\item triplet loss: mine the relation of (template, positive instance, negative instance) \\
+		$\Rightarrow$ focus on making correction decision on hard neg
+		\item scale balance: having enough detail for semantic similar distractor \\
+		cascaded RPN: feature-transform-block for multi-scale feature \\
+		siamgrpn++: multi-level feature (enough diversity from deepnet) \\
+		(yet, in siamRPN, model overfits to object scale)
 		\end{itemize}
 	\item Deep Power
 		\begin{itemize}
@@ -3458,6 +3463,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Inference
 		\begin{itemize}
+		\item crop on template \& search img \& extract feature volume
 		\item take template volume as kernel, convolute on feature map of current frame \\
 		$\Rightarrow$ RPN takes resulted response map as proposal \& regress bboxes
 		\item select top $K$ response in classification branch as set of $\{(i_k,j_k,c_k)\mid k\in(0,K)\}$ \\
@@ -3473,14 +3479,19 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Tracking
 		\begin{itemize}
-		\item with prepared $\varphi(z) \& \zeta[\varphi(z)]$, template branch pruned for speed up
+		\item arbitrary target object selected for tracking (treated as ground truth) \\
+		$\Rightarrow$ extract the feature template $\varphi(z) \& \zeta[\varphi(z)]$
 		\item each $t>1$ frame, perform feature extraction, detection with kernel $\zeta[\varphi()z]$ \& bbox regression \\
 		$\Rightarrow$ formulate as task of a one-shot learning for detection
+		\item gating on frame $t$ based on $t-1$ result
+		\item detect target within gated region of frame $t$ \\
+		(the best remained \& adjusted anchor as the target to track)
 		\end{itemize}
 	\item Training
 		\begin{itemize}
 		\item crop input by $\sqrt{(w+p)*(h+p)}$, where padding $p=\frac{w+h}2$ \& then resize to fixed size \\
-		$\Rightarrow$ treat box as square \& has always the same percentage of target in the input
+		$\Rightarrow$ trofeat box as square \& has always the same percentage  target in the input \\
+		(crop based on each label box: NOT using previous label box)
 		\item cross-entropy loss for classification \& smooth $L1$ loss for regression
 		\item pos-neg example: dual IoU threshold $(0,0.3,0.6)$
 		\item batch: size $64$, with at most $16$ positive examples
@@ -3544,10 +3555,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \item C-RPN: Siamese Cascaded Region Proposal Network
 	\begin{itemize}
-	\item Tracking Initialization
-		\begin{itemize}
-		\item extract feature of template branch $z$ based on bbox at $1^\text{st}$ frame
-		\end{itemize}
 	\item Detector
 		\begin{itemize}
 		\item modified AlexNet for encoding (multi-scale info utilized) \\
@@ -3562,17 +3569,17 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Tracker
 		\begin{itemize}
-		\item no explicit tracker (not modeling temporal info)
+		\item 2-frame siamese net as tracker
 		\end{itemize}
 	\item Inference
 		\begin{itemize}
 		\item same CNN extracts features from search region
-		\item $l^\text{st}$ RPN convolute $\Phi_{l}(z)$ on $\Phi_{l}(x)$ \\
+		\item $l^\text{th}$ RPN convolute $\Phi_{l}(z)$ on $\Phi_{l}(x)$ \\
 		$\Rightarrow$ regresses boxes based on response map \& anchor boxes $A_{l}$
-		\item discard any boxes $\in A_l$ with confidence/objectness lower than a threshold \\
+		\item discard any boxes $\in A_l$ with confidence/objectness lower than a \underline{preset} threshold \\
 		$\Rightarrow$ produce anchor boxes $A_{l+1}$
 		\item fuse semantic info with lower-level info, for both branch for $x, z$
-		\item $t^\text{th}$ RPN takes 
+		\item $l+1^\text{th}$ RPN further refine anchors $A_{l+1}$
 		\end{itemize}
 	\item Loss
 		\begin{itemize}
@@ -3587,14 +3594,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item random sample image from a video \\
 		$\Rightarrow$ forming image pair (target template image, image with/without target)
 		\end{itemize}
-	\item Tracking
-		\begin{itemize}
-		\item arbitrary target object selected for tracking (treated as ground truth) \\
-		$\Rightarrow$ extract the feature template
-		\item gating on frame $t$ based on $t-1$ result
-		\item C-RPN detect target within gated region of frame $t$ \\
-		(the best remained \& adjusted anchor as the target to track)
-		\end{itemize}
 	\item Understanding
 		\begin{itemize}
 		\item multi-stage tracking: each RPN sequentially refine bbox (size \& location)
@@ -3603,7 +3602,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ RPNs sequentially more discriminative
 		\item $\Rightarrow$ hence, more discriminative between similar nearby object \\
 		(compare with Re$^3$ \& SiamRPN)
-		\item fusion of multi-level feature (spatial + semantic info) for RPN
+		\item fusion of multi-level feature (spatial + semantic info) for RPN \\
+		$\Rightarrow$ provide detail for semantic similar distractor
 		\end{itemize}
 	\end{itemize}
 
@@ -3611,12 +3611,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item 
 	\end{itemize}
-\end{itemize}
-
-\begin{itemize}
-\item SiamRPN++
-
-\item Deeper and Wider Siam
 
 \item Triplet Loss in Siamese Tracker
 	\begin{itemize}
@@ -3673,8 +3667,69 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(though not outperforming in every scenario, e.g. low resolution)
 		\end{itemize}
 	\end{itemize}
-\end{itemize}
 
+\item SiamRPN++
+	\begin{itemize}
+	\item Detector
+		\begin{itemize}
+		\item deep backbone $\Rightarrow$ multi-level feature with enough detail-semantic diversity
+		\item depth-wise separable correlation: xcorr on each corresponding channel-channel \\
+		(similar to depthwise separable conv: 1x1 conv to replace summation) \\
+		$\Rightarrow$ each semantic info measure similarity separately (more semantic) \\
+		$\Rightarrow$ meanwhile, reduce parameters and thus faster convergence
+		\item neck: conv-bn block to adjust \& align channel before xcorr \\ 
+		(separate neck for classification - regression)		
+		\item multi-RPN: corresponding to multi-level feature \\
+		$\Rightarrow$ depthwise xcorr applied on each level feature \& each followed by an RPN \\
+		$\Rightarrow$ (trainable weight) weighted average directly on RPN result
+		\end{itemize}
+	\item Tracker
+		\begin{itemize}
+		\item siamese RPN net tracker, with deeper backbone (e.g. resnet, rather than alexnet)
+		\end{itemize}
+	\item Analysis
+		\begin{itemize}
+		\item siamese tracker: correlation to measure similarity \\
+		$\Rightarrow f(\mathbf z, \mathbf x) = \phi(\mathbf z) * \phi(\mathbf x) + b$, where $\phi(\cdot)$ map into embedded space, $b$ the bias
+		\item $\Rightarrow$ need to have strict translation INvariance: $f(\mathbf z, \mathbf x[\Delta\tau_j]) = f(\mathbf z, \mathbf x)[\Delta\tau_j]$, where \\ $[\Delta\tau_j]$ the translation, i.e. shifting sub-window
+		\item $\Rightarrow$ need to have structure symmetry: $f(\mathbf z, \mathbf x) = f(\mathbf x, \mathbf z)$
+		\item YET, deep net involves too much padding \\
+		(feature most densely aggregated in the center of feature map) \\
+		$\Rightarrow$ translation in input $\mathbf z, \mathbf x$ NOT reflected in embedded space $\phi(\mathbf z), \phi(\mathbf x)$ \\
+		($0$-padding creates higher response in the central \& label target mostly sit in the center) \\
+		$\Rightarrow$ too much padding prevents xcorr from effectively measuring simiarity
+		$\Rightarrow$ destroy the translation invariance \& introduce \underline{central bias}
+		\item if training with no shift augmentation \\ 
+		(random shifting the crop region s.t. target not right in the center) \\
+		$\Rightarrow$ high-prop prediction on test set centralize on the center \\ 
+		(despite the between-frame movement of target) \\
+		whereas, trained with shift augmentation $\Rightarrow$ no central bias in predicted prob
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item depthwise xcorr with deepnet: tracking with semantic - similarity \\
+		$\Rightarrow$ extract useful semantic for similarity \\
+		$\Rightarrow$ each channel captures some specific semantic (enforced by depthwise xcorr) \\
+		\includegraphics[width=0.6\linewidth, left]{"./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr".png} \\
+		(response of $xcorr(\phi(\mathbf z), \phi(\mathbf x))$ at different channel, only search image shown) \\
+		$\Rightarrow$ better tracking result in \underline{hard case} (e.g. under high IoU threshold)
+		\item deep net can learn spatial bias (in siam tracker case: central bias), due to padding \\
+		$\Rightarrow$ shift augmentation to force network to be location invariance \\
+		$\Rightarrow$ force network to learn effective appearance model to measure similarity
+		\item RPN use supervision more than similarity \\ 
+		$\Rightarrow$ need asymmetric part to map similarity to RPN regression-classification task \\
+		$\Rightarrow$ separate xcorr for different class
+		\item multi-level feature may be meaningful only given enough detail-semantic diversity \\
+		$\Rightarrow$ only meaningful with deep-enough net
+		\end{itemize}
+	\end{itemize}
+
+\item Deeper and Wider Siam
+	\begin{itemize}
+	\item 
+	\end{itemize}
+
+\end{itemize}
 
 \subsubsection{Multi-Object Tracking \& Data Association}
 \begin{itemize}
