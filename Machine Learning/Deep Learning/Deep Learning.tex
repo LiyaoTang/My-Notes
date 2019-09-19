@@ -563,16 +563,32 @@
 		\item directly output decision result \\
 		$\Rightarrow$ regress the decision boundary as well (instead of universal $0.5$)
 		\end{itemize}
-	\item \underline{Interesting Predicted Bounding Box Encoding}
+	\item \underline{Interesting Predicted Bounding Box Encoding}: attention instead of cropping
 		\begin{itemize}
 		\item direct encoding: x,y,w,h, o, + encoding of full image
 		\item mask: bounding box plot onto a separate mask, concat to the (encoding of) full image \\
 		further, attention mechanism \\
 		(soft-crop ???) \\
 		$\Rightarrow$ naturally develop into \underline{instance tracking}, even tracking in point cloud data
+		\item $\Rightarrow$ \textbf{crop with extension} can significantly draw back the wall time \\
+		(due to: 1. crop in cpu \& for each object; 2. crop is not generally gpu accelerated) \\
+		especially, when object is large in the image $\Rightarrow$ need to pad a lot \\
+		(e.g. baidu field-end tracking: car emerging/leaving right under the camera)
 		\item two masks: one for all bbox from detector, one for current track
 		\end{itemize}
 		$\Rightarrow$ enable global track for multiple obj track (single RNN for all track in an image)
+	\item \underline{Scale Invariance}
+		\begin{itemize}
+		\item current siamRPN++: trained with a fixed-scale resized image crop as input \\
+		$\Rightarrow$ if object is non-rigid: pixel size can change significantly between frames \\
+		$\Rightarrow$ crop image according to last frame would contain crop out far more/less background than expected \\
+		$\Rightarrow$ wrong percentage of fore-/back-ground in the image crop \\
+		$\Rightarrow$ model input (as resized to fixed size) has different object scale than training \\
+		$\Rightarrow$ failed to track \& fall back to only detection (as containing RPN) \\
+		(reproduced by having different context\_amount in inference-training)
+		\item siamFC: in test time, extract template at multiple (e.g. 3) scales for each target
+		\item HENCE, try to have scale invariance to address abrupt size change in target
+		\end{itemize}
 	\item SOT
 		\begin{itemize}
 		\item directly use cnn + conv-lstm
@@ -3032,27 +3048,24 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \item Overview
 	\begin{itemize}
-	\item Online Tracking
+	\item Online Learning (Tracking)
 		\begin{itemize}
 		\item trade off speed - model complexity, as train on arriving frames
 		\item adaptive, as accounting the history info of a track \\
 		$\Rightarrow$ may provide more info (e.g. covariance matrix from Kalman filter)
 		\end{itemize}
-	\item Near-Online Tracking
-		\begin{itemize}
-		\item look ahead a fixed number of frames, before consolidating a method
-		\end{itemize}
 	\item Offline Tracking
 		\begin{itemize}
 		\item learn similarity functions between frames offline
-		\item fast, as no online training needed
-		\item NOT adaptive $\Rightarrow$ failed in large appearance change, e.g. occlusion etc.
+		\item fast, as no online training needed $\Rightarrow$ but NO explicit adaptive
 		\item batch method: generate the track after all frames examined
 		\end{itemize}
 	\item Tracking-by-Detection
 		\begin{itemize}
 		\item detect target(s) in each frame; link target into track \\
 		$\Rightarrow$ as a two-stage problem
+		\item $\Rightarrow$ viewed as meta learning / one-shot learning \\
+		(train on first frame, detect on subsequent frames)
 		\end{itemize}
 	\end{itemize}
 \item Challenge
@@ -3138,7 +3151,12 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Deep Power
 		\begin{itemize}
-		\item revealed to be central bias in deepnet
+		\item revealed to be central bias in deepnet, due to padding \\
+		(network can realize input patch location by if feature is padding influenced) \\
+		(padding on template prevent xcorr from effectively measuring similarity) \\
+		$\Rightarrow$ siamrpn++: remove location bias in training (data augmentation) \\
+		$\Rightarrow$ siamDW: new network architecture (crop inside the net)
+		\item worse localization due to large receptive field \& accumulated stride
 		\end{itemize}
 	\item $\Rightarrow$ Discriminative Ability
 		\begin{itemize}
@@ -3607,11 +3625,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
-\item Learning Discriminative Model Prediction for Tracking
-	\begin{itemize}
-	\item 
-	\end{itemize}
-
 \item Triplet Loss in Siamese Tracker
 	\begin{itemize}
 	\item Tracker
@@ -3668,6 +3681,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
+\item Learning Discriminative Model Prediction for Tracking
+	\begin{itemize}
+	\item 
+	\end{itemize}
+
 \item SiamRPN++
 	\begin{itemize}
 	\item Detector
@@ -3691,19 +3709,19 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item siamese tracker: correlation to measure similarity \\
 		$\Rightarrow f(\mathbf z, \mathbf x) = \phi(\mathbf z) * \phi(\mathbf x) + b$, where $\phi(\cdot)$ map into embedded space, $b$ the bias
-		\item $\Rightarrow$ need to have strict translation INvariance: $f(\mathbf z, \mathbf x[\Delta\tau_j]) = f(\mathbf z, \mathbf x)[\Delta\tau_j]$, where \\ $[\Delta\tau_j]$ the translation, i.e. shifting sub-window
+		\item $\Rightarrow$ need to have strict translation INvariance: $f(\mathbf z, \mathbf x[\Delta\tau_j]) = f(\mathbf z, \mathbf x)[\Delta\tau_j]$, where \\ $[\Delta\tau_j]$ the translation, i.e. shifting sub-window \\
+		(i.e. conv kernel canNOT infer the input location by inspecting its feature)
 		\item $\Rightarrow$ need to have structure symmetry: $f(\mathbf z, \mathbf x) = f(\mathbf x, \mathbf z)$
-		\item YET, deep net involves too much padding \\
-		(feature most densely aggregated in the center of feature map) \\
-		$\Rightarrow$ translation in input $\mathbf z, \mathbf x$ NOT reflected in embedded space $\phi(\mathbf z), \phi(\mathbf x)$ \\
-		($0$-padding creates higher response in the central \& label target mostly sit in the center) \\
-		$\Rightarrow$ too much padding prevents xcorr from effectively measuring simiarity
-		$\Rightarrow$ destroy the translation invariance \& introduce \underline{central bias}
-		\item if training with no shift augmentation \\ 
+		\item YET, deep net involves too much $0$-padding, which creates unique response \\
+		$\Rightarrow$ conv kernel can recognize if its input is from center-border-corner \\
+		$\Rightarrow$ destroy the translation invariance \\
+		(as network can now realize the input location from its content) \\
+		$\Rightarrow$ introduce \underline{central bias} \\
+		(as most targets labeled in center - a wrong evidence learned to localize target)
+		\item trained with shift augmentation \\ 
 		(random shifting the crop region s.t. target not right in the center) \\
-		$\Rightarrow$ high-prop prediction on test set centralize on the center \\ 
-		(despite the between-frame movement of target) \\
-		whereas, trained with shift augmentation $\Rightarrow$ no central bias in predicted prob
+		$\Rightarrow$ let network realize $0$-padding influenced feature NOT related to target \\
+		$\Rightarrow$ destroy the central bias 
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
@@ -3713,9 +3731,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\includegraphics[width=0.6\linewidth, left]{"./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr".png} \\
 		(response of $xcorr(\phi(\mathbf z), \phi(\mathbf x))$ at different channel, only search image shown) \\
 		$\Rightarrow$ better tracking result in \underline{hard case} (e.g. under high IoU threshold)
-		\item deep net can learn spatial bias (in siam tracker case: central bias), due to padding \\
+		\item deep tracker can learn central bias, due to padding \& target-centered cropping \\
+		$\Rightarrow$ network learn to locate target by wrong evidence (input patch location) \\ 
+		(as padding introduces unique response on the border \& corner) \\
 		$\Rightarrow$ shift augmentation to force network to be location invariance \\
-		$\Rightarrow$ force network to learn effective appearance model to measure similarity
+		$\Rightarrow$ force network to ignore response from padding
 		\item RPN use supervision more than similarity \\ 
 		$\Rightarrow$ need asymmetric part to map similarity to RPN regression-classification task \\
 		$\Rightarrow$ separate xcorr for different class
@@ -3724,11 +3744,61 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
-\item Deeper and Wider Siam
+\item SiamDW: Deeper and Wider Siam
 	\begin{itemize}
-	\item 
+	\item Analysis
+		\begin{itemize}
+		\item padding destroy the translation invariance \\
+		(can know if a feature comes from corner-border-center by analyzing its content) \\
+		$\Rightarrow$ as all target labeled in center, thus central bias
+		\item padding results in INconsistent template-search feature map
+			\begin{itemize}
+			\item template feature extracted with padding
+			\item search feature map has no such padding in non-border area
+			\end{itemize}
+		$\Rightarrow$ xcorr canNOT effectively measure similarity
+		\item $\Rightarrow$ remove padding by "cropping-inside residual" (CIR) unit \\
+		\includegraphics[width=\linewidth, left]{"./Deep Learning/plot/topic-obj track siamDW central bias with-without crop".png}		
+		\end{itemize}
+	\item $\Rightarrow$ CIR Unit (to remove padding influence)
+		\begin{itemize}
+		\item add cropping after addition $\Rightarrow$ remove padding influenced feature \\
+		\includegraphics[width=.5\linewidth, left]{"./Deep Learning/plot/topic-obj track siamDW cir unit".png}
+		\item change the position of downsampling ops \\
+		\includegraphics[width=.5\linewidth, left]{"./Deep Learning/plot/topic-obj track siamDW cir downsample".png} \\
+		$\Rightarrow$ use conv with stride $1$ (instead of $2$) \& add 2x2 max pool after addition-crop \\
+		$\Rightarrow$ remove padding influence \& considering info at the border (by max pool) \\
+		(directly crop after stride-2 conv: miss out potential strong response at the edge) \\
+		(has been also empirically proven direct-cropping has worse result)
+		\item increase the width of each unit (as inception, resXnet) \\
+		\includegraphics[width=.5\linewidth, left]{"./Deep Learning/plot/topic-obj track siamDW cir wider".png}
+		\end{itemize}
+	\item Backbone
+		\begin{itemize}
+		\item modified Resnet with stacked CIR unit \& downsampled by CIR-D unit \\
+		$\Rightarrow$ with CIResNet-22 being the best-performance net \\
+		(CIResNet-43 perform almost the worst, due to in less weight CIResNet-43) \\ 
+		really? less wright, yes, but being deeper not help?
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item gradually finetune the network from back to front \\ 
+		(e.g. unfreeze a unit every $5$ epoch)
+		\end{itemize}
+	\item Tracking
+		\begin{itemize}
+		\item siam net as tracker \& tracking by detection
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item padding leads to \underline{central bias \& degraded similarity measurement} \\
+		$\Rightarrow$ cropping to remove padding influence \\
+		(why not, crop only before xcorr \& logit feature map to speedup?)
+		\item ensure receptive field to be $60\% \sim 80\%$ size of the template image \\ 
+		(empirical setting to have best performance for siam tracker) \\
+		$\Rightarrow$ as larger RF includes more context \& thus insensitive to spatial location
+		\end{itemize}
 	\end{itemize}
-
 \end{itemize}
 
 \subsubsection{Multi-Object Tracking \& Data Association}
@@ -3739,7 +3809,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item given prediction, its variance and detection noise, filter out an interested area
 		\item consider only detection inside the interested area (satisfying requirements)
-		\item score each detection \& associate detection (detection result) with tracker
+		\item score each detection \& associate detection (detection result) with tracker \\
 		$\Rightarrow$ which detection belongs to which trajectory
 		\end{itemize}
 	\item Global Nearest Neighbor
@@ -4098,7 +4168,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item decision net to eliminate false alarm \& combine prediction \\ 
 		$\Rightarrow$ robust to different detector/predictor
 		\item decision net trained to collaboratively maximize utility \\ 
-		$\Rightarrow$ mitigate the false negative
+		$\Rightarrow$ mitigate the false negative \\
+		$\Rightarrow$ introduce distractor in training for better discriminative ability
 		\item may trapped in false appearance feature $\Rightarrow$ ID switch \\ 
 		(e.g. blue box handed from one person to another person)
 		\end{itemize}
