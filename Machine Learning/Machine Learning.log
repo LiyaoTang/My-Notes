@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.8.1)  19 SEP 2019 15:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.8.1)  21 SEP 2019 19:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1729,21 +1729,21 @@ png Graphic file (type png)
 <use "./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr".p
 ng>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track rpn++ semantic i
-n depthwise xcorr".png used on input line 3731.
+n depthwise xcorr".png used on input line 3742.
 (pdftex.def)             Requested size: 209.65756pt x 126.14384pt.
-
+ [137 <./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr.p
+ng>]
 <"./Deep Learning/plot/topic-obj track siamDW central bias with-without crop".p
-ng, id=1447, 1428.33624pt x 544.0325pt>
+ng, id=1452, 1428.33624pt x 544.0325pt>
 File: "./Deep Learning/plot/topic-obj track siamDW central bias with-without cr
 op".png Graphic file (type png)
 
 <use "./Deep Learning/plot/topic-obj track siamDW central bias with-without cro
 p".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW central b
-ias with-without crop".png used on input line 3761.
+ias with-without crop".png used on input line 3772.
 (pdftex.def)             Requested size: 349.42572pt x 133.08574pt.
- [137 <./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr.p
-ng>]
+
 <"./Deep Learning/plot/topic-obj track siamDW cir unit".png, id=1453, 841.1425p
 t x 726.715pt>
 File: "./Deep Learning/plot/topic-obj track siamDW cir unit".png Graphic file (
@@ -1751,7 +1751,7 @@ type png)
 
 <use "./Deep Learning/plot/topic-obj track siamDW cir unit".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW cir unit"
-.png used on input line 3766.
+.png used on input line 3777.
 (pdftex.def)             Requested size: 174.71286pt x 150.94025pt.
 
 <"./Deep Learning/plot/topic-obj track siamDW cir downsample".png, id=1454, 101
@@ -1761,7 +1761,7 @@ file (type png)
 
 <use "./Deep Learning/plot/topic-obj track siamDW cir downsample".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW cir downs
-ample".png used on input line 3768.
+ample".png used on input line 3779.
 (pdftex.def)             Requested size: 174.71286pt x 135.69632pt.
 
 <"./Deep Learning/plot/topic-obj track siamDW cir wider".png, id=1455, 1325.953
@@ -1771,18 +1771,18 @@ File: "./Deep Learning/plot/topic-obj track siamDW cir wider".png Graphic file
 
 <use "./Deep Learning/plot/topic-obj track siamDW cir wider".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW cir wider
-".png used on input line 3774.
+".png used on input line 3785.
 (pdftex.def)             Requested size: 174.71286pt x 102.62865pt.
  [138 <./Deep Learning/plot/topic-obj track siamDW central bias with-without cr
 op.png> <./Deep Learning/plot/topic-obj track siamDW cir unit.png> <./Deep Lear
-ning/plot/topic-obj track siamDW cir downsample.png> <./Deep Learning/plot/topi
-c-obj track siamDW cir wider.png>] [139] [140] [141] [142] [143]
-Underfull \hbox (badness 10000) in paragraph at lines 4146--4147
+ning/plot/topic-obj track siamDW cir downsample.png>] [139 <./Deep Learning/plo
+t/topic-obj track siamDW cir wider.png>] [140] [141] [142] [143]
+Underfull \hbox (badness 10000) in paragraph at lines 4157--4158
 
  []
 
 [144] [145] [146] [147] [148] [149] [150]
-Overfull \hbox (3.72078pt too wide) in paragraph at lines 4586--4588
+Overfull \hbox (3.72078pt too wide) in paragraph at lines 4597--4599
 \OT1/cmr/m/n/10 (small $\OML/cmm/m/it/10 p$\OT1/cmr/m/n/10 : just global fea-tu
 re, large $\OML/cmm/m/it/10 p$\OT1/cmr/m/n/10 : some re-dun-dant parts be-ing r
 e-peated/empty) 
@@ -1796,90 +1796,90 @@ raphic file (type png)
 
 <use "./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-reid pcb-rpp within-part i
-nconsistency".png used on input line 4591.
+nconsistency".png used on input line 4602.
 (pdftex.def)             Requested size: 174.71286pt x 91.82645pt.
 
-Overfull \hbox (176.93507pt too wide) in paragraph at lines 4588--4600
-[]$ $[]$ 
- []
-
-
-<"./Deep Learning/plot/topic-reid PGN".png, id=1528, 1351.0475pt x 844.15375pt>
-File: "./Deep Learning/plot/topic-reid PGN".png Graphic file (type png)
-<use "./Deep Learning/plot/topic-reid PGN".png>
-Package pdftex.def Info: "./Deep Learning/plot/topic-reid PGN".png used on inpu
-t line 4627.
-(pdftex.def)             Requested size: 174.71286pt x 109.15132pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 4630--4635
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4630--4635
-
- []
-
-
-Overfull \hbox (176.93507pt too wide) in paragraph at lines 4623--4636
+Overfull \hbox (176.93507pt too wide) in paragraph at lines 4599--4611
 []$ $[]$ 
  []
 
 [151 <./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 4640--4641
+<"./Deep Learning/plot/topic-reid PGN".png, id=1534, 1351.0475pt x 844.15375pt>
+File: "./Deep Learning/plot/topic-reid PGN".png Graphic file (type png)
+<use "./Deep Learning/plot/topic-reid PGN".png>
+Package pdftex.def Info: "./Deep Learning/plot/topic-reid PGN".png used on inpu
+t line 4638.
+(pdftex.def)             Requested size: 174.71286pt x 109.15132pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 4641--4646
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4646--4649
+Underfull \hbox (badness 10000) in paragraph at lines 4641--4646
+
+ []
+
+
+Overfull \hbox (176.93507pt too wide) in paragraph at lines 4634--4647
+[]$ $[]$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4651--4652
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4657--4660
 
  []
 
 [152 <./Deep Learning/plot/topic-reid PGN.png>]
-<"./Deep Learning/plot/topic-image style transfer nst overview".png, id=1541, 7
+<"./Deep Learning/plot/topic-image style transfer nst overview".png, id=1540, 7
 32.7375pt x 220.825pt>
 File: "./Deep Learning/plot/topic-image style transfer nst overview".png Graphi
 c file (type png)
 
 <use "./Deep Learning/plot/topic-image style transfer nst overview".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-image style transfer nst o
-verview".png used on input line 4693.
+verview".png used on input line 4704.
 (pdftex.def)             Requested size: 207.56285pt x 62.55165pt.
 
 <"./Deep Learning/plot/topic-image style transfer nst style matrix".png, id=154
-2, 1606.0pt x 530.98375pt>
+1, 1606.0pt x 530.98375pt>
 File: "./Deep Learning/plot/topic-image style transfer nst style matrix".png Gr
 aphic file (type png)
 
 <use "./Deep Learning/plot/topic-image style transfer nst style matrix".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-image style transfer nst s
-tyle matrix".png used on input line 4727.
+tyle matrix".png used on input line 4738.
 (pdftex.def)             Requested size: 207.56285pt x 68.6252pt.
 
 [153 <./Deep Learning/plot/topic-image style transfer nst overview.png (PNG cop
-y)> <./Deep Learning/plot/topic-image style transfer nst style matrix.png>]
-[154] [155] [156]
+y)>] [154 <./Deep Learning/plot/topic-image style transfer nst style matrix.png
+>] [155] [156]
 
-LaTeX Warning: Hyper reference `' on page 157 undefined on input line 4970.
+LaTeX Warning: Hyper reference `' on page 157 undefined on input line 4981.
 
-
-Overfull \hbox (7.40826pt too wide) in paragraph at lines 5014--5015
+[157]
+Overfull \hbox (7.40826pt too wide) in paragraph at lines 5025--5026
 []\OT1/cmr/m/n/10 convs - max pool-ing - di-lated convs - un-pool-ing - branch 
 for re-gres-sion/classification 
  []
 
-[157] [158]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 5115
+[158]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 5126
 .
  (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 5115.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 5126.
 
- [159]
-[160] [161]
-Overfull \hbox (3.24109pt too wide) in paragraph at lines 5332--5333
+ [159] [160]
+[161]
+Overfull \hbox (3.24109pt too wide) in paragraph at lines 5343--5344
 []$\OMS/cmsy/m/n/10 )$ \OT1/cmr/m/n/10 se-quence prob-a-bil-ity $\OML/cmm/m/it/
 10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = \OML/cmm
 /m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/1
@@ -1890,7 +1890,7 @@ cmsy/m/n/10 j\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = [] \OML/cmm/m/it
  []
 
 [162] [163] [164]
-Overfull \hbox (37.54732pt too wide) in paragraph at lines 5525--5526
+Overfull \hbox (37.54732pt too wide) in paragraph at lines 5536--5537
 []\OT1/cmr/m/n/10 encoder scan through au-dio frames & de-coder out-put let-ter
 /punctuation/"blank"/"space" 
  []
@@ -1944,7 +1944,7 @@ are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam5.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on "Machine Learning.pdf" (179 pages, 7447837 bytes).
+Output written on "Machine Learning.pdf" (179 pages, 7412995 bytes).
 PDF statistics:
  1891 PDF objects out of 2073 (max. 8388607)
  1600 compressed objects within 16 object streams

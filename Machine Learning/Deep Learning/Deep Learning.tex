@@ -3716,12 +3716,23 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ conv kernel can recognize if its input is from center-border-corner \\
 		$\Rightarrow$ destroy the translation invariance \\
 		(as network can now realize the input location from its content) \\
-		$\Rightarrow$ introduce \underline{central bias} \\
-		(as most targets labeled in center - a wrong evidence learned to localize target)
-		\item trained with shift augmentation \\ 
+		(e.g. if/how the content is influenced by $0$-padding) \\
+		$\Rightarrow$ introduce central bias (\underline{from in-model padding}) \\
+		(as most targets labeled in center - a wrong evidence learned to localize target) \\
+		$\Rightarrow$ trained with shift augmentation \\ 
 		(random shifting the crop region s.t. target not right in the center) \\
 		$\Rightarrow$ let network realize $0$-padding influenced feature NOT related to target \\
-		$\Rightarrow$ destroy the central bias 
+		$\Rightarrow$ destroy the central bias
+		\item $0$-padding in template \& only border of search img get $0$ padded \\
+		$\Rightarrow$ template with $0$-padding hard to match the center of search img \\
+		(as only the border get padded) \\
+		$\Rightarrow$ strong signal for network to realize location \\
+		$\Rightarrow$ central bias again! (\underline{introduced by xcorr}) \\
+		$\Rightarrow$ crop out padding-influenced part from template \\ 
+		(e.g. use only the central 7x7 of template branch as template)
+		\item $0$-padding in preparing network input (input image patch) \\
+		$\Rightarrow$ may get network realize location again (\underline{from outside-model op}) \\
+		$\Rightarrow$ use the image average (channel-wise) instead of $0$ to pad
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
@@ -3731,11 +3742,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\includegraphics[width=0.6\linewidth, left]{"./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr".png} \\
 		(response of $xcorr(\phi(\mathbf z), \phi(\mathbf x))$ at different channel, only search image shown) \\
 		$\Rightarrow$ better tracking result in \underline{hard case} (e.g. under high IoU threshold)
-		\item deep tracker can learn central bias, due to padding \& target-centered cropping \\
+		\item \underline{deep tracker can learn central bias, due to padding \& target-centered cropping} \\
 		$\Rightarrow$ network learn to locate target by wrong evidence (input patch location) \\ 
 		(as padding introduces unique response on the border \& corner) \\
-		$\Rightarrow$ shift augmentation to force network to be location invariance \\
-		$\Rightarrow$ force network to ignore response from padding
+		$\Rightarrow$ shift augmentation \& template central crop \& average padding \\
+		$\Rightarrow$ force network to be location invariance \& ignore response from padding
 		\item RPN use supervision more than similarity \\ 
 		$\Rightarrow$ need asymmetric part to map similarity to RPN regression-classification task \\
 		$\Rightarrow$ separate xcorr for different class
