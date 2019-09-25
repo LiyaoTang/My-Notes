@@ -536,7 +536,8 @@
 		\begin{itemize}
 		\item propose the search region (gating) by RPN \\ 
 		(instead of using rule based on current track location) \\
-		$\Rightarrow$ predict a large region with RPN based on track info
+		$\Rightarrow$ predict a large region with RPN based on track info \\
+		(down by siamRPN?)
 		\end{itemize}
 	\end{itemize}
 \item End-to-end / unified framework
@@ -641,7 +642,11 @@
 	\end{itemize}
 \item Training
 	\begin{itemize}
-	\item MDP as Hard-Negative Mining
+	\item MDP as Hard-Negative Mining \\
+		\begin{itemize}
+		\item yet, hard negative discovered in DaSiam / siam cascaded-RPN \\
+		(in terms of data imbalance)
+		\end{itemize}
 	\item Sparse Detection
 		\begin{itemize}
 		\item feed only a few detection, demand NN to fill up using track history\&prediction
@@ -657,7 +662,49 @@
 		\begin{itemize}
 		\item backward rnn for re-associated track after lost \\
 		$\Rightarrow$ to fix the previous prediction given current observation \\
-		(than recompute the forward rnn for consecutive tracking)
+		(then recompute the forward rnn for consecutive tracking)
+		\end{itemize}
+	\end{itemize}
+\item \underline{SiamRPN Tracking}
+	\begin{itemize}
+	\item further branches after xcorr?
+		\begin{itemize}
+		\item as currently, xcorr to directly produce regression \\ 
+		(followed by a 1x1 conv to adjust channel for classification) \\
+		$\Rightarrow$ equip with a further conv pipe? (including 3x3) to further utilize semantic similarity? \\
+		(enable deep power after xcorr)
+		\end{itemize}
+	\item padding removal for deep power
+		\begin{itemize}
+		\item siamRPN++: cropping for template branch \& data augmentation for search branch
+		\item siamDW: crop-inside unit: as early as where the padding is introduced
+		\item $\Rightarrow$ crop before xcorr \& before final regression
+		\end{itemize}
+	$\Rightarrow$ try to break the 20-layer limits in siamDW \\
+	(20-layer limit not happened in siamRPN++, possibly due to cropping???) \\
+	(or, is it data augmentation always demanded to embrace deep power???) \\
+	\item $\Rightarrow$ \textbf{review another factor for central bias}
+		\begin{itemize}
+		\item data aug really solves: central bias is the thing
+		\item crop NOT solve completely $\Rightarrow$ other factors causing central bias
+		\item perhaps due to the intrinsic central bias in conv ???
+		\end{itemize}
+	\item $\Rightarrow$ avg padding (use channel-wise mean, instead of 0, to pad)
+		\begin{itemize}
+		\item conv contains intrinsic central bias: center pixel get more convolution \\
+		$\Rightarrow$ padding actually \textbf{reserve} border info \\
+		$\Rightarrow$ keep the upside \& remove the downsid of padding \\
+		i.e. NOT introduce location signal (0), but channel-wise avg
+		\item if it works: proof that central bias is introduced in deep tracker:
+			\begin{itemize}
+			\item intrinsically from conv
+			\item by 0-signal from 0-padding \& mostly centralized label box
+			\end{itemize}
+		\end{itemize}
+	\item Removing Post-process
+		\begin{itemize}
+		\item cosine window: seems to be solved in siamrpn++ (by deep power?)
+		\item score penalty: to be tested
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -1551,15 +1598,14 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Padding
 		\begin{itemize}
-		\item reason
-			\begin{itemize}
-			\item prevent output feature maps from spatially shrinking
-			\item prevent info lost on the edge\&corner of image \\ 
-			(compared to the central part of feature map, multiplied less with the kernel)
-			\end{itemize}
-		\item convention: $0$-padding on both directions of an axis
-		\item valid conv: no padding
-		\item same conv: pad so that output size same as input size
+		\item prevent output feature maps from spatially shrinking
+		\item prevent info lost on the border \& corner of image \\
+		(compared to the central part of feature map, multiplied less with the kernel) \\
+		$\Rightarrow$ ensure border feature get convoluted by the same times as central feature
+		\item YET, may introduce noise if using large kernel \\
+		(as need to pad a lot \& introduce overwhelming useless info, e.g. $0$s)
+		\item convention: $0$-padding on both directions of an axis \\
+		(valid conv: no padding; same conv: pad so that output size same as input size)
 		\end{itemize}
 	\item Kernel Size
 		\begin{itemize}
@@ -1590,8 +1636,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item sharing weights spatially: apply same weights over the whole space \\
 		$\Rightarrow$ NO need for special design at each location \\
 		$\Rightarrow$ as need to handle spatial variance in processing images
-		\item sparse connection: output connected only to the local input $\Rightarrow$ as a high-pass bandwidth \\
-		$\Rightarrow$ robust to spatial variance
+		\item sparse connection: output connected only to the local input \\ 
+		$\Rightarrow$ robust to spatial variance (as a high-pass bandwidth)
 		\end{itemize}
 	\item Back Propagation
 	\item Implementation
@@ -3154,8 +3200,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item revealed to be central bias in deepnet, due to padding \\
 		(network can realize input patch location by if feature is padding influenced) \\
 		(padding on template prevent xcorr from effectively measuring similarity) \\
-		$\Rightarrow$ siamrpn++: remove location bias in training (data augmentation) \\
-		$\Rightarrow$ siamDW: new network architecture (crop inside the net)
+		$\Rightarrow$ siamRPN++: cropping for template branch \& data augmentation for search branch \\
+		$\Rightarrow$ siamDW: crop-inside unit: as early as where the padding is introduced \\
 		\item worse localization due to large receptive field \& accumulated stride
 		\end{itemize}
 	\item $\Rightarrow$ Discriminative Ability
@@ -3467,11 +3513,12 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(with different output branch)
 		\item use kernel from template branch to convolute on feature map of detection branch \\
 		(same channel num) \\
-		$\Rightarrow$ regress bbox based on response map
+		$\Rightarrow$ xcorr directly regress bbox based on response map \\
+		(template branch has a following 1x1 conv to adjust channel)
 		\end{itemize}
 	\item Tracker
 		\begin{itemize}
-		\item tracking as detection by similarity, no explicit tracker
+		\item tracking by (one-shot) detection
 		\end{itemize}
 	\item Bounding Box Encoding
 		\begin{itemize}
@@ -3527,6 +3574,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ predict detection kernel by input $z$ and its weight in $[\varphi(\cdot)]$ as a meta learner
 		\item detection branch (RPN) to propose \& refine a compact bbox (instead of online fine-tuning) \\ 
 		$\Rightarrow$ no need for online learning, nor multi-scale test
+		\item meta-learning / oneshot detection: predict the last kernel for regression/classification \\
+		(separately)
 		\item crop the kernel-branch: crop out edge case to avoid noise \\
 		$\Rightarrow$ NOT able to handle large search region \\ 
 		(use only limited center size in refinement)
@@ -3535,39 +3584,84 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(due to one labeled frame in every 30 frames) \\
 		$\Rightarrow$ needs larger center-size \& context to overcome large transformation
 		\item tracking based on \underline{similarity \& transformation \& semantic}
-		\item similarity: from correlation
-		\item transformation: from using $z$-$x$ pair from a large frame range ($\sim100$)
-		(as encoding bbox through crop \& both template-search img are cropped by label box) \\
-		(instead of box from previous frame as in Re$^3$) \\
-		$\Rightarrow$ learning appearance transformation, instead of object motion
-		\item semantic: from using detection net (RPN) \\
-		$\Rightarrow$ anchor for obejct different $w$-$h$ ratio \\
+			\begin{itemize}
+			\item similarity: from correlation
+			\item transformation: from using $z$-$x$ pair from a large frame range ($\sim100$) \\
+			(both template-search img are cropped by corresponding label box) \\
+			(instead of box from previous frame as in Re$^3$) \\
+			$\Rightarrow$ learning appearance transformation, instead of object motion
+			\item semantic: from using detection net (RPN) \\
+			$\Rightarrow$ anchor for obejct different $w$-$h$ ratio
+			\end{itemize}
 		\item fail in large \& fast moving object, potentail reason: \\
 		large search area contains too much noise \& similarity get more response
 		\item fail with different image crop: training with only a specific crop strategy \\
-		(model trained with a fix 255x255 crop, with a fixed ratio of region being target object) \\
+		(trained with a fix 255-255 crop, with a fixed ratio of region being target object) \\
 		$\Rightarrow$ overfit the chosen scale \& NOT able to handle different scale \\
 		$\Rightarrow$ not fully explore the discriminative ability from the semantic
 		\item may fall back to simple detector if backbone can not extract meaningful template \\
-		(potential reason: not fully trained, training set do not have hard negative, ...,) \\ 
-		by meaningful: discriminative enough for two similar object - need to able to recognize tiny feature \\
-		(similar to requirement in re-ID)
+		(potential reason: not fully trained, training set do not have hard negative, ...) \\ 
+		by meaningful: discriminative enough for two similar object \\
+		(need to able to recognize tiny feature: similar to requirement in re-ID)
 		\item offline transformation + semantic learning to take the place of online learning \\
 		$\Rightarrow$ NOT using background info of each video \\
 		(use only foreground info via similarity)
 		\end{itemize}
 	\end{itemize}
 
-\item DaSiamRPN
+\item DaSiamRPN: Distractor-aware siam network
 	\begin{itemize}
+	\item Analysis
+		\begin{itemize}
+		\item data imbalance in tracker training
+		\item lack of diversity in positive: too few category in tracking dataset \\
+		$\Rightarrow$ model can not generalize to real-generic object \& bias to known object
+		\item most negative are sampled from background $\Rightarrow$ no semantic \\
+		$\Rightarrow$ learn a simple fore-/back-ground classifier for objectness \\
+		$\Rightarrow$ easily drift to arbitrary object \& high score even after target lost
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item introduce detection dataset \& use augmentation \\
+		$\Rightarrow$ more diverse classes in positive examples
+		\item use inter-class negative: semantic target from different class as negative \\
+		$\Rightarrow$ avoid drifting to other object
+		\item use intra-class: semantic target from same class as negative (diff track) \\
+		$\Rightarrow$ force tracker to be able to realize fine-grained feature
+		\item $\Rightarrow$ improve intra-/inter-class discriminative ability \& generalization ability \\
+		$\Rightarrow$ tracker able to produce meaningful objectness score
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item inference as siamRPN: $17*17*5$ proposal \& apply non-max suppression
+		\item select the best-scored proposal $z$
+		\item collect distractors set $D = \{ \forall d_i,  f(d_i,z_t) > \text{thr} \wedge d_i \neq z_t \}$, \\
+		where thr a pre-defined threshold, $f=\varphi(d_i)\star\varphi(z_t) +\mathbf b$
+		\item collect top-$k$ scored proposal into $P$
+		\item select $q$ from $P$ s.t. \begin{align*} \displaystyle q &= \arg\max_{p_k\in P} f(z,p_k)-\hat \alpha \frac{\sum_{i=1}^n\alpha_i f(d_i,p_k)}{\sum_{i=1}^n \alpha_i} \\ &= \arg\max_{p_k\in P} (\varphi(z) - \hat\alpha \frac{\sum_{i=1}^n\alpha_i \varphi(d_i)}{\sum_{i=1}^n\alpha_i}) \star \varphi(p_k) \text{by xcorr being linear operation} \end{align*}
+		\item to online model distractors: incrementally learn the target templates \\ (inspired by associative law) \\
+		$\Rightarrow \displaystyle q_{T+1} = \arg\max_{p_k\in P_T} (\frac{\sum_{t=1}^T\beta_t\varphi(z_t)}{\sum_{t=1}^T\beta_t} - \hat\alpha \frac{\sum_{t=1}^T\beta_t \sum_{i=1}^n\alpha_i \varphi(d_{i,t})}{\sum_{t=1}^T\beta_t\sum_{i=1}^n\alpha_i}) \star \varphi(p_k)$, where \\
+		$beta_t$ the learning rate at time $t$, set to be $\sum_{i=0}^{t-1}\frac{\eta}{1-\eta}$ with $\eta=0.01$ \\
+		$\Rightarrow$ model a online-updating classifier (by re-ranking proposals) \\
+		(yet, also introduce a lot of hyper-params...)
+		\end{itemize}
+	\item Tracking
+		\begin{itemize}
+		\item siamnet tracker
+		\item long-term tracking by re-detecting: use model objectness to denote target lost/recovery \\
+		$\Rightarrow$ larger search region if target lost (increase from $255$ to $767$)
+		\end{itemize}
 	\item Understanding
 		\begin{itemize}
 		\item using negative pair with semantic object $\Rightarrow$ more discriminative \\
-		$\Rightarrow$ model realize difference between similar object \\
-		(instead of only foreground-background)
-		\item $\Rightarrow$ hence meaningful score \\ 
+		$\Rightarrow$ model realize difference between similar object (both inter- \& intra- class) \\
+		(instead of only foreground-background) \\
+		\includegraphics[width=0.6\linewidth, left]{"./Deep Learning/plot/topic-obj track DaSiamRPN".png} \\
+		(bird: siamFC vs siamRPN vs DaSiamRPN)
+		\item $\Rightarrow$ hence more robust \& meaningful score \\ 
 		$\Rightarrow$ able to use score to denote lost-recovery in noisy \& big search region \\
-		(otherwise, may pick up random object to track with high score)
+		(otherwise, may pick up random object to track with high score) \\
+		($\ge 10\%$ absolute improvement on most datasets...)
 		\end{itemize}
 	\end{itemize}
 
@@ -3714,21 +3808,21 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item $\Rightarrow$ need to have structure symmetry: $f(\mathbf z, \mathbf x) = f(\mathbf x, \mathbf z)$
 		\item YET, deep net involves too much $0$-padding, which creates unique response \\
 		$\Rightarrow$ conv kernel can recognize if its input is from center-border-corner \\
-		$\Rightarrow$ destroy the translation invariance \\
+		$\Rightarrow$ $0$-padding introduce border signal \& destroy the translation invariance \\
 		(as network can now realize the input location from its content) \\
 		(e.g. if/how the content is influenced by $0$-padding) \\
 		$\Rightarrow$ introduce central bias (\underline{from in-model padding}) \\
-		(as most targets labeled in center - a wrong evidence learned to localize target) \\
+		(as most targets labeled in center - a wrong cue learned for objectness) \\
 		$\Rightarrow$ trained with shift augmentation \\ 
 		(random shifting the crop region s.t. target not right in the center) \\
-		$\Rightarrow$ let network realize $0$-padding influenced feature NOT related to target \\
+		$\Rightarrow$ ensure network realize: border signal is UNreliable cue for objectness \\
 		$\Rightarrow$ destroy the central bias
 		\item $0$-padding in template \& only border of search img get $0$ padded \\
 		$\Rightarrow$ template with $0$-padding hard to match the center of search img \\
 		(as only the border get padded) \\
-		$\Rightarrow$ strong signal for network to realize location \\
+		$\Rightarrow$ strong, yet wrong, signal for network to realize location \\
 		$\Rightarrow$ central bias again! (\underline{introduced by xcorr}) \\
-		$\Rightarrow$ crop out padding-influenced part from template \\ 
+		$\Rightarrow$ crop out padding-influenced part from template \\
 		(e.g. use only the central 7x7 of template branch as template)
 		\item $0$-padding in preparing network input (input image patch) \\
 		$\Rightarrow$ may get network realize location again (\underline{from outside-model op}) \\
@@ -3742,6 +3836,12 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\includegraphics[width=0.6\linewidth, left]{"./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr".png} \\
 		(response of $xcorr(\phi(\mathbf z), \phi(\mathbf x))$ at different channel, only search image shown) \\
 		$\Rightarrow$ better tracking result in \underline{hard case} (e.g. under high IoU threshold)
+		\item depthwise xcorr: less params $\Rightarrow$ more balanced params number between
+			\begin{itemize}
+			\item template-search branch: avoid overfit/underfit template, as search branch are easier to be trained
+			\item backbone-rpn: more stable
+			\end{itemize}
+		$\Rightarrow$ more stable training procedure
 		\item \underline{deep tracker can learn central bias, due to padding \& target-centered cropping} \\
 		$\Rightarrow$ network learn to locate target by wrong evidence (input patch location) \\ 
 		(as padding introduces unique response on the border \& corner) \\
