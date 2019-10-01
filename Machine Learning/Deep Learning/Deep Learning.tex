@@ -570,7 +570,7 @@
 		\item mask: bounding box plot onto a separate mask, concat to the (encoding of) full image \\
 		further, attention mechanism \\
 		(soft-crop ???) \\
-		$\Rightarrow$ naturally develop into \underline{instance tracking}, even tracking in point cloud data
+		$\Rightarrow$ naturally develop into \textbf{instance tracking}, even tracking in point cloud data
 		\item $\Rightarrow$ \textbf{crop with extension} can significantly draw back the wall time \\
 		(due to: 1. crop in cpu \& for each object; 2. crop is not generally gpu accelerated) \\
 		especially, when object is large in the image $\Rightarrow$ need to pad a lot \\
@@ -705,6 +705,16 @@
 		\begin{itemize}
 		\item cosine window: seems to be solved in siamrpn++ (by deep power?)
 		\item score penalty: to be tested
+		\end{itemize}
+	\item \underline{GAN to Improve Transformation Learning}
+		\begin{itemize}
+		\item auxilary loss in siam tracker to distinguish from true search target, or a fake search region
+		\item may train the image patch generator first with a simple classifier
+		\item then append the classifier to the siam-tracker $\Rightarrow$
+			\begin{itemize}
+			\item use the gradient from GAN classifier branch to boost siam performance
+			\item use the generated data for more diverse training data
+			\end{itemize}
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -1128,6 +1138,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item regularize the net by adding noise to the input data of hidden layer \\ 
 		(due to computing mean/variance only on mini-batch) \\
 		$\Rightarrow$ enforce robustness against noise, hence unintended slight regularization effect
+		\item $\Rightarrow$ \underline{address gradient exploding \& vanishing} \\
+		(as responses are controlled, thus backward gradients are also regularized accordingly)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -2018,61 +2030,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \end{itemize}
 
 \subsection{Blocks}
-\subsubsection{Residual Block} \label{DL_Block_Res}
-\begin{itemize}
-\item Structure
-	\begin{itemize}
-	\item Definition
-		\begin{itemize}
-		\item for the $l+2$ layer, $a^{l+2} = g(z^{l+2} + a^l)$, \\
-		where $g(\cdot)$ the activation, $z^{l+2} = W^{l+2}a^{l+1}+b^{l+2}$ from layer $l+1$ 
-		\end{itemize}
-	\item Main Path
-		\begin{itemize}
-		\item the usual passing of $a^l$ to layer $l+1$, then the $z^{l+2}$ at layer $l+2$
-		\end{itemize}
-	\item Skip/Passthrough Connection (Shourtcut) \label{DL_Block_Res_Passthrough}
-		\begin{itemize}
-		\item $s(x^l)$: the passing of $x^{l}$, from layer $l$ directly to the layer $l+2$
-		\item different spatial size in $l, {l+2}$: adjust $x^l$ by
-			\begin{itemize}
-			\item padding: pad to the size in layer ${l+2}$
-			\item spatial stack: merge local channels into single channel by stacking \\
-			(e.g. $26\times26\times512\rightarrow13\times13\times2048$)
-			\end{itemize}
-		\item different channel size $l, {l+2}$: adjust $x^l$ by linear linear transformation \\ 
-		(a $1\times1$ conv / matrix with trainable or fixed weights)
-		\end{itemize}
-	\item Join
-		\begin{itemize}
-		\item add the result from two paths $\Rightarrow a^{l+2}=g(z^{l+2}+s(a^l))$
-		\item or, concat the input $\Rightarrow a^{l+2}=g([z^{l+2}, s(z^{l})])$
-		\end{itemize}
-	\end{itemize}
-
-\item Understanding
-	\begin{itemize}
-	\item Guaranteed Baseline
-		\begin{itemize}
-		\item with ReLU as activation, easy to learn identity function \\ 
-		$\Rightarrow$ layer $l+2$ only need to make $z^{l+2}=0$ (as weights \& bias initialized near $0$)
-		\item $\Rightarrow$ deeper net can easily guarantee to be at least as good as its shallow version \\
-		(then search for luck to surpass baseline)
-		\end{itemize}
-	\item Ensemble
-		\begin{itemize}
-		\item contains much more shallow paths than real deep paths \\
-		$\Rightarrow$ ensemble those shallow paths at various level
-		\end{itemize}
-	\item More Gradient
-		\begin{itemize}
-		\item gradient more easily passed to the early layers \\ 
-		(as shortcuts not attenuating gradients)
-		\item $\Rightarrow$ early layers settle down faster $\Rightarrow$ late layers get a more consistent input
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
 \subsubsection{Inception Block}
 \begin{itemize}
 \item Basic Inception
@@ -2113,12 +2070,81 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}	
 \end{itemize}
 
+\subsubsection{Residual Block} \label{DL_Block_Res}
+\begin{itemize}
+\item Basic Structure
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item for the $l+2$ layer, $a^{l+2} = g(z^{l+2} + a^l)$, \\
+		where $g(\cdot)$ the activation, $z^{l+2} = W^{l+2}a^{l+1}+b^{l+2}$ from layer $l+1$ 
+		\end{itemize}
+	\item Main Path
+		\begin{itemize}
+		\item the usual passing of $a^l$ to layer $l+1$, then the $z^{l+2}$ at layer $l+2$
+		$\Rightarrow$ two 3x3 conv (with batch-norm, relu)
+		\end{itemize}
+	\item Skip/Passthrough Connection (Shourtcut) \label{DL_Block_Res_Passthrough}
+		\begin{itemize}
+		\item $s(x^l)$: the passing of $x^{l}$, from layer $l$ directly to the layer $l+2$
+		\item different spatial size /channel in $l, {l+2}$: adjust $x^l$ by
+			\begin{itemize}
+			\item padding: pad to the size in layer ${l+2}$ (pad a volume)
+			\item spatial stack: merge local channels into single channel by stacking \\
+			(e.g. $26\times26\times512\rightarrow13\times13\times2048$)
+			\item stride-1 1x1 conv to adjust channel, stride-2 1x1 conv to also downsample \\
+			(used in original paper)
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+\item Bottleneck Structure
+	\begin{itemize}
+	\item Main Path
+		\begin{itemize}
+		\item 1x1 conv to shrink the channel
+		\item 3x3 conv to process
+		\item 1x1 conv to expand the channel
+		\end{itemize}
+	\end{itemize}
+
+\item Understanding
+	\begin{itemize}
+	\item Bottleneck
+		\begin{itemize}
+		\item to reduce parameters in conv kernel (used in deep net, e.g. Resnet-50, -101)
+		\end{itemize}
+	\item Guaranteed Baseline
+		\begin{itemize}
+		\item with ReLU as activation, easy to learn identity function \\ 
+		$\Rightarrow$ layer $l+2$ only need to make $z^{l+2}=0$ (as weights \& bias initialized near $0$)
+		\item $\Rightarrow$ deeper net can easily guarantee to be at least as good as its shallow version \\
+		(then search for luck to surpass baseline)
+		\end{itemize}
+	\item Ensemble
+		\begin{itemize}
+		\item contains much more shallow paths than real deep paths \\
+		$\Rightarrow$ ensemble those shallow paths at various level
+		\end{itemize}
+	\item \underline{Easier Optimization}
+		\begin{itemize}
+		\item provide a prior function $y=x$, which is closer to the target function to learn \\
+		(compared with $y=0$, as params rand init to be closed to $0$) \\
+		$\Rightarrow$ learning by reference is easier \\
+		(shown by smaller response \& params closer to $0$ \& faster convergence)
+		\item progressive learning by design: each block learn a modification \\
+		$\Rightarrow$ stacked blocks progressively fit the target function \\ 
+		$\Rightarrow$ guaranteed baseline
+		\item makes optimization for deep ($\ge 20$) net possible \& unleash deep power
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architectures}
 
 \subsection{Convolutional Networks}
-\subsubsection{Classic Convolutional Networks}
+\subsubsection{Classic Backbone}
 \begin{itemize}
 \item Overview
 	\begin{itemize}
@@ -2175,30 +2201,14 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item fixed conv \& pooling operation \\
 		$\Rightarrow$ few hyperparameters, yet large in parameters ($\sim$138 million)
-		\item decrease spatial size by $2$ \& increase channel by $2$ on each step \\ 
+		\item introduce clean \& neat philosophy \\
+		$\Rightarrow$ if not downsampling: keep to have same channel num \\
+		$\Rightarrow$ at each downsample stage: halve the spatial size \& double the channel number \\
+		(the complexity of each layer is preserved) \\
 		(till small or deep enough e.g. 7$\times$7 size, 512 channels)
 		\end{itemize}
 	\end{itemize}
 
-\item ResNets
-	\begin{itemize}
-	\item Building Blocks
-		\begin{itemize}
-		\item residual block with addition
-		\item batchnorm applied in the conv(s) inside residual block
-		\end{itemize}
-	\item Structure
-		\begin{itemize}
-		\item stack of residual block, for hundreds, even thousands of layers
-		\end{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item ensemble nets with shallow \& medium depth $\Rightarrow$ essentially a wide net \\
-		(as the real deep net takes only few paths)
-		\item $\Rightarrow$ avoid the training of real deep net (instead of solving it)
-		\end{itemize}
-	\end{itemize}
-	
 \item Inception Net
 	\begin{itemize}
 	\item Building Blocks
@@ -2208,9 +2218,63 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Structure
 		\begin{itemize}
 		\item stack of inception blocks
-		\item two auxiliary loss from hidden layers
+		\item auxiliary loss from hidden layers $\Rightarrow$ to avoid gradient vanishing
 		\end{itemize}
 	\end{itemize}
+
+\item \textbf{ResNets}
+	\begin{itemize}
+	\item Building Blocks
+		\begin{itemize}
+		\item residual block (basic/bottleneck)
+		\item batchnorm applied in the conv(s) inside residual block \\
+		(enormous batchnorm to address gradient exploding\&vanishing)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item stack of residual block, for hundreds, even thousands of layers
+		\item average pooling (channel-wise) at the last layer
+			\begin{itemize}
+			\item classification: softmax classifier
+			\item detection: regressor \\
+			... for other tasks
+			\end{itemize}
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item warm-up the training with small learning rate till net starts to converge \\
+		(avoid randomness at the beginning) \\
+		$\Rightarrow$ explore the right optimization direction first
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item notice directly building deep-net cause degradation:
+			\begin{itemize}
+			\item high train error \& high test error $\Rightarrow$ no over-fitting
+			\item batch-norm $\Rightarrow$ no gradient vanishing/exploding
+			\end{itemize}
+		$\Rightarrow$ current optimizer (SGD) fails to optimize deep net
+		\item provide a \underline{prior} for optimizer: start with a identity mapping \\
+		$\Rightarrow$ $y=x$ are closer to target function than $y=x$ \\
+		(easier to push params to $0$, than fit a identity mapping from scratch) \\
+		(if no modification needed) \\
+		$\Rightarrow$ \underline{learning with reference}
+		\item $\Rightarrow$ progressively fitting target function by design \\
+		$\Rightarrow$ deep net can at least be optimized based on the result of shallow net \\
+		(each residual block gradually modify the signal to the desired one)
+		\item ensemble nets with shallow \& medium depth $\Rightarrow$ essentially a wide net \\
+		(as the real deep net takes only few paths) \\
+		$\Rightarrow$ avoid the training of real deep net (instead of solving it)
+		\item compared with inception net: less choice for network (easier for optimizer) \\
+		$\Rightarrow$ less params and complexity, but deeper \& better performance (depth wins!)
+		\item res-net makes SGD optimization of deep net ($\ge 20$) \underline{possible} \\
+		(plain net with depth $\ge20$ NOT converges even if more time/epochs given)
+		\item resnet has lower response \& params closer to $0$ \& converges faster \\
+		(compared to non-residual plain net) \\
+		$\Rightarrow$ empirically prove resnet is \underline{easier for optimization}
+		\end{itemize}
+	\end{itemize}
+	
 \end{itemize}
 
 \subsubsection{Fully Convolutional Networks (FCN)} \label{DL_Arch_FCN}
