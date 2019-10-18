@@ -1958,16 +1958,17 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{Attention}
 \begin{itemize}
-\item Global Attention
+\item Encoder-Decoder Attention
 	\begin{itemize}
-	\item Goal
+	\item Motivation
 		\begin{itemize}
-		\item overcome long-term dependency, via considering all input with different attention
+		\item overcome long-term dependency, via considering all input at each step
 		\item focus on different attributes/features based on various requirement
 		\end{itemize}
 	\item Input
 		\begin{itemize}
-		\item a vector, feature map, volume, etc.
+		\item sequence of input vector 
+		\item current output location \& previous context (attention output)
 		\end{itemize}
 	\item Operation
 		\begin{itemize}
@@ -1979,35 +1980,115 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Output
 		\begin{itemize}
 		\item a probability distribution over all location of the input
+		\item $\Rightarrow$ weighted-sum on all input vector to obtain a context vector \\
+		(which is specifically designed for current output location)
 		\end{itemize}
 	\item Practice in Seq-to-Seq RNN
 		\begin{itemize}
-		\item a bi-RNN encode rich input context at each hidden state: $h^1,...,h^{T_x}$
-		\item global context after attention at time $t$: $\displaystyle c^t=\sum_{i=1}^{T_x}\alpha^t_i h^i = [h^1,...,h^{T_x}]\alpha^t$, \\
-		where hidden states $h^1,...,h^{T_x}$ and attention $\alpha^t$ column vectors \\
+		\item a bi-RNN encode each input as hidden state: $h^1,...,h^{T_x}$
+		\item context from attention at time $t$: $\displaystyle c^t=\sum_{i=1}^{T_x}\alpha^t_i h^i = [h^1,...,h^{T_x}]\alpha^t$, \\
+		where attention $\alpha^t$ being a column vector \\
 		$\Rightarrow$ a weighted sum over all hidden states as context
-		\item a small (1-layer) net mapping $[c^{t-1}, h^{i}] \xrightarrow[]{\text{dense}} \text{logits} \xrightarrow[]{\text{softmax}} \alpha^t_{i}$ \\
+		\item a small (1-layer) net mapping $[c^{t-1}, h^{i}] \xrightarrow[]{\text{dense}} \text{logits}_i \xrightarrow[]{\text{softmax}} \alpha^t_{i}$ \\
 		$\Rightarrow$ attention on $h^i$ depends on previous global context $c^{t-1}$ \& $h^i$ itself \\
 		(softmax to ensure $\sum_{i=1}^{T_x}\alpha^t_i=1$)
-		\item a decoder RNN taking $c^{t}$ as input, until stop sign generated \\
+		\item decoder RNN takes $c^{t}$ as input, until stop sign generated \\
 		(as $c^t$ can be calculated infinite times)
+		\item or, decoder RNN process as usual, but concat $[c^t, h^t]$ before output $y^t$ \\
+		(still takes its previous output $y^{t-1}$ as input)
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item seq2seq RNN encoder-decoder may fail if input sequence longer than training seq \\
-		$\Rightarrow$ aggregate all location of input seq to feed decoder rnn at each time step \\
-		(instead of decoder RNN feed itself using its last prediction) \\
-		$\Rightarrow$ capture the relationship between input-output sequence
-		\item use the sequence of hidden states as encoding \\ 
-		(as sentence encoded in last hidden states can be bias \& have info lost) \\
-		$\Rightarrow$ account input sequence (with different attention at different places) when generating output sequence
-		\item quadratic cost: attention $\alpha$ a $T_x\times T_y$ matrix to be calculated 
+		\item at each step, amplify relevant input hidden state (state with more scores) \\
+		$\Rightarrow$ \underline{capture the token-level relationship between input-output sequence}
+		\item use the whole sequence of hidden states as sequence encoding \\
+		(instead of only last hidden state as context, which can be bias \& have info lost) \\
+		$\Rightarrow$ at each step, provide both sequence- \& word-level info \\
+		(aggregate all location of input seq for decoder rnn at each step) \\
+		$\Rightarrow$ every output location can directly interact with input seq
+		$\Rightarrow$ overcome RNN encoder-decoder failure in longterm dependency \\
+		\item quadratic cost: attention $\alpha$ a $T_x\times T_y$ matrix to be calculated
 		\end{itemize}
 	\end{itemize}
-	
+
+\item Self Attention
+	\begin{itemize}
+	\item Motivation
+		\begin{itemize}
+		\item model not only sentence-sentence relation, but also relation within the sentence \\
+		$\Rightarrow$ each word recognizes all other words in its sentence
+		\end{itemize}
+	\item Input
+		\begin{itemize}
+		\item sequence of a vector \& current location
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item with matrix for Query $W^Q$, Key $W^K$ and Value $W^V$ \& a word embedding $e$ \\
+		$\Rightarrow$ generate query $q=W^Q\cdot e$, key $k=W^K\cdot e$ and value $v=W^V\cdot e$, where \\
+		$W^Q, W^K, W^V$ to be optimized \& $e$ a col vector
+		\item given current word $t$, for each word $i$, obtain score (scalar) $s_t={q^t}^T\cdot {k^i}$ \\
+		i.e. use its "query" to multiply the "key" of other word in the sequence
+		\item normalize by the square root of the length of the "key" vector \\
+		$\Rightarrow s'_i=\frac {1} {\sqrt{d_k}} s_i$, where $d_k$ the dimension of "key" \\
+		(to obtain a more stable gradient)
+		\item softmax to obtain attention $\alpha^t$ as a col vector
+		\item "self" context $c^t = \sum_{i=1}^{T}\alpha^t_iv_i = [v^1,...,v^{T}]\alpha^t$ \\
+		i.e. weighted-sum over "value" vectors
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item a distribution over "value" vector of each word in the current sequence \\
+		$\Rightarrow$ to obtain an aggregation (weighted-sum) of "self" sequence
+		\end{itemize}
+	\item Speed-up
+		\begin{itemize}
+		\item use matrix calculation: $E = [{e^1}, ..., {e^T}]$, with each $e$ a col vector \\
+		$\Rightarrow Q=W^QE, K=W^KE, V=W^VE$, with each $q, k, v$ as col vector
+		\item $\Rightarrow A = \text{softmax}\left( \frac 1 {\sqrt{d_k}} Q^T\cdot K \right)$, \\
+		where $A_i$ the attention for $i^\text{th}$ word (as a row vector)
+		\item $\Rightarrow C = V\cdot A^T$, where each context vector as a col vector
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item in seq2seq: capture the relationship inside input/output seq \\
+		e.g. let model associate "it" with "animal" in sentence: \\
+		"The animal didn't cross the street because it was too tired"
+		\end{itemize}
+	\end{itemize}
+
+\item Multi-headed Self Attention
+	\begin{itemize}
+	\item Motivation
+		\begin{itemize}
+		\item provide multi-modal attention to focus on various location
+		\end{itemize}
+	\item Input
+		\begin{itemize}
+		\item same as self attention
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item the "batch-mode" of the self attention to get $N$ context matrices
+		\item concat \& further project into a single context matrix $C = [C_0, ...C_{N-1}] \cdot W^O$
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item same as self attention \\
+		$\Rightarrow$ transient to layers before \& after
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item avoid attention to focus on the current location itself \\
+		$\Rightarrow$ able to focus on multiple position
+		\item multiple sets of $W^Q, W^K, W^V$ to optimize \\
+		$\Rightarrow$ multiple representation subspace to project the input into
+		\end{itemize}
+	\end{itemize}
+
 \item Attention on Image
 	\begin{itemize}
-	\item Goal
+	\item Motivation
 		\begin{itemize}
 		\item focus on correct spatial context when generating corresponding caption/sequence
 		\end{itemize}
@@ -2018,14 +2099,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
-\item Self Attention
-	\begin{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item in seq2seq: capture the relationship inside input/output seq \\ 
-		(compare with global attention)
-		\end{itemize}
-	\end{itemize}
 \item Attention in Attention
 \end{itemize}
 
@@ -2360,8 +2433,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \end{itemize}
 
 \subsubsection{Attention}
-
-\subsubsection{Transformer}
 
 \subsection{Encoder-Decoder Architecture}
 \subsubsection{Basic}
@@ -5584,7 +5655,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Classic Approach}
+\subsubsection{Approaches}
 \begin{itemize}
 \item RNN Encoder-Decoder
 	\begin{itemize}
@@ -5607,6 +5678,29 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Improvement
 		\begin{itemize}
 		\item combined with attention model
+		\end{itemize}
+	\end{itemize}
+	
+\item Transformer: Attention is All You Need
+	\begin{itemize}
+	\item Embedding
+		\begin{itemize}
+		\item word embedding + positional embedding
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item residual \& layer normalization
+		\item multi-headed self attention
+		\item encoder-decoder attention ???
+		\item output by softmax classifer as distribution over all corpus
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item no sequential component use in encoding $\Rightarrow$ parallelized encoding phase
 		\end{itemize}
 	\end{itemize}
 \end{itemize}

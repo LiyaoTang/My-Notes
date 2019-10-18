@@ -925,6 +925,27 @@ special syntax sugar to manipulate the result of a function
     - import TF in scope $\Rightarrow$ provide the inner-tf multiprocessing with scope
     - $\Rightarrow$ import TF inside each function call (scope), with NO process-level TF running
 
+## Distributed System
+
+### Hadoop
+
+- High Distributed File System (HDFS)
+  - 
+- Map Reduce (MR)
+  - Divide-and-Conquer
+  - Schdule
+    - job client: produce MR job
+    - job tracker
+    - task tracker
+  - Map
+    - split the input data into `Mapper` 
+    - result of `Mapper` is stored as file 
+  - Reduce
+    - shuffle: fetch data from each map result
+    - merge the result
+- Map Task
+  - 
+
 ## Octave / Matlab
 
 1. unrolling parameters: deltaVector = [ D1(:) ; D2(:) ] // matrix D1,D2 $\Rightarrow$ column vector 
