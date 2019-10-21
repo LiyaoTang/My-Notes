@@ -1100,6 +1100,34 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item logistic regression with linear activation in hidden layer is NO more expressive than logistic regression with no hidden layer \textbf{!}
 		\end{itemize}
 	\end{itemize}
+	
+\item Maxout Activation $a=\max (Wz+b, \text{axis=0})$
+	\begin{itemize}
+	\item Operation
+		\begin{itemize}
+		\item $a/z$ the col vector for input/output with dimension of $d_i/d_o$ \\
+		($k$ a hyper parameter) \\
+		$\Rightarrow W_{[k\times d_o\times d_i]}$ \& $b_{k\times d_o}$ \\
+		$\Rightarrow W\cdot z + b \rightarrow [k,d_o]$
+		\item finally, take element-wise max over $k$ candidate
+		\end{itemize}
+	\item Pros
+		\begin{itemize}
+		\item multi-linear approximation \\
+		$\Rightarrow$ use $k$ linear functions to approximate convex function \\
+		(due to the max ops)
+		\item i.e. can learn a piecewise linear, convex function with up to k pieces
+		\end{itemize}
+	\item Cons
+		\begin{itemize}
+		\item more params \& hyper param
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item actually, append one more linear layer
+		\item in conv ops: a channel-wise maxpool as the activation
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{Normalization in Network}
@@ -1482,8 +1510,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsection{Cost}
-\subsubsection{Probabilistic Cost}
+\subsection{Loss}
+\subsubsection{Probabilistic Loss}
 \begin{itemize}
 \item Log Maximum Likelihood / Posterior
 	\begin{itemize}
@@ -1498,6 +1526,12 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item to use posterior with Gaussian distribution: add $L2$ regularization term
 		\end{itemize}
 	\end{itemize}
+\end{itemize}
+
+\subsubsection{Metric Loss}
+\begin{itemize}
+\item Triplet Loss
+\item 
 \end{itemize}
 
 
