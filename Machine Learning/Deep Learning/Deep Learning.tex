@@ -1999,6 +1999,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
+		\item \textbf{essence}: re-weight certain features in the network
 		\item at each step, amplify relevant input hidden state (state with more scores) \\
 		$\Rightarrow$ \underline{capture the token-level relationship between input-output sequence}
 		\item use the whole sequence of hidden states as sequence encoding \\
@@ -2083,6 +2084,78 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ able to focus on multiple position
 		\item multiple sets of $W^Q, W^K, W^V$ to optimize \\
 		$\Rightarrow$ multiple representation subspace to project the input into
+		\end{itemize}
+	\end{itemize}
+
+\item Hard Attention
+	\begin{itemize}
+	\item Motivation
+		\begin{itemize}
+		\item 0-1 (binary) mask to harshly exclude noise
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item can not directly perform end-to-end training \\
+		$\Rightarrow$ use sampling / reinforcement learning
+		\end{itemize}
+	\end{itemize}
+
+\item Channel-Wise Self Attention in Conv
+	\begin{itemize}
+	\item Motivation
+		\begin{itemize}
+		\item better examine inter-dependency between channels \\
+		(with the help of current global context info)
+		\end{itemize}
+	\item Input
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item squeeze: spatially aggregate global feature to summarize each channel \\
+		e.g. channel-wise average pooling \\
+		$[H, W, C]\rightarrow [1, 1, C]$
+		\item excite: perform inter-channel interaction to get attention $\alpha$ \\
+		e.g. dense (1x1 conv) layer(s) \\
+		$[1,1,C]\rightarrow [1,1,C]$
+		\item scale: channel-wisely multiply $\alpha$ back to input feature map $X$
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item a re-weighted feature map
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item break the limited receptive fields of conv ops \\
+		$\Rightarrow$ include global information to augment conv net
+		\end{itemize}
+	\item Analysis
+		\begin{itemize}
+		\item lower layers tend to have more uniform attention \\
+		$\Rightarrow$ correlates with "lower layers learn more general feature"
+		\item high layers tend to have more attention at some specific channels \\
+		$\Rightarrow$ correlates with "higher layers are more specific \& discriminative"
+		\item attention becomes almost "all 1s" at last stage \\
+		$\Rightarrow$ already contains global feature at last/latter stage
+		\end{itemize}
+	\end{itemize}
+
+\item Stand-Along Self Attention as Conv
+	\begin{itemize}
+	\item Motivation
+		\begin{itemize}
+		\item provide alternatives to conv ops \\
+		Stand-Alone Self-Attention in Vision Models (https://arxiv.org/abs/1906.05909)
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item stand-along attention
+		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/plot/layer-attention local self attention as conv".png}
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item less FLOPS \& less params than standard dense conv
 		\end{itemize}
 	\end{itemize}
 
@@ -5545,6 +5618,12 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
+\subsubsection{Contextualized Word Embedding}
+\begin{itemize}
+\item ELMo
+\item BERT
+\end{itemize}
+
 \subsection{Language Modeling}
 \subsubsection{Problem Formulation}
 \begin{itemize}
@@ -5702,6 +5781,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item no sequential component use in encoding $\Rightarrow$ parallelized encoding phase
 		\end{itemize}
+	\end{itemize}
+
+\item BERT
+	\begin{itemize}
+	\item 
 	\end{itemize}
 \end{itemize}
 
