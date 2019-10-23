@@ -2143,7 +2143,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Input
 		\begin{itemize}
-		\item 
+		\item feature maps
 		\end{itemize}
 	\item Operation
 		\begin{itemize}
@@ -2157,7 +2157,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Output
 		\begin{itemize}
-		\item a re-weighted feature map
+		\item re-weighted feature maps
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
@@ -4883,6 +4883,57 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Surpassing Human Performance
 	\end{itemize}
 \end{itemize}
+\subsubsection{Re-Ranking}
+\begin{itemize}
+\item Re-ranking Person Re-identification with k-reciprocal Encoding
+	\begin{itemize}
+	\item Analysis \& Derivation
+		\begin{itemize}
+		\item given probe $p$, retrieved image $g\in$ gallery $G$, $\abs{G}=N$ \\
+		$\Rightarrow N(p,k)=\{ g_{1}, ..., g_{k} \}$ the $k$-nearest neighbors of $p$,
+		where $p$ the probe image \\ 
+		(i.e. top-$k$ sample in the ranking result)
+		\item yet, can often introduce false matches (noise)
+		\item $\Rightarrow$ require $p \in \text{k\_near}(g) \&\& g \in \text{k\_near}(p)$ (similar to the thought in re-projection error) \\
+		i.e. both rank top-k when the other image is taken as probe \\
+		(hence, reciprocal)
+		\item $\Rightarrow$ the $k$-nearest reciprocal neighbors $R(p,k) = \{ g_i \mid g_i \in N(p,k) \and p\in N(g_i, k) \}$
+		\item yet, can also have positive image excluded
+		\begin{align*} \Rightarrow \forall q\in R(p,k), &R^* \leftarrow R(p,k) \cup R(q, {\scriptstyle\frac12} k)  \\ &\text{s.t. } \abs{R(p,k) \cap R(q,{\scriptstyle\frac12}k)} \ge \frac23 \abs{R(q, {\scriptstyle\frac12}k)}
+		\end{align*}
+		i.e. expand the set by considering the $k$-reciprocal neighbors of the set member \\
+		(expansion confirmed by voting)
+		\end{itemize}
+	\item Distance Derivation
+		\begin{itemize}
+		\item Jaccard distance \begin{align*} \displaystyle d_J(p,g_i)&=1-\text{IoU}^{R^*(p,k)}_{R^*(g_i,k)} \\ &= 1 - \frac{\abs{R^*(p,k)\cap R^*(g_i,k)}}{\abs{R^*(p,k)\cup R^*(g_i,k)}} \end{align*}
+		\item to speed-up: encoding $R^*$ into vector \\
+		$\Rightarrow V_p=[V_{p,g_1}, ..., V_{p,g_N}]$, \\
+		where $V_{p,g_i} = 1 \text{ if } g_i\in R^*(p,k), \text{ else } 0$
+		\item to consider original distance measurement (weighting image) \\
+		$\Rightarrow V_p=[V_{p,g_1}, ..., V_{p,g_N}]$, \\
+		where $V_{p,g_i} = e^{-d(p,g_i)} \text{ if } g_i\in R^*(p,k), \text{ else } 0$, with $d(p,g_i)$ the original distance
+		\Item \begin{align*} \Rightarrow & \abs{R^*(p,k)\cap R^*(g_i,k)} = \norm{\min(V_p, V_{g_i})}_1 \\ & \abs{R^*(p,k)\cup R^*(g_i,k)} = \norm{\max(V_p. V_{g_i})}, \end{align*} where $\min, \max$ being element-wise \\
+		(i.e. element-wise logical and \& count the num of resulting true)
+		\item $\displaystyle \Rightarrow d_J(p,g_i) = 1-\frac{\sum_{j=1}^N \min(V_{p,g_j}, V_{g_i, g_j})} {\sum_{j=1}^N \max(V_{p,g_j, V_{g_i, g_j}}) }$
+		\item accounting for original distance (which contains context info) \\
+		$\Rightarrow d^*(p, g_i) = (1-\lambda)d_J(p, g_i) + \lambda d(p, g_i)$, with $\lambda \in [0,1]$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item need to have $\ge1$ positive in the gallery to better improve result \\
+		(yet, does not harm even in a single-shot setting, e.g. CUHK03)
+		\item a fully automated \& unsupervised approach
+		\item significantly improve mAP \& improve rank-1 accuracy, after re-ranking \\
+		(verified with various model: robust to various distance metrics) \\
+		(better than $k$-nearest neighbors as expected)
+		\item $k=20$ in most dataset to avoid including false matches with too large $k$
+		\item $\lambda=0.3$ (empirically) to further boost performance \\
+		(original distance is also important in re-ranking)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
 \subsubsection{People Re-ID}
 \begin{itemize}
 \item PCB-RPP: Person Retrieval with Refined Part Pooling
@@ -4961,7 +5012,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(more supervision)
 		\end{itemize}
 	\end{itemize}
-\item MGNet: Discriminative Features with Multiple Granularities
+\item MGNet: Discriminative Features with Multiple Granularities \label{DL_CV_ReID_MGNet}
 	\begin{itemize}
 	\item Inference
 		\begin{itemize}
@@ -5019,6 +5070,58 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(sharing backbone for joint goal: branches mutually complement others)
 		\item $\Rightarrow$ overlap in split matter: branches part-$2/4$ worse than branches part-$3/4$
 		\item triplet loss further help network to capture fine-local feature
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Vehicle Re-ID}
+\begin{itemize}
+\item Multi-Camera Vehicle Tracking and Re-Identification
+	\begin{itemize}
+	\item Inference
+		\begin{itemize}
+		\item detection on each frame \& multi-object tracking on each camera
+		\item extract visual feature for each track
+		\item match track across multi-camera $\Rightarrow$ multi-cam tracking
+		\item re-ID: visual feature of given probe 
+		\item re-ranking: use multi-tracking info
+		\end{itemize}
+	\item Detection
+		\begin{itemize}
+		\item cascade R-CNN + FPN \& soft NMS
+		\end{itemize}
+	\item Feature Extraction from Bbox
+		\begin{itemize}
+		\item global feature: last conv layer \& self-attention to focus on vehicle pixels (masking)
+		\item region feature from image parts: 2 vertical + 2 horizontal strips \\
+		(from \hyperref[DL_CV_ReID_MGNet]{MGN}: multi-granularity net)
+		\item key point feature: extract feature around key points with the help of heat map for key points pred
+		\end{itemize}
+	\item Single Camera Tracking
+		\begin{itemize}
+		\item re-project detection to 3D (calibrated cam) $\Rightarrow$ only 3D tracking
+		\item Kalman filter \& hungarian association with Mahalanobis distance \\
+		$\Rightarrow$ formulate small tracks from frames of target
+		\item short tracks association/merge $\Rightarrow$ long tracks
+		\end{itemize}
+	\item Multi-Camera Tracking
+		\begin{itemize}
+		\item similarity $S=W_aS_a + W_l(S_l+S_v) + W_dS_d + W_tS_t$, \\ 
+		where $W_a, W_l, W_d, W_t$ the weight to balance terms, \\
+		$S_a$ the appearance similarity for each track, \\
+		$S_l, S_v$ the location\&velocity similarity (if cam overlaps), \\
+		$S_d$ the similarity of vehicle motion direction (in a uniformed coord), \\
+		$S_t$ the estimated-vs-true traveling time similarity (if cam not overlaps)
+		\item clustering tracks from different cameras $\Rightarrow$ each cluster is a 3D track
+		\end{itemize}
+	\item Video-based Re-ID
+		\begin{itemize}
+		\item identify the track of query \& prefer image also belongs to that track
+		\item meta data constraint: using car-type classification, etc.
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item a systematic approach: assemble multiple models \& constraints
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
