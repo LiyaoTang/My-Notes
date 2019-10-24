@@ -1992,11 +1992,28 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{Attention}
 \begin{itemize}
+\item Motivation
+	\begin{itemize}
+	\item Long-Term Dependency Modeling
+		\begin{itemize}
+		\item consider all input at each step \\
+		$\Rightarrow$ reduce maximal num of ops before 2 positions interact to $\mathcal O(1)$
+		\item v.s. in rnn/conv/dialated conv, ops between positions grow $\mathcal O(n) / \mathcal O(\frac nk) / \mathcal O(\log_k^n)$, \\
+		where $n$ the distance between positions, $k$ the conv kernel size
+		\end{itemize}
+	\item Interpretable Model
+		\begin{itemize}
+		\item can visualize \& interpret how the network models various relations \\
+		(via attention distributions)
+		\end{itemize}
+	\end{itemize}
+	
 \item Encoder-Decoder Attention
 	\begin{itemize}
 	\item Motivation
 		\begin{itemize}
-		\item overcome long-term dependency, via considering all input at each step
+		\item model relationship between input-output \& overcome long-term dependency \\ 
+		(e.g. $1$st input position - last output position)
 		\item focus on different attributes/features based on various requirement
 		\end{itemize}
 	\item Input
@@ -2060,11 +2077,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Operation
 		\begin{itemize}
 		\item with matrix for Query $W^Q$, Key $W^K$ and Value $W^V$ \& a word embedding $e$ \\
-		$\Rightarrow$ generate query $q=W^Q\cdot e$, key $k=W^K\cdot e$ and value $v=W^V\cdot e$, where \\
+		$\Rightarrow$ generate query $q=W^Q e$, key $k=W^K e$ and value $v=W^V e$, where \\
 		$W^Q, W^K, W^V$ to be optimized \& $e$ a col vector
-		\item given current word $t$, for each word $i$, obtain score (scalar) $s_t={q^t}^T\cdot {k^i}$ \\
+		\item given current word $t$, for each word $i$, obtain score (scalar) $s_t=(q^t)^T\cdot {k^i}$ \\
 		i.e. use its "query" to multiply the "key" of other word in the sequence
-		\item normalize by the square root of the length of the "key" vector \\
+		\item normalize (standardize) by the square root of the length of the "key" vector \\
 		$\Rightarrow s'_i=\frac {1} {\sqrt{d_k}} s_i$, where $d_k$ the dimension of "key" \\
 		(to obtain a more stable gradient)
 		\item softmax to obtain attention $\alpha^t$ as a col vector
@@ -2079,16 +2096,28 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Speed-up
 		\begin{itemize}
 		\item use matrix calculation: $E = [{e^1}, ..., {e^T}]$, with each $e$ a col vector \\
-		$\Rightarrow Q=W^QE, K=W^KE, V=W^VE$, with each $q, k, v$ as col vector
-		\item $\Rightarrow A = \text{softmax}\left( \frac 1 {\sqrt{d_k}} Q^T\cdot K \right)$, \\
+		$\Rightarrow Q=W^QE, K=W^KE, V=W^VE$, with each $q, k, v$ as col vector \\
+		\begin{minipage}[r]{0.7\linewidth}
+		\item $\Rightarrow A = \text{softmax}\left( \frac 1 {\sqrt{d_k}} Q^T K \right)$, \\
 		where $A_i$ the attention for $i^\text{th}$ word (as a row vector)
-		\item $\Rightarrow C = V\cdot A^T$, where each context vector as a col vector
+		\item $\Rightarrow C = V A^T$, where each context vector as a col vector \\
+		\end{minipage}
+		\begin{minipage}[r]{\linewidth}
+		\includegraphics[height=0.15\linewidth, left]{"./Deep Learning/plot/layer-attention self attention".png}
+		\end{minipage}
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
 		\item in seq2seq: capture the relationship inside input/output seq \\
 		e.g. let model associate "it" with "animal" in sentence: \\
 		"The animal didn't cross the street because it was too tired"
+		\item normalization to obtain more stable gradient: \\
+		e.g. with $q,k$ vector of random variables with mean $0$ \& variance $1$ \\
+		$\Rightarrow q\cdot k = \sum_{i=0}^{d_k} q_ik_i$ has mean $0$ variance $d_k$ \\
+		$\Rightarrow$ actually, standardization within attention layer
+		\item contextualized word-embedding / sequence representation \\
+		$\Rightarrow$ determine word embedding / representation with sequence context considered
+		\item could be dense/conv layers, instead of matrices (a linear layer)
 		\end{itemize}
 	\end{itemize}
 
@@ -2104,7 +2133,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Operation
 		\begin{itemize}
-		\item the "batch-mode" of the self attention to get $N$ context matrices
+		\item the "batch-mode" of self attention to get $N$ separate results (context matrices)
 		\item concat \& further project into a single context matrix $C = [C_0, ...C_{N-1}] \cdot W^O$
 		\end{itemize}
 	\item Output
@@ -5875,7 +5904,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \begin{itemize}
 \item RNN Encoder-Decoder
 	\begin{itemize}
-	\item Overview
+	\item Inference
 		\begin{itemize}
 		\item an RNN encodes the input sequence by its last hidden layer
 		\item input encoding used as initial hidden state for decoder RNN
@@ -5901,22 +5930,55 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Embedding
 		\begin{itemize}
-		\item word embedding + positional embedding
+		\item word embedding: classic embedding + positional embedding
+		\item positional embedding:
+		\begin{align*} PE(pos, 2i) &= \sin\left( \frac{pos}{10000^{2i/d_\text{model}}} \right)  \\ PE(pos, 2i+1) &= \cos\left( \frac{pos}{10000^{2i/d_\text{model}}} \right), \end{align*} where $d_\text{model}=512$ the embedding len, $pos$ the word position, $i$ the dim of vector \\
+		$\Rightarrow$ any offset $k, PE(pos+k)$ can be represented by a linear func of $PE(pos)$ \\
+		$\Rightarrow$ provide positional info easy for model to use \\
+		(also allow model to extrapolate sequence longer than training examples)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item encoder maps input $(x_1,...,x_n) \rightarrow \mathbf z=(z_1,...,z_n)$ (in parallel)
+		\item decoder maps $\mathbf z \rightarrow (y_1,...,y_m)$ one at a time (sequentially)
+		\item beam search with bean size $=4$ \& length penalty $\alpha=0.6$
+		\item maximal output len $=$ input len + 50
 		\end{itemize}
 	\item Structure
 		\begin{itemize}
-		\item residual \& layer normalization
-		\item multi-headed self attention
-		\item encoder-decoder attention ???
-		\item output by softmax classifer as distribution over all corpus
+		\item encoder: stack of $N=6$ layers, each: [multi-headed self-attention, dense layer], \\
+		with residual connection around both sub-layers (attention and dense) \\
+		\& layer normalization after each residual connection
+		\item multi-headed self-attention: $8$ heads with $64$-dim vector for key, query \& output \\
+		(vs. word embedding of dim $d_\text{model} = 512$: same complexity with more representability)
+		\item encoder-decoder attention: \\
+		self-attention with key-value from encoder \& query from last decoder \\
+		$\Rightarrow$ mimic the classic encoder-decoder attention
+		\item decoder: a stack of layers similar to encoder + encoder-decoder attention \\
+		$\Rightarrow$ restricted attention (via masking) to output sequentially
+		\item overview: (scaled dot-product attention = self attention) \\
+		\includegraphics[width=0.7\linewidth, center]{"./Deep Learning/plot/topic-nmt transformer".png}
 		\end{itemize}
 	\item Training
 		\begin{itemize}
-		\item
+		\item 8 NVIDIA P100 for 3.5 days...4000 steps warm up + 300,000 steps training \\
+		(still, much faster training than other models...)
+		\item adam optimizer \& batching based on approximate sentence length
+		\item drop-out (dropout rate = $0.1$) after each sublayer (before the residual add)
+		\item label smoothing with value $\epsilon_{ls} = 0.1$ ???
+		\item final model = the average of the last 20 checkpoints
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item no sequential component use in encoding $\Rightarrow$ parallelized encoding phase
+		\item no sequential component use in encoding \\
+		(entirely replace the RNN with attention in encoder-decoder structure) \\
+		$\Rightarrow$ parallelized encoding phase
+		\item the dimension of key-value should NOT be too small \\
+		$\Rightarrow$ determining relations can be difficult \\
+		$\Rightarrow$ may use non-linearity
+		\item model structure can generalize to other challenging NLP tasks \\
+		e.g. constituency parsing: structural constraint \& much longer output than input \\
+		(also, little annotated data, $\sim 40K$ sentences)
 		\end{itemize}
 	\end{itemize}
 
