@@ -2117,7 +2117,10 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ actually, standardization within attention layer
 		\item contextualized word-embedding / sequence representation \\
 		$\Rightarrow$ determine word embedding / representation with sequence context considered
-		\item could be dense/conv layers, instead of matrices (a linear layer)
+		\item could be dense/conv layers, instead of matrices \\ 
+		$\Rightarrow$ a layer / network branch shared across all location \\
+		(for 2D input: map $m\times n$ input feature map to $(m\times n)^2$ attention map...) \\
+		(if directly apply self attention)
 		\end{itemize}
 	\end{itemize}
 
@@ -2160,6 +2163,21 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item can not directly perform end-to-end training \\
 		$\Rightarrow$ use sampling / reinforcement learning
+		\end{itemize}
+	\end{itemize}
+
+\item Spatial Attention on Image
+	\begin{itemize}
+	\item Motivation
+		\begin{itemize}
+		\item focus on correct spatial context when generating corresponding caption/sequence
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item use high-level semantic feature to generate attention \\
+		$\Rightarrow$ ensure enough receptive fields to accounts for global context
+		\item apply attention on low-level feature for details \\
+		(usually need to upsample back to fit spatial dimension)
 		\end{itemize}
 	\end{itemize}
 
@@ -2219,19 +2237,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Understanding
 		\begin{itemize}
 		\item less FLOPS \& less params than standard dense conv
-		\end{itemize}
-	\end{itemize}
-
-\item Attention on Image
-	\begin{itemize}
-	\item Motivation
-		\begin{itemize}
-		\item focus on correct spatial context when generating corresponding caption/sequence
-		\end{itemize}
-	\item Practice
-		\begin{itemize}
-		\item calculate weights for a sum over all spatial location of the image encoding \\
-		$\Rightarrow$ calculate a 2-D mask over a 3-D tensor
 		\end{itemize}
 	\end{itemize}
 
@@ -5105,14 +5110,15 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{Vehicle Re-ID}
 \begin{itemize}
-\item Multi-Camera Vehicle Tracking and Re-Identification
+\item Multi-Camera Vehicle Tracking and Re-Identification \\ 
+based on visual and spatial-temporal features
 	\begin{itemize}
 	\item Inference
 		\begin{itemize}
 		\item detection on each frame \& multi-object tracking on each camera
 		\item extract visual feature for each track
 		\item match track across multi-camera $\Rightarrow$ multi-cam tracking
-		\item re-ID: visual feature of given probe 
+		\item re-ID: visual feature of given probe
 		\item re-ranking: use multi-tracking info
 		\end{itemize}
 	\item Detection
@@ -5139,8 +5145,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		where $W_a, W_l, W_d, W_t$ the weight to balance terms, \\
 		$S_a$ the appearance similarity for each track, \\
 		$S_l, S_v$ the location\&velocity similarity (if cam overlaps), \\
-		$S_d$ the similarity of vehicle motion direction (in a uniformed coord), \\
-		$S_t$ the estimated-vs-true traveling time similarity (if cam not overlaps)
+		$S_d$ the similarity of vehicle motion direction (in a uniform coord), \\
+		$S_t$ the temporal constraints: estimated-vs-true travel time (if cam not overlaps)
 		\item clustering tracks from different cameras $\Rightarrow$ each cluster is a 3D track
 		\end{itemize}
 	\item Video-based Re-ID
@@ -5491,7 +5497,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Inference
 		\begin{itemize}
 		\item per-pixel regression \& classification $\Rightarrow$ standard CV detection
-		\item non-max suppression as postprocessing\\ 
+		\item non-max suppression as postprocessing \\
 		(score modified to be the num of nearby-box)
 		\end{itemize}
 	\item Structure
@@ -6116,6 +6122,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \subsubsection{RNN with Attention}
 \subsubsection{Convolution with Self-attention - QAnet}
 
+\section{CV \& NLP}
 \subsection{Image Caption}
 \subsubsection{Problem Formulation}
 \begin{itemize}
@@ -6133,9 +6140,22 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item description of the image in natural language, e.g. English
 		\end{itemize}
 	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Scene Understanding
+		\begin{itemize}
+		\item basic: determine objects in image
+		\item further: realize relationships \& connection inside the image
+		\end{itemize}
+	\item Descriptive Representation
+		\begin{itemize}
+		\item able to map such understanding into a descriptive representation \\
+		i.e. natural language
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
-\subsubsection{Baseline Approach \& Previous Work}
+\subsubsection{Approaches}
 \begin{itemize}
 \item Neural Image Caption
 	\begin{itemize}
@@ -6161,6 +6181,88 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ select $k$ best sentence of length $t+1$ from all resulted sentences
 		\end{itemize}
 		(beam search selected in the paper)
+	\end{itemize}
+
+\item \underline{Show, Attend and Tell: Neural Image Caption Generation with Visual Attention}
+	\begin{itemize}
+	\item Motivation \& Analysis
+		\begin{itemize}
+		\item does NOT explicitly use object detection net \\ 
+		$\Rightarrow$ model visual relations beyond objectness
+		\item better capture low-level detail for descriptive language \\
+		$\Rightarrow$ better represent visual perception than a single feature vector \\
+		(which is usually used as starting state for RNN-decoder in previous works)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item CNN downsample image to $n\times n=L$ feature map, with channel dimension $D$ \\
+		$\Rightarrow$ feature map $\mathbf a = \{\mathbf a_1, ..., \mathbf a_L \}, \mathbf a_i\in\mathbb R^D$: spatial region for attention to choose
+		\item LSTM decoder with init states predicted by 2 separate small nets (\small{init,c \& init,h}) \\
+		$\Rightarrow$ memory state $c_0 = f_\text{init,c}(\bar {\mathbf a})$ \& hidden state $h_0 = f_\text{init,h}(\bar {\mathbf a})$, \\
+		where $\bar {\mathbf a}=\frac 1 L \sum \mathbf{a_i}$ (the avg pool of $\mathbf a$)
+		\item generate current spatial attention $\alpha_t$ from previous hidden state $h_{t-1}$ \& feature map $\mathbf a$
+		$\Rightarrow (\mathbf a_i, h_{t-1}) \xrightarrow{f_\text{att}}$ score $e_{ti} \xrightarrow{\text{softmax}} \alpha_{ti}$
+		\item generate current context vector $\hat{\mathbf z}_t =\phi(\mathbf a, \alpha_t)$ \\
+		(different $\phi$ for hard-/soft- attention)
+		\item generate word prob with current context $\hat{\mathbf z}_t$, hidden state $h_t$ \& previous word $y_{t-1}$ \\
+		$\Rightarrow p(y_t \mid \mathbf a, y_1,...,y_{t-1}) \propto \exp(\mathbf L_o\left( E y_{t-1} + \mathbf L_h h_t + \mathbf L_z \hat {\mathbf z}_t \right) )$, \\
+		where $\mathbf E$ the word embedding matrix, $\mathbf L_o, \mathbf L_h, \mathbf L_z$ the weights matrices to be learned 
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item CNN encoder: VGG net to the last conv ($14\times14\times512$ feature map)
+		\item LSTM decoder takes [previous generated word, context vector] as input \\
+		$\Rightarrow$ context vector $\hat{\mathbf z}_t$ involves in both: LSTM input \& projecting LSTM output
+		\end{itemize}
+	\item Training: Stochastic Hard-Attention
+		\begin{itemize}
+		\item let one-hot variable $s_t\in\{1,...,L\}$ indicate the focused location at time $t$ \\
+		$\Rightarrow \hat{\mathbf z}_t = \sum_{i} s_{ti}\mathbf a_i$ 
+		\item view attention $\alpha$ a multinoulli distribution over location ${1,...,L}$ \\
+		(multinoulli: discrete distribution over $k$ variables) \\
+		$\Rightarrow p(s_{ti} = 1 | \mathbf a, s_1,...,s_{t-1}) = \alpha_{ti}$
+ 		\item loss: marginal log-likelihood of word sequence conditioned on image $\log p(\mathbf y | \mathbf a)$ \\
+ 		$\Rightarrow$ maximize its variational lower bound with $s$ introduced as latent var
+ 		\begin{align*} \displaystyle L_s &= \sum_s  p(s|\mathbf a) \log p(\mathbf y|,s,\mathbf a) \\
+ 		&\le \log \sum_s p(s|\mathbf a) p(\mathbf y|s,\mathbf a) \\ &= \log p(\mathbf y|\mathbf a) \end{align*}
+		\item $\displaystyle \frac {\partial L_s} {\partial W} = \sum_s p(s|\mathbf a) \left[ \frac {\partial \log p(\mathbf y|s, \mathbf a)}{\partial W} + \log p(\mathbf y | s,\mathbf a) \frac {\partial \log p(s|\mathbf a)}{\partial W} \right]$
+		\item $\Rightarrow$ approximated by Monte Carlo: \\
+		$\displaystyle \frac{\partial L_s}{\partial W} \approx \frac 1 N \sum_{n=1}^N \left[ \frac {\partial \log p(\mathbf y|\tilde s^n, \mathbf a)}{\partial W} + \log p(\mathbf y | \tilde s^n,\mathbf a) \frac {\partial \log p(\tilde s^n|\mathbf a)}{\partial W} \right]$, \\
+		where $\tilde s^n = (s_1^n,...,s_t^n,...)$ a sequence of attention locations, \\
+		which is sampled from multinoulli distribution described by $\alpha$
+		\item to reduce the variance in Monte-Carlo estimation:
+			\begin{itemize}
+			\item moving average baseline for $k$-th batch: $b_k = 0.9b_{k-1} + 0.1\log p(\mathbf y|\tilde s_k, \mathbf a)$
+			\item include entropy $H[s]$ of the multinoulli distribution into the loss
+			\item with $0.5$ prob to set $\tilde s$ to its expected value $\alpha$ (turn into soft-attention)
+			\end{itemize}
+		\item $\Rightarrow$ final gradient on loss \\
+		$\displaystyle \frac{\partial L_s}{\partial W} \approx \frac 1 N \sum_{n=1}^N \left[ \frac {\partial \log p(\mathbf y|\tilde s^n, \mathbf a)}{\partial W} + \lambda_r \left( \log p(\mathbf y | \tilde s^n,\mathbf a) - b \right) \frac {\partial \log p(\tilde s^n|\mathbf a)}{\partial W} + \lambda_e \frac{\partial H[\tilde s^n]}{\partial W} \right]$
+		\end{itemize}
+	\item Training: Soft Attention
+		\begin{itemize}
+		\item use the expectation $\displaystyle \mathbb E_{p(s_t|\mathbf a)}[\mathbf z_t] = \sum_{i=1}^L \alpha_{ti} \mathbf a_i$ \\
+		(equivalent to using $\alpha$ weighted context) \\
+		$\Rightarrow$ approximately optimize marginal likelihood $p(\mathbf y|\mathbf a)$ under random variable $s_t$
+		\item $\mathbb E[\hat{\mathbf z}_t]$ approximates the normalized weighted geometric mean of the softmax of $k$-th generated word, \\ 
+		which further approximates $\mathbb E[p(y_t=k|\mathbf a)]$ over all possible attention locations (induced by $s_t$)
+		\item additional gate for $\phi(\mathbf a, \alpha_t) = \beta_t \sum_{i=1}^L \alpha_i \mathbf a_i$, where gate $\beta_t = \sigma(f_\beta(h_{t-1}))$ \\
+		$\Rightarrow $ enable model to decide when to emphasize on language model or image context
+		\item temporal constrain: encourage $\sum_{t} \alpha_{ti} = \tau$ \\
+		(normalization for each spatial location across time)
+		\item $\Rightarrow$ end-to-end maximize negative log-likelihood: \\
+		$\displaystyle L_d = -\log (p(\mathbf y|\mathbf a)) + \lambda \sum_{i}^L(\tau-\sum_{t}^T \alpha_{ti})^2$, where $\tau=1$ for simplicity
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item spatial attention to capture low-level detail for more accurate description \\
+		$\Rightarrow$ dynamically select useful features \& avoid info loss \\
+		(using last-conv feature map vs. using last-dense layer)
+		\item provide more interpretable result \\
+		$\Rightarrow$ able to interpret relationships over image-language
+		\item enable model to attend to non-salient features by soft-attention \\
+		(e.g. large area of background)
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 

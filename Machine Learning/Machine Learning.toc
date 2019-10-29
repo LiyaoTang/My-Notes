@@ -259,26 +259,27 @@
 \contentsline {subsection}{\numberline {12.6.7}Machine Reading Comprehension}{175}{subsection.12.6.7}
 \contentsline {subsubsection}{RNN with Attention}{175}{section*.177}
 \contentsline {subsubsection}{Convolution with Self-attention - QAnet}{175}{section*.178}
-\contentsline {subsection}{\numberline {12.6.8}Image Caption}{175}{subsection.12.6.8}
+\contentsline {section}{\numberline {12.7}CV \& NLP}{175}{section.12.7}
+\contentsline {subsection}{\numberline {12.7.1}Image Caption}{175}{subsection.12.7.1}
 \contentsline {subsubsection}{Problem Formulation}{175}{section*.179}
-\contentsline {subsubsection}{Baseline Approach \& Previous Work}{175}{section*.180}
-\contentsline {subsection}{\numberline {12.6.9}Referring Segmentation}{176}{subsection.12.6.9}
-\contentsline {subsubsection}{Problem Formulation}{176}{section*.181}
-\contentsline {subsubsection}{Baseline Approach \& Previous Work}{176}{section*.182}
-\contentsline {subsubsection}{Current State-of-The-Art (early 2019)}{177}{section*.183}
-\contentsline {section}{\numberline {12.7}Special Learning}{178}{section.12.7}
-\contentsline {subsection}{\numberline {12.7.1}Transfer Learning}{178}{subsection.12.7.1}
-\contentsline {subsubsection}{Problem Formulation}{178}{section*.184}
-\contentsline {subsubsection}{Standard Baseline}{179}{section*.185}
-\contentsline {subsection}{\numberline {12.7.2}Multi-task Learning}{180}{subsection.12.7.2}
-\contentsline {subsubsection}{Problem Formulation}{180}{section*.186}
-\contentsline {subsubsection}{Standard Baseline}{180}{section*.187}
-\contentsline {subsection}{\numberline {12.7.3}K-shot Learning}{181}{subsection.12.7.3}
-\contentsline {subsubsection}{Problem Formulation}{181}{section*.188}
-\contentsline {section}{\numberline {12.8}Interpretable Machine Learning}{181}{section.12.8}
-\contentsline {section}{\numberline {12.9}Tactile Sensing}{181}{section.12.9}
-\contentsline {subsection}{\numberline {12.9.1}Tactile Sensor}{181}{subsection.12.9.1}
-\contentsline {subsection}{\numberline {12.9.2}Tactile Sensing and Perception}{181}{subsection.12.9.2}
-\contentsline {subsubsection}{Problem Formulation}{181}{section*.189}
-\contentsline {subsubsection}{Feature Extraction}{181}{section*.190}
-\contentsline {subsubsection}{Application in Robot Tasks}{182}{section*.191}
+\contentsline {subsubsection}{Approaches}{176}{section*.180}
+\contentsline {subsection}{\numberline {12.7.2}Referring Segmentation}{178}{subsection.12.7.2}
+\contentsline {subsubsection}{Problem Formulation}{178}{section*.181}
+\contentsline {subsubsection}{Baseline Approach \& Previous Work}{178}{section*.182}
+\contentsline {subsubsection}{Current State-of-The-Art (early 2019)}{179}{section*.183}
+\contentsline {section}{\numberline {12.8}Special Learning}{180}{section.12.8}
+\contentsline {subsection}{\numberline {12.8.1}Transfer Learning}{180}{subsection.12.8.1}
+\contentsline {subsubsection}{Problem Formulation}{180}{section*.184}
+\contentsline {subsubsection}{Standard Baseline}{181}{section*.185}
+\contentsline {subsection}{\numberline {12.8.2}Multi-task Learning}{182}{subsection.12.8.2}
+\contentsline {subsubsection}{Problem Formulation}{182}{section*.186}
+\contentsline {subsubsection}{Standard Baseline}{182}{section*.187}
+\contentsline {subsection}{\numberline {12.8.3}K-shot Learning}{183}{subsection.12.8.3}
+\contentsline {subsubsection}{Problem Formulation}{183}{section*.188}
+\contentsline {section}{\numberline {12.9}Interpretable Machine Learning}{183}{section.12.9}
+\contentsline {section}{\numberline {12.10}Tactile Sensing}{183}{section.12.10}
+\contentsline {subsection}{\numberline {12.10.1}Tactile Sensor}{183}{subsection.12.10.1}
+\contentsline {subsection}{\numberline {12.10.2}Tactile Sensing and Perception}{183}{subsection.12.10.2}
+\contentsline {subsubsection}{Problem Formulation}{183}{section*.189}
+\contentsline {subsubsection}{Feature Extraction}{183}{section*.190}
+\contentsline {subsubsection}{Application in Robot Tasks}{184}{section*.191}

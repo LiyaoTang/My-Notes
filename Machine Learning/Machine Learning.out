@@ -98,13 +98,14 @@
 \BOOKMARK [2][-]{subsection.12.6.5}{Neural Machine Translation}{section.12.6}% 98
 \BOOKMARK [2][-]{subsection.12.6.6}{Speech Recognition}{section.12.6}% 99
 \BOOKMARK [2][-]{subsection.12.6.7}{Machine Reading Comprehension}{section.12.6}% 100
-\BOOKMARK [2][-]{subsection.12.6.8}{Image Caption}{section.12.6}% 101
-\BOOKMARK [2][-]{subsection.12.6.9}{Referring Segmentation}{section.12.6}% 102
-\BOOKMARK [1][-]{section.12.7}{Special Learning}{chapter.12}% 103
-\BOOKMARK [2][-]{subsection.12.7.1}{Transfer Learning}{section.12.7}% 104
-\BOOKMARK [2][-]{subsection.12.7.2}{Multi-task Learning}{section.12.7}% 105
-\BOOKMARK [2][-]{subsection.12.7.3}{K-shot Learning}{section.12.7}% 106
-\BOOKMARK [1][-]{section.12.8}{Interpretable Machine Learning}{chapter.12}% 107
-\BOOKMARK [1][-]{section.12.9}{Tactile Sensing}{chapter.12}% 108
-\BOOKMARK [2][-]{subsection.12.9.1}{Tactile Sensor}{section.12.9}% 109
-\BOOKMARK [2][-]{subsection.12.9.2}{Tactile Sensing and Perception}{section.12.9}% 110
+\BOOKMARK [1][-]{section.12.7}{CV \046 NLP}{chapter.12}% 101
+\BOOKMARK [2][-]{subsection.12.7.1}{Image Caption}{section.12.7}% 102
+\BOOKMARK [2][-]{subsection.12.7.2}{Referring Segmentation}{section.12.7}% 103
+\BOOKMARK [1][-]{section.12.8}{Special Learning}{chapter.12}% 104
+\BOOKMARK [2][-]{subsection.12.8.1}{Transfer Learning}{section.12.8}% 105
+\BOOKMARK [2][-]{subsection.12.8.2}{Multi-task Learning}{section.12.8}% 106
+\BOOKMARK [2][-]{subsection.12.8.3}{K-shot Learning}{section.12.8}% 107
+\BOOKMARK [1][-]{section.12.9}{Interpretable Machine Learning}{chapter.12}% 108
+\BOOKMARK [1][-]{section.12.10}{Tactile Sensing}{chapter.12}% 109
+\BOOKMARK [2][-]{subsection.12.10.1}{Tactile Sensor}{section.12.10}% 110
+\BOOKMARK [2][-]{subsection.12.10.2}{Tactile Sensing and Perception}{section.12.10}% 111
