@@ -74,38 +74,39 @@
 \BOOKMARK [2][-]{subsection.12.3.3}{Loss}{section.12.3}% 74
 \BOOKMARK [2][-]{subsection.12.3.4}{Layers}{section.12.3}% 75
 \BOOKMARK [2][-]{subsection.12.3.5}{Blocks}{section.12.3}% 76
-\BOOKMARK [1][-]{section.12.4}{Architectures}{chapter.12}% 77
-\BOOKMARK [2][-]{subsection.12.4.1}{Convolutional Networks}{section.12.4}% 78
-\BOOKMARK [2][-]{subsection.12.4.2}{Recurrent Neural Network}{section.12.4}% 79
-\BOOKMARK [2][-]{subsection.12.4.3}{Encoder-Decoder Architecture}{section.12.4}% 80
-\BOOKMARK [2][-]{subsection.12.4.4}{Generative Network}{section.12.4}% 81
-\BOOKMARK [1][-]{section.12.5}{Computer Vision}{chapter.12}% 82
-\BOOKMARK [2][-]{subsection.12.5.1}{Visual Sensor}{section.12.5}% 83
-\BOOKMARK [2][-]{subsection.12.5.2}{Objects Detection}{section.12.5}% 84
-\BOOKMARK [2][-]{subsection.12.5.3}{Object Tracking}{section.12.5}% 85
-\BOOKMARK [2][-]{subsection.12.5.4}{Face Recognition}{section.12.5}% 86
-\BOOKMARK [2][-]{subsection.12.5.5}{Stereo Vision}{section.12.5}% 87
-\BOOKMARK [2][-]{subsection.12.5.6}{Recognition at a Distance}{section.12.5}% 88
-\BOOKMARK [2][-]{subsection.12.5.7}{Re-Identification}{section.12.5}% 89
-\BOOKMARK [2][-]{subsection.12.5.8}{Image Style Transfer}{section.12.5}% 90
-\BOOKMARK [2][-]{subsection.12.5.9}{Video Generation}{section.12.5}% 91
-\BOOKMARK [2][-]{subsection.12.5.10}{Point Cloud Data Processing}{section.12.5}% 92
-\BOOKMARK [1][-]{section.12.6}{Natural Language Processing}{chapter.12}% 93
-\BOOKMARK [2][-]{subsection.12.6.1}{Language Representation}{section.12.6}% 94
-\BOOKMARK [2][-]{subsection.12.6.2}{Language Modeling}{section.12.6}% 95
-\BOOKMARK [2][-]{subsection.12.6.3}{Name-Entity Recognition}{section.12.6}% 96
-\BOOKMARK [2][-]{subsection.12.6.4}{Sentiment Classification}{section.12.6}% 97
-\BOOKMARK [2][-]{subsection.12.6.5}{Neural Machine Translation}{section.12.6}% 98
-\BOOKMARK [2][-]{subsection.12.6.6}{Speech Recognition}{section.12.6}% 99
-\BOOKMARK [2][-]{subsection.12.6.7}{Machine Reading Comprehension}{section.12.6}% 100
-\BOOKMARK [1][-]{section.12.7}{CV \046 NLP}{chapter.12}% 101
-\BOOKMARK [2][-]{subsection.12.7.1}{Image Caption}{section.12.7}% 102
-\BOOKMARK [2][-]{subsection.12.7.2}{Referring Segmentation}{section.12.7}% 103
-\BOOKMARK [1][-]{section.12.8}{Special Learning}{chapter.12}% 104
-\BOOKMARK [2][-]{subsection.12.8.1}{Transfer Learning}{section.12.8}% 105
-\BOOKMARK [2][-]{subsection.12.8.2}{Multi-task Learning}{section.12.8}% 106
-\BOOKMARK [2][-]{subsection.12.8.3}{K-shot Learning}{section.12.8}% 107
-\BOOKMARK [1][-]{section.12.9}{Interpretable Machine Learning}{chapter.12}% 108
-\BOOKMARK [1][-]{section.12.10}{Tactile Sensing}{chapter.12}% 109
-\BOOKMARK [2][-]{subsection.12.10.1}{Tactile Sensor}{section.12.10}% 110
-\BOOKMARK [2][-]{subsection.12.10.2}{Tactile Sensing and Perception}{section.12.10}% 111
+\BOOKMARK [2][-]{subsection.12.3.6}{Training}{section.12.3}% 77
+\BOOKMARK [1][-]{section.12.4}{Architectures}{chapter.12}% 78
+\BOOKMARK [2][-]{subsection.12.4.1}{Convolutional Networks}{section.12.4}% 79
+\BOOKMARK [2][-]{subsection.12.4.2}{Recurrent Neural Network}{section.12.4}% 80
+\BOOKMARK [2][-]{subsection.12.4.3}{Encoder-Decoder Architecture}{section.12.4}% 81
+\BOOKMARK [2][-]{subsection.12.4.4}{Generative Network}{section.12.4}% 82
+\BOOKMARK [1][-]{section.12.5}{Computer Vision}{chapter.12}% 83
+\BOOKMARK [2][-]{subsection.12.5.1}{Visual Sensor}{section.12.5}% 84
+\BOOKMARK [2][-]{subsection.12.5.2}{Objects Detection}{section.12.5}% 85
+\BOOKMARK [2][-]{subsection.12.5.3}{Object Tracking}{section.12.5}% 86
+\BOOKMARK [2][-]{subsection.12.5.4}{Face Recognition}{section.12.5}% 87
+\BOOKMARK [2][-]{subsection.12.5.5}{Stereo Vision}{section.12.5}% 88
+\BOOKMARK [2][-]{subsection.12.5.6}{Recognition at a Distance}{section.12.5}% 89
+\BOOKMARK [2][-]{subsection.12.5.7}{Re-Identification}{section.12.5}% 90
+\BOOKMARK [2][-]{subsection.12.5.8}{Image Style Transfer}{section.12.5}% 91
+\BOOKMARK [2][-]{subsection.12.5.9}{Video Generation}{section.12.5}% 92
+\BOOKMARK [2][-]{subsection.12.5.10}{Point Cloud Data Processing}{section.12.5}% 93
+\BOOKMARK [1][-]{section.12.6}{Natural Language Processing}{chapter.12}% 94
+\BOOKMARK [2][-]{subsection.12.6.1}{Language Representation}{section.12.6}% 95
+\BOOKMARK [2][-]{subsection.12.6.2}{Language Modeling}{section.12.6}% 96
+\BOOKMARK [2][-]{subsection.12.6.3}{Name-Entity Recognition}{section.12.6}% 97
+\BOOKMARK [2][-]{subsection.12.6.4}{Sentiment Classification}{section.12.6}% 98
+\BOOKMARK [2][-]{subsection.12.6.5}{Neural Machine Translation}{section.12.6}% 99
+\BOOKMARK [2][-]{subsection.12.6.6}{Speech Recognition}{section.12.6}% 100
+\BOOKMARK [2][-]{subsection.12.6.7}{Machine Reading Comprehension}{section.12.6}% 101
+\BOOKMARK [1][-]{section.12.7}{CV \046 NLP}{chapter.12}% 102
+\BOOKMARK [2][-]{subsection.12.7.1}{Image Caption}{section.12.7}% 103
+\BOOKMARK [2][-]{subsection.12.7.2}{Referring Segmentation}{section.12.7}% 104
+\BOOKMARK [1][-]{section.12.8}{Special Learning}{chapter.12}% 105
+\BOOKMARK [2][-]{subsection.12.8.1}{Transfer Learning}{section.12.8}% 106
+\BOOKMARK [2][-]{subsection.12.8.2}{Multi-task Learning}{section.12.8}% 107
+\BOOKMARK [2][-]{subsection.12.8.3}{K-shot Learning}{section.12.8}% 108
+\BOOKMARK [1][-]{section.12.9}{Interpretable Machine Learning}{chapter.12}% 109
+\BOOKMARK [1][-]{section.12.10}{Tactile Sensing}{chapter.12}% 110
+\BOOKMARK [2][-]{subsection.12.10.1}{Tactile Sensor}{section.12.10}% 111
+\BOOKMARK [2][-]{subsection.12.10.2}{Tactile Sensing and Perception}{section.12.10}% 112

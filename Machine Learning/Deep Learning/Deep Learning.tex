@@ -1718,7 +1718,22 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 
 \item Atrous Convolution
+
+\item Deformable Convolution
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item classification requires less background noise \\
+		whereas localization requires enough context \\
+		(such mismatch occurs especially in small-object detection) \\
+		$\Rightarrow$ ensemble regular conv \& deformable conv ?
+		\end{itemize}
+	\end{itemize}
+
+
 \item Deconvolution
+
+
 
 \item Convolution Implementation
 	\begin{itemize}
@@ -1763,6 +1778,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \item Unpooling
+
 \item Spatial Pyramid Pooling (SPP)
 	\begin{itemize}
 	\item Input
@@ -1789,7 +1805,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ conv layer need only to handle normal ratio (less burden)
 		\end{itemize}
 	\end{itemize}
-\item Region of Interest Pooling (RoI Pooling)
+	
+\item Region of Interest Pooling (RoI Pooling) \label{DL_Layers_Pooling_roi}
 	\begin{itemize}
 	\item Input
 		\begin{itemize}
@@ -2153,20 +2170,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
-\item Hard Attention
-	\begin{itemize}
-	\item Motivation
-		\begin{itemize}
-		\item 0-1 (binary) mask to harshly exclude noise
-		\end{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item can not directly perform end-to-end training \\
-		$\Rightarrow$ use sampling / reinforcement learning
-		\end{itemize}
-	\end{itemize}
-
-\item Spatial Attention on Image
+\item Visual/Spatial Attention
 	\begin{itemize}
 	\item Motivation
 		\begin{itemize}
@@ -2174,10 +2178,19 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Operation
 		\begin{itemize}
-		\item use high-level semantic feature to generate attention \\
-		$\Rightarrow$ ensure enough receptive fields to accounts for global context
-		\item apply attention on low-level feature for details \\
-		(usually need to upsample back to fit spatial dimension)
+		\item given feature map $\mathbf a = {\mathbf a_1,...\mathbf a_L}$ \\
+		$\Rightarrow$ attention $\alpha = \text{softmax} [\phi(\mathbf a, h)]$, where $h$ other info to guide the attention \\
+		\item e.g. use high-level semantic feature to generate attention \\
+		$\Rightarrow$ ensure enough receptive fields to accounts for global context \\
+		(may need to upsample attended low-level feature to fit spatial dimension)
+		\item e.g. use previous RNN hidden state to generate attention \\
+		$\Rightarrow$ ensure sequential conditioning \\
+		(as in "\hyperref[DL_CVNLP_Imgcap_show_attend_tell]{show attend and tell}")
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item enable model to better capture low-level info \\
+		(from different location \& on demand)
 		\end{itemize}
 	\end{itemize}
 
@@ -2351,6 +2364,44 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ guaranteed baseline
 		\item makes optimization for deep ($\ge 20$) net possible \& unleash deep power
 		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Training}
+\begin{itemize}
+\item Layer-Wise Fine-Tuning
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item freeze the low-level layers of pretrained net \& only train the output part
+		\item gradually (e.g. layer-by-layer, block-by-block) unfreeze lower layers
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item low-level layer capture generic \& task-independent info
+		\item high-level layer capture task-specific \& semantic info \\
+		(e.g. conv net)
+		\item high-level can settle down only after its input are more consistent
+		\item low-level can get effective update only if its gradient are more consistent
+		\item $\Rightarrow$ train high-level first (more directly beneficial) \\
+		(then jointly optimization)
+		\end{itemize}
+	\end{itemize}
+	
+\item Multi-Tasking Training
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item optimization goal composes of losses from multiple tasks \\
+		(usually a sum over all losses)
+		\end{itemize}
+	\item Understanding
+		\item joint optimization find the shared representation suitable for all tasks \\
+		(e.g. classification representation NOT suitable for localization)
+		\item could prevent net from using false evidence by constraints from other tasks \\
+		$\Rightarrow$ thus may improve per-class performance
+		\item able to design loss more aligned with final evaluation matrices \\
+		(though, really depends on loss design)
 	\end{itemize}
 \end{itemize}
 
@@ -2948,7 +2999,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Region Proposal Based Approaches}
+\subsubsection{Two-Stage Detection}
 \begin{itemize}
 \item Sliding Window Detection
 	\begin{itemize}
@@ -3054,16 +3105,89 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \item Fast R-CNN
 	\begin{itemize}
-	\item Overview
+	\item Bounding Box Encoding
 		\begin{itemize}
-		\item based on r-cnn
-		\item convolution implementation to predict all proposed regions \\
-		(similar to fast sliding window)
+		\item similar to SPP \& R-CNN: predict adjustment/refinement for each proposal \\
+		(focusing on the 2nd stage)
+		\item classifier for all $k+1$ class \& each $k$ class has its own location regressor \\
+		($1$ for the background class)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item input: an image \& a list of region of interest (RoI) in the image \\
+		(RoI pre-calculated from proposals)
+		\item one-pass inference: shared computation for feature from backbone CNN \\
+		(similar to SPP \& improved over R-CNN)
+		\item \hyperref[DL_Layers_Pooling_roi]{RoI pooling} for each projected proposal \\
+		(a special SPP with only one pyramid level) \\
+		$\Rightarrow$ extract fix-size feature from each proposal
+		\item further 2 dense layers generate RoI feature vector
+		\item fed into classification \& localization branches (each with 1 dense layer)
+		\item perform \underline{per-class NMS} on refined proposals to generate final bbox output \\
+		$\Rightarrow$ all bboxes are included in NMS (as independent NMS for each class)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item VGG to extract feature of image
+		\item RoI pooling to extract proposal (RoI) region into fixed-len feature
+		\item discard SVM: no need to cache tons of feature (support vector) on disk
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item in R-CNN/SPP: uniformly sample RoI, each RoI has an associated image \\
+		$\Rightarrow$ NOT able to share computation if each RoI is from a different image
+		\item discard the concern of \\ 
+		"RoI from one image are correlated and can cause slow convergence" \\
+		(no harm ... as each example treated independently anyway)
+		\item \underline{enforced computation sharing}: \\ 
+		sample $N$ images, then sample $R/N$ RoIs for each image \\
+		($R$ the size of batch: each RoI considered as an example) \\
+		$\Rightarrow$ much faster training as computation shared over $R/N$ gradient updates \\
+		(in paper,  $N=2,R=128$)
+		\item \underline{multi-task loss}: $L(p,u,t^u,v) = L_\text{cls}(p, t^u) + \lambda [u\ge 1] L_\text{loc}(t^u, v)$,
+		\begin{align*}
+		\text{where } & p / u \text{ the pred / label for classification (0 being background class)} \\
+		& t^u / v \text{ the pred / label bbox for true class } u
+		\end{align*}
+		\item classification loss $L_\text{cls}(p,u) = -\log p_u$ the cross-entropy
+		\item localization loss: $L_\text{loc}(t^u, v) = \sum_{i\in\{x,y,\log w,\log h\}} \text{smooth}_{L_1}(t^u_i - v_i)$, \\
+		where: $\text{smooth}_{L_1}(x) = \begin{cases} 0.5x^2 & \abs {x} < 1, \\ \abs x - 0.5 & \text{otherwise}. \end{cases}$
+		\item normalize location label $v$ to be $0$-mean \& unit variance \\
+		$\Rightarrow$ help setting $\lambda=1$
+		\item $IoU^\text{proposal}_\text{labe} > 0.5$ to be positive example, $0.1 < IoU^\text{proposal}_\text{label} < 0.5$ to be negative \\
+		($0.1$ to ensure hard negative \& pos example $< 25\%$)
+		\item joint end-to-end training
+		\end{itemize}
+	\item Analysis: v.s. Stage-Wise Training
+		\begin{itemize}
+		\item first train classification \& then train location branch with other params frozen \\ 
+		$\Rightarrow$ worse than joint multi-task training
+		\item joint optimization find the shared representation suitable for both tasks \\
+		(classification representation NOT suitable for localization)
+		\item could prevent net from using false evidence by constraints from other tasks \\
+		$\Rightarrow$ thus may improve per-class performance
+		\end{itemize}
+	\item Analysis: Scale Invariance
+		\begin{itemize}
+		\item conv net able to achieve 
+		\end{itemize}
+	\item Analysis: Proposal Density
+		\begin{itemize}
+		\item Fast R-CNN cannot handle dense proposals
+		\item average precision fall \& average recall not able to review true ability of net \\
+		(as recall due to more input, rather than ability of net)
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item region proposal postponed to a shared feature map \\
-		$\Rightarrow$ feature extraction once for all proposal
+		\item \underline{better performance from multi-tasking \& end-to-end joint optimization} \\
+		(by exploring a more robust shared representation)
+		\item faster training: sharing computation in batch \& no SVM
+		\item faster inference: network compression by SVD on weight matrix of dense layer
+		\item \underline{smooth $L_1$} is less sensitive to outliers than $L_2$ \\
+		$\Rightarrow$ thus less sensitive to learning rate tunning \\
+		(as $L_2$ needs to avoid gradients exploding under unbounded location pred)
+		\item update on loc \& cls branch are decoupled (not considering pred class) \\
+		$\Rightarrow$ \underline{MISalignment} with final evaluation (precision/recall are class-specific)
 		\end{itemize}
 	\end{itemize}
 
@@ -3109,7 +3233,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ final prediction as a $S\times S \times (C+5B)$ tensor
 		\item $p_c\cdot conf = p(\text{class}_c|\text{obj})\cdot p(\text{obj})\cdot \text{IoU}^\text{label}_\text{pred} = p(\text{class}_c, \text{obj}) \cdot \text{IoU}^\text{label}_\text{pred}$ \\
 		where $p_c$ from the cell, $conf$ from each box in the cell \\
-		$\Rightarrow$ combine the decouple pred for various class-specific boxes prediction
+		$\Rightarrow$ combine the decoupled pred for various class-specific boxes prediction
 		\item non-max suppression to fix multiple detection box (at test time)
 		\end{itemize}
 	\item Structure
@@ -3128,7 +3252,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item $\lambda_\text{obj} = 5$ to up-weight box with obj, $\lambda_\text{none}=0.5$ for empty box
 			\begin{itemize}
 			\item balance the dataset: avoid large num of empty box pushing $conf$ pred to $0$
-			\item emphasize on predicting box with object: adjust the box pred $x,y,w,h$
+			\item emphasize on predicting box responsible for object \\
+			(adjust its pred $x,y,w,h$)
 			\end{itemize}
 		\item $\mathbf{1}^{obj}_{ij}$ the indicator: $1$ if obj exists in $j$ box of $i$ cell, similar for $\mathbf 1^{none}_{ij}$
 		\item minimize $\sqrt{w_i}, \sqrt{h_i}$: mitigate various box size into similar scale \\ 
@@ -4743,10 +4868,28 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item directly output a depth map
 		\item output a disparity map as indirect depth perception
 		\end{itemize}
+	\end{itemize} 
+\item Approach Understanding
+	\begin{itemize}
+	\item Unsupervised Learning
+		\begin{itemize}
+		\item $f: \text{input}\rightarrow\text{output}$ hard \& $f^{-1}: \text{output}\rightarrow\text{input}$ easy \\
+		$\Rightarrow$ analog to $P$-$NP$ problem \\
+		(easy to check/describe the error solution \& hard to find solution)
+		\item designed error should be highly correlated with desired prediction error
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 \subsubsection{Unsupervised Learning}
 \begin{itemize}
+\item Unsupervised CNN for Single View Depth Estimation: Geometry to the Rescue
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item avoid systematic error in collected image-disparity dataset \\
+		$\Rightarrow$ use deep net to jointly deal with motion blur, etc. 
+		\end{itemize}
+	\end{itemize}
 \item Unsupervised Monocular Depth Estimation with Left-Right Consistency
 	\begin{itemize}
 	\item Understanding
@@ -6183,7 +6326,7 @@ based on visual and spatial-temporal features
 		(beam search selected in the paper)
 	\end{itemize}
 
-\item \underline{Show, Attend and Tell: Neural Image Caption Generation with Visual Attention}
+\item \underline{Show, Attend and Tell: Neural Image Caption Generation with Visual Attention} \label{DL_CVNLP_Imgcap_show_attend_tell}
 	\begin{itemize}
 	\item Motivation \& Analysis
 		\begin{itemize}

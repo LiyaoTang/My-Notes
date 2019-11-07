@@ -1041,7 +1041,23 @@ special syntax sugar to manipulate the result of a function
 20. 尽量先做数学变换
 21. 01背包相关问题可先考虑DP
 
-## Research Lib TO DO List
+## TO DO List
 
-1. glob.glob lib to replace file_traverser class
-2. 
+### Paper Reading
+
+- Stereo Vision
+  
+  - Geometry to the Rescue
+  
+  - Unsupervised Mono Depth Estimation with Left-Right Consistenct
+  
+    Unsupervised Learning of Depth and Ego-Motion from Video
+  
+    $\Rightarrow$ Digging Into Self-Supervised Mono Depth Estimation
+  
+  - Open-World Stereo Video Matching with Deep RNN
+  
+  - SIGNet: Segmantic Instance Aided Unsupervised 3D Geometry Perception
+  
+  -  Real-Time Dense Stereo Embedded in A UAV for Road Inspection
+
