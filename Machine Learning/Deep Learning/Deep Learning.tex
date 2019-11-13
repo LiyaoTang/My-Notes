@@ -1713,7 +1713,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item shrink the number of channels
 		\item add more non-linearity \& info combination (more representability)
-		\item 
+		\item channel-wise interaction
 		\end{itemize}
 	\end{itemize}
 
@@ -1802,7 +1802,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item output shape of pooling layer pre-defined $\Rightarrow$ map arbitrary input size to fixed size \\
 		$\Rightarrow$ no more crop/resize on input image \\
-		$\Rightarrow$ conv layer need only to handle normal ratio (less burden)
+		$\Rightarrow$ conv layer need only to handle normal ratio (less burden) \\
+		(decouple conv from requirement of dense layer)
 		\end{itemize}
 	\end{itemize}
 	
@@ -2937,9 +2938,26 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 
+\item Evaluation Metrics
+	\begin{itemize}
+	\item Recall-to-IoU
+		\begin{itemize}
+		\item the plot of recall at each IoU threshold, similar to average precision curve
+		\item should use only for diagnosis, instead of performance evaluation \\
+		(as only loosely related to accuracy, etc.)
+		\end{itemize}
+	\end{itemize}
+
 \item Understanding
 	\begin{itemize}
 	\item multi-object localization \& classification
+	\item Two-Stage Detection
+		\begin{itemize}
+		\item $1^\text{st}$ stage: objectness classification (filter out simple neg) \\
+		(trained with imbalanced data)
+		\item $2^\text{nd}$ stage: fine $k$-class classification \& location refinement \\
+		(trained with more balanced data)
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
@@ -2963,6 +2981,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ remove (suppress) bounding boxes with large overlap
 		\item repeat until all bounding boxes have a low IoU with each other \\
 		$\Rightarrow$ remaining boxes are the final predictions
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item usually not harm performance (as preserving high-score pred)
+		\item help reduce false positive
 		\end{itemize}
 	\end{itemize}
 \item Selective Search
@@ -3155,7 +3178,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item normalize location label $v$ to be $0$-mean \& unit variance \\
 		$\Rightarrow$ help setting $\lambda=1$
 		\item $IoU^\text{proposal}_\text{labe} > 0.5$ to be positive example, $0.1 < IoU^\text{proposal}_\text{label} < 0.5$ to be negative \\
-		($0.1$ to ensure hard negative \& pos example $< 25\%$)
+		(some data discarded due to GPU limit; pos example ensured to be $< 25\%$)
 		\item joint end-to-end training
 		\end{itemize}
 	\item Analysis: v.s. Stage-Wise Training
@@ -3182,21 +3205,128 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item \underline{better performance from multi-tasking \& end-to-end joint optimization} \\
 		(by exploring a more robust shared representation)
 		\item faster training: sharing computation in batch \& no SVM
-		\item faster inference: network compression by SVD on weight matrix of dense layer
+		\item faster inference: sharing convolution across proposals \\
+		(together with, network compression by SVD on weight matrix of dense layer)
 		\item \underline{smooth $L_1$} is less sensitive to outliers than $L_2$ \\
 		$\Rightarrow$ thus less sensitive to learning rate tunning \\
 		(as $L_2$ needs to avoid gradients exploding under unbounded location pred)
-		\item update on loc \& cls branch are decoupled (not considering pred class) \\
-		$\Rightarrow$ \underline{MISalignment} with final evaluation (precision/recall are class-specific)
+		\item per-class regressor: big output volume \& require enough data for all classes \\
+		$\Rightarrow$ hard to scale to detection with thousands of classes
 		\end{itemize}
 	\end{itemize}
 
 \item RPN: Faster R-CNN
 	\begin{itemize}
-	\item Overview
+	\item Bounding Box Encoding
 		\begin{itemize}
-		\item based on fast r-cnn
-		\item use CNN for segmentation \& region proposal (faster than selective search)
+		\item anchor box $[x_a, y_a, w_a, h_a]$: predefined boxes of various $\{\text{scale}\}\times\{\text{ratio}\}$ \\
+		(a grid of reference boxes - $k$ anchors at each location on output feature map)
+		\item proposal: similar to Fast R-CNN, but adjustment predicted w.r.t anchors \\
+		$\Rightarrow t_x = \frac {x-x_a} {w_a}, t_y = \frac{y-y_a}{h_a}; t_w = \log(\frac{w} {w_a}), t_h = \log(\frac{h}{h_a})$ \\
+		$\Rightarrow$ used as reference box for $2$nd-stage detector
+		\item Fast R-CNN as detector \& its box encoding used at final pred
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item RPN predicts proposals based on anchor box, with only objectness classification \\
+		(binary fore- vs. back-ground classification) \\
+		$\Rightarrow$ channel-size = $2k$ for cls; $4k$ for reg
+		\item non-maximal suppression (NMS) to reduce proposals
+		\item detector (Fast R-CNN) predicts final boxes \& multi-class classification \\ 
+		(with class-specific NMS)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item backbone CNN (VGG, Resnet-50, etc.) extract feature map
+		\item RPN branch $=$ 3x3 conv $+$ 2 sibling 1x1 conv (for cls \& reg)
+		\item RoI pooling on the extracted feature map, according to each adopted proposal
+		(followed by rest of the Fast R-CNN) \\
+		$\Rightarrow$ proposal generator \& detector shares the same backbone
+		\end{itemize}
+	\item Training RPN
+		\begin{itemize}
+		\item RPN loss $L(\{p_i\} \{t_i\}) = \frac 1{N_\text{cls}} \sum_i L_\text{cls}(p_i, p_i^*) + \lambda \frac 1 {N_\text{reg}} p_i^* L_\text{reg}(t_i,t_i^*)$, \\
+		where $*$ denotes label, $p^*_i / t^*_i$ the cls/reg label for $i$-th anchor
+		\item $L_\text{cls}$ the log loss on objectness of proposal (binary classification) \\
+		$\Rightarrow p_i^* = \begin{cases} 1 & \text{IoU}^\text{anchor}_\text{label} > 0.7 \text{ or anchor overlap with a label with highest IoU}, \\ 0 & \text{IoU}^\text{anchor}_\text{label} < 0.3 \end{cases}$
+			\begin{itemize}
+			\item ignore confusing anchors with $\text{IoU}^\text{anchor}_\text{label} \in [0.3, 0.7]$ (not included in loss)
+			\item ensure at least 1 (can have multiple) anchor for each label
+			\end{itemize}
+		\item $L_\text{reg}$ the smooth $L_1$ loss on location regression \\ 
+		(only include positive anchor as guarded by $p^*_i$)
+		\item $N_\text{cls/reg}$ normalizing the cls/reg loss by num of involved example \\
+		$\Rightarrow N_\text{cls}$ = batch size; $N_\text{reg}$ = num of positive anchor
+		\item $\lambda$ the balancing term, default to $10$ \& robust in a wide range ($1-100$)
+		\item each batch sample $256$ anchors from the same image \& ensure pos $:$ neg $\le 1:1$ \\
+		(share computation across anchors as much as possible)
+		\item cross-border anchors can match to label (thus positive) \\
+		$\Rightarrow$ predict boxes from $0$-padding influenced feature (noisy feature) \\
+		$\Rightarrow$ NOT converge \\ 
+		$\Rightarrow$ \underline{cross-border anchors are discarded}
+		\end{itemize}
+	\item Joint Training
+		\begin{itemize}
+		\item final loss = loss of 1st stage (RPN) + loss of 2nd stage (Fast R-CNN) \\
+		$\Rightarrow$ shared backbone updated by gradient from both branch
+		\item YET, stop the gradient from 2nd stage to RPN \\
+		(as gradient from RPN loss \& from 2nd stage can diverge) \\
+		(though still converge after enough training)
+		\end{itemize}
+	\item Alternating (4-step) Training
+		\begin{itemize}
+		\item train RPN: pretrain on ImageNet \& finetune on detection dataset
+		\item train Fast R-CNN: pretrain on ImageNet \& finetune on detection dataset
+		\item finetune 1st stage: using Fast R-CNN backbone as fixed \& update RPN branch
+		\item finetune 2nd stage: backbone and RPN fixed \& update Fast R-CNN branch \\
+		(could alternatively fine-tune for more times...)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item RPN: high-quality region proposal by learning:
+			\begin{itemize}
+			\item fully-conv net as sliding window proposal generator \\
+			(use same spatial window at each reg location) \\
+			(use diff regressor for each of the $k$ anchor)
+			\item benefit from deep model \& increasing data \\
+			(e.g. resnet-101 \& coco leads to better result)
+			\item more stable proposal due to fully-conv net setting
+			(translation invariant, upto the network stride)
+			\end{itemize}
+		$\Rightarrow$ less proposal ($\le300$) required \& less burden on 2nd stage \\
+		(top-ranked RPN proposals are accurate)
+		\item $\Rightarrow$ faster \& unified end-to-end detection framework \\
+		(though not entirely end-to-end due to NO non-approximate joint training)
+			\begin{itemize}
+			\item enable shared conv between proposal generation \& refinement
+			\item shared backbone optimized with multi-tasking \& more end-to-end framework
+			\end{itemize}
+		\item \underline{anchors} for multi-scale detection $\Rightarrow$ detection reference pyramid \\
+		(as predict the adjustment of referenced/anchor box)
+			\begin{itemize}
+			\item avoid resource-consuming input image / kernel size pyramid
+			\item address scale-ratio variance with dedicated params ($k$ regressor for $k$ anchors)
+			\end{itemize}
+		$\Rightarrow$ multi-scale reference is efficient \& effective		
+		\item faster inference \& training:
+			\begin{itemize}
+			\item no image/filter pyramid, but anchors, for multi scale
+			\item sharing conv for proposals generator \& detector
+			\end{itemize}
+		\item \underline{2-stage framework}:
+			\begin{itemize}
+			\item RPN generates proposals by \underline{only objectness}, with highly imbalanced pos-neg \\
+			$\Rightarrow$ filters out easy negative \& bad prior by objectness \\
+			$\Rightarrow$ more balanced training data \& good prior for 2nd stage
+			\item detector further regress \& classify (class-specific detection)
+			\end{itemize}
+			$\Rightarrow$ 2-stage hierarchical refinement on both regression \& classification
+		\item improve on hard case, indicated by recall/precision @ high IoU threshold
+		\item still a $16$-stride (= downsample rate) detection network \\
+		(could improve by smaller stride)
+		\item indeed, 4-branch network \& sequential inference \\
+		$\Rightarrow$ still need to design well-aligned loss for the 1st-stage proposal \\
+		(as no gradient from 2nd stage)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
