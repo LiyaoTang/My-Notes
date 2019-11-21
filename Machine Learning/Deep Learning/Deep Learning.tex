@@ -1526,6 +1526,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item to use posterior with Gaussian distribution: add $L2$ regularization term
 		\end{itemize}
 	\end{itemize}
+
+\item Smooth L1 Loss
+	\begin{itemize}
+	\item 
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{Metric Loss}
@@ -1812,12 +1817,12 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Input
 		\begin{itemize}
 		\item feature maps from CNN
-		\item RoIs i.e. proposal region (from selective search etc.) projected on feature map
+		\item RoIs i.e. proposal region (from selective search, RPN etc.) projected on feature map
 		\end{itemize}
 	\item Operation
 		\begin{itemize}
 		\item divide each RoI with grid of desired size (proportional to the RoI size)
-		\item max pooling from each cell
+		\item max pooling from each cell/bin
 		\end{itemize}
 		$\Rightarrow$ single-size SPP for each RoI
 	\item Output
@@ -1825,6 +1830,42 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item a fixed size feature maps for each RoI
 		\end{itemize}
 	\end{itemize}
+	
+\item Positional Sensitive RoI Polling (PS-RoI Pooling) \label{DL_Layers_Pooling_psroi}
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item RoIs
+		\item $k^2n$-channel feature maps: divided into $k^2$ groups, each group $n$ channel, \\
+		where $k^2$ the bin/cell num of RoI, $n$ related to downstream task
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item selective (over channel) RoI pooling: \\
+		$\Rightarrow$ for $i$-th bin/cell $\in k\times k$ bins/cells, select $i$-th group of feature maps
+		\item average pooling on the bin location of the selected group
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item $k\times k$ feature maps with $n$ channels
+		\item $n$-d vector with a further average pooling \\
+		e.g. $n = 4$ for $(x,y,w,h)$ regression \& $n=C+1$ for $C$-class classification
+		\item example: $3\times 3$ bins RoI for $C$-class classification \\
+		(average pooling as voting to produce final classification pred) \\
+		\includegraphics[width=0.5\linewidth, left]{"./Deep Learning/plot/layer-pooling psroi".png}	
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item position sensitive: dedicated conv kernels \& feature maps for each bin location \\
+		(each feature map group accounts for a spatial location of RoI bin)
+		\item no need of post-RoI process: share all computation \\
+		$\Rightarrow$ produces prediction from each bins before RoI \\
+		(parallel proposal generation \& prediction in R-FCN)
+		\item $\Rightarrow$ more robust prediction \\ 
+		(as $k\times k$ prediction made for each proposals)
+		\end{itemize}
+	\end{itemize}
+
 \item Probabilistic Max Pooling
 \end{itemize}
 \subsubsection{RNN Layer}
@@ -3139,8 +3180,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item input: an image \& a list of region of interest (RoI) in the image \\
 		(RoI pre-calculated from proposals)
-		\item one-pass inference: shared computation for feature from backbone CNN \\
-		(similar to SPP \& improved over R-CNN)
+		\item one-pass inference: shared computation for proposals from backbone CNN \\
+		(similar to SPP-net \& improved over R-CNN)
 		\item \hyperref[DL_Layers_Pooling_roi]{RoI pooling} for each projected proposal \\
 		(a special SPP with only one pyramid level) \\
 		$\Rightarrow$ extract fix-size feature from each proposal
@@ -3154,6 +3195,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item VGG to extract feature of image
 		\item RoI pooling to extract proposal (RoI) region into fixed-len feature
 		\item discard SVM: no need to cache tons of feature (support vector) on disk
+		\item post-RoI dense layers could be implemented as 1-D conv over RoI feature vectors
 		\end{itemize}
 	\item Training
 		\begin{itemize}
@@ -3203,7 +3245,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Understanding
 		\begin{itemize}
 		\item \underline{better performance from multi-tasking \& end-to-end joint optimization} \\
-		(by exploring a more robust shared representation)
+		(by exploring a more robust shared representation \& no SVM)
 		\item faster training: sharing computation in batch \& no SVM
 		\item faster inference: sharing convolution across proposals \\
 		(together with, network compression by SVD on weight matrix of dense layer)
@@ -3327,6 +3369,66 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item indeed, 4-branch network \& sequential inference \\
 		$\Rightarrow$ still need to design well-aligned loss for the 1st-stage proposal \\
 		(as no gradient from 2nd stage)
+		\end{itemize}
+	\end{itemize}
+
+\item R-FCN: Region-based Fully Conv Net
+	\begin{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item similar to Faster R-CNN (anchor-proposal-pred)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item RPN branch generate proposals
+		\item R-FCN branch generate $k^2$ group of feature maps, each group $n$ feature maps \\
+		(in total $k^2n$: $n=C+1$ for cls \& $n=4$ for reg), \\
+		where $k\times k$ the bins num of RoI pooling
+		\item \hyperref[DL_Layers_Pooling_psroi]{positional-sensitive RoI pooling} \\
+		$\Rightarrow$ for $i$-th bin, slice \& average the feature maps of $i$-th group \\
+		$\Rightarrow$ producing $n$ feature maps of size $k\times k$
+		\item voting (another average pooling) on RoI features to obtain final cls/reg prediction
+		\item NMS with IoU threshold = 0.3
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item RPN \& detector (conv + ps-roi pooling) sharing backbone
+		\item atrous ResNet-101 used as backbone (stride reduced $32\rightarrow16$) \\
+		(1x1 conv to reduce last feature maps channel num to 1024)
+		\item conv to produce feature maps for $k\times k=7\times7$ bins ps-roi pooling
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item loss similar to Faster R-CNN: $L_\text{cls}=$ cross entropy; $L_\text{reg}=$ smooth L1
+		\item alternating training RPN \& R-FCN branch
+		\item $\text{IoU}^\text{RoI}_\text{label} \ge 0.5$ to be positive \& $\le 0.5$ to be negative
+		\item online hard examples mining (OHEM) \\
+		$\Rightarrow$ evaluate $N$=300 proposal \& select $B$=128 RoIs with highest loss for back-prop
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item location info demanded by detection v.s. translation invariance FCN backbone \\
+		(motivation: solving dilemma \& maintain simplicity of FCN) \\
+		$\Rightarrow$ encode \underline{spatial info into different semantic feature maps} \\
+		$\Rightarrow$ demands dedicated conv kernel to infer cls\&reg from each bin location \\
+		(e.g. $k=3$: can have positions of top-left, ..., bottom-right) \\
+		$\Rightarrow$ dedicated feture maps strongly activated at specific relative position of an obj
+		\item position-sensitivity are necessary for detection \\
+		(if $k=1$, i.e. remove spatial info $\Rightarrow$ NOT even converge)
+		\item thus, \underline{an FCN detection net}: \\
+		$\Rightarrow$ sharing all computation (including cls/reg prediction) across proposals \\
+		$\Rightarrow$ moving params forward \& more params for less computation by FCN fashion \\
+		$\Rightarrow$ produce dense prediction from each bin before RoI:
+			\begin{itemize}
+			\item $\mathcal O(1)$ inference time w.r.t. proposals $\Rightarrow$ enable costless OHEM
+			\item parallel proposal generation \& prediction
+			\end{itemize}
+		\item $\Rightarrow$ more robust prediction \\
+		(as $k\times k$ prediction made for each proposal)
+		\item transfer deep classifier into deep detector by adding conv for ps-roi pooling \\
+		$\Rightarrow$ without introducing per-RoI process (thus no efficiency burden)
+		\item cls branch: $\{\text{bin location}\}\times\{\text{class}\}$ \\
+		$\Rightarrow$ infeasible for large-category classification (e.g. 1000 classes)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}

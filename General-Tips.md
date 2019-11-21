@@ -1,4 +1,4 @@
-# Tips-for-programming
+# General Tips
 
 ## C++
 
@@ -210,6 +210,43 @@
        2. undefined symbol, due to not declared outside the class and thus not recognized globally
     
           (especially when compiled into `.so`)
+
+24. terminal arg with `gflags` 
+
+    1. `DEFINE_xxx(arg, default value, help string)` to define a command line arg of type `xxx` 
+
+    2. `FLAG_xxx` to access the passed in value for the previous arg with name `xxx` 
+
+    3. `DECALRE_xxx` to re-use a `DEFINE`-ed args $\Rightarrow$ introduce dependency
+
+       (hense, should only used in its test file or header file)
+
+    4. `DEFINE_validator(arg, &func)` to check `arg` with `func`, to ensure valid passed-in value
+
+    5. provide command line option `--flagfile=f` to read a file as passed-in args
+
+    6. `ParseCommandLineFlags(&argc, &argv, true);` to parse the `argc, argv` passed to `main`
+
+       1. the last argument set `remove_flags=true` to remove flag
+
+          $\Rightarrow$ modify from`argv=["-q", "arg1"]` to `argv=["arg1"]` 
+
+25. `std::move(x)` 
+
+    1. `x`  is assumed to be expiring (a xvalue) $\Rightarrow$ take advantage of its allocated mem
+
+       (while also ensuring `x` is correctly deconstructed)
+
+    2. $\Rightarrow$ enable efficiently perform heavy object `return` by:
+
+       1. disable normal copy construction `A(&A)=delete;` 
+       2. enable move construction `A(&&A)=default;` 
+
+       (move construction effectively enabled by compiler in c++17)
+
+       (in C++11, the scope limits the use of move construction in `return`)
+
+    3. enable efficient `vector` re-allocation
 
 ### Format Convention
 
@@ -437,9 +474,26 @@
 ## Python
 
 1. gc to release memory explicitly (gc.collect()) $\Rightarrow$ gc short for garbage collection
+
 2. place the outer python-based library directly under the  folder => then import as usuall
+
 3. In fact, **EVERYTHING** is object in python
+
 4. python header files: /usr/include/python\*.\*m
+
+5. `dict`
+
+   1. `.pop(k, [d])`: pop out the item indexed by key `k`; 
+
+      if key not found, return `d` if given, or an error raised 
+
+6. symbol table: store all information related to a scope, actually, a `dict` in python
+   1. `globals()` access the global symbol table
+   2. `locals()` access the local symbol table
+
+7. `**kwargs`: pass in arbitrary num of keyword argument
+
+   1. indeed, organized into a `dict` 
 
 ### Numpy
 
@@ -924,6 +978,63 @@ special syntax sugar to manipulate the result of a function
 
     - import TF in scope $\Rightarrow$ provide the inner-tf multiprocessing with scope
     - $\Rightarrow$ import TF inside each function call (scope), with NO process-level TF running
+
+### Py-Torch
+
+- Type
+
+  - `Torch.Size`
+    - in fact a tuple
+
+- Tensor
+
+  - `.view()` 
+
+    - as name, create another view on the same underlying data
+
+      (change from one view influence other views)
+
+  - `.numpy()` \& `.from_numpy()`
+
+    - convert to/from a numpy ndarray \& sharing the same memory (if on cpu)
+    - not supporting `char` array
+
+  - `.to()`
+
+    - memcpy tensor to the specified device
+    - device denoted by a string (e.g. "cuda") or device-object (e.g. `torch.device("cuda")`)
+
+  - `.require_grad`
+
+    - attribute default to `False`, `True` to track all operation on the tensor
+    - $\Rightarrow$ collect all gradients when `backward()` called \& accumulated to its `.grad` attribute
+
+  - `.grad_fn`
+
+    - hold \& register the `Function` that create the tensor (e.g. `+`, ...)
+
+  - `backward()`
+
+    - calc the grad, delete intermediary results (to reduce mem, as assumed to be no longer needed)
+
+      $\Rightarrow$ cannot backprop twise (unless specifying `retain_graph=True`)
+
+    - allow only scalar-to-tensor differentiation
+
+      $\Rightarrow$ avoid intermediate high-dim tensor
+
+    - $\Rightarrow$ for scalar `y`, `y.backward()` start the backprop from `y`
+
+    - $\Rightarrow$ for tensor `y`, `y.backward(w)` $\Leftrightarrow$ `l=torch.sum(y*w); l.backward()`, where `l` a scalar
+
+      or equivalently, as `w` actually is the gradient for `y`, could take as passing down the chain rule
+
+- Modele
+
+  - `.parameters()`
+    - get all learnable params of a model
+  - `.zero_grad()`
+    - clear (set to 0) gradient buffers for all params in model
 
 ## Distributed System
 
