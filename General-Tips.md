@@ -557,6 +557,18 @@ special syntax sugar to manipulate the result of a function
    1. pre-/post- condition, synchronization, redirect std ouput, async call, etc....
    2. decorator library: https://wiki.python.org/moin/PythonDecoratorLibrary
 
+### functools
+
+- `partial(func, *args, **kwargs)`
+
+  to generate function family (lots of similar functions) based on a root function
+
+  - Params
+    - `func` the python `function` object to be used
+    - `*args, **kwargs` the args passed into the `func`
+  - Understanding
+    - “freezes” some arguments and/or keywords resulting in new func-obj with simplified signature
+
 ### Inheritance
 
 - Class Generation
@@ -1013,21 +1025,27 @@ special syntax sugar to manipulate the result of a function
 
     - hold \& register the `Function` that create the tensor (e.g. `+`, ...)
 
-  - `backward()`
+  - `.backward()` 
 
     - calc the grad, delete intermediary results (to reduce mem, as assumed to be no longer needed)
 
       $\Rightarrow$ cannot backprop twise (unless specifying `retain_graph=True`)
 
-    - allow only scalar-to-tensor differentiation
+    - allow only scalar-to-tensor differentiation $\Rightarrow$ avoid intermediate high-dim tensor
 
-      $\Rightarrow$ avoid intermediate high-dim tensor
-
-    - $\Rightarrow$ for scalar `y`, `y.backward()` start the backprop from `y`
+    - $\Rightarrow$ for scalar `y`, `y.backward()` start the backprop from `y` 
 
     - $\Rightarrow$ for tensor `y`, `y.backward(w)` $\Leftrightarrow$ `l=torch.sum(y*w); l.backward()`, where `l` a scalar
 
       or equivalently, as `w` actually is the gradient for `y`, could take as passing down the chain rule
+
+  - `.no_grad()`
+
+    - not trigerring auto-diff system 
+
+    - can be used as `with torch.no_grad()` 
+
+      $\Rightarrow$ to be much efficient for doing model evaluation
 
 - Modele
 
@@ -1035,6 +1053,223 @@ special syntax sugar to manipulate the result of a function
     - get all learnable params of a model
   - `.zero_grad()`
     - clear (set to 0) gradient buffers for all params in model
+  - `.forward()`
+    - can be user-defined \& assume $NCHW$ input (the first dim is always batch)
+  - `.eval()`
+    - notify all layers to be in eval mode (e.g. batchnorm, dropout, etc.)
+  
+- Transforms
+
+  - utils for img processing, construct pipeline with `.compose([...])`:
+    - data aug on img: crop, flip & rotation, resize, color, etc. (including user defined func)
+    - on transforms itself: randomize, etc.
+
+- Optimizer
+
+  - Construction
+
+    - popular optimizer implmented in `torch.optim`, 
+
+      e.g. `optim.SGD(net.parameters(), lr=learning_rate, momentum=0.9)`
+
+  - `.zero_grad()`
+
+    - call `zero_grad()` of passed in parameters, e.g. `net.parameters()` 
+
+  - Training
+
+    - ```python
+      # zero the parameter gradients
+      optimizer.zero_grad()
+      
+      # forward + backward + optimize
+      outputs = net(inputs)
+      loss = criterion(outputs, labels)
+      loss.backward()
+      optimizer.step()
+      ```
+
+- DataParallel
+
+  - `nn.DataParallel(model)`
+
+    - replicate the model onto each gpu 
+
+      e.g. `nn.DataParallel(net).to(device)`
+
+    - split the data automatically (according to `batch_size` specified in `DataLoader`) 
+
+      $\Rightarrow$ if $n$ gpu, then the model on each gpu gets $\frac {n}{\text{batch_size}}$ examples for one batch 
+
+    - gather the result automatically:
+
+      `output = net(input)` will have the `batch_size` examples as specified in `DataLoader` 
+
+    - disallow direct access to the original model from the wrapped model
+
+      (avoid collision as a set of new methods introduced by wrapping)
+
+  - Self-Defined `DataParallel` Wrapper by `nn.parallel`
+
+    -  using `nn.parallel` 
+
+- ModelParallel
+
+  - Device Control
+
+    - fit sub-`nn.module` to different gpu by `.to(device)`$\Rightarrow$ in case of a too-large model
+
+    - wrapping resnet to 2 gpu
+
+      ```python
+      from torchvision.models.resnet import ResNet, Bottleneck
+      num_classes = 1000
+      
+      class ModelParallelResNet50(ResNet):
+          def __init__(self, *args, **kwargs):
+              super(ModelParallelResNet50, self).__init__(
+                  Bottleneck, [3, 4, 6, 3], num_classes=num_classes, *args, **kwargs)
+      
+              self.seq1 = nn.Sequential(
+                  self.conv1,
+                  self.bn1,
+                  self.relu,
+                  self.maxpool,
+      
+                  self.layer1,
+                  self.layer2
+              ).to('cuda:0')
+      
+              self.seq2 = nn.Sequential(
+                  self.layer3,
+                  self.layer4,
+                  self.avgpool,
+              ).to('cuda:1')
+      
+              self.fc.to('cuda:1')
+      
+          def forward(self, x):
+              x = self.seq2(self.seq1(x).to('cuda:1'))
+              return self.fc(x.view(x.size(0), -1))
+      ```
+
+    $\Rightarrow$ recommend **in-class** device control, for better flexibility & maintainability
+
+    ​	(can always assume input cpu data)
+
+    - yet, performance significantly deteriorates:
+
+      1. only 1 gpu is runing as a time (as sub-modules are not runing concurently)
+
+      2. data transition between devices, yet a minor factor
+
+         (as handled by nvLink and optimized by dedicated device)
+
+  - Pipelining Inputs across Devices
+
+    - in-model spliting the input for data pipeline construction (as using in-model device control)
+
+    - leverage asynchronous launches of CUDA ops in py-torch
+
+      $\Rightarrow$ no need for explicit threading (as cuda ops are already running concurrently)
+
+    - `.to(device)` indicate device-to-device tensor copy $\Rightarrow$ create a synchronization point
+
+      (sync on source \& destination devices)
+
+      ```python
+      class PipelineParallelResNet50(ModelParallelResNet50):
+          def __init__(self, split_size=20, *args, **kwargs):
+              super(PipelineParallelResNet50, self).__init__(*args, **kwargs)
+              self.split_size = split_size
+      
+          def forward(self, x):
+              splits = iter(x.split(self.split_size, dim=0))
+              s_next = next(splits)
+              s_prev = self.seq1(s_next).to('cuda:1') # prepare input for cuda:1
+              ret = []
+      
+              for s_next in splits:
+                  # A. s_prev runs on cuda:1
+                  s_prev = self.seq2(s_prev)
+                  ret.append(self.fc(s_prev.view(s_prev.size(0), -1)))
+      
+                  # B. s_next runs on cuda:0, which can run concurrently with A
+                  s_prev = self.seq1(s_next).to('cuda:1') # sync by copy
+      
+              s_prev = self.seq2(s_prev)
+              ret.append(self.fc(s_prev.view(s_prev.size(0), -1)))
+      
+              return torch.cat(ret)
+      ```
+
+    - could be further concurrent by overlapping copy of a tensor \& the compute of the other one
+
+      (reduce sync point indicated by device-device copy)
+
+- Distributed Data Parallel (DDP) `torch.distributed`
+
+  - v.s. Data Parallel
+  
+    - incorperates model parallel $\Rightarrow$ combine data parallel and model parallel
+  
+      (able to have data parallel on multiple models \& each model parallel on multiple devices)
+  
+    - provides parallelism for multi-process \& cross-machine enviornment
+  
+      (while data parallel is single-process \& multi-threaded )
+  
+  - Workload Balance
+  
+    - using `wait(timeout)` $\Rightarrow$ need to have each process has roughly same process speed
+    - `timeout` set as initialization should account for inevitable skewed processing speed
+  
+  - Init
+  
+    - `dist.init_process_group('name', rank=rank, world_size=world_size)`,
+  
+      where `world_size` = num of processes; `rank` = the id for each process (passed to each proc)
+  
+      $\Rightarrow$ define a process group
+  
+    - `torch.manual_seed()` to ensure all model construction start with same rand seed
+  
+      (if rand init involved)
+  
+    - `torch.multiprocessing.spawn(func)` to start process group to run `func` 
+  
+  - Sync Point
+  
+    - constructor, forward method \& differentiation of outpus
+    - `dist.barrier()` to manually sync all process in the group
+  
+  - Save \& Load
+  
+    - save model from one process if enough 
+  
+      (as starts from same rand init \& gradients are synchronized)
+  
+    - `torch.load` with `map_location`: to map the loaded model into desired devices
+  
+      (otherwise, loaded into cpu first - all process contends for cpu)
+  
+  - Process \& Device Control
+  
+    - each process can have only one model: model relicas inside one process not supported
+  
+      $\Rightarrow$ one process per module replica (also, better performance)
+  
+    - model parallel with DDP: pass devices to model constructor
+  
+      (instead of using hard-coded device in `forward`)
+  
+  - 
+  
+- `hook`
+
+  - `forward_hook`
+  - `backward_hook`
+  - 
 
 ## Distributed System
 

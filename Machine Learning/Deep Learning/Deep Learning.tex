@@ -3380,8 +3380,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Inference
 		\begin{itemize}
-		\item RPN branch generate proposals
-		\item R-FCN branch generate $k^2$ group of feature maps, each group $n$ feature maps \\
+		\item RPN head generate proposals
+		\item R-FCN head generate $k^2$ group of feature maps, each group $n$ feature maps \\
 		(in total $k^2n$: $n=C+1$ for cls \& $n=4$ for reg), \\
 		where $k\times k$ the bins num of RoI pooling
 		\item \hyperref[DL_Layers_Pooling_psroi]{positional-sensitive RoI pooling} \\
@@ -3431,6 +3431,15 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ infeasible for large-category classification (e.g. 1000 classes)
 		\end{itemize}
 	\end{itemize}
+	
+\item Feature Pyramid Network
+	\begin{itemize}
+	\item Inference
+	\item Structure
+	\item Training
+	\item Understanding
+	\end{itemize}
+
 \end{itemize}
 
 \subsubsection{One-stage Detection}
