@@ -3061,6 +3061,15 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item 
 		\end{itemize}
 	\end{itemize}
+\item Anchor Scale Normalization
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item Goal
+	\item Operation
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{Two-Stage Detection}
@@ -3432,12 +3441,72 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 	
-\item Feature Pyramid Network
+\item Feature Pyramid Network (FPN)
 	\begin{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item same as Faster R-CNN \& R-FCN
+		\item anchors assigned to different pred head according to anchor scale $P_k$, \\
+		where $P_k$ denote a feature map of stride $2^k$ (i.e. downsampled by $2^k$ times)
+		\end{itemize}
 	\item Inference
+		\begin{itemize}
+		\item infer as 2-stage detection, with backbone network replaced by / extended to FPN 
+		\item shared network head (e.g. RPN head) predict at each pyramid level
+		\item assign RoIs to scale/pyramid level $k, P_k$ (similar to anchor assignment), \\
+		with $k = \floor{k_0 + \log_2(\frac {\sqrt{w_rh_r}} {244})}$,
+		\begin{align*}
+		\text{where } & 244 \text{ the canonical imagenet pretraining size} \\
+		& k_0=4 \text{ the level to which RoI of } w\times h=244^2 \text{ should be assigned} \\
+		& \frac {\sqrt{wh}}{244} \text{ the downsample rate } (\log_2\text{ as stride-2 downsample})
+		\end{align*}
+		$\Rightarrow$ assign large RoI to low-res (e.g. $P_5$), small RoI to high-res (e.g. $P_2$)
+		\item 7x7 RoI pooling for each RoI at its scale level
+		\item prediction made by a pred head shared across all levels
+		\item convert pred at each scale/pyramid level, using anchor assigned to that level
+		\end{itemize}
 	\item Structure
+		\begin{itemize}
+		\item downsample (bottom-up): downsample at each ResNet stage \\
+		$\Rightarrow$ collect last layer of each stage $\{C_2,C_3,C_4,C_5\}$
+		\item upsample (top-down): interpolation (e.g. nearest neighbor, bilinear) \\
+		$\Rightarrow$ results in corresponding $\{P_2,P_3,P_4,P_5\}$ (generate $P_5$ first)
+		\item skip connection: 1x1 conv to match channel to $d=256$ \& element-wise adding \\
+		$\Rightarrow$ residual connection to associate across resolution \& semantic level
+		\end{itemize}
 	\item Training
+		\begin{itemize}
+		\item 15 anchors $=\{32^2, 64^2, 128^2, 256^2, 512^2\}\times\{$1:2, 1:1, 2:1$\}$ \\
+		(pos-neg assignment as in Faster R-CNN, i.e. RPN) \\
+		$\Rightarrow$ assigned to $\{P_2,P_3,P_4,P_5\}$ according to scale \\
+		(e.g. $P_2$ accounts for $32^2$ anchor, $P_5$ accounts for $512^2$ anchor)
+		\item associate label box to anchor as usual (thus to each pyramid/scale level)
+		\item train as Fast/Faster R-CNN
+		\end{itemize}
 	\item Understanding
+		\begin{itemize}
+		\item provide both high-resolution \& high-level semantic info from a single scale input \\
+		$\Rightarrow$ provide feature pyramid with rich semantic info \\
+		(dedicated feature map for each scale) \\
+		(instead of a single high- res, high-level feature map)
+		\item prediction independently made at each scale, by a shared pred head \\
+		(analogs to using image pyramid \& non-share has similar performance) \\
+		$\Rightarrow$ easily generate to pyramid with more/less levels
+		\item $\Rightarrow$ explicitly \underline{address multi-scale problem by design} \\
+		(effective pyramid from learning) \\
+		$\Rightarrow$ much better in detection small object
+		\item remove the need of image pyramid at test time \\
+		(still needed as deep feature / anchors are not enough for multi-scale problem) \\
+		$\Rightarrow$ much faster inference \& consistent train-test
+		\item yet, \underline{still slow inference in industrial deploymen}t: slow post-processing  \\
+		(too many pred due to large final feature map \& per-box post-processing)
+		\item skip connection
+			\begin{itemize}
+			\item residual adding (v.s. concat in U-net) to ensure effective depth increase
+			\item mitigate the large semantic gap between resolutions (in downsample path)
+			\item fix the location of upsampled feature
+			\end{itemize}
+		\end{itemize}
 	\end{itemize}
 
 \end{itemize}
