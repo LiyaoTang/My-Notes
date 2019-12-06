@@ -1089,6 +1089,112 @@ special syntax sugar to manipulate the result of a function
       optimizer.step()
       ```
 
+- `torch.distributed` \& `torch.multiprocessing` 
+
+  - Creating Multi-Process
+  
+    - `torch.multiprocessing.spawn(func)` to start process group to run `func` 
+  
+    - `p = mp.Process(target=init_process, args=(rank, size, fn))` to create process
+  
+      \& `p.start()` to start runing, where `mp = torch.multiprocessing`
+  
+    - `new_group = dist.new_group(ids)` to create new group, where `ids` a list of process id (rank)
+  
+  - Process Initialization: Initial Coordination (`torch.distributed.init_process_group()`)
+  
+    - define environment variable: `WORKD_SIZE, RANK`
+  
+      where `world_size = dist.get_world_size()` = num of all processes; 
+  
+      ​			`rank = dist.get_rank()` = the id of each/current process 
+  
+      ​			(can be used to identify master-worker)
+  
+      (can read from `os.environ` if not set explicitly)
+  
+    - `local_rank`: device list to be used for the process, when using multi-gpu node
+  
+      (convension, rather than params of the call)
+  
+      $\Rightarrow$ use in each proc: `torch.cuda.set_device(local_rank)` 
+  
+    - init methods:
+  
+      1. file path on shared file system: use a shared file (with locking) for communication
+  
+         (all processes \& nodes need to have access to the file)
+  
+      2. master's IP-Port address: use TCP stack to excange info via rank-0 process (master)
+  
+      3. "env://": use TCP with master's IP-Port from `MASTER_ADDR, MASTER_PORT` in `os.environ` 
+  
+    - `torch.manual_seed()` to ensure all model construction start with same rand seed
+  
+      (if rand init involved)
+  
+    - **need such init for every process in the group** 
+  
+    - helper \& utilities
+  
+      1. launch utility `torch.distributed.launch` 
+      2. starting distributed process `torch.multiprocessing.spawn` 
+  
+  - Sync Point for Processes
+  
+    - constructor, forward method \& differentiation of outputs (built-in)
+    - `dist.barrier()` to manually sync all process in the group
+  
+  - Point-to-Point Communication
+  
+    - `send/recv (tensor, dst)`: blocking ops to transmit tensor between process (by rank num)
+  
+      receiver need to pre-allocate mem for incoming data $\Rightarrow$ need to have prior info of coming data
+  
+    - `isend/irecv` non-blocking conunterparts of `send/recv` 
+  
+      $\Rightarrow$ return a `Work` object that can be waited on (start trasmission earlier \& postpone the wait)
+  
+      (sender/receiver should not modify/access the tensor untile the `Work` finished) 
+  
+      i.e. not until `Work.wait()` finished
+  
+  - Collective Communication
+  
+    - `scatter` (multi-cast) - `gather`, `broadcast` - `all-gather` 
+  
+      e.g. `dist.scatter(tensor, src, scatter_list, group)`
+  
+    - `reduce` (tensor ops with multiple src and one output dst), `all-reduce` (output to every dst)
+  
+      e.g. `dist.all_reduce(tensor, op=dist.reduce_op.SUM, group=group)` 
+  
+  - General Training Procedure
+  
+    - init processes to have one model per process \& split the dataset accordingly
+  
+    - each model forward \& backward: compute local gradient
+  
+    - collect gradients from all other processes $\Rightarrow$ global average of gradient (for every param)
+  
+      (e.g. using `dist.all_reduce`)
+  
+    - each optimizer update the model params
+  
+  - Available Backend
+  
+    - Gloo: handy and easy
+  
+    - MPI: standardized \& highly optimized tool from high-performace computing
+  
+      (highly optimized on large computer cluster)
+  
+      $\Rightarrow$ MPI defines to maintain its own environment
+  
+      $\Rightarrow$ start from mpi instead: `mpirun -n 4 python myscript.py` 
+  
+    - NCCL: best optimized on CUDA
+  
 - DataParallel
 
   - `nn.DataParallel(model)`
@@ -1108,6 +1214,8 @@ special syntax sugar to manipulate the result of a function
     - disallow direct access to the original model from the wrapped model
 
       (avoid collision as a set of new methods introduced by wrapping)
+
+    - $\Rightarrow$ automatic multi-process
 
   - Self-Defined `DataParallel` Wrapper by `nn.parallel`
 
@@ -1190,11 +1298,11 @@ special syntax sugar to manipulate the result of a function
               ret = []
       
               for s_next in splits:
-                  # A. s_prev runs on cuda:1
+                  # A) s_prev runs on cuda:1
                   s_prev = self.seq2(s_prev)
                   ret.append(self.fc(s_prev.view(s_prev.size(0), -1)))
       
-                  # B. s_next runs on cuda:0, which can run concurrently with A
+                  # B) s_next runs on cuda:0, which can run concurrently with A
                   s_prev = self.seq1(s_next).to('cuda:1') # sync by copy
       
               s_prev = self.seq2(s_prev)
@@ -1205,66 +1313,66 @@ special syntax sugar to manipulate the result of a function
 
     - could be further concurrent by overlapping copy of a tensor \& the compute of the other one
 
-      (reduce sync point indicated by device-device copy)
+      $\Rightarrow$ using asynchronous copy
 
-- Distributed Data Parallel (DDP) `torch.distributed`
+- Distributed Data Parallel (DDP): `DDP = torch.nn.parallel.DistributedDataParallel` 
 
   - v.s. Data Parallel
-  
+
     - incorperates model parallel $\Rightarrow$ combine data parallel and model parallel
-  
+
       (able to have data parallel on multiple models \& each model parallel on multiple devices)
-  
+
     - provides parallelism for multi-process \& cross-machine enviornment
-  
+
       (while data parallel is single-process \& multi-threaded )
-  
+
   - Workload Balance
-  
-    - using `wait(timeout)` $\Rightarrow$ need to have each process has roughly same process speed
+
+    - use `wait(timeout)` internally $\Rightarrow$ need to have each process has roughly same process speed
     - `timeout` set as initialization should account for inevitable skewed processing speed
-  
-  - Init
-  
-    - `dist.init_process_group('name', rank=rank, world_size=world_size)`,
-  
-      where `world_size` = num of processes; `rank` = the id for each process (passed to each proc)
-  
-      $\Rightarrow$ define a process group
-  
-    - `torch.manual_seed()` to ensure all model construction start with same rand seed
-  
-      (if rand init involved)
-  
-    - `torch.multiprocessing.spawn(func)` to start process group to run `func` 
-  
-  - Sync Point
-  
-    - constructor, forward method \& differentiation of outpus
-    - `dist.barrier()` to manually sync all process in the group
-  
+
+  - Initialize Model `dp_model = DDP(model)`
+
+    - `device_ids` = local gpu devices to use
+    - `output_device` = device to gather model output
+
   - Save \& Load
-  
+
     - save model from one process if enough 
-  
+
       (as starts from same rand init \& gradients are synchronized)
-  
+
     - `torch.load` with `map_location`: to map the loaded model into desired devices
-  
+
       (otherwise, loaded into cpu first - all process contends for cpu)
-  
+
   - Process \& Device Control
-  
+
     - each process can have only one model: model relicas inside one process not supported
-  
+
       $\Rightarrow$ one process per module replica (also, better performance)
-  
+
     - model parallel with DDP: pass devices to model constructor
-  
+
       (instead of using hard-coded device in `forward`)
-  
+
+  - Asynchronous Copy
+
+    - host-to-device: use pinned (page-locked) memory \& `non_blocking=True` for `.to()`/`.cuda()` 
+
+      (via `torch.Tensor.pin_memory()` or `Dataloader(pin_memory=True)`)
+
+    - $\Rightarrow$ overlap GPU data transfer \& GPU computation
+
+- Initialization Methods
+
+- 
+
+- Ring-Allreduce
+
   - 
-  
+
 - `hook`
 
   - `forward_hook`
