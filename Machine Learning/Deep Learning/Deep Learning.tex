@@ -3061,14 +3061,32 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item 
 		\end{itemize}
 	\end{itemize}
-\item Anchor Scale Normalization
+\item Localization Loss Normalization
 	\begin{itemize}
 	\item Input
 		\begin{itemize}
-		\item 
+		\item proposal box $b=\{b_x,b_y,b_w,b_h\}$
+		\item pred box $p=\{p_x,p_y,p_w,p_h\}$ \\
+		$\Rightarrow$ network output $\{\frac{p_x-b_x}{b_w}, \frac{p_x-b_y}{b_h}, \log\frac{p_x}{b_w}, \log\frac{p_x}{b_h}\}$ \\
+		\item ground truth box $g=\{g_x,g_y,g_w,g_h\}$ \\
+		$\Rightarrow$ label $l=\{\frac{g_x-b_x}{b_w}, \frac{g_y-b_y}{b_h}, \log\frac{g_w}{b_w}, \log\frac{g_h}{b_h}\}$ \\
+		(under classic encoding: predict the adjustment)
+		\Item \begin{align*} \Rightarrow & \textstyle {\text{ diff } \Delta=\{ \delta_x, \delta_y, \delta_w, \delta_h \},} \\
+		& \textstyle {\text{ where } \delta_x = \frac{g_x-p_x}{b_w}, \delta_y = \frac{g_y-p_y}{b_h}, \delta_w=\log\frac{g_w}{b_w}, \delta_h=\log\frac{g_h}{b_h}} \end{align*}
 		\end{itemize}
 	\item Goal
+		\begin{itemize}
+		\item avoid too small $\Delta$ localization loss (compared to classification loss) \\
+		$\Rightarrow$ normalization to avoid small numerics
+		\end{itemize}
 	\item Operation
+		\begin{itemize}
+		\item normalize as $\forall \delta \in \Delta, \delta := \frac{\delta-\mu}{\sigma}$, where $\mu$ the mean; $\sigma$ the standard deviation
+		\end{itemize}
+	\item Understand
+		\begin{itemize}
+		\item ensure balanced loss  $\Rightarrow$ more effective multi-tasking
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
