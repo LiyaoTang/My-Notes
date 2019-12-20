@@ -3507,9 +3507,9 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ provide feature pyramid with rich semantic info \\
 		(dedicated feature map for each scale) \\
 		(instead of a single high- res, high-level feature map)
-		\item prediction independently made at each scale, by a shared pred head \\
-		(analogs to using image pyramid \& non-share has similar performance) \\
-		$\Rightarrow$ easily generate to pyramid with more/less levels
+		\item prediction independently made at each scale \\
+		(analogs to using image pyramid: easily generate to more/less-level pyramid) \\
+		$\Rightarrow$ \underline{alleviate the mismatch between: RPN receptive field \& actual object size}
 		\item $\Rightarrow$ explicitly \underline{address multi-scale problem by design} \\
 		(effective pyramid from learning) \\
 		$\Rightarrow$ much better in detection small object
@@ -3524,6 +3524,120 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 			\item mitigate the large semantic gap between resolutions (in downsample path)
 			\item fix the location of upsampled feature
 			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+\item Cascade R-CNN
+	\begin{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item same as Faster / Fast R-CNN: encode as the adjustment on proposals
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item extract feature map from backbone (e.g. ResNet)
+		\item stage-0 (RPN head) generates pred boxes
+		\item sample pred boxes into pos-neg (class-specific) examples according to IoU threshold \\
+		$\Rightarrow$ construct proposals from pred of stage $t-1$
+		\item stage-$t$ head (classifier \& regressor) predict (with RoI pooling) based on previous proposals
+		\item ensemble pred for all stages with $t\ge1$, i.e. except RPN \\
+		(as NOT all proposals can pass to the last stage: can get filtered out by classifiers)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item shared backbone (e.g. ResNet, FCN)
+		\item RPN head to generate initial proposal
+		\item cascaded multiple R-FCN head for class-specific classification \& regression
+		\item comparison: \\ 
+		\includegraphics[width=0.8\linewidth, center]{"./Deep Learning/plot/topic-objdet cascade r-cnn".png}
+		where "pool" the roi pooling, "B0" the proposals, "H" the network head
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item loss at stage $t$: \\
+		$\displaystyle L(\mathbf b^t, \mathbf g) = L_\text{cls}(h_t(x^t), y^t) + \lambda [y^t\ge 1] L_\text{loc}(f_t(x^t, \mathbf b^t), \mathbf g)$,\\
+		\abovedisplayskip=2pt\abovedisplayshortskip=2pt~\vspace*{-\baselineskip}
+		\begin{align*}
+		\text{where } & h_t, f_t \text{ the stage } t \text{ head for classifier, regressor} \\
+		& \mathbf b^t=f_{t-1}(x^{t-1}, \mathbf b^{t-1}), \text{ with } x^t \text{ the image (feature map) patch cropped by } \mathbf b^t \\
+		& \mathbf g \text{ the corresponding label box of current examples} \\
+		& y^t \text{ the class label for } \mathbf b^t \text{, considering IoU}^{\mathbf b^t}_{\mathbf g} \text{ under the threshold }u^t \\
+		& \text{(} y^t= \text{class of } \mathbf g \text{ if IoU}>u^t \text{; else 0)}
+		\end{align*}
+		\item $\displaystyle \Rightarrow L=\sum_{t} L(\mathbf b^t, \mathbf g)$, with $\{u^t\}=\{0.5, 0.6, 0.7\}$ for $t\ge1$ \\
+		(stage-0 is RPN: use its default sampling strategy)
+		\item sequential, stage-by-stage training: improve based on a fixed input distribution
+		\end{itemize}
+	\item Analysis: Ineffectiveness of Single Detector - Performance Perspective
+		\begin{itemize}
+		\item optimization of different points of ROC requires different loss function \\
+		$\Rightarrow$ detector performs best
+			\begin{itemize}
+			\item with the proposals IoU close to its training IoU threshold (left)
+			\item when evaluated under IoU threshold close to its training IoU threshold (right)
+			\end{itemize}
+		\includegraphics[width=0.8\linewidth, center]{"./Deep Learning/plot/topic-objdet cascade r-cnn performance-iou plot".png}
+		\item $\Rightarrow$ \underline{detector performs best when NO train-test mismatch} \\
+		i.e. can NOT be best
+			\begin{itemize}
+			\item for proposal of all input IoU
+			\item under all evaluation IoU threshold
+			\end{itemize}
+		\end{itemize}
+	\item Analysis: Ineffectiveness of Single Detector - Data Distribution Perspective
+		\begin{itemize}
+		\item quality: the threshold $u$ for IoU$^\text{proposal}_\text{label}$ to consider a proposal to be positive \\
+		\abovedisplayskip=2pt\abovedisplayshortskip=2pt~\vspace*{-\baselineskip}
+		\begin{align*} \Rightarrow \text{ quality of detector } &= \text{ the IoU threshold } u \text{ under which it is trained} \\
+		&= \text{ the quality of its input proposals} \end{align*}
+		\item increase quality leads to exponential decrease in positive proposal num \\
+		$\Rightarrow$ delimma: 
+			\begin{itemize}
+			\item low quality allows close false positive $\Rightarrow$ noisy positive
+			\item high quality allows little positive $\Rightarrow$ overfit the positive \& extreme imbalance \\
+			(also need to operate on low-quality proposal at test time)
+			\end{itemize}
+		\includegraphics[width=0.8\linewidth, center]{"./Deep Learning/plot/topic-objdet cascade r-cnn distribution at iou thr".png} \\
+		where red number the positive percentage of examples higher than that IoU \\
+		$\Rightarrow$ \underline{distribution at each IoU quality are different}
+		\end{itemize}
+	\item Analysis: Effectiveness of Cascading
+		\begin{itemize}
+		\item observe that output IoU are better than input IoU (if detector operates on its quality) \\
+		$\Rightarrow$ enable boostrapping
+		\item each stage improves the average IoU (quality) of all proposals \\
+		$\Rightarrow$ more balanced dataset under higher quality (for the next stage) \\
+		(as proposals are improved by previous stages)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item v.s. iterative bbox regression
+			\begin{itemize}
+			\item not a post-processing process, but involved in training
+			\item use specialized regressor, instead of the same one applied multiple times
+			\end{itemize}
+		$\Rightarrow$ each regressor operates on its training quality \& distribution: no mismatch
+		\item v.s. integral loss
+			\begin{itemize}
+			\item not sharing regressor: each head a complete detector
+			\item avoid operating on the same input distribution \\
+			(resample by producing new proposal for next stage)
+			\end{itemize}
+		$\Rightarrow$ more balanced pos-neg for classifier at each IoU threshold
+		\item sequentially resample \& improve proposals to higher quality \\
+			\begin{itemize}
+			\item each stage optimizes for a specified IoU quality: \underline{specialized pred head}
+			\item each stage improves the distribution of higher quality to be \underline{more balanced}
+			\end{itemize}
+		$\Rightarrow$ sequentially more selective against close false negative \\
+		$\Rightarrow$ enable \underline{precise detection} at high quality (i.e. high IoU threshold)
+		\item input distribution of $t$ stage is ensured by $t-1$ stage \\
+		$\Rightarrow$ NO train-test mismatch
+		\item multi-stage \& multi-tasking: stage-1 already improves over original Faster R-CNN \\
+		(multi-tasking at various IoU threshold) \\
+		$\Rightarrow$ end-to-end model ensemble
+		\item more stages lead to better AP at higher IoU threshold \\
+		(yet, 3-stage achieves a good trade-off)
 		\end{itemize}
 	\end{itemize}
 
