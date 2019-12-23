@@ -1739,7 +1739,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \item Deconvolution
 
 
-
 \item Convolution Implementation
 	\begin{itemize}
 	\item Understanding
@@ -1817,10 +1816,14 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Input
 		\begin{itemize}
 		\item feature maps from CNN
-		\item RoIs i.e. proposal region (from selective search, RPN etc.) projected on feature map
+		\item RoIs: proposals (from selective search, RPN etc.) of $[x,y,w,h]$ \\
+		(translated back to be under image coordinates) \\
+		$\Rightarrow$ floating-point bbox
 		\end{itemize}
 	\item Operation
 		\begin{itemize}
+		\item project RoI to feature map \& quantize RoI to align with indexes \\
+		$\Rightarrow x'=\floor{\frac{x}{s}}$, where $s$ the network stride (same applied to $[x, y, w, h]$)
 		\item divide each RoI with grid of desired size (proportional to the RoI size)
 		\item max pooling from each cell/bin
 		\end{itemize}
@@ -1835,12 +1838,13 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Input
 		\begin{itemize}
-		\item RoIs
+		\item RoIs (floating-point bbox)
 		\item $k^2n$-channel feature maps: divided into $k^2$ groups, each group $n$ channel, \\
 		where $k^2$ the bin/cell num of RoI, $n$ related to downstream task
 		\end{itemize}
 	\item Operation
 		\begin{itemize}
+		\item project \& quantize RoI onto feature map
 		\item selective (over channel) RoI pooling: \\
 		$\Rightarrow$ for $i$-th bin/cell $\in k\times k$ bins/cells, select $i$-th group of feature maps
 		\item average pooling on the bin location of the selected group
@@ -1863,6 +1867,36 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(parallel proposal generation \& prediction in R-FCN)
 		\item $\Rightarrow$ more robust prediction \\ 
 		(as $k\times k$ prediction made for each proposals)
+		\end{itemize}
+	\end{itemize}
+
+\item RoI Align
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item feature map \& RoI (floating-point bbox)
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item project the RoI to feature map without quantization \\
+		i.e. $x'=\frac{x}{s}$, where $s$ the network stride $\Rightarrow$ still floating-point number
+		\item calculate all the desired sampling point for the RoI
+		\item bilinear interpolate to obtain the feature at each point \\
+		(using the 4 closest features)
+		\item $\Rightarrow$ fetch out the RoI feature \& max/avg pool at each bin (as usual) \\
+		\includegraphics[width=0.3\linewidth, center]{"./Deep Learning/plot/layer-pooling roi align".png}
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item fixed-size feature
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item \underline{no quantization} \\
+		$\Rightarrow$ remove mis-alignment between RoI location \& extracted feature \\
+		$\Rightarrow$ preserve exact localization (i.e. per-pixel spatial correspondence)
+		\item RoI pooling v.s. align \\
+		\includegraphics[width=0.6\linewidth, left]{"./Deep Learning/plot/layer-pooling roi pool vs align".png}
 		\end{itemize}
 	\end{itemize}
 
@@ -3299,8 +3333,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item RPN predicts proposals based on anchor box, with only objectness classification \\
 		(binary fore- vs. back-ground classification) \\
-		$\Rightarrow$ channel-size = $2k$ for cls; $4k$ for reg
+		$\Rightarrow$ channel-size = $2k$ ($k$ if using sigmoid) for cls; $4k$ for reg
 		\item non-maximal suppression (NMS) to reduce proposals
+		\item project \& quantize floating-point $[x,y,w,h]$ box onto the feature map \\
+		($[x,y,w,h]$ box is under original image coord, after translated by anchor box) \\
+		$\Rightarrow x'=\floor{\frac{x}{s}}$, where $s$ the network stride
 		\item detector (Fast R-CNN) predicts final boxes \& multi-class classification \\ 
 		(with class-specific NMS)
 		\end{itemize}
@@ -3365,12 +3402,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ less proposal ($\le300$) required \& less burden on 2nd stage \\
 		(top-ranked RPN proposals are accurate)
 		\item $\Rightarrow$ faster \& unified end-to-end detection framework \\
-		(though not entirely end-to-end due to NO non-approximate joint training)
 			\begin{itemize}
 			\item enable shared conv between proposal generation \& refinement
 			\item shared backbone optimized with multi-tasking \& more end-to-end framework
 			\end{itemize}
-		\item \underline{anchors} for multi-scale detection $\Rightarrow$ detection reference pyramid \\
+		\item \underline{anchors} as multi-scale prior $\Rightarrow$ detection reference pyramid \\
 		(as predict the adjustment of referenced/anchor box)
 			\begin{itemize}
 			\item avoid resource-consuming input image / kernel size pyramid
@@ -3389,7 +3425,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 			$\Rightarrow$ more balanced training data \& good prior for 2nd stage
 			\item detector further regress \& classify (class-specific detection)
 			\end{itemize}
-			$\Rightarrow$ 2-stage hierarchical refinement on both regression \& classification
+			$\Rightarrow$ 2-stage hierarchical refinement on both regression \& classification \\
+			(RPN has its own loss: thus 2-stage, not 1-stage network with a sub-net)
 		\item improve on hard case, indicated by recall/precision @ high IoU threshold
 		\item still a $16$-stride (= downsample rate) detection network \\
 		(could improve by smaller stride)
@@ -3633,7 +3670,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ enable \underline{precise detection} at high quality (i.e. high IoU threshold)
 		\item input distribution of $t$ stage is ensured by $t-1$ stage \\
 		$\Rightarrow$ NO train-test mismatch
-		\item multi-stage \& multi-tasking: stage-1 already improves over original Faster R-CNN \\
+		\item multi-stage \& multi-task: stage-1 already improves over original Faster R-CNN \\
 		(multi-tasking at various IoU threshold) \\
 		$\Rightarrow$ end-to-end model ensemble
 		\item more stages lead to better AP at higher IoU threshold \\
@@ -5186,6 +5223,106 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
+\subsection{Instance Segmentation}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input Data
+	\begin{itemize}
+	\item images
+	\end{itemize}
+\item Goal
+	\begin{itemize}
+	\item obtain pixel mask for each instance
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Within-Category Overlap
+		\begin{itemize}
+		\item need to realize the boundary of multiple same-class instances
+		\end{itemize}
+	\item Semantic Segmentation + Detection
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\end{itemize}
+\item Evaluation Metrics
+	\begin{itemize}
+	\item AP \@ IoU
+		\begin{itemize}
+		\item use mask IoU to classify an pred mask to be true/false positive
+		\item calc the average precision accordingly
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Instance-first}
+\begin{itemize}
+\item Mask R-CNN
+	\begin{itemize}
+	\item Inference
+		\begin{itemize}
+		\item backbone extract feature map
+		\item existing cls-reg head produce bbox detection \& NMS \\
+		$\Rightarrow$ selecting out 100 highest-score boxes \\
+		(apply mask head after NMS for less overhead)
+		\item for each corresponding RoI, mask head produce $K$ mask, each of size $m\times m$, \\
+		where $K$ the num of classes
+		\item select the $k^\text{th}$ mask, with $k$ the predicted class of the RoI
+		\item resize  mask into predicted bbox size
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item ResNet-FPN backbone
+		\item based on two-stage (Faster R-CNN) framework
+		\item RoI align (instead of RoI pooling) to avoid quantization
+		\item mask head: a small FCN to produce $K$ binary masks via per-pixel sigmoid
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item $L=L_\text{cls}+L_\text{reg}+L_\text{mask}$, 
+		where $L_\text{cls}, L_\text{reg}$ same as detection
+		\item $L_\text{mask}$: an average binary cross-entropy on one of the $K$ mask \\
+		$\Rightarrow$ define only on $k^\text{th}$ mask of a positive RoI \\
+		(only consider the part of label mask inside the pred box)
+		\item ensure pos-net ratio = 1:3
+		\item joint training: still, stop gradient from RoI Align to RPN proposals
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item \underline{RoI Align} to remove quantization \\
+		$\Rightarrow$ remove mis-alignment between RoI location \& extracted feature \\
+		\abovedisplayskip=2pt\abovedisplayshortskip=2pt~\vspace*{-\baselineskip}
+		\begin{align*}
+		\Rightarrow & \text{ preserve exact localization} \\
+		& \text{i.e. per-pixel spatial correspondence}
+		\end{align*}
+%		$\Rightarrow$ preserve exact localization \\
+%		i.e. per-pixel spatial correspondence
+		\item $\Rightarrow$ able to use large-stride network (e.g. 32-stride) \\
+		(as quantization leads to larger misalignment with larger network stride)
+		\item $\Rightarrow$ significant improvement in AP \& bigger gain in AP at higher IoU
+		\item \underline{decouple} mask \& class pred
+			\begin{itemize}
+			\item per-pixel sigmoid to produce each mask for each class v.s. per-pixel softmax
+			\item binary cross-entropy loss v.s. multinomial cross-entropy loss
+			\end{itemize}
+		(could be further a class-agnostic mask pred of $m^2$ size) \\
+		$\Rightarrow$ avoid class competition when generating mask \\
+		$\Rightarrow$ much easier to learn
+		\item FCN as mask head: utilize pixel-to-pixel correspondence of conv ops \\
+		(instead of dense layers) $\Rightarrow$ more accurate
+		\item generalization ability: extend to keypoint detection \\
+		$\Rightarrow$ each mask produce a key point (spatial softmax over each mask)
+		\item able to multi-tasking all three tasks: detection, instance seg \& key-point \\
+		(improve on all tasks)
+		\item still, introduce $\sim20\%$ overhead, even after box selection \\
+		(due to heavy mask head)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Segmentation-first}
 
 \subsection{Face Recognition}
 \subsubsection{Problem Formulation}

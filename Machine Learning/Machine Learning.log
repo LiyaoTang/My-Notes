@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.12.19)  20 DEC 2019 21:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.12.19)  23 DEC 2019 17:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -990,7 +990,7 @@ l.38 		\item d
 
 
 ] [2] [3]
-<./Math/"matrix-performing space transformation".png, id=630, 1634.105pt x 297.
+<./Math/"matrix-performing space transformation".png, id=635, 1634.105pt x 297.
 11pt>
 File: ./Math/"matrix-performing space transformation".png Graphic file (type pn
 g)
@@ -1008,7 +1008,7 @@ m/it/10 L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 e[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/
  []
 
 
-<"./Math/matrix-composition of transformations".png, id=632, 1568.86125pt x 449
+<"./Math/matrix-composition of transformations".png, id=637, 1568.86125pt x 449
 .68pt>
 File: "./Math/matrix-composition of transformations".png Graphic file (type png
 )
@@ -1042,7 +1042,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 843--847
  []
 
 [14] [15] [16] [17] [18] [19] [20] [21]
-<./Math/"multivariate gaussian-mass of distribution".jpg, id=743, 203.8014pt x 
+<./Math/"multivariate gaussian-mass of distribution".jpg, id=748, 203.8014pt x 
 149.5989pt>
 File: ./Math/"multivariate gaussian-mass of distribution".jpg Graphic file (typ
 e jpg)
@@ -1075,7 +1075,7 @@ Underfull \hbox (badness 10000) in alignment at lines 160--165
  []
 
 [28] [29] [30] [31]
-<"./Introduction/decision theory-decision region".jpg, id=811, 261.8583pt x 161
+<"./Introduction/decision theory-decision region".jpg, id=816, 261.8583pt x 161
 .6439pt>
 File: "./Introduction/decision theory-decision region".jpg Graphic file (type j
 pg)
@@ -1085,7 +1085,7 @@ sed on input line 469.
 (pdftex.def)             Requested size: 174.71286pt x 107.85442pt.
  [32]
 [33 <./Introduction/decision theory-decision region.jpg>] [34]
-<"./Deep Learning/plot/experiment practice-iterative process".png, id=828, 814.
+<"./Deep Learning/plot/experiment practice-iterative process".png, id=833, 814.
 04124pt x 555.07375pt>
 File: "./Deep Learning/plot/experiment practice-iterative process".png Graphic 
 file (type png)
@@ -1334,7 +1334,7 @@ Chapter 10.
 ]
 Chapter 11.
 
-<"./Sequential Data/MC-1st-order markov chain".jpg, id=1018, 213.6783pt x 25.05
+<"./Sequential Data/MC-1st-order markov chain".jpg, id=1023, 213.6783pt x 25.05
 36pt>
 File: "./Sequential Data/MC-1st-order markov chain".jpg Graphic file (type jpg)
 
@@ -1345,7 +1345,7 @@ Package pdftex.def Info: "./Sequential Data/MC-1st-order markov chain".jpg used
  [69
 
  <./Sequential Data/MC-1st-order markov chain.jpg>]
-<"./Sequential Data/MC-2nd-order markov chain".jpg, id=1024, 217.7736pt x 45.04
+<"./Sequential Data/MC-2nd-order markov chain".jpg, id=1029, 217.7736pt x 45.04
 83pt>
 File: "./Sequential Data/MC-2nd-order markov chain".jpg Graphic file (type jpg)
 
@@ -1366,7 +1366,7 @@ m/it/10 x[]; :::; x[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^B [] \OML/cmm/m/it/10
  []
 
 
-<"./Sequential Data/HMM-Hidden Markov model".jpg, id=1025, 271.9761pt x 80.2197
+<"./Sequential Data/HMM-Hidden Markov model".jpg, id=1030, 271.9761pt x 80.2197
 pt>
 File: "./Sequential Data/HMM-Hidden Markov model".jpg Graphic file (type jpg)
  <use "./Sequential Data/HMM-Hidden Markov model".jpg>
@@ -1374,7 +1374,7 @@ Package pdftex.def Info: "./Sequential Data/HMM-Hidden Markov model".jpg used o
 n input line 120.
 (pdftex.def)             Requested size: 184.06284pt x 54.29039pt.
  [70 <./Sequential Data/MC-2nd-order markov chain.jpg>]
-<"./Sequential Data/HMM-transition diagram".jpg, id=1032, 159.4758pt x 157.5486
+<"./Sequential Data/HMM-transition diagram".jpg, id=1037, 159.4758pt x 157.5486
 pt>
 File: "./Sequential Data/HMM-transition diagram".jpg Graphic file (type jpg)
  <use "./Sequential Data/HMM-transition diagram".jpg>
@@ -1382,7 +1382,7 @@ Package pdftex.def Info: "./Sequential Data/HMM-transition diagram".jpg used on
  input line 149.
 (pdftex.def)             Requested size: 103.78142pt x 102.53036pt.
 
-<"./Sequential Data/HMM-unfolded transition diagram".jpg, id=1033, 239.9364pt x
+<"./Sequential Data/HMM-unfolded transition diagram".jpg, id=1038, 239.9364pt x
  161.6439pt>
 File: "./Sequential Data/HMM-unfolded transition diagram".jpg Graphic file (typ
 e jpg)
@@ -1393,7 +1393,7 @@ g used on input line 152.
 
 [71 <./Sequential Data/HMM-Hidden Markov model.jpg> <./Sequential Data/HMM-tran
 sition diagram.jpg> <./Sequential Data/HMM-unfolded transition diagram.jpg>]
-<"./Sequential Data/HMM-left-to-right HMM".jpg, id=1039, 139.4811pt x 76.3653pt
+<"./Sequential Data/HMM-left-to-right HMM".jpg, id=1044, 139.4811pt x 76.3653pt
 >
 File: "./Sequential Data/HMM-left-to-right HMM".jpg Graphic file (type jpg)
  <use "./Sequential Data/HMM-left-to-right HMM".jpg>
@@ -1402,7 +1402,7 @@ input line 175.
 (pdftex.def)             Requested size: 87.35643pt x 47.82838pt.
 
 <"./Sequential Data/HMM-left-to-right HMM with maximal state change".jpg, id=10
-40, 239.9364pt x 161.6439pt>
+45, 239.9364pt x 161.6439pt>
 File: "./Sequential Data/HMM-left-to-right HMM with maximal state change".jpg G
 raphic file (type jpg)
 
@@ -1448,7 +1448,7 @@ Package pdftex.def Info: "./Sequential Data/HMM-Hidden Markov model".jpg used o
 n input line 221.
 (pdftex.def)             Requested size: 174.71286pt x 51.5326pt.
 
-<"./Sequential Data/HMM-independence".PNG, id=1045, 89.133pt x 59.62276pt>
+<"./Sequential Data/HMM-independence".PNG, id=1050, 89.133pt x 59.62276pt>
 File: "./Sequential Data/HMM-independence".PNG Graphic file (type png)
 
 <use "./Sequential Data/HMM-independence".PNG>
@@ -1496,7 +1496,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 683--686
  []
 
 [88] [89]
-<"./Deep Learning/plot/background-largedata".png, id=1173, 1866.975pt x 879.285
+<"./Deep Learning/plot/background-largedata".png, id=1178, 1866.975pt x 879.285
 pt>
 File: "./Deep Learning/plot/background-largedata".png Graphic file (type png)
  <use "./Deep Learning/plot/background-largedata".png>
@@ -1517,7 +1517,7 @@ Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ù in font cmr10!
  [96]
-<"./Deep Learning/plot/regularization-dropout".jpeg, id=1221, 616.3025pt x 329.
+<"./Deep Learning/plot/regularization-dropout".jpeg, id=1226, 616.3025pt x 329.
 23pt>
 File: "./Deep Learning/plot/regularization-dropout".jpeg Graphic file (type jpg
 )
@@ -1540,14 +1540,14 @@ Overfull \hbox (10.95439pt too wide) in paragraph at lines 1576--1577
  []
 
 
-<"./Deep Learning/plot/layer-conv2d exp".png, id=1250, 1268.74pt x 713.66624pt>
+<"./Deep Learning/plot/layer-conv2d exp".png, id=1255, 1268.74pt x 713.66624pt>
 File: "./Deep Learning/plot/layer-conv2d exp".png Graphic file (type png)
 <use "./Deep Learning/plot/layer-conv2d exp".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-conv2d exp".png used on in
 put line 1642.
 (pdftex.def)             Requested size: 217.94005pt x 122.58485pt.
 
-<"./Deep Learning/plot/layer-conv2d kernel movement".png, id=1251, 327.2225pt x
+<"./Deep Learning/plot/layer-conv2d kernel movement".png, id=1256, 327.2225pt x
  464.73625pt>
 File: "./Deep Learning/plot/layer-conv2d kernel movement".png Graphic file (typ
 e png)
@@ -1558,111 +1558,131 @@ g used on input line 1645.
 
 [102] [103 <./Deep Learning/plot/layer-conv2d exp.png> <./Deep Learning/plot/la
 yer-conv2d kernel movement.png (PNG copy)>] [104]
-<"./Deep Learning/plot/layer-pooling spp".png, id=1270, 603.0028pt x 368.87813p
+<"./Deep Learning/plot/layer-pooling spp".png, id=1275, 603.0028pt x 368.87813p
 t>
 File: "./Deep Learning/plot/layer-pooling spp".png Graphic file (type png)
  <use "./Deep Learning/plot/layer-pooling spp".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-pooling spp".png used on i
-nput line 1800.
+nput line 1799.
 (pdftex.def)             Requested size: 174.71286pt x 106.87622pt.
  [105 <./Deep Learning/plot/layer-pooling spp.png>]
-<"./Deep Learning/plot/layer-pooling psroi".png, id=1276, 1193.45876pt x 812.03
+<"./Deep Learning/plot/layer-pooling psroi".png, id=1281, 1193.45876pt x 812.03
 375pt>
 File: "./Deep Learning/plot/layer-pooling psroi".png Graphic file (type png)
  <use "./Deep Learning/plot/layer-pooling psroi".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-pooling psroi".png used on
- input line 1855.
+ input line 1859.
 (pdftex.def)             Requested size: 174.71286pt x 118.86322pt.
+
+<"./Deep Learning/plot/layer-pooling roi align".png, id=1282, 567.11874pt x 566
+.115pt>
+File: "./Deep Learning/plot/layer-pooling roi align".png Graphic file (type png
+)
+ <use "./Deep Learning/plot/layer-pooling roi align".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-pooling roi align".png use
+d on input line 1887.
+(pdftex.def)             Requested size: 104.82878pt x 104.64325pt.
  [106 <./Deep Learning/plot/layer-pooling psroi.png>]
-<"./Deep Learning/plot/layer-rnn unrolled".png, id=1283, 2716.1475pt x 713.6662
+<"./Deep Learning/plot/layer-pooling roi pool vs align".png, id=1288, 641.39626
+pt x 276.03125pt>
+File: "./Deep Learning/plot/layer-pooling roi pool vs align".png Graphic file (
+type png)
+
+<use "./Deep Learning/plot/layer-pooling roi pool vs align".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-pooling roi pool vs align"
+.png used on input line 1899.
+(pdftex.def)             Requested size: 209.65756pt x 90.22714pt.
+
+<"./Deep Learning/plot/layer-rnn unrolled".png, id=1289, 2716.1475pt x 713.6662
 4pt>
 File: "./Deep Learning/plot/layer-rnn unrolled".png Graphic file (type png)
  <use "./Deep Learning/plot/layer-rnn unrolled".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-rnn unrolled".png used on 
-input line 1895.
+input line 1929.
 (pdftex.def)             Requested size: 207.56285pt x 54.53539pt.
- [107 <./Deep Learning/plot/layer-rnn unrolled.png>]
-<"./Deep Learning/plot/layer-rnn lstm".png, id=1290, 826.08624pt x 844.15375pt>
+ [107 <./Deep Learning/plot/layer-pooling roi align.png> <./Deep Learning/plot/
+layer-pooling roi pool vs align.png>]
+<"./Deep Learning/plot/layer-rnn lstm".png, id=1297, 826.08624pt x 844.15375pt>
 File: "./Deep Learning/plot/layer-rnn lstm".png Graphic file (type png)
 <use "./Deep Learning/plot/layer-rnn lstm".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-rnn lstm".png used on inpu
-t line 1960.
+t line 1994.
 (pdftex.def)             Requested size: 184.06284pt x 188.08444pt.
 
-Overfull \hbox (186.28505pt too wide) in paragraph at lines 1959--1969
+Overfull \hbox (186.28505pt too wide) in paragraph at lines 1993--2003
 $[]$ $[]$ 
  []
 
-
-<"./Deep Learning/plot/layer-rnn gru".png, id=1291, 840.13875pt x 565.11125pt>
+[108 <./Deep Learning/plot/layer-rnn unrolled.png>]
+<"./Deep Learning/plot/layer-rnn gru".png, id=1304, 840.13875pt x 565.11125pt>
 File: "./Deep Learning/plot/layer-rnn gru".png Graphic file (type png)
 
 <use "./Deep Learning/plot/layer-rnn gru".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-rnn gru".png used on input
- line 2006.
+ line 2040.
 (pdftex.def)             Requested size: 184.06284pt x 123.80748pt.
 
-Overfull \hbox (186.28505pt too wide) in paragraph at lines 2005--2014
+Overfull \hbox (186.28505pt too wide) in paragraph at lines 2039--2048
 []$[]$ $[]$ 
  []
 
-[108 <./Deep Learning/plot/layer-rnn lstm.png>]
-<"./Deep Learning/plot/layer-rnn bidirection".png, id=1297, 1639.12375pt x 777.
+[109 <./Deep Learning/plot/layer-rnn lstm.png> <./Deep Learning/plot/layer-rnn 
+gru.png>]
+<"./Deep Learning/plot/layer-rnn bidirection".png, id=1312, 1639.12375pt x 777.
 90625pt>
 File: "./Deep Learning/plot/layer-rnn bidirection".png Graphic file (type png)
  <use "./Deep Learning/plot/layer-rnn bidirection".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-rnn bidirection".png used 
-on input line 2043.
+on input line 2077.
 (pdftex.def)             Requested size: 207.56285pt x 98.49625pt.
- [109 <./Deep Learning/plot/layer-rnn gru.png> <./Deep Learning/plot/layer-rnn 
-bidirection.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 2115--2121
+ [110 <./Deep Learning/plot/layer-rnn bidirection.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 2149--2155
 
  []
 
-[110]
-Underfull \hbox (badness 10000) in paragraph at lines 2162--2163
+[111]
+Underfull \hbox (badness 10000) in paragraph at lines 2196--2197
 
  []
 
 
-<"./Deep Learning/plot/layer-attention self attention".png, id=1310, 427.5975pt
+<"./Deep Learning/plot/layer-attention self attention".png, id=1323, 427.5975pt
  x 679.53876pt>
 File: "./Deep Learning/plot/layer-attention self attention".png Graphic file (t
 ype png)
 
 <use "./Deep Learning/plot/layer-attention self attention".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-attention self attention".
-png used on input line 2165.
+png used on input line 2199.
 (pdftex.def)             Requested size: 32.97534pt x 52.41171pt.
 
-Overfull \hbox (246.81914pt too wide) in paragraph at lines 2157--2167
+Overfull \hbox (246.81914pt too wide) in paragraph at lines 2191--2201
 []$ $[]$ 
  []
 
-[111 <./Deep Learning/plot/layer-attention self attention.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 2223--2225
+[112 <./Deep Learning/plot/layer-attention self attention.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 2257--2259
 
  []
 
-[112]
+[113]
 <"./Deep Learning/plot/layer-attention local self attention as conv".png, id=13
-22, 544.0325pt x 339.2675pt>
+35, 544.0325pt x 339.2675pt>
 File: "./Deep Learning/plot/layer-attention local self attention as conv".png G
 raphic file (type png)
 
 <use "./Deep Learning/plot/layer-attention local self attention as conv".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-attention local self atten
-tion as conv".png used on input line 2290.
+tion as conv".png used on input line 2324.
 (pdftex.def)             Requested size: 174.71286pt x 108.95607pt.
 
-Overfull \hbox (94.77798pt too wide) in paragraph at lines 2289--2291
+Overfull \hbox (94.77798pt too wide) in paragraph at lines 2323--2325
 []\OT1/cmr/m/n/10 stand-along at-ten-tion [] 
  []
 
-[113 <./Deep Learning/plot/layer-attention local self attention as conv.png (PN
-G copy)>] [114] [115]
-Overfull \hbox (45.13087pt too wide) in paragraph at lines 2503--2504
+[114 <./Deep Learning/plot/layer-attention local self attention as conv.png (PN
+G copy)>] [115] [116]
+Overfull \hbox (45.13087pt too wide) in paragraph at lines 2537--2538
 []\OT1/cmr/m/n/10 ([conv64]$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10 2, pool) $\OMS
 /cmsy/m/n/10 !$ \OT1/cmr/m/n/10 ([conv128]$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10
  2, pool) $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 ([conv256]$\OMS/cmsy/m/n/10 ^^B$
@@ -1670,243 +1690,248 @@ Overfull \hbox (45.13087pt too wide) in paragraph at lines 2503--2504
 msy/m/n/10 ^^B$\OT1/cmr/m/n/10 3+pool)$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10 2 
  []
 
-[116] [117] [118] [119]
-<"./Deep Learning/plot/topic-vision sensor camera focal len".jpg, id=1361, 501.
+[117] [118] [119] [120]
+<"./Deep Learning/plot/topic-vision sensor camera focal len".jpg, id=1374, 501.
 875pt x 334.24875pt>
 File: "./Deep Learning/plot/topic-vision sensor camera focal len".jpg Graphic f
 ile (type jpg)
 
 <use "./Deep Learning/plot/topic-vision sensor camera focal len".jpg>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera focal
- len".jpg used on input line 2796.
+ len".jpg used on input line 2830.
 (pdftex.def)             Requested size: 174.71286pt x 116.36148pt.
- [120 <./Deep Learning/plot/topic-vision sensor camera focal len.jpg>]
-<"./Deep Learning/plot/topic-vision sensor camera dof".jpg, id=1368, 501.875pt 
+
+<"./Deep Learning/plot/topic-vision sensor camera dof".jpg, id=1375, 501.875pt 
 x 251.94125pt>
 File: "./Deep Learning/plot/topic-vision sensor camera dof".jpg Graphic file (t
 ype jpg)
  <use "./Deep Learning/plot/topic-vision sensor camera dof".jpg>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera dof".
-jpg used on input line 2814.
+jpg used on input line 2848.
 (pdftex.def)             Requested size: 174.71286pt x 87.7079pt.
 
-<"./Deep Learning/plot/topic-vision sensor camera n and dof".png, id=1369, 696.
+[121 <./Deep Learning/plot/topic-vision sensor camera focal len.jpg>]
+<"./Deep Learning/plot/topic-vision sensor camera n and dof".png, id=1384, 696.
 6025pt x 463.7325pt>
 File: "./Deep Learning/plot/topic-vision sensor camera n and dof".png Graphic f
 ile (type png)
 
 <use "./Deep Learning/plot/topic-vision sensor camera n and dof".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera n and
- dof".png used on input line 2819.
+ dof".png used on input line 2853.
 (pdftex.def)             Requested size: 244.59692pt x 162.82535pt.
 
 <"./Deep Learning/plot/topic-vision sensor camera dof and resolution".png, id=1
-370, 696.6025pt x 283.0575pt>
+385, 696.6025pt x 283.0575pt>
 File: "./Deep Learning/plot/topic-vision sensor camera dof and resolution".png 
 Graphic file (type png)
 
 <use "./Deep Learning/plot/topic-vision sensor camera dof and resolution".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera dof a
-nd resolution".png used on input line 2826.
+nd resolution".png used on input line 2860.
 (pdftex.def)             Requested size: 244.59692pt x 99.38689pt.
 
-[121 <./Deep Learning/plot/topic-vision sensor camera dof.jpg> <./Deep Learning
-/plot/topic-vision sensor camera n and dof.png> <./Deep Learning/plot/topic-vis
-ion sensor camera dof and resolution.png>]
-<"./Deep Learning/plot/topic-vision sensor camera do focus".png, id=1379, 696.6
+<"./Deep Learning/plot/topic-vision sensor camera do focus".png, id=1386, 696.6
 025pt x 291.0875pt>
 File: "./Deep Learning/plot/topic-vision sensor camera do focus".png Graphic fi
 le (type png)
 
 <use "./Deep Learning/plot/topic-vision sensor camera do focus".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera do fo
-cus".png used on input line 2837.
+cus".png used on input line 2871.
 (pdftex.def)             Requested size: 244.59692pt x 102.20638pt.
-
+ [122 <./Deep Learning/plot/topic-vision sensor camera dof.jpg> <./Deep Learnin
+g/plot/topic-vision sensor camera n and dof.png> <./Deep Learning/plot/topic-vi
+sion sensor camera dof and resolution.png>]
 <"./Deep Learning/plot/topic-vision sensor camera color filter array".png, id=1
-380, 1136.245pt x 462.72874pt>
+393, 1136.245pt x 462.72874pt>
 File: "./Deep Learning/plot/topic-vision sensor camera color filter array".png 
 Graphic file (type png)
 
 <use "./Deep Learning/plot/topic-vision sensor camera color filter array".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera color
- filter array".png used on input line 2860.
+ filter array".png used on input line 2894.
 (pdftex.def)             Requested size: 244.59692pt x 99.60477pt.
 
-[122 <./Deep Learning/plot/topic-vision sensor camera do focus.png> <./Deep Lea
-rning/plot/topic-vision sensor camera color filter array.png>] [123] [124]
-Overfull \hbox (0.3805pt too wide) in paragraph at lines 3050--3051
+[123 <./Deep Learning/plot/topic-vision sensor camera do focus.png> <./Deep Lea
+rning/plot/topic-vision sensor camera color filter array.png>] [124] [125]
+Overfull \hbox (0.3805pt too wide) in paragraph at lines 3084--3085
 []\OT1/cmr/m/n/10 diverse set-tings: color space, sim-i-lar-ity mea-sure-ment, 
 re-gion ini-tial-iza-tion method 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3069--3071
+Underfull \hbox (badness 10000) in paragraph at lines 3103--3105
 
  []
 
-[125] [126] [127] [128] [129] [130] [131] [132]
-<"./Deep Learning/plot/topic-objdet cascade r-cnn".png, id=1435, 1625.07124pt x
+[126] [127] [128] [129] [130]
+Underfull \hbox (badness 10000) in paragraph at lines 3404--3406
+
+ []
+
+[131] [132] [133]
+<"./Deep Learning/plot/topic-objdet cascade r-cnn".png, id=1449, 1625.07124pt x
  337.26pt>
 File: "./Deep Learning/plot/topic-objdet cascade r-cnn".png Graphic file (type 
 png)
  <use "./Deep Learning/plot/topic-objdet cascade r-cnn".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-objdet cascade r-cnn".png 
-used on input line 3552.
+used on input line 3589.
 (pdftex.def)             Requested size: 279.54164pt x 58.01273pt.
- [133 <./Deep Learning/plot/topic-objdet cascade r-cnn.png>]
+ [134 <./Deep Learning/plot/topic-objdet cascade r-cnn.png>]
 <"./Deep Learning/plot/topic-objdet cascade r-cnn performance-iou plot".png, id
-=1442, 1585.925pt x 615.29875pt>
+=1455, 1585.925pt x 615.29875pt>
 File: "./Deep Learning/plot/topic-objdet cascade r-cnn performance-iou plot".pn
 g Graphic file (type png)
 
 <use "./Deep Learning/plot/topic-objdet cascade r-cnn performance-iou plot".png
 >
 Package pdftex.def Info: "./Deep Learning/plot/topic-objdet cascade r-cnn perfo
-rmance-iou plot".png used on input line 3579.
+rmance-iou plot".png used on input line 3616.
 (pdftex.def)             Requested size: 279.54164pt x 108.44876pt.
 
 <"./Deep Learning/plot/topic-objdet cascade r-cnn distribution at iou thr".png,
- id=1443, 1343.0175pt x 405.515pt>
+ id=1456, 1343.0175pt x 405.515pt>
 File: "./Deep Learning/plot/topic-objdet cascade r-cnn distribution at iou thr"
 .png Graphic file (type png)
 
 <use "./Deep Learning/plot/topic-objdet cascade r-cnn distribution at iou thr".
 png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-objdet cascade r-cnn distr
-ibution at iou thr".png used on input line 3600.
+ibution at iou thr".png used on input line 3637.
 (pdftex.def)             Requested size: 279.54164pt x 84.40576pt.
- [134 <./Deep Learning/plot/topic-objdet cascade r-cnn performance-iou plot.png
+ [135 <./Deep Learning/plot/topic-objdet cascade r-cnn performance-iou plot.png
 > <./Deep Learning/plot/topic-objdet cascade r-cnn distribution at iou thr.png>
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 3627--3629
+Underfull \hbox (badness 10000) in paragraph at lines 3664--3666
 
  []
 
-[135] [136]
-Overfull \hbox (40.53342pt too wide) in paragraph at lines 3792--3794
+[136] [137]
+Overfull \hbox (40.53342pt too wide) in paragraph at lines 3829--3831
 []\OT1/cmr/m/n/10 for each cell, $\OML/cmm/m/it/10 N[]$ \OT1/cmr/m/n/10 bound-i
 ng boxes: $[[][\OML/cmm/m/it/10 t[]; t[]; t[]; t[]\OT1/cmr/m/n/10 ]\OML/cmm/m/i
 t/10 ; []\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 p[]; :::; p[]\OT1/cmr/m/n/10 ]]$ 
  []
 
-[137] [138]
-<"./Deep Learning/plot/topic-objdet onestage yolov3 architecture".png, id=1468,
+[138] [139]
+<"./Deep Learning/plot/topic-objdet onestage yolov3 architecture".png, id=1482,
  1204.5pt x 669.50125pt>
 File: "./Deep Learning/plot/topic-objdet onestage yolov3 architecture".png Grap
 hic file (type png)
 
 <use "./Deep Learning/plot/topic-objdet onestage yolov3 architecture".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-objdet onestage yolov3 arc
-hitecture".png used on input line 3878.
+hitecture".png used on input line 3915.
 (pdftex.def)             Requested size: 373.61061pt x 207.66583pt.
 
-[139 <./Deep Learning/plot/topic-objdet onestage yolov3 architecture.png>]
-[140]
-Underfull \hbox (badness 10000) in paragraph at lines 4043--4048
+[140 <./Deep Learning/plot/topic-objdet onestage yolov3 architecture.png>]
+[141]
+Underfull \hbox (badness 10000) in paragraph at lines 4080--4085
 
  []
 
-[141] [142] [143] [144] [145] [146]
-Overfull \hbox (14.686pt too wide) in paragraph at lines 4420--4422
+[142] [143] [144] [145] [146] [147]
+Overfull \hbox (14.686pt too wide) in paragraph at lines 4457--4459
 []\OT1/cmr/m/n/10 meta-learning / oneshot de-tec-tion: pre-dict the last ker-ne
 l for re-gres-sion/classification 
  []
 
-[147] [148]
-Overfull \hbox (23.18599pt too wide) in paragraph at lines 4494--4496
+[148] [149]
+Overfull \hbox (23.18599pt too wide) in paragraph at lines 4531--4533
 []\OT1/cmr/m/n/10 long-term track-ing by re-detecting: use model ob-ject-ness t
 o de-note tar-get lost/recovery 
  []
 
 
-<"./Deep Learning/plot/topic-obj track DaSiamRPN".png, id=1520, 1195.46625pt x 
+<"./Deep Learning/plot/topic-obj track DaSiamRPN".png, id=1533, 1195.46625pt x 
 295.1025pt>
 File: "./Deep Learning/plot/topic-obj track DaSiamRPN".png Graphic file (type p
 ng)
  <use "./Deep Learning/plot/topic-obj track DaSiamRPN".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track DaSiamRPN".png u
-sed on input line 4502.
+sed on input line 4539.
 (pdftex.def)             Requested size: 209.65756pt x 51.75177pt.
- [149 <./Deep Learning/plot/topic-obj track DaSiamRPN.png>] [150]
-Underfull \hbox (badness 10000) in paragraph at lines 4591--4592
+ [150 <./Deep Learning/plot/topic-obj track DaSiamRPN.png>] [151]
+Underfull \hbox (badness 10000) in paragraph at lines 4628--4629
 
  []
 
 
 <"./Deep Learning/plot/topic-obj track triplet loss vs logistic loss".png, id=1
-530, 889.3225pt x 514.92375pt>
+544, 889.3225pt x 514.92375pt>
 File: "./Deep Learning/plot/topic-obj track triplet loss vs logistic loss".png 
 Graphic file (type png)
 
 <use "./Deep Learning/plot/topic-obj track triplet loss vs logistic loss".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track triplet loss vs 
-logistic loss".png used on input line 4602.
+logistic loss".png used on input line 4639.
 (pdftex.def)             Requested size: 209.65756pt x 121.39209pt.
 
-[151 <./Deep Learning/plot/topic-obj track triplet loss vs logistic loss.png>]
+[152 <./Deep Learning/plot/topic-obj track triplet loss vs logistic loss.png>]
 <"./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr".png, 
-id=1537, 962.59625pt x 579.16376pt>
+id=1550, 962.59625pt x 579.16376pt>
 File: "./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr".
 png Graphic file (type png)
 
 <use "./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr".p
 ng>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track rpn++ semantic i
-n depthwise xcorr".png used on input line 4679.
+n depthwise xcorr".png used on input line 4716.
 (pdftex.def)             Requested size: 209.65756pt x 126.14384pt.
- [152]
+ [153]
 <"./Deep Learning/plot/topic-obj track siamDW central bias with-without crop".p
-ng, id=1542, 1428.33624pt x 544.0325pt>
+ng, id=1555, 1428.33624pt x 544.0325pt>
 File: "./Deep Learning/plot/topic-obj track siamDW central bias with-without cr
 op".png Graphic file (type png)
 
 <use "./Deep Learning/plot/topic-obj track siamDW central bias with-without cro
 p".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW central b
-ias with-without crop".png used on input line 4715.
+ias with-without crop".png used on input line 4752.
 (pdftex.def)             Requested size: 349.42572pt x 133.08574pt.
 
-<"./Deep Learning/plot/topic-obj track siamDW cir unit".png, id=1543, 841.1425p
+<"./Deep Learning/plot/topic-obj track siamDW cir unit".png, id=1556, 841.1425p
 t x 726.715pt>
 File: "./Deep Learning/plot/topic-obj track siamDW cir unit".png Graphic file (
 type png)
 
 <use "./Deep Learning/plot/topic-obj track siamDW cir unit".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW cir unit"
-.png used on input line 4720.
+.png used on input line 4757.
 (pdftex.def)             Requested size: 174.71286pt x 150.94025pt.
- [153 <./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr.p
+ [154 <./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr.p
 ng> <./Deep Learning/plot/topic-obj track siamDW central bias with-without crop
 .png>]
-<"./Deep Learning/plot/topic-obj track siamDW cir downsample".png, id=1550, 101
+<"./Deep Learning/plot/topic-obj track siamDW cir downsample".png, id=1563, 101
 5.795pt x 788.9475pt>
 File: "./Deep Learning/plot/topic-obj track siamDW cir downsample".png Graphic 
 file (type png)
 
 <use "./Deep Learning/plot/topic-obj track siamDW cir downsample".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW cir downs
-ample".png used on input line 4722.
+ample".png used on input line 4759.
 (pdftex.def)             Requested size: 174.71286pt x 135.69632pt.
 
-<"./Deep Learning/plot/topic-obj track siamDW cir wider".png, id=1551, 1325.953
+<"./Deep Learning/plot/topic-obj track siamDW cir wider".png, id=1564, 1325.953
 75pt x 778.91pt>
 File: "./Deep Learning/plot/topic-obj track siamDW cir wider".png Graphic file 
 (type png)
 
 <use "./Deep Learning/plot/topic-obj track siamDW cir wider".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW cir wider
-".png used on input line 4728.
+".png used on input line 4765.
 (pdftex.def)             Requested size: 174.71286pt x 102.62865pt.
- [154 <./Deep Learning/plot/topic-obj track siamDW cir unit.png> <./Deep Learni
+ [155 <./Deep Learning/plot/topic-obj track siamDW cir unit.png> <./Deep Learni
 ng/plot/topic-obj track siamDW cir downsample.png> <./Deep Learning/plot/topic-
-obj track siamDW cir wider.png>] [155] [156] [157] [158] [159]
-Underfull \hbox (badness 10000) in paragraph at lines 5100--5101
+obj track siamDW cir wider.png>] [156] [157] [158] [159] [160]
+Underfull \hbox (badness 10000) in paragraph at lines 5137--5138
 
  []
 
-[160] [161] [162] [163] [164] [165] [166] [167]
-Overfull \hbox (3.72078pt too wide) in paragraph at lines 5609--5611
+[161] [162] [163] [164] [165] [166] [167] [168] [169]
+Overfull \hbox (3.72078pt too wide) in paragraph at lines 5746--5748
 \OT1/cmr/m/n/10 (small $\OML/cmm/m/it/10 p$\OT1/cmr/m/n/10 : just global fea-tu
 re, large $\OML/cmm/m/it/10 p$\OT1/cmr/m/n/10 : some re-dun-dant parts be-ing r
 e-peated/empty) 
@@ -1914,97 +1939,96 @@ e-peated/empty)
 
 
 <"./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency".png, id=16
-26, 744.7825pt x 391.4625pt>
+47, 744.7825pt x 391.4625pt>
 File: "./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency".png G
 raphic file (type png)
 
 <use "./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-reid pcb-rpp within-part i
-nconsistency".png used on input line 5614.
+nconsistency".png used on input line 5751.
 (pdftex.def)             Requested size: 174.71286pt x 91.82645pt.
 
-Overfull \hbox (176.93507pt too wide) in paragraph at lines 5611--5623
+Overfull \hbox (176.93507pt too wide) in paragraph at lines 5748--5760
 []$ $[]$ 
  []
 
-
-<"./Deep Learning/plot/topic-reid PGN".png, id=1627, 1351.0475pt x 844.15375pt>
+[170 <./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency.png>]
+<"./Deep Learning/plot/topic-reid PGN".png, id=1653, 1351.0475pt x 844.15375pt>
 File: "./Deep Learning/plot/topic-reid PGN".png Graphic file (type png)
 <use "./Deep Learning/plot/topic-reid PGN".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-reid PGN".png used on inpu
-t line 5650.
+t line 5787.
 (pdftex.def)             Requested size: 174.71286pt x 109.15132pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 5653--5658
+Underfull \hbox (badness 10000) in paragraph at lines 5790--5795
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5653--5658
+Underfull \hbox (badness 10000) in paragraph at lines 5790--5795
 
  []
 
 
-Overfull \hbox (176.93507pt too wide) in paragraph at lines 5646--5659
+Overfull \hbox (176.93507pt too wide) in paragraph at lines 5783--5796
 []$ $[]$ 
  []
 
-[168 <./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 5663--5664
+
+Underfull \hbox (badness 10000) in paragraph at lines 5800--5801
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5669--5672
+Underfull \hbox (badness 10000) in paragraph at lines 5806--5809
 
  []
 
-[169 <./Deep Learning/plot/topic-reid PGN.png>]
-<"./Deep Learning/plot/topic-image style transfer nst overview".png, id=1641, 7
+[171 <./Deep Learning/plot/topic-reid PGN.png>] [172]
+<"./Deep Learning/plot/topic-image style transfer nst overview".png, id=1665, 7
 32.7375pt x 220.825pt>
 File: "./Deep Learning/plot/topic-image style transfer nst overview".png Graphi
 c file (type png)
 
 <use "./Deep Learning/plot/topic-image style transfer nst overview".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-image style transfer nst o
-verview".png used on input line 5769.
+verview".png used on input line 5906.
 (pdftex.def)             Requested size: 207.56285pt x 62.55165pt.
 
-[170]
-<"./Deep Learning/plot/topic-image style transfer nst style matrix".png, id=164
-7, 1606.0pt x 530.98375pt>
+<"./Deep Learning/plot/topic-image style transfer nst style matrix".png, id=166
+6, 1606.0pt x 530.98375pt>
 File: "./Deep Learning/plot/topic-image style transfer nst style matrix".png Gr
 aphic file (type png)
 
 <use "./Deep Learning/plot/topic-image style transfer nst style matrix".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-image style transfer nst s
-tyle matrix".png used on input line 5803.
+tyle matrix".png used on input line 5940.
 (pdftex.def)             Requested size: 207.56285pt x 68.6252pt.
 
-[171 <./Deep Learning/plot/topic-image style transfer nst overview.png (PNG cop
-y)> <./Deep Learning/plot/topic-image style transfer nst style matrix.png>]
-[172] [173] [174]
+[173 <./Deep Learning/plot/topic-image style transfer nst overview.png (PNG cop
+y)>] [174 <./Deep Learning/plot/topic-image style transfer nst style matrix.png
+>] [175] [176]
 
-LaTeX Warning: Hyper reference `' on page 175 undefined on input line 6046.
+LaTeX Warning: Hyper reference `' on page 177 undefined on input line 6183.
 
-
-Overfull \hbox (7.40826pt too wide) in paragraph at lines 6090--6091
+[177]
+Overfull \hbox (7.40826pt too wide) in paragraph at lines 6227--6228
 []\OT1/cmr/m/n/10 convs - max pool-ing - di-lated convs - un-pool-ing - branch 
 for re-gres-sion/classification 
  []
 
-[175] [176]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 6191
+[178]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 6328
 .
  (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 6191.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 6328.
 
- [177]
-[178] [179]
-Overfull \hbox (3.24109pt too wide) in paragraph at lines 6414--6415
+ [179] [180]
+[181]
+Overfull \hbox (3.24109pt too wide) in paragraph at lines 6551--6552
 []$\OMS/cmsy/m/n/10 )$ \OT1/cmr/m/n/10 se-quence prob-a-bil-ity $\OML/cmm/m/it/
 10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = \OML/cmm
 /m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/1
@@ -2014,46 +2038,46 @@ cmsy/m/n/10 j\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = [] \OML/cmm/m/it
 /10 y[]$ 
  []
 
-[180] [181]
-<"./Deep Learning/plot/topic-nmt transformer".png, id=1721, 2006.49625pt x 1155
+[182] [183]
+<"./Deep Learning/plot/topic-nmt transformer".png, id=1740, 2006.49625pt x 1155
 .31625pt>
 File: "./Deep Learning/plot/topic-nmt transformer".png Graphic file (type png)
  <use "./Deep Learning/plot/topic-nmt transformer".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-nmt transformer".png used 
-on input line 6551.
+on input line 6688.
 (pdftex.def)             Requested size: 244.59692pt x 140.83556pt.
- [182 <./Deep Learning/plot/topic-nmt transformer.png>] [183]
-Overfull \hbox (37.54732pt too wide) in paragraph at lines 6668--6669
+ [184] [185 <./Deep Learning/plot/topic-nmt transformer.png>]
+Overfull \hbox (37.54732pt too wide) in paragraph at lines 6805--6806
 []\OT1/cmr/m/n/10 encoder scan through au-dio frames & de-coder out-put let-ter
 /punctuation/"blank"/"space" 
  []
 
-[184] [185]
-Overfull \hbox (8.15143pt too wide) in paragraph at lines 6824--6826
+[186] [187] [188]
+Overfull \hbox (8.15143pt too wide) in paragraph at lines 6961--6963
 [] \OMS/cmsy/m/n/10 ^^Y [] [] []$ 
  []
 
-[186] [187] [188] [189] [190] [191] [192] [193]) [194]
+[189] [190] [191] [192] [193] [194] [195] [196]) [197]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 95.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 95.
  (./Machine Learning.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 95.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 95.
 Package rerunfilecheck Info: File `"Machine Learning".out' has not changed.
-(rerunfilecheck)             Checksum: ABB9C9CE10EBCA8C971201BAA1766575;7744.
+(rerunfilecheck)             Checksum: 69632A720D448D14DBA666CCD698987C;7823.
 
 LaTeX Warning: There were undefined references.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 95.
  ) 
 Here is how much of TeX's memory you used:
- 20299 strings out of 493029
- 383610 string characters out of 6136233
+ 20317 strings out of 493029
+ 384244 string characters out of 6136233
  435969 words of memory out of 5000000
- 22946 multiletter control sequences out of 15000+600000
+ 22955 multiletter control sequences out of 15000+600000
  21322 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 53i,20n,92p,10369b,958s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,20n,92p,10369b,956s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/tex
@@ -2086,10 +2110,10 @@ fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/symbols/msam5.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on "Machine Learning.pdf" (200 pages, 8594998 bytes).
+Output written on "Machine Learning.pdf" (203 pages, 8878733 bytes).
 PDF statistics:
- 2034 PDF objects out of 2073 (max. 8388607)
- 1701 compressed objects within 18 object streams
- 567 named destinations out of 1000 (max. 500000)
- 1132 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2059 PDF objects out of 2073 (max. 8388607)
+ 1719 compressed objects within 18 object streams
+ 574 named destinations out of 1000 (max. 500000)
+ 1150 words of extra memory for PDF output out of 10000 (max. 10000000)
 
