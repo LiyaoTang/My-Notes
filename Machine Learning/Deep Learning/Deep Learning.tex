@@ -1620,34 +1620,146 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{Convolution Layer}
 \begin{itemize}
+\item Convolution $1D$
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item $1D$ vector of size $i$, can have multiple channels at each location
+		\end{itemize}
+	\item Setting
+		\begin{itemize}
+		\item kernel size $k$: another 1D vector (weight vec)
+		\item padding $p$: the size to pad at one direction of an axis \\
+		(usually symmetric padding at both direction $\Rightarrow2p$ in total)
+		\item stride $s$: the step for kernel to move its location as sliding across input
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item $\displaystyle s(t) = (f * g)(t) = \sum_{x=-\infty}^\infty f(x)g(t-x)$
+		\item padding: to extend the $x$ range where $f(x)$ is defined, by filling default values
+		\item strides: the step / gap between 2 consecutive kernel locations
+		\item flip the kernel vector $g(x)$ \& slides it across input vector $f(x)$ with stride $s$
+		\item for each position $t$: \\
+		an element-wise weighted sum on the spatially corresponding position \\
+		(overlap = range where $f(x), g(t-x)$ are both defined)
+		\item sum across channels: sum over kernel output from each channel $+$ optional bias
+		\item kernel strides spatially across the image, with stride along each axis defined \\
+		$\Rightarrow$ to produce a $\mathbf 1$-channel output \\
+		$\Rightarrow$ for multi-channels output: multiple sets of kernels
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item output size $o$ = possible placements of kernel on input \\
+		(channel depends on the num of sets of kernels) \\
+		$\displaystyle \Rightarrow o = \left\lfloor\frac {i+2p-k} {s} \right\rfloor + 1$
+		\item for $s>1$, all input size $\{j=i+a | a = 0,...,s-1\}$ will produce same output size \\
+		(complicate the analysis of transposed conv)
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item pre-calc the function $g(t-x)$ for all possible $t$ (as output size known) \\
+		$\Rightarrow$ fill in the table that corresponds to input size: \\
+		\begin{minipage}[r]{.3\linewidth}
+		\includegraphics[width=\linewidth, left]{"./Deep Learning/plot/layer-conv1d conv impl".png} \\
+		\end{minipage}
+		\begin{minipage}[l]{.4\linewidth}
+		= \resizebox{\hsize}{!}{$\begin{pmatrix}
+		w_1 & w_2 & w_3 & w_4 & 0   & 0   & 0   & 0   & 0   & 0   & 0   & 0   \\
+		0   & 0   & w_1 & w_2 & w_3 & w_4 & 0   & 0   & 0   & 0   & 0   & 0   \\
+		0   & 0   & 0   & 0   & w_1 & w_2 & w_3 & w_4 & 0   & 0   & 0   & 0   \\
+		0   & 0   & 0   & 0   & 0   & 0   & w_1 & w_2 & w_3 & w_4 & 0   & 0   \\
+		0   & 0   & 0   & 0   & 0   & 0   & 0   & 0   & w_1 & w_2 & w_3 & w_4 \\
+		\end{pmatrix}$}
+		\end{minipage} \\
+		where $\mathbf x = $ input $f(x)$ after padding (gray cells), $\mathbf y = s(t)$ the output, \\
+		with $i=8, k=4, p=2, s=2$, thus $o=5$
+		\item $\Rightarrow$ each row of the matrix $=$ kernel $g(t-x)$ with a given $t$ \\
+		i.e. each row represents kernel at a specific position
+			\begin{itemize}
+			\item row num = possible kernel position = output size
+			\item col num = input size (after padding)
+			\end{itemize}
+		\end{itemize}
+	\item Back Propagation (TODO: study matrix derivatives)
+		\begin{itemize}
+		\item with above matrix (denoted as $C$): $\mathbf y = C \mathbf x$
+		\item to update kernel weights: $\frac{\partial}{\partial C} L = \frac{\partial L}{\partial\mathbf y} \frac{\partial\mathbf y}{\partial C} =\frac{\partial L}{\partial\mathbf y} \cdot \mathbf x^T$\\
+		as $\frac{\partial\mathbf y}{\partial C} =$\resizebox{0.1\hsize}{!}{$\begin{bmatrix} \text{---}&\mathbf x^T&\text{---} \\ &\vdots& \\ \text{---}&\mathbf x^T&\text{---} \end{bmatrix}$} \&
+		$\frac{\partial L}{\partial C} =$\resizebox{0.12\hsize}{!}{$\begin{bmatrix} \text{---}& \frac{\partial L}{\partial\mathbf y}[1]\cdot\mathbf x^T&\text{---} \\ &\vdots& \\ \text{---}&\frac{\partial L}{\partial\mathbf y}[5]\cdot\mathbf x^T&\text{---} \end{bmatrix}$} \\
+		$\Rightarrow$ equivalent to $\frac{\partial L}{\partial\mathbf y} \cdot \mathbf x^T$, as $\frac{\partial L}{\partial\mathbf y}$ a col vec as $\mathbf y$ \\
+		(still, needs to sum up grad for the same weights)
+		\item to backprop: $\frac{\partial}{\partial \mathbf x} L = \frac{\partial L}{\partial \mathbf y} \frac{\partial \mathbf y}{\partial \mathbf x} = C^T \cdot \frac{\partial L}{\partial \mathbf y}$ \\
+		as $\frac{\mathbf y_i}{\mathbf x_j} = C_{i,j}$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item the basis for N-D conv: as the relations are analogy across axises
+		\item kernel defines both forward \& backward pass \\
+		$\Rightarrow$ depending on how to use the $C$ and $C^T$
+		\end{itemize}
+	\end{itemize}
 \item Convolution $2D$
 	\begin{itemize}
 	\item Input
 		\begin{itemize}
 		\item spatially $2D$ feature maps, usually with multiple channels
 		\end{itemize}
-	\item Operation
+	\item Setting
 		\begin{itemize}
-		\item given hyperparameter: kernel/filter size, stride, padding
-		\item kernel (weights) structured as a matrix (for each input channel)
-		\item input maps padded if required
-		\item an element-wise weighted sum on the spatially corresponding position
-		\item sum across channels: sum over kernel output from each channel $+$ optional bias
-		\item kernel strides spatially across the image, with stride along each axis defined \\
-		$\Rightarrow$ to calculate $\mathbf 1$ channel in the output feature maps \\
-		$\Rightarrow$ for multi-channels output: multiple sets of kernels
-		\begin{figure}[ht]
-		\centering
-		\begin{subfigure}{.7\linewidth}
-		\includegraphics[width=.75\linewidth, right]{"./Deep Learning/plot/layer-conv2d exp".png}
-		\end{subfigure}%
-		\begin{subfigure}{.3\linewidth}
-		\includegraphics[width=.5\linewidth, center]{"./Deep Learning/plot/layer-conv2d kernel movement".png}
-		\end{subfigure}%
-		\end{figure}
+		\item kernel size $k$: a 2D matrix (weights) to be convoluted \\
+		$\Rightarrow$ usually odd square matrix - even becomes a convention \\
+		(to avoid asymmetric padding \& a central pixel for filter location) \\
+		$\Rightarrow k\times k$ kernel
+		\item padding $p$: as in 1D conv (usually, same $p$ for all axises)
+		\item stride $s$: as in 1D conv (usually, same $s$ for all axises)
+		\end{itemize}
+	\item Operation (similar to 1D conv)
+		\begin{itemize}
+		\item $\displaystyle S(i,j)= (I*K)(i,j) = \sum_m\sum_n I(m,n)K(i-m, j-n)$ \\
+		$\Rightarrow$ slide along both axises \& produce a 2D function \\ 
+		(hence 2D conv)
+		\item kernel (weights) $K$ structured as a matrix (for each input channel)
+		\item slide \& sum on 2D spaces \\
+		\begin{minipage}[r]{.7\linewidth}
+		\includegraphics[width=.75\linewidth, center]{"./Deep Learning/plot/layer-conv2d exp".png}
+		\end{minipage}
+		\begin{minipage}[l]{.3\linewidth}
+		\includegraphics[width=.5\linewidth, left]{"./Deep Learning/plot/layer-conv2d kernel movement".png}
+		\end{minipage}
+		\item each kernel a input channel \& a set of channel for 1-channel output \\
+		$\Rightarrow$ multiple sets of kernels for multi-channel output
 		\item activation then taken after convolution operation, element-wisely
 		\end{itemize}
-	\item Padding
+	\item Output
+		\begin{itemize}
+		\item as in 1D conv: $\displaystyle o = \left\lfloor\frac {i+2p-k} {s} \right\rfloor + 1$ \\
+		for $s>1$, all input size $\{j=i+a | a = 0,...,s-1\}$ will produce same output size 
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item implement cross-correlation instead of convolution \\
+		(skip the flipping operation: as their results are symmetric) \\
+		yet, convolution is associative, due to the flipping
+		\item create a matrix with: each row = unrolled kernel at a specific location \\
+		(similar to 1D conv) \\
+		\begin{minipage}[l]{.15\linewidth}
+		\includegraphics[width=\linewidth, left]{"./Deep Learning/plot/layer-conv2d basic".png} \\
+		\end{minipage}
+		\begin{minipage}[l]{.85\linewidth}
+		with $i=4, k=3, p=s=0$, construct matrix: \\ \\
+		\resizebox{\hsize}{!}{$\begin{pmatrix}
+w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & w_{2,0} & w_{2,1} & w_{2,2} & 0       & 0       & 0       & 0       & 0       \\
+0       & w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & w_{2,0} & w_{2,1} & w_{2,2} & 0       & 0       & 0       & 0       \\
+0       & 0       & 0       & 0       & w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & w_{2,0} & w_{2,1} & w_{2,2} & 0       \\
+0       & 0       & 0       & 0       & 0       & w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & w_{2,0} & w_{2,1} & w_{2,2} \\
+		\end{pmatrix}$}
+		\end{minipage} \\
+		\end{itemize}
+	\item Back Propagation
+		\begin{itemize}
+		\item similar to 1D conv above
+		\end{itemize}
+	\item Understanding - Padding
 		\begin{itemize}
 		\item prevent output feature maps from spatially shrinking
 		\item prevent info lost on the border \& corner of image \\
@@ -1657,29 +1769,23 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		(as need to pad a lot \& introduce overwhelming useless info, e.g. $0$s)
 		\item convention: $0$-padding on both directions of an axis \\
 		(valid conv: no padding; same conv: pad so that output size same as input size)
+		\item half (same) padding for odd kernal $k=2n+1$ and $s=1$ \\
+		$\Rightarrow p=n$ to have $o == i$
+		\item full padding: $p=k-1$ to account all possible overlaps of kernel \& feature map
 		\end{itemize}
-	\item Kernel Size
+	\item Understanding - Kernel Size
 		\begin{itemize}
-		\item odd square matrix: avoid asymmetric padding \& a central pixel for filter location \\
-		(even becomes a convention)
+		\item 
 		\end{itemize}
-	\item Stride
+	\item Understanding - Stride
 		\begin{itemize}
-		\item the step for kernel to move its location as striding over feature maps
-		\item kernel striding over the edge (after padding): NOT convoluted
-		\end{itemize}
-	\item Output
-		\begin{itemize}
-		\item a feature maps with defined output channel \& size \\
-		(output channel depends on the number of sets of kernels)
-		\item on a $2D$ square feature map, with padding at each edge $p$, stride on all axises $s$ \\ 
-		kernel size $k\times k$ , input size $i\times i$, output size $o\times o$ \\
-		$\displaystyle \Rightarrow o = \left\lfloor\frac {i+2p-k} {s} \right\rfloor + 1$
+		\item a form of subsampling (how much output is retained) \\
+		$\Rightarrow$ subsample every 1 in $s$ locations from the stride-1 feature map along each axis
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item computer vision filter: learn the weights in filters, instead of hand design \\ 
-		$\Rightarrow$ guided by data statistics
+		\item a linear transformation that preserves topological info \& ordering
+		\item v.s. hand-designed filter: learn \& optimize the goal with the help of data statistics
 		\item weights in the $l^\text{th}$ conv layer: $n_c^{l-1} \times k\times k \times n_c^{l}$, where $n_c$ the channel number \\
 		(to output $n_c^l$ channels with $n_c^{l-1}$ input channels from previous layer) \\
 		$\Rightarrow$ invariant to the input size (number of trainable variables fixed on design) \\
@@ -1689,15 +1795,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ as need to handle spatial variance in processing images
 		\item sparse connection: output connected only to the local input \\ 
 		$\Rightarrow$ robust to spatial variance (as a high-pass bandwidth)
-		\end{itemize}
-	\item Back Propagation
-	\item Implementation
-		\begin{itemize}
-		\item implement cross-correlation instead of convolution \\ 
-		(skip the flipping operation: as their results are symmetric) \\
-		yet, convolution is associative, due to the flipping
-		\end{itemize}
-	\end{itemize}
+		\end{itemize}	\end{itemize}
 
 \item $1\times1$ Convolution
 	\begin{itemize}
@@ -1720,6 +1818,30 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item add more non-linearity \& info combination (more representability)
 		\item channel-wise interaction
 		\end{itemize}
+	\end{itemize}
+
+\item Transposed Convolution
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item 2D feature map
+		\end{itemize}
+	\item Setting
+		\begin{itemize}
+		\item square $i\times i$ input \& $k\times k$ kernel
+		\item same stride $s$ \& (one-direction) padding $p$ for all axises
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item given $i\times i$ input, $k\times k$ kernel, stride $s$ \& padding $p$
+		\item construct matrix $C$ for forward, pad input and then unroll into $\mathbf x$
+		\item 
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item 
 	\end{itemize}
 
 \item Atrous Convolution
@@ -1776,11 +1898,12 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Understanding
 		\begin{itemize}
 		\item downsampling the feature maps (NO weights to learn) \\ 
-		$\Rightarrow$ if desired features detected anywhere, represent it by local max/average
-		\item average: use the mean as representation of desired region
-		\item max: use the outstanding one as the representation of desired region
+		$\Rightarrow$ if desired features detected anywhere, represent it by local max/average \\
+		$\Rightarrow$ summarize subregions
+		\item invariance to small translations of input
 		\end{itemize}
 	\end{itemize}
+
 \item Unpooling
 
 \item Spatial Pyramid Pooling (SPP)

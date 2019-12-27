@@ -193,19 +193,16 @@
 			\item $m<n$: projecting to subspace
 			\item $m>n$: expanding into a hyper-plane/-line/etc (constrained in hyper-space)
 			\end{itemize}
-		 
 		\end{itemize}
 	\item Performing Space Transformation
 		\begin{itemize}
-		\item $\displaystyle \forall i\in \{1,...,n\}, x'_i = i^\text{th}$ component of $\mathbf x'=L(\mathbf x)$, then $x'_i = (e'_{1i}+...+e'_{n_i})x_i$ \\
+		\item $\displaystyle \forall i\in \{1,...,n\}, x'_i = i^\text{th}$ component of $\mathbf x'=L(\mathbf x)$, then $x'_i = \sum_{j=1}^n e'_{ji}x_j$ \\
 		(as proved above)
 		\item $\Rightarrow$ output vector $\mathbf x' = L(\mathbf x)=M\mathbf x$ under the original basis $e_1,...,e_n$ \\
-		hence the rule for matrix multiplication
-		\begin{figure}[ht]
+		hence the rule for matrix multiplication \\
 		\includegraphics[width=0.5\linewidth,center]{./Math/"matrix-performing space transformation".png}
-		\caption*{where green and red columns the $\{e_1',e_2'\}$ under $\{e_1,e_2\}$, $[x,y]$ the input vector $\mathbf x$}
-		\end{figure}
 		\end{itemize}
+		where green and red cols the $\{e_1',e_2'\}$ under $\{e_1,e_2\}$, $[x,y]$ the input vector $\mathbf x$
 	\end{itemize}
 
 \item Matrices for Composition of Linear Transformation
@@ -897,8 +894,8 @@
 	    \item translating into homogeneous space \\
 	    $\Rightarrow$ $x = [x'^T,1]^T, A=\begin{bmatrix} A', \mathbf 0 \\ \mathbf 0^T, 1 \end{bmatrix}$ where $\mathbf 0$ a col vector $[0,...,0]^T$ \\ 
 	    $\Rightarrow$ hence $Ax \text{(homo)} \Leftrightarrow A'x' \text{(Cart)}$ \\
-	    $\Rightarrow \text{construct} T = \begin{bmatrix} A', b \\ \mathbf 0^T, 1 \end{bmatrix}$\\
-	    $\Rightarrow y=Tx \text{(homo)}  \Leftrightarrow  y'=A'x'+b' \text{(cart)}$
+	    $\Rightarrow \text{ construct } T = \begin{bmatrix} A', b \\ \mathbf 0^T, 1 \end{bmatrix}$\\
+	    $\Rightarrow y=Tx \text{(homo)}  \Leftrightarrow  y'=A'x'+b' \text{(Cart)}$
 	    \item $\Rightarrow$ single matrix for affine transformation 
 		\end{itemize}
 	\end{itemize}

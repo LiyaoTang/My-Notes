@@ -106,7 +106,7 @@
 
 6. Initialization: 
 
-   - Symmetry problem:![Symmetry Problem .png](.\Symmetry Problem .png)
+   - Symmetry problem:![Symmetry Problem .png](.\plot\Symmetry Problem .png)
 
      - so that units in the same layer are computing the same features
 
@@ -225,7 +225,7 @@
 
    - Stacking Encoders:
 
-     - ![Stacking autoencoder](.\Stacking autoencoder.png) 
+     - ![Stacking autoencoder](.\plot\Stacking autoencoder.png) 
 
      - chain non-linear encoder $c_i(x)$ 
 
@@ -313,7 +313,7 @@
 
 4. **Dropout** is an extremely effective, simple and recently introduced regularization technique by Srivastava et al. in [Dropout: A Simple Way to Prevent Neural Networks from Overfitting](http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf) (pdf) that complements the other methods (L1, L2, maxnorm). While training, dropout is implemented by only keeping a neuron active with some probability pp (a hyperparameter), or setting it to zero otherwise.
 
-   ![img](./regularization-dropout.jpeg) 
+   ![img](./plot/regularization-dropout.jpeg) 
 
    Understanding:
 
@@ -329,7 +329,7 @@
 
 1. Convolution as function:
    - 1-D:
-     - $\displaystyle s(x) = (f * g)(x) = \sum_{x=-\infty}^\infty f(x)g(t-x)$ 
+     - $\displaystyle s(t) = (f * g)(t) = \sum_{x=-\infty}^\infty f(x)g(t-x)$ 
    - 2-D:
      - $\displaystyle S(i,j)= (I*K)(i,j) = \sum_m\sum_n I(m,n)K(i-m, j-n)$ 
      - $\displaystyle S(i,j)= (K*I)(i,j) = \sum_m\sum_n I(i-m, j-n)K(m,n), \text{ because of }$
@@ -340,7 +340,7 @@
 
      - grey cell => padded 0; green cell => activated weights in filter
 
-     ![Convolution in 1d](.\Convolution in 1d.PNG)  
+     ![Convolution in 1d](.\plot\Convolution in 1d.PNG)  
 
 3. Upsampling:
 
@@ -355,7 +355,7 @@
 
    - 
 
-     ![transposed conv vs frationally strided conv ](.\transposed conv vs frationally strided conv .PNG) 
+     ![transposed conv vs frationally strided conv ](.\plot\transposed conv vs frationally strided conv .PNG) 
 
      - (a) Transposed Conv $\Leftrightarrow$ Backward Conv: 
 
@@ -403,7 +403,7 @@
 
    - Deconvolution in 2D:
 
-     ![decovolutin (fractional conv)](.\decovolutin (fractional conv).PNG) 
+     ![decovolutin (fractional conv)](.\plot\decovolutin (fractional conv).PNG) 
 
      (not all padding is shown => 2 rows of 0 padding on the top-left are hidden)
 
@@ -414,7 +414,7 @@
 
    - Convolution in 2D, with more filters:
 
-     ![Convolution equivelant to deconv](.\Convolution equivelant to deconv.PNG)  
+     ![Convolution equivelant to deconv](.\plot\Convolution equivelant to deconv.PNG)  
 
      (all padding is shown)
 
