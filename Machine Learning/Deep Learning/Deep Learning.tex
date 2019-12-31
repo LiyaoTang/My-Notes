@@ -1938,9 +1938,32 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\end{itemize}
 	\end{itemize}
 
-\item Atrous/Dilated Convolution
+\item Dilated/Atrous Convolution
 	\begin{itemize}
-	\item 
+	\item Input
+		\begin{itemize}
+		\item 2D feature map
+		\end{itemize}
+	\item Setting
+		\begin{itemize}
+		\item size: input $i$, output $o$, kernel $k$, padding $p$, stride $s$
+		\item input skipped after the last conv at each axis: $a=\{0,...,s-1\}$
+		\item dilation rate $d$
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item insert $d-1$ spaces between two consecutive kernel elements \\
+		$\Rightarrow$ actual kernel size become $k+(k-1)(d-1)$
+		\item convolve with dilated conv kernel
+		\end{itemize}
+	\item Output
+		\begin{itemize}
+		\item $o=\floor{\frac{i+a+2p-k-(k-1)(d-1)}{s}}+1$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item increase receptive field without increasing learnable params
+		\end{itemize}
 	\end{itemize}
 
 \item Deformable Convolution
