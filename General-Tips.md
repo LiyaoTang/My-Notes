@@ -120,6 +120,20 @@
     1. nested structure: 
        1. `mutable_xxx()` to get an allocated object (auto delete previous allocated mem)
        2. `set_allocated_xxx()` to point the pointer (inside proto class) to the allocated mem
+       
+    2. understanding
+    
+       1. a standard way to define \& create classes 
+    
+          $\Rightarrow$ use complier to check if all necessary component defined
+    
+          1. avoid human mistake
+          2. consistent interface
+          3. human friendly \& explanable by itself
+    
+       2. class generator
+    
+          1. easier to define general object: create setter \& getter automatically
     
 20. function object
 
@@ -282,6 +296,22 @@
     - no implementation recognized in linking stage
     - look up in pre-implementated cases, `undefined reference` if unforseen usage found
     - $\Rightarrow$ use with macro to make pre-spcialization (fast compilation)
+
+### Macro
+
+- Capability
+
+  - Class Generator
+
+    - can be viewed as a self-defined proto $\Rightarrow$ define the `metaclass` 
+
+  - Call-by-Name
+
+    - pass in string \& call the func with that name
+
+      $\Rightarrow$ generate if-else / switch table at compile time, according to defined classes
+
+      (as class declaration written in macro - still class generator benefits)
 
 ### Concurrency in C++ (POSIX Library)
 

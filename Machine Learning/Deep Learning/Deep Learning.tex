@@ -1655,7 +1655,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item for $s>1$, all input size $\{j=i+a | a = 0,...,s-1\}$ will produce same output size \\
 		(complicate the analysis of transposed conv)
 		\end{itemize}
-	\item Implementation
+	\item Implementation - Img-to-Col
 		\begin{itemize}
 		\item pre-calc the function $g(t-x)$ for all possible $t$ (as output size known) \\
 		$\Rightarrow$ fill in the table that corresponds to input size: \\
@@ -1767,11 +1767,14 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		$\Rightarrow$ ensure border feature get convoluted by the same times as central feature
 		\item YET, may introduce noise if using large kernel \\
 		(as need to pad a lot \& introduce overwhelming useless info, e.g. $0$s)
-		\item convention: $0$-padding on both directions of an axis \\
-		(valid conv: no padding; same conv: pad so that output size same as input size)
-		\item half (same) padding for odd kernal $k=2n+1$ and $s=1$ \\
-		$\Rightarrow p=n$ to have $o == i$
-		\item full padding: $p=k-1$ to account all possible overlaps of kernel \& feature map
+		\item convention: $0$-padding on both directions of an axis
+		\item padding style:
+			\begin{itemize}
+			\item valid (no) padding: $p=0$
+			\item half (same) padding for odd kernal $k=2n+1$ and $s=1$ \\
+			$\Rightarrow p=n$ to have $o == i$
+			\item full padding: $p=k-1$ to account all possible overlaps of kernel \& feature map
+			\end{itemize}
 		\end{itemize}
 	\item Understanding - Kernel Size
 		\begin{itemize}
@@ -1795,7 +1798,8 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		$\Rightarrow$ as need to handle spatial variance in processing images
 		\item sparse connection: output connected only to the local input \\ 
 		$\Rightarrow$ robust to spatial variance (as a high-pass bandwidth)
-		\end{itemize}	\end{itemize}
+		\end{itemize}	
+	\end{itemize}
 
 \item $1\times1$ Convolution
 	\begin{itemize}
@@ -1824,27 +1828,120 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 	\begin{itemize}
 	\item Input
 		\begin{itemize}
-		\item 2D feature map
+		\item feature vec/map/volume, etc.
 		\end{itemize}
 	\item Setting
 		\begin{itemize}
-		\item square $i\times i$ input \& $k\times k$ kernel
-		\item same stride $s$ \& (one-direction) padding $p$ for all axises
+		\item consider only one axis \\
+		(can generalize to N-D input/kernel with all axises sharing the same setting)
+		\item original conv: $i, a, k, s, p, o$, where $i +2p - k \mod s = 0$ \& $a={0,...,s-1}$ \\
+		(to unleash the constraint from $\floor{}$ ops)
+		\item input size $i'$, output size $o'$
+		\item kernel size $k'$, stride $s'$, padding at one direction $p'$
+		\item $f$ the num of location to be inserted into 2 consecutive input location
+		\item $a'$ the num of padding to add to $\mathbf 1$ side of the axis (additional padding)
 		\end{itemize}
 	\item Operation
 		\begin{itemize}
-		\item given $i\times i$ input, $k\times k$ kernel, stride $s$ \& padding $p$
-		\item construct matrix $C$ for forward, pad input and then unroll into $\mathbf x$
-		\item 
+		\item given a direct conv with setting $i, k, s, p, o$ \\
+		$\Rightarrow$ its transposed conv is the ops to have $i'=o$ and $o'=i$ \\
+		i.e. to recover the original input shape \& maintain the correspondence
+		\item assume $s'=1, k'=k$, then set $p'+p=k-1, a'=a, f=s-1$
+		\item conv as usual on output $o=i'$ (after manipulated by $p', a', f$)
 		\end{itemize}
 	\item Output
 		\begin{itemize}
-		\item 
+		\item feature with size of $o'=i$
 		\end{itemize}
-	\item 
+	\item Derivation - Mathematically
+		\begin{itemize}
+		\item assume $s'=s=1, k'=k$ \\
+		$\Rightarrow \left\{\begin{alignedat}{4}
+		&\floor{\frac{i+2p-k}{s}}+1 &&= i+2p-k+1 &&= o && \phantom{--}\text{ direct conv} \\
+		&\floor{\frac{o+2p'-k}{s}}+1 &&= o+2p'-k+1 &&= i && \phantom{--}\text{ transposed conv}
+		\end{alignedat}\right. $ \\
+		$\Rightarrow p+p'=k-1$ \\
+		thus, under special case of $s=1$:
+			\begin{itemize}
+			\item zero-full padding are transposed conv for each other
+			\item same padding is transposed conv for itself (as shape does NOT change at all)
+			\end{itemize}
+		\item more general case: assume $s'=1, k'=k$ \\
+		$\Rightarrow \left\{\begin{alignedat}{4}
+		&\floor{\frac{i+a+2p-k}{s}}+1 &&= \frac{i+2p-k}{s}+1 &&= o && \phantom{-}\text{ direct conv} \\
+		&\floor{\frac{o+2p'+a'+f(o-1)-k}{s'}}+1 &&= o+a'+2p'+f(o-1)-k+1 &&=i+a && \phantom{-}\text{ transposed conv}
+		\end{alignedat}\right. $ \\
+		$\displaystyle \Rightarrow \text{given }\begin{cases}
+		2p'+ a'+f(o-1)=a+2k-2-2p+(s-1)(o-1) \\ 
+		0 \le a \le s-1 \\
+		0 \le p \le k-1
+		\end{cases} \\
+		\phantom{\Rightarrow} \text{ find } p',a',f \\
+		\begin{alignedat}{3}
+		& \phantom{\Rightarrow} \text{ s.t.} \phantom{-} && 0 \le p' &&\le k-1 \text{ to have valid overlap with kernel of transposed conv} \\
+		& &&0 \le a' &&\le k-1 \\
+		& &&0 \le p'+a' &&\le k-1 \\
+		& &&0 \le f &&\le k-1
+		\end{alignedat}$ \\
+		$\Rightarrow$ one intuitive solution is thus: $p+p'=k-1, a'=a, f=s-1$
+		\end{itemize}
+	\item Derivation - Intuitively
+		\begin{itemize}
+		\item to maintain the correspondence of the original direct conv (in the opposite way):
+		\item recover the original output $o_{s=1}=i+a+2p-k+1$
+			\begin{itemize}
+			\item stride $s$ as subsampling on $o_{s=1} \Rightarrow f=s-1$
+			\item $a\le l-1$ as skipped input at the tail of an axis/dim of $o_{s=1} \Rightarrow a'=a$
+			\end{itemize}
+		(besides, $o_{s=1}=o+(s-1)(o-1)+a$)
+		\item $\Rightarrow$ then, could have $s=1$ assumption
+		\item $p$ as additional border info/mapping that is not required to account \\ 
+		$\Rightarrow$ the border output (e.g. $o[0]=i'[0]$) corresponds to original $k-p$ input \\
+		(while the border location recovers $\floor{\frac{p'+1}{s'}}=p'+1$ location via trans conv) \\
+		$\Rightarrow$ $p'+1=k-p$, i.e. $p'+p=k-1$
+		\end{itemize}
+	\item Implementation
+		\begin{itemize}
+		\item using the backward of a conv: transposed conv via $C^T$
+		\item given direct conv, where $x=i, y=o$ \\
+		$\Rightarrow$ have its backward \& transposed conv with $x'=y, y'=x$ (in shape \& location) \\
+		\begin{minipage}[l]{.3\linewidth}
+		\includegraphics[width=\linewidth, left]{"./Deep Learning/plot/layer-conv1d conv impl".png} \\
+		\centering
+		forward pass
+		\end{minipage}
+		\begin{minipage}[r]{.2\linewidth}
+		\includegraphics[width=\linewidth, right]{"./Deep Learning/plot/layer-conv1d backward".png} \\
+		\centering
+		backward pass
+		\end{minipage}
+		\begin{minipage}[r]{.45\linewidth}
+		\includegraphics[width=\linewidth, right]{"./Deep Learning/plot/layer-conv trans conv as fractionally strided conv".png} \\
+		\centering
+		transposed conv
+		\end{minipage} \\
+		$\begin{alignedat}{1}
+		\text{where }&\text{gray in } x^T \text{ the padding,} \\
+		&\text{gray in } y' \text{ the places to be cropped,} \\ 
+		&\text{gray in } x'^T \text{ the compensated location \& padding} 
+		\end{alignedat}$ \\
+		\item $\Rightarrow$ each transposed conv equivalent to a conv backward (after a kernel re-arrange) \\
+		(since kernel are learnable)
+		$\Rightarrow$ \underline{implement as swapping back/forward-prop of normal conv} \\
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item a learnable version of inverse conv \\
+		$\Rightarrow$ to \underline{maintain the correspondence} between original input \& output \\
+		$\Rightarrow$ also, to recover the shape of the original input of the direct conv \\
+		(yet, not recovers the content, but learning a new mapping)
+		\end{itemize}
 	\end{itemize}
 
-\item Atrous Convolution
+\item Atrous/Dilated Convolution
+	\begin{itemize}
+	\item 
+	\end{itemize}
 
 \item Deformable Convolution
 	\begin{itemize}
