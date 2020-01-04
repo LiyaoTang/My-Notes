@@ -1962,32 +1962,84 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item increase receptive field without increasing learnable params
+		\item subsampling the kernel \\
+		$\Rightarrow$ increase receptive field without increasing learnable params
+		\item whereas, deep net usually do NOT have enough receptive field for large obj on large img
 		\end{itemize}
 	\end{itemize}
 
-\item Deformable Convolution
+\item Deformable Convolution \label{DL_Layers_DeformableConv}
 	\begin{itemize}
-	\item Understanding
+	\item Input
 		\begin{itemize}
-		\item classification requires less background noise \\
-		whereas localization requires enough context \\
-		(such mismatch occurs especially in small-object detection) \\
-		$\Rightarrow$ ensemble regular conv \& deformable conv ?
+		\item feature map
 		\end{itemize}
-	\end{itemize}
-
-
-\item Deconvolution
-
-
-\item Convolution Implementation
-	\begin{itemize}
+	\item Setting
+		\begin{itemize}
+		\item $\mathbf w$ the kernel of a 2D conv
+		\item $\mathcal R$ the offset of each kernel params to the conv center \\
+		e.g. $\mathcal R=\{(-1,-1), (-1,0), ..., (1,1))\}$ for 3x3 conv
+		\item $N=\abs{\mathcal R}$ the number of conv kernel params
+		\item $\mathbf p_0$ the position of a conv:
+			\begin{itemize}
+			\item $\mathbf x(\mathbf p_0)$ the feature at conv center on input feature map
+			\item $\mathbf y(\mathbf p_0)$ the resulting/corresponding feature on output map
+			\end{itemize}
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item original conv: $\mathbf y(\mathbf p_0)=\sum_{\mathbf p_0\in\mathcal R} \mathbf w(\mathbf p_n)\cdot \mathbf x(\mathbf p_0+\mathbf p_n)$ \\
+		(single channel)
+		\item another same-setting conv kernel to produce offset field \\
+		(same-size output feature map, but of $2N$ channels) \\
+		$\Rightarrow N$ groups of x-y offset at each location \\
+		$\Rightarrow$ each $\mathbf y(p_0)$ has a corresponding offset prediction $\mathbf y_p(\mathbf p_0)$
+		\item deformable conv: $\mathbf y(\mathbf p_0)=\sum_{\mathbf p_0\in\mathcal R} \mathbf w(\mathbf p_n)\cdot \mathbf x(\mathbf p_0+\mathbf p_n+\Delta \mathbf p_n)$, where $\Delta \mathbf p_n \text{ the } n^\text{th} \text{ x-y offset in } \mathbf y_p(\mathbf p_0)$ \\
+		(still, single channel) \\
+		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/layer-conv deformable conv".png} \\
+		\item multi-channel input: different offset for conv on each location of each channel
+		\item bilinear interpolation to obtain $\mathbf x(\mathbf p_0+\mathbf p_n+\Delta \mathbf p_n)$ as $\Delta \mathbf p_n$ predicted by network
+		\end{itemize}
+	\item Back Propagation
+		\begin{itemize}
+		\item let $G(\mathbf q, \mathbf p)=g(q_x, p_x)\cdot g(q_y,p_y)$, with $g(a,b)=\max(0,1-\abs{a-b})$ \\
+		$\Rightarrow$ $G$ the bilinear interpolation to have $\mathbf x(\mathbf p)=\sum_{\mathbf q} G(\mathbf q, \mathbf p)\cdot \mathbf x(\mathbf q)$
+		\Item \begin{align*} \frac{\partial}{\partial \mathbf \Delta \mathbf p_n}\mathbf y(\mathbf p_0) &= \sum_{\mathbf p_n\in\mathcal R} \mathbf w(\mathbf p_n)\cdot \frac{\partial \mathbf x(\mathbf p_0+\mathbf p_n+\Delta\mathbf p_n)}{\partial \Delta \mathbf p_n} \\
+		&= \sum_{\mathbf p_n\in\mathcal R} \left[ \mathbf w(\mathbf p_n)\cdot \sum_{\mathbf q}\frac{\partial G(\mathbf q, \mathbf p_0+\mathbf p_n+\Delta\mathbf p_n)}{\partial\Delta p_n} \mathbf x (\mathbf q)\right] \end{align*}
+		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item span the original input in the extra dimension, by duplicating the input \\
-		$\Rightarrow$ each input location generate its contribution at corresponding output location \\
-		(collected by the sum op in matrix multiplication)
+		\item loosen the assumption of conv: learning the sample location for each conv \\
+		(conv assume strict local correspondence prior) \\
+		$\Rightarrow$ more effective receptive fields \\ 
+		(as bbox-size receptive fields can contain lots of background) \\
+		\begin{minipage}[l]{.5\linewidth}
+		\includegraphics[width=\linewidth, left]{"./Deep Learning/plot/layer-conv deformable conv vs normal conv".png}		
+		\end{minipage}
+		\begin{minipage}[r]{.4\linewidth}
+		\includegraphics[width=\linewidth, left]{"./Deep Learning/plot/layer-conv deformable conv on cat".png} \\		
+		\resizebox{\linewidth}{!}{\begin{tabular}{@{}l@{}}
+		red box: receptive field from deformable conv \\
+  		(as it is preceded by normal conv)\end{tabular}}
+		\end{minipage} \\
+		$\Rightarrow$ better sampling on non-rigid object
+		\item \underline{attention} by learning sampling location:
+			\begin{itemize}
+			\item conditioned on the input $\Rightarrow$ dynamically determination
+			\item weighting the input by sampling times $\Rightarrow$ able to focus/ignore
+			\end{itemize}
+		$\Rightarrow$ each conv location has a simplified attention map (offset)
+		\item i.e. dynamically determine the sample location for each conv at each location \\
+		$\Rightarrow$ adaptive receptive fields (based on semantic)
+			\begin{itemize}
+			\item less background noise
+			\item can have large enough receptive fields for background / large object \\
+			(more freedom than dilated conv)
+			\end{itemize}
+		\item recognize spatial transformation / geometry variance based on semantic \\
+		(no embedded prior \& conditioned on the input)
+		\item effective dilation are correlated with target object size \\
+		(evidence to have learned meaningful result)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -3192,6 +3244,7 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 	\end{itemize}
 \item 
 \end{itemize}
+
 \subsubsection{Radar}
 \begin{itemize}
 \item Radar System
@@ -3921,6 +3974,36 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\end{itemize}
 	\end{itemize}
 
+\item Deformable Conv Net (v1)
+	\begin{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item same as Fast / Faster R-CNN
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item backbone (with deformable conv) extracts feature \& RPN predicts proposals
+		\item RoI pooling： sampling location is also augmented by learnt offset \\ 
+		(similar to \hyperref[DL_Layers_DeformableConv]{deformable conv})
+		\item 2nd-stage produce final pred
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item ResNet-101 with last 3 layers (in the $5^\text{th}$/last stage) replaced by deformable conv \\
+		$\Rightarrow$ performance gain saturate if using deformable conv in $\ge3$ layer
+		\item deformable RoI pooling (could also be deformable ps-roi pooling) \\
+		$\Rightarrow$ another roi produce normalized offset $\Delta \hat{\mathbf p}_{ij}=\frac 1 \gamma (\frac{\mathbf p_{ij}[x]}{w}, \frac{\mathbf p_{ij}[y]}{h})$, \\
+		where $\gamma=0.1$ a scalar, $w$-$h$ the size of roi, $\mathbf p_{ij}$ the offset for $(i,j)$-th bin
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item similar to Faster R-CNN
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item more in \hyperref[DL_Layers_DeformableConv]{deformable conv}
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{One-stage Detection}
