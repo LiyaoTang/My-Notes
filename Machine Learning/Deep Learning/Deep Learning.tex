@@ -594,6 +594,11 @@
 		\begin{itemize}
 		\item directly use cnn + conv-lstm
 		\end{itemize}
+	\item \underline{Tracking by Detection}
+		\begin{itemize}
+		\item use last-frame track box as proposal in 2-stage detector \\
+		or, incorporate with siamRPN: siam cascade-RPN with track box as proposal for $\ge$2nd stage RPN
+		\end{itemize}
 	\item single Obj Tracking for MOT
 		\begin{itemize}
 		\item common cnn encodes image $t$ as $f_t$, detected bbox as $D_t$ (given or trained) \\
@@ -2002,7 +2007,7 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\end{itemize}
 	\item Back Propagation
 		\begin{itemize}
-		\item let $G(\mathbf q, \mathbf p)=g(q_x, p_x)\cdot g(q_y,p_y)$, with $g(a,b)=\max(0,1-\abs{a-b})$ \\
+		\item as $G(\mathbf q, \mathbf p)=g(q_x, p_x)\cdot g(q_y,p_y)$, with $g(a,b)=\max(0,1-\abs{a-b})$ \\
 		$\Rightarrow$ $G$ the bilinear interpolation to have $\mathbf x(\mathbf p)=\sum_{\mathbf q} G(\mathbf q, \mathbf p)\cdot \mathbf x(\mathbf q)$
 		\Item \begin{align*} \frac{\partial}{\partial \mathbf \Delta \mathbf p_n}\mathbf y(\mathbf p_0) &= \sum_{\mathbf p_n\in\mathcal R} \mathbf w(\mathbf p_n)\cdot \frac{\partial \mathbf x(\mathbf p_0+\mathbf p_n+\Delta\mathbf p_n)}{\partial \Delta \mathbf p_n} \\
 		&= \sum_{\mathbf p_n\in\mathcal R} \left[ \mathbf w(\mathbf p_n)\cdot \sum_{\mathbf q}\frac{\partial G(\mathbf q, \mathbf p_0+\mathbf p_n+\Delta\mathbf p_n)}{\partial\Delta p_n} \mathbf x (\mathbf q)\right] \end{align*}
@@ -2467,12 +2472,12 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\item with matrix for Query $W^Q$, Key $W^K$ and Value $W^V$ \& a word embedding $e$ \\
 		$\Rightarrow$ generate query $q=W^Q e$, key $k=W^K e$ and value $v=W^V e$, where \\
 		$W^Q, W^K, W^V$ to be optimized \& $e$ a col vector
-		\item given current word $t$, for each word $i$, obtain score (scalar) $s_t=(q^t)^T\cdot {k^i}$ \\
+		\item given current word $t$, for each word $i$, obtain score (scalar) $s_i=(q^t)^T\cdot {k^i}$ \\
 		i.e. use its "query" to multiply the "key" of other word in the sequence
 		\item normalize (standardize) by the square root of the length of the "key" vector \\
 		$\Rightarrow s'_i=\frac {1} {\sqrt{d_k}} s_i$, where $d_k$ the dimension of "key" \\
 		(to obtain a more stable gradient)
-		\item softmax to obtain attention $\alpha^t$ as a col vector
+		\item softmax over $\{s_i\}$ to obtain attention $\alpha^t$ as a col vector
 		\item "self" context $c^t = \sum_{i=1}^{T}\alpha^t_iv_i = [v^1,...,v^{T}]\alpha^t$ \\
 		i.e. weighted-sum over "value" vectors
 		\end{itemize}
@@ -2608,11 +2613,6 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 
 \item Stand-Along Self Attention as Conv
 	\begin{itemize}
-	\item Motivation
-		\begin{itemize}
-		\item provide alternatives to conv ops \\
-		Stand-Alone Self-Attention in Vision Models (https://arxiv.org/abs/1906.05909)
-		\end{itemize}
 	\item Operation
 		\begin{itemize}
 		\item stand-along attention
@@ -2620,11 +2620,104 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
+		\item provide alternatives to conv ops \\
+		(Stand-Alone Self-Attention in Vision Models - https://arxiv.org/abs/1906.05909)
 		\item less FLOPS \& less params than standard dense conv
 		\end{itemize}
 	\end{itemize}
 
 \item Attention in Attention
+
+\item General Spatial Attention
+	\begin{itemize}
+	\item Setting
+		\begin{itemize}
+		\item $q$ index a query element with content (original feature) $z_q$
+		\item $k$ index a key element with content (original feature) $x_k$
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item $\displaystyle y_q=\sum_{m=1}^M W_m [ \sum_{k\in\Omega_q} A_m(q, k, z_q, x_k) \circ W'_m x_k ]$, \\
+		$\begin{alignedat}{1}
+		\text{where } & m \text{ index the attention head i.e. a } M\text{-head attention (sum-up as final projection)} \\
+		& \Omega_q \text{ specify the supporting key region for the query} \\
+		& W_m, W_m' \text{ are usually learnable weights} \\
+		& \circ \text{ the element-wise product}
+		\end{alignedat}$
+		\end{itemize}
+	\item Operation - General Transformer
+		\begin{itemize}
+		\item key \& query from the same sentence: $z_i=x_i$ (using the same embedding)
+		\item normalized attention weight: $\sum_{k\in\Omega}A_m(q, k, z_q, x_k)=1$
+		\item $A_m^\text{Trans}(q, k, z_q, x_k) \propto \exp(\sum_{j=1}^4 \varepsilon_j)$
+		\item $\varepsilon_1 = z_q^T U_m^T V_m^C x_k$, with $U_m,V_m^C$ learnable embedding matrix for $z_q, x_k$ \\
+		(query \& key content only)
+		\item $\varepsilon_2 = z_q^TU_m^TV_m^R R_{k-q}$, \\ 
+		$\begin{alignedat}{1} \text{where } & V_m^R \text{ also learnable embedding matrix} \\
+		& R_{k-q} \text{ encoding relative position between query and key (positional embedding)}
+		\end{alignedat}$ \\
+		(query content \& relative position)
+		\item $\varepsilon_3 = u_m^TV_m^Cx_k$, with $u_m$ a learnable vector \\
+		(key content only $\Rightarrow$ capture salience key content)
+		\item $\varepsilon_4 = v_m^TV_m^RR_{k-q}$, with $v_m$ also a learnable vector \\
+		(relative position only $\Rightarrow$ capture spatial bias between key and query)
+		\end{itemize}
+	\item Operation - Conv as (Not Normalized) Attention
+		\begin{itemize}
+		\item regular conv: $A_m^\text{regular}(q, k) = \begin{cases} 1 & k=q+p_m \\ 0 & \text{otherwise} \end{cases}$ \& $W_m'$ fixed as identity, \\
+		where $p_m$ the offset of $m$-th sampling location, $\Omega_q$ the window for current kernel \\
+		(relative position only)
+		\item deformable conv: $A_m^\text{deform}(q, k, z_q)=G(k, q+p_m+w_m^Tz_q)$, where
+			\begin{itemize}
+			\item $G(a, b)$ the bilinear interpolation to obtain feature at $b$ via surrounding $a$
+			\item $w_m$ a learnable vector (the conv to produce offset field)
+			\item $\Omega_q$ is thus entire input, as $k$ determined by the required interpolation
+			\end{itemize}
+		$\Rightarrow$ spatial attention = dynamically predicted sampling position \\
+		(query content and relative position)
+		\item dynamic conv: $y_q=\sum_{m=1}^{C_\text{in}}W_m[\sum_{k\in\Omega_q}A_m^\text{dynamic}(q, k, z_q)\cdot x_{k,m}]$, where \\
+		(originally designed for NMT task in NLP)
+			\begin{itemize}
+			\item $C_{\text{in}}$ the input chanel: each channel an attention head
+			\item $x_{k, m}$ the $m^\text{th}$ channel of key $x_k$
+			\item $A_m^\text{dynamic}(q, k, z_q) = \begin{cases} K_{j,m} & k=q+p_j \\ 0 & \text{otherwise} \end{cases}$, \\
+			$\begin{alignedat}{1}
+			& \text{with } K_{j, m} = K_{j, g}^\text{share} \propto\exp(d_{j,g}^T x_q), \text{ with } g=\ceil{\frac{c}{C_\text{in} / N_g}} \\
+			& \phantom{\text{with }} K_{j, g}^\text{share} \text{ the dyanmic kernel weight shared in } g^\text{th} \text{ channel group}\\ 
+			& \phantom{\text{with }} d_{j,g} \text{ the weight to predict dynamic kernel weight } K_{j, g}^\text{share} \\ 
+			& \phantom{\text{with }} N_g \text{ the num of channel groups to divide input (channel-wise)} \\
+			& \Rightarrow \text{ spatial attention = dynamically predicted kernel weight for depth-wise conv} \\
+			\end{alignedat}$
+			\item $W_m$ a learnable weight i.e. the 1x1 conv after depth-wise conv
+			\end{itemize}
+		(query content and relative position)
+		\end{itemize}
+	\item Understanding - Self Attention
+		\begin{itemize}
+		\item similar performance (minor drop) between $\varepsilon_{2,3,4}$ \&. $\varepsilon_{1,2,3,4}$ (full) \\
+		$\Rightarrow$ query-key content is NOT that important
+		\item yet, performance of using $\varepsilon_{1,2} > $ that of $\varepsilon_{3,4}$
+		\item gain from using $\varepsilon_{1,2} \rightarrow \varepsilon_{1,2,3,4}$ and $\varepsilon_{3,4}\rightarrow\varepsilon_{1,2,3,4}$ are both small \\
+		(compared to the gain from not using attention to $\varepsilon_{1,2}/\varepsilon_{3,4}$)
+		\item also, similar performance between $\varepsilon_{2,3}$ \&. $\varepsilon_{1,2,3,4}$ \\
+		($\varepsilon_{2,3}$ contain all key, query and relative position info)
+		\item $\Rightarrow$ potentially duplicate/overlapped info between $\{\varepsilon\}$
+		\item solely using $\epsilon_3$ results in noticeable gain: salient key is important in self-attention \\
+		(as a summary of input)
+		\end{itemize}
+	\item Understanding - Encoder-Decoder Attention
+		\begin{itemize}
+		\item similar performance between $\varepsilon_{1}$ \& $\varepsilon_{1,2,3,4}$ \\
+		(also, not using $\varepsilon_1$ cause noticeable drop)
+		\item $\Rightarrow$ important to align element between input-output (a traversal of query-key pair is viral)
+		\end{itemize}
+	\item Understanding - Conv as (Self) Attention
+		\begin{itemize}
+		\item deformable conv {\small(query \& relative position)} + $\varepsilon_{3}$ {\small(salient key)} = the best trade-off \\
+		(as can be viewed as using $\varepsilon_{2,3}$) \\
+		(though, query \& key are the same in self attention)
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsection{Blocks}
@@ -4760,8 +4853,8 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\end{itemize}
 	\item Training
 		\begin{itemize}
-		\item crop input by $\sqrt{(w+p)*(h+p)}$, where padding $p=\frac{w+h}2$ \& then resize to fixed size \\
-		$\Rightarrow$ trofeat box as square \& has always the same percentage  target in the input \\
+		\item crop input by $\sqrt{(w+p)*(h+p)}$, with padding $p=\frac{w+h}2$ \& resize to fixed size \\
+		$\Rightarrow$ treat box as square \& has always the same percentage  target in the input \\
 		(crop based on each label box: NOT using previous label box)
 		\item cross-entropy loss for classification \& smooth $L1$ loss for regression
 		\item pos-neg example: dual IoU threshold $(0,0.3,0.6)$
@@ -4775,10 +4868,12 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		$\Rightarrow 1^\text{st}$ bbox as only examplar to learn the conv kernel in RPN \\
 		(which is used in following frames for bbox proposal) \\
 		$\Rightarrow$ Siamese net learns to efficiently map $z$ to weights $[\varphi (z)]$ (learning to learn) \\
-		$\Rightarrow$ has learned transformation of target, hence update template has mere improvement
+		$\Rightarrow$ learning the transformation of target \\
+		(hence update template has mere improvement)
 		\item template branch to extract feature discriminate fore-/back-ground \\
 		$\Rightarrow$ predict detection kernel by input $z$ and its weight in $[\varphi(\cdot)]$ as a meta learner
-		\item detection branch (RPN) to propose \& refine a compact bbox (instead of online fine-tuning) \\ 
+		\item detection branch (RPN) to propose \& refine a compact bbox \\ 
+		(instead of online fine-tuning) \\ 
 		$\Rightarrow$ no need for online learning, nor multi-scale test
 		\item meta-learning / oneshot detection: predict the last kernel for regression/classification \\
 		(separately)
@@ -5056,7 +5151,8 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\item RPN use supervision more than similarity \\ 
 		$\Rightarrow$ need asymmetric part to map similarity to RPN regression-classification task \\
 		$\Rightarrow$ separate xcorr for different class
-		\item multi-level feature may be meaningful only given enough detail-semantic diversity \\
+		\item multi-level feature is meaningful only given enough diversity \\
+		(i.e. feature from different level has different resolution \& semantic level) \\
 		$\Rightarrow$ only meaningful with deep-enough net
 		\end{itemize}
 	\end{itemize}
@@ -6985,8 +7081,9 @@ based on visual and spatial-temporal features
 	\item Embedding
 		\begin{itemize}
 		\item word embedding: classic embedding + positional embedding
-		\item positional embedding:
-		\begin{align*} PE(pos, 2i) &= \sin\left( \frac{pos}{10000^{2i/d_\text{model}}} \right)  \\ PE(pos, 2i+1) &= \cos\left( \frac{pos}{10000^{2i/d_\text{model}}} \right), \end{align*} where $d_\text{model}=512$ the embedding len, $pos$ the word position, $i$ the dim of vector \\
+		\item positional embedding: \\
+		$\left\{\begin{alignedat}{2} &PE(pos, 2i) &&= \sin\left( \frac{pos}{10000^{2i/d_\text{model}}} \right)  \\ &PE(pos, 2i+1) &&= \cos\left( \frac{pos}{10000^{2i/d_\text{model}}} \right), \end{alignedat}\right.$\\
+		where $d_\text{model}=512$ the embedding len, $pos$ the word position, $i$ the dim of vector \\
 		$\Rightarrow$ any offset $k, PE(pos+k)$ can be represented by a linear func of $PE(pos)$ \\
 		$\Rightarrow$ provide positional info easy for model to use \\
 		(also allow model to extrapolate sequence longer than training examples)
