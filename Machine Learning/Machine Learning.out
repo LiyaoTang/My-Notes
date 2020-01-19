@@ -4,13 +4,13 @@
 \BOOKMARK [2][-]{subsection.1.2.1}{Essence}{section.1.2}% 4
 \BOOKMARK [2][-]{subsection.1.2.2}{Coordinates}{section.1.2}% 5
 \BOOKMARK [1][-]{section.1.3}{Calculus}{chapter.1}% 6
-\BOOKMARK [2][-]{subsection.1.3.1}{Integral}{section.1.3}% 7
-\BOOKMARK [1][-]{section.1.4}{Probability Theory}{chapter.1}% 8
-\BOOKMARK [2][-]{subsection.1.4.1}{Introduction}{section.1.4}% 9
-\BOOKMARK [2][-]{subsection.1.4.2}{Expectations and Covariances}{section.1.4}% 10
-\BOOKMARK [2][-]{subsection.1.4.3}{Transformations of Random Variables}{section.1.4}% 11
-\BOOKMARK [2][-]{subsection.1.4.4}{Gaussian Distribution}{section.1.4}% 12
-\BOOKMARK [2][-]{subsection.1.4.5}{Bayesian Interpretation of Probability}{section.1.4}% 13
+\BOOKMARK [2][-]{subsection.1.3.1}{Derivative}{section.1.3}% 7
+\BOOKMARK [2][-]{subsection.1.3.2}{Integral}{section.1.3}% 8
+\BOOKMARK [1][-]{section.1.4}{Probability Theory}{chapter.1}% 9
+\BOOKMARK [2][-]{subsection.1.4.1}{Introduction}{section.1.4}% 10
+\BOOKMARK [2][-]{subsection.1.4.2}{Expectations and Covariances}{section.1.4}% 11
+\BOOKMARK [2][-]{subsection.1.4.3}{Transformations of Random Variables}{section.1.4}% 12
+\BOOKMARK [2][-]{subsection.1.4.4}{Gaussian Distribution}{section.1.4}% 13
 \BOOKMARK [0][-]{chapter.2}{Introduction}{}% 14
 \BOOKMARK [1][-]{section.2.1}{General Concern}{chapter.2}% 15
 \BOOKMARK [2][-]{subsection.2.1.1}{Types of Learning}{section.2.1}% 16
@@ -25,89 +25,92 @@
 \BOOKMARK [2][-]{subsection.2.4.4}{Tunning Hyperparameters}{section.2.4}% 25
 \BOOKMARK [1][-]{section.2.5}{Model Analysis}{chapter.2}% 26
 \BOOKMARK [2][-]{subsection.2.5.1}{Measurements of Problem}{section.2.5}% 27
-\BOOKMARK [2][-]{subsection.2.5.2}{Improving Model}{section.2.5}% 28
-\BOOKMARK [2][-]{subsection.2.5.3}{Evaluating Hypothesis}{section.2.5}% 29
-\BOOKMARK [2][-]{subsection.2.5.4}{Skewed classes}{section.2.5}% 30
-\BOOKMARK [1][-]{section.2.6}{Supervised Learning}{chapter.2}% 31
-\BOOKMARK [1][-]{section.2.7}{Linear Regression}{chapter.2}% 32
-\BOOKMARK [1][-]{section.2.8}{Bayesian Regression}{chapter.2}% 33
-\BOOKMARK [1][-]{section.2.9}{Logistic Regression \(Classification\)}{chapter.2}% 34
-\BOOKMARK [1][-]{section.2.10}{Latent Variable Analysis}{chapter.2}% 35
-\BOOKMARK [2][-]{subsection.2.10.1}{Principal Component Analysis \(PCA\)}{section.2.10}% 36
-\BOOKMARK [2][-]{subsection.2.10.2}{Independent Component Analysis \(ICA\)}{section.2.10}% 37
-\BOOKMARK [2][-]{subsection.2.10.3}{t-SNE}{section.2.10}% 38
-\BOOKMARK [2][-]{subsection.2.10.4}{Anomaly Detection}{section.2.10}% 39
-\BOOKMARK [2][-]{subsection.2.10.5}{Recommender System}{section.2.10}% 40
-\BOOKMARK [1][-]{section.2.11}{Large Scale Machine Learning}{chapter.2}% 41
-\BOOKMARK [2][-]{subsection.2.11.1}{Online Learning}{section.2.11}% 42
-\BOOKMARK [2][-]{subsection.2.11.2}{Map-reduce}{section.2.11}% 43
-\BOOKMARK [0][-]{chapter.3}{Linear Regression}{}% 44
-\BOOKMARK [0][-]{chapter.4}{Linear Classification}{}% 45
-\BOOKMARK [0][-]{chapter.5}{Kernel Methods}{}% 46
-\BOOKMARK [0][-]{chapter.6}{Graphical Models}{}% 47
-\BOOKMARK [0][-]{chapter.7}{Mixture Models and EM}{}% 48
-\BOOKMARK [0][-]{chapter.8}{Approximate Inference}{}% 49
-\BOOKMARK [0][-]{chapter.9}{Sampling Methods}{}% 50
-\BOOKMARK [0][-]{chapter.10}{Continuous Latent Variable}{}% 51
-\BOOKMARK [0][-]{chapter.11}{Sequential Data}{}% 52
-\BOOKMARK [1][-]{section.11.1}{Markov Model}{chapter.11}% 53
-\BOOKMARK [2][-]{subsection.11.1.1}{Markov Chain}{section.11.1}% 54
-\BOOKMARK [2][-]{subsection.11.1.2}{Hidden Markov Model}{section.11.1}% 55
-\BOOKMARK [1][-]{section.11.2}{Linear Dynamic System}{chapter.11}% 56
-\BOOKMARK [0][-]{chapter.12}{Deep Learning}{}% 57
-\BOOKMARK [1][-]{section.12.1}{Interview of Fame}{chapter.12}% 58
-\BOOKMARK [2][-]{subsection.12.1.1}{Geoffrey Hinton}{section.12.1}% 59
-\BOOKMARK [2][-]{subsection.12.1.2}{Pieter Abbeel}{section.12.1}% 60
-\BOOKMARK [2][-]{subsection.12.1.3}{Ian Goodfellow}{section.12.1}% 61
-\BOOKMARK [2][-]{subsection.12.1.4}{Yoshua Bengio}{section.12.1}% 62
-\BOOKMARK [2][-]{subsection.12.1.5}{Yuanqing Lin}{section.12.1}% 63
-\BOOKMARK [2][-]{subsection.12.1.6}{Andrej Karpathy}{section.12.1}% 64
-\BOOKMARK [2][-]{subsection.12.1.7}{Ruslan Salakhutdinov}{section.12.1}% 65
-\BOOKMARK [2][-]{subsection.12.1.8}{Research}{section.12.1}% 66
-\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 67
-\BOOKMARK [2][-]{subsection.12.2.1}{Advantages}{section.12.2}% 68
-\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 69
-\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 70
-\BOOKMARK [1][-]{section.12.3}{Operations \046 Layers Structure}{chapter.12}% 71
-\BOOKMARK [2][-]{subsection.12.3.1}{Operations in Network}{section.12.3}% 72
-\BOOKMARK [2][-]{subsection.12.3.2}{Operations on Network}{section.12.3}% 73
-\BOOKMARK [2][-]{subsection.12.3.3}{Loss}{section.12.3}% 74
-\BOOKMARK [2][-]{subsection.12.3.4}{Layers}{section.12.3}% 75
-\BOOKMARK [2][-]{subsection.12.3.5}{Blocks}{section.12.3}% 76
-\BOOKMARK [2][-]{subsection.12.3.6}{Training}{section.12.3}% 77
-\BOOKMARK [1][-]{section.12.4}{Architectures}{chapter.12}% 78
-\BOOKMARK [2][-]{subsection.12.4.1}{Convolutional Networks}{section.12.4}% 79
-\BOOKMARK [2][-]{subsection.12.4.2}{Recurrent Neural Network}{section.12.4}% 80
-\BOOKMARK [2][-]{subsection.12.4.3}{Encoder-Decoder Architecture}{section.12.4}% 81
-\BOOKMARK [2][-]{subsection.12.4.4}{Generative Network}{section.12.4}% 82
-\BOOKMARK [1][-]{section.12.5}{Computer Vision}{chapter.12}% 83
-\BOOKMARK [2][-]{subsection.12.5.1}{Visual Sensor}{section.12.5}% 84
-\BOOKMARK [2][-]{subsection.12.5.2}{Objects Detection}{section.12.5}% 85
-\BOOKMARK [2][-]{subsection.12.5.3}{Object Tracking}{section.12.5}% 86
-\BOOKMARK [2][-]{subsection.12.5.4}{Instance Segmentation}{section.12.5}% 87
-\BOOKMARK [2][-]{subsection.12.5.5}{Face Recognition}{section.12.5}% 88
-\BOOKMARK [2][-]{subsection.12.5.6}{Stereo Vision}{section.12.5}% 89
-\BOOKMARK [2][-]{subsection.12.5.7}{Recognition at a Distance}{section.12.5}% 90
-\BOOKMARK [2][-]{subsection.12.5.8}{Re-Identification}{section.12.5}% 91
-\BOOKMARK [2][-]{subsection.12.5.9}{Image Style Transfer}{section.12.5}% 92
-\BOOKMARK [2][-]{subsection.12.5.10}{Video Generation}{section.12.5}% 93
-\BOOKMARK [2][-]{subsection.12.5.11}{Point Cloud Data Processing}{section.12.5}% 94
-\BOOKMARK [1][-]{section.12.6}{Natural Language Processing}{chapter.12}% 95
-\BOOKMARK [2][-]{subsection.12.6.1}{Language Representation}{section.12.6}% 96
-\BOOKMARK [2][-]{subsection.12.6.2}{Language Modeling}{section.12.6}% 97
-\BOOKMARK [2][-]{subsection.12.6.3}{Name-Entity Recognition}{section.12.6}% 98
-\BOOKMARK [2][-]{subsection.12.6.4}{Sentiment Classification}{section.12.6}% 99
-\BOOKMARK [2][-]{subsection.12.6.5}{Neural Machine Translation}{section.12.6}% 100
-\BOOKMARK [2][-]{subsection.12.6.6}{Speech Recognition}{section.12.6}% 101
-\BOOKMARK [2][-]{subsection.12.6.7}{Machine Reading Comprehension}{section.12.6}% 102
-\BOOKMARK [1][-]{section.12.7}{CV \046 NLP}{chapter.12}% 103
-\BOOKMARK [2][-]{subsection.12.7.1}{Image Caption}{section.12.7}% 104
-\BOOKMARK [2][-]{subsection.12.7.2}{Referring Segmentation}{section.12.7}% 105
-\BOOKMARK [1][-]{section.12.8}{Special Learning}{chapter.12}% 106
-\BOOKMARK [2][-]{subsection.12.8.1}{Transfer Learning}{section.12.8}% 107
-\BOOKMARK [2][-]{subsection.12.8.2}{Multi-task Learning}{section.12.8}% 108
-\BOOKMARK [2][-]{subsection.12.8.3}{K-shot Learning}{section.12.8}% 109
-\BOOKMARK [1][-]{section.12.9}{Interpretable Machine Learning}{chapter.12}% 110
-\BOOKMARK [1][-]{section.12.10}{Tactile Sensing}{chapter.12}% 111
-\BOOKMARK [2][-]{subsection.12.10.1}{Tactile Sensor}{section.12.10}% 112
-\BOOKMARK [2][-]{subsection.12.10.2}{Tactile Sensing and Perception}{section.12.10}% 113
+\BOOKMARK [2][-]{subsection.2.5.2}{Model Complexity}{section.2.5}% 28
+\BOOKMARK [2][-]{subsection.2.5.3}{Improving Model}{section.2.5}% 29
+\BOOKMARK [2][-]{subsection.2.5.4}{Evaluating Hypothesis}{section.2.5}% 30
+\BOOKMARK [2][-]{subsection.2.5.5}{Skewed classes}{section.2.5}% 31
+\BOOKMARK [1][-]{section.2.6}{Supervised Learning}{chapter.2}% 32
+\BOOKMARK [1][-]{section.2.7}{Latent Variable Analysis}{chapter.2}% 33
+\BOOKMARK [2][-]{subsection.2.7.1}{Principal Component Analysis \(PCA\)}{section.2.7}% 34
+\BOOKMARK [2][-]{subsection.2.7.2}{Independent Component Analysis \(ICA\)}{section.2.7}% 35
+\BOOKMARK [2][-]{subsection.2.7.3}{t-SNE}{section.2.7}% 36
+\BOOKMARK [2][-]{subsection.2.7.4}{Anomaly Detection}{section.2.7}% 37
+\BOOKMARK [2][-]{subsection.2.7.5}{Recommender System}{section.2.7}% 38
+\BOOKMARK [1][-]{section.2.8}{Large Scale Machine Learning}{chapter.2}% 39
+\BOOKMARK [2][-]{subsection.2.8.1}{Online Learning}{section.2.8}% 40
+\BOOKMARK [2][-]{subsection.2.8.2}{Map-reduce}{section.2.8}% 41
+\BOOKMARK [1][-]{section.2.9}{Challenge}{chapter.2}% 42
+\BOOKMARK [0][-]{chapter.3}{Linear Model}{}% 43
+\BOOKMARK [1][-]{section.3.1}{Linear Regression}{chapter.3}% 44
+\BOOKMARK [2][-]{subsection.3.1.1}{Curve Fitting}{section.3.1}% 45
+\BOOKMARK [1][-]{section.3.2}{Bayesian Regression}{chapter.3}% 46
+\BOOKMARK [1][-]{section.3.3}{Logistic Regression \(Classification\)}{chapter.3}% 47
+\BOOKMARK [0][-]{chapter.4}{Linear Classification}{}% 48
+\BOOKMARK [0][-]{chapter.5}{Kernel Methods}{}% 49
+\BOOKMARK [0][-]{chapter.6}{Graphical Models}{}% 50
+\BOOKMARK [0][-]{chapter.7}{Mixture Models and EM}{}% 51
+\BOOKMARK [0][-]{chapter.8}{Approximate Inference}{}% 52
+\BOOKMARK [0][-]{chapter.9}{Sampling Methods}{}% 53
+\BOOKMARK [0][-]{chapter.10}{Continuous Latent Variable}{}% 54
+\BOOKMARK [0][-]{chapter.11}{Sequential Data}{}% 55
+\BOOKMARK [1][-]{section.11.1}{Markov Model}{chapter.11}% 56
+\BOOKMARK [2][-]{subsection.11.1.1}{Markov Chain}{section.11.1}% 57
+\BOOKMARK [2][-]{subsection.11.1.2}{Hidden Markov Model}{section.11.1}% 58
+\BOOKMARK [1][-]{section.11.2}{Linear Dynamic System}{chapter.11}% 59
+\BOOKMARK [0][-]{chapter.12}{Deep Learning}{}% 60
+\BOOKMARK [1][-]{section.12.1}{Interview of Fame}{chapter.12}% 61
+\BOOKMARK [2][-]{subsection.12.1.1}{Geoffrey Hinton}{section.12.1}% 62
+\BOOKMARK [2][-]{subsection.12.1.2}{Pieter Abbeel}{section.12.1}% 63
+\BOOKMARK [2][-]{subsection.12.1.3}{Ian Goodfellow}{section.12.1}% 64
+\BOOKMARK [2][-]{subsection.12.1.4}{Yoshua Bengio}{section.12.1}% 65
+\BOOKMARK [2][-]{subsection.12.1.5}{Yuanqing Lin}{section.12.1}% 66
+\BOOKMARK [2][-]{subsection.12.1.6}{Andrej Karpathy}{section.12.1}% 67
+\BOOKMARK [2][-]{subsection.12.1.7}{Ruslan Salakhutdinov}{section.12.1}% 68
+\BOOKMARK [2][-]{subsection.12.1.8}{Research}{section.12.1}% 69
+\BOOKMARK [1][-]{section.12.2}{Basic Neutral Network}{chapter.12}% 70
+\BOOKMARK [2][-]{subsection.12.2.1}{Advantages}{section.12.2}% 71
+\BOOKMARK [2][-]{subsection.12.2.2}{Problem}{section.12.2}% 72
+\BOOKMARK [2][-]{subsection.12.2.3}{Learning}{section.12.2}% 73
+\BOOKMARK [1][-]{section.12.3}{Operations \046 Layers Structure}{chapter.12}% 74
+\BOOKMARK [2][-]{subsection.12.3.1}{Operations in Network}{section.12.3}% 75
+\BOOKMARK [2][-]{subsection.12.3.2}{Operations on Network}{section.12.3}% 76
+\BOOKMARK [2][-]{subsection.12.3.3}{Loss}{section.12.3}% 77
+\BOOKMARK [2][-]{subsection.12.3.4}{Layers}{section.12.3}% 78
+\BOOKMARK [2][-]{subsection.12.3.5}{Blocks}{section.12.3}% 79
+\BOOKMARK [2][-]{subsection.12.3.6}{Training}{section.12.3}% 80
+\BOOKMARK [1][-]{section.12.4}{Architectures}{chapter.12}% 81
+\BOOKMARK [2][-]{subsection.12.4.1}{Convolutional Networks}{section.12.4}% 82
+\BOOKMARK [2][-]{subsection.12.4.2}{Recurrent Neural Network}{section.12.4}% 83
+\BOOKMARK [2][-]{subsection.12.4.3}{Encoder-Decoder Architecture}{section.12.4}% 84
+\BOOKMARK [2][-]{subsection.12.4.4}{Generative Network}{section.12.4}% 85
+\BOOKMARK [1][-]{section.12.5}{Computer Vision}{chapter.12}% 86
+\BOOKMARK [2][-]{subsection.12.5.1}{Visual Sensor}{section.12.5}% 87
+\BOOKMARK [2][-]{subsection.12.5.2}{Objects Detection}{section.12.5}% 88
+\BOOKMARK [2][-]{subsection.12.5.3}{Object Tracking}{section.12.5}% 89
+\BOOKMARK [2][-]{subsection.12.5.4}{Instance Segmentation}{section.12.5}% 90
+\BOOKMARK [2][-]{subsection.12.5.5}{Face Recognition}{section.12.5}% 91
+\BOOKMARK [2][-]{subsection.12.5.6}{Stereo Vision}{section.12.5}% 92
+\BOOKMARK [2][-]{subsection.12.5.7}{Recognition at a Distance}{section.12.5}% 93
+\BOOKMARK [2][-]{subsection.12.5.8}{Re-Identification}{section.12.5}% 94
+\BOOKMARK [2][-]{subsection.12.5.9}{Image Style Transfer}{section.12.5}% 95
+\BOOKMARK [2][-]{subsection.12.5.10}{Video Generation}{section.12.5}% 96
+\BOOKMARK [2][-]{subsection.12.5.11}{Point Cloud Data Processing}{section.12.5}% 97
+\BOOKMARK [1][-]{section.12.6}{Natural Language Processing}{chapter.12}% 98
+\BOOKMARK [2][-]{subsection.12.6.1}{Language Representation}{section.12.6}% 99
+\BOOKMARK [2][-]{subsection.12.6.2}{Language Modeling}{section.12.6}% 100
+\BOOKMARK [2][-]{subsection.12.6.3}{Name-Entity Recognition}{section.12.6}% 101
+\BOOKMARK [2][-]{subsection.12.6.4}{Sentiment Classification}{section.12.6}% 102
+\BOOKMARK [2][-]{subsection.12.6.5}{Neural Machine Translation}{section.12.6}% 103
+\BOOKMARK [2][-]{subsection.12.6.6}{Speech Recognition}{section.12.6}% 104
+\BOOKMARK [2][-]{subsection.12.6.7}{Machine Reading Comprehension}{section.12.6}% 105
+\BOOKMARK [1][-]{section.12.7}{CV \046 NLP}{chapter.12}% 106
+\BOOKMARK [2][-]{subsection.12.7.1}{Image Caption}{section.12.7}% 107
+\BOOKMARK [2][-]{subsection.12.7.2}{Referring Segmentation}{section.12.7}% 108
+\BOOKMARK [1][-]{section.12.8}{Special Learning}{chapter.12}% 109
+\BOOKMARK [2][-]{subsection.12.8.1}{Transfer Learning}{section.12.8}% 110
+\BOOKMARK [2][-]{subsection.12.8.2}{Multi-task Learning}{section.12.8}% 111
+\BOOKMARK [2][-]{subsection.12.8.3}{K-shot Learning}{section.12.8}% 112
+\BOOKMARK [1][-]{section.12.9}{Interpretable Machine Learning}{chapter.12}% 113
+\BOOKMARK [1][-]{section.12.10}{Tactile Sensing}{chapter.12}% 114
+\BOOKMARK [2][-]{subsection.12.10.1}{Tactile Sensor}{section.12.10}% 115
+\BOOKMARK [2][-]{subsection.12.10.2}{Tactile Sensing and Perception}{section.12.10}% 116

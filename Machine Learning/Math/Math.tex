@@ -5,7 +5,7 @@
 \begin{itemize}
 \item Definition
 	\begin{itemize}
-	\item $\displaystyle f* g (z) = \int_{\mathbb R}f(x)g(z-x) dx,$ where $f(x),g(x)$ are functions in $\mathbb R$
+	\item $\displaystyle f* g (z) = \int_{\mathbb R}f(x)g(z-x) \D x,$ where $f(x),g(x)$ are functions in $\mathbb R$
 	\end{itemize}
 	
 \item Statistical Meaning
@@ -16,12 +16,9 @@
 		\item $Z = X+Y$, with pdf given by $h(z)$:
 		\end{itemize}
 		
-	\item $\Rightarrow h(z) = f * g (z)$
-		\begin{itemize}
-		\item derivation
-		\end{itemize}
-	\begin{align*} H(z) &= P(Z<z) = P(X+Y<z) \\ &= \int_x P(X=x)P(X+Y<z|X=x) dx \\ &= \int_x f(x)P(Y<z-x)dx \\ &= \int_x f(x)G_Y(z-x)dx  \end{align*} 
-	\begin{align*} \Rightarrow h(x) &= \frac d {dz} H(z) = \frac d {dz} \int_x f(x)G_Y(z-x)dx \\ &= \int_x f(x) \frac {dG_Y(z-x)}{dz} dx \\ &= \int_x f(x) g(z-x)dx \\ &= f * g (z) \end{align*}
+	\item $\Rightarrow h(z) = f * g (z)$, with derivation
+	\begin{align*} H(z) &= P(Z<z) = P(X+Y<z) \\ &= \int_x P(X=x)P(X+Y<z|X=x) \D x \\ &= \int_x f(x)P(Y<z-x)\D x \\ &= \int_x f(x)G_Y(z-x)\D x  \end{align*} 
+	\begin{align*} \Rightarrow h(x) &= \frac \D {\D z} H(z) = \frac \D {\D z} \int_x f(x)G_Y(z-x)\D x \\ &= \int_x f(x) \frac {\D G_Y(z-x)}{dz} \D x \\ &= \int_x f(x) g(z-x)\D x \\ &= f * g (z) \end{align*}
 	\end{itemize}
 \end{itemize}
  
@@ -915,6 +912,115 @@
 \end{itemize}
  
 \section{Calculus}
+\subsection{Derivative}
+\subsubsection{Chain Rule}
+\begin{itemize}
+\item Assumption
+	\begin{itemize}
+	\item Function Composition
+	\item Chosen Coordinates
+	\end{itemize}
+\item Univariate
+	\begin{itemize}
+	\item Setting
+		\begin{itemize}
+		\item given function $f, g$ where $f$ differentiable at $g(c)$ \& $g$ differentiable at $x$
+		\end{itemize}
+	\item Statement
+		\begin{itemize}
+		\item derivative at point: $(f\circ g)'(c) = f'(g(c))\cdot g'(c)$, where $(f\circ g)(x) = f(g(x))$ \\
+		$\Leftrightarrow \frac{dy}{dx}\big|_{x=c} = \frac{dy}{du}\big|_{u=g(c)}\cdot \frac{du}{dx}\big|_{x=c}$
+		\item with $f_1,...,f_n$ compositing $f_1\circ(f_2\circ ...(f_{n-1}\circ f_n))$ \\
+		$\Rightarrow$ derivative function $\frac{df_1}{dx} = \frac{df_1}{df_2}\frac{df_2}{df_3}...\frac{df_n}{dx}$ \\ 
+		(require $f_i$ differentiable at its immediate input)
+		\end{itemize}
+	\item Derivation
+		\begin{itemize}
+		\item by definition \begin{align*} \displaystyle (f\circ g)'(a)=\lim_{x\rightarrow a} &=\frac{f(g(x))-f(g(a))}{x-a} = \lim_{x\rightarrow a}\frac{f(g(x))-f(g(a))}{g(x)-g(a)}\frac{g(x)-g(a)}{x-a} \\
+		&= \lim_{x\rightarrow a}\frac{f(g(x))-f(g(a))}{g(x)-g(a)}\lim_{x\rightarrow a}\frac{g(x)-g(a)}{x-a} \\
+		&\phantom{=} \text{by algebraic limit theorem (both limits exist by assumption)} \\
+		&= f'(g(a))g'(a)\end{align*}
+		\Item \begin{align*} \text{by Taylor expansion, } &g(a+h)-g(a)=g'(a)h+\epsilon(h)h \\
+		\text{similarly, } & f(g(a)+k)-f(g(a))=f'(g(a))k+\eta(k)k,\end{align*}
+		\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}
+		\begin{align*}\text{where $\epsilon, \eta$ the infinitesimal of higher order when $h,k\rightarrow 0$ (as an error term)}\end{align*}
+		\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}		
+		\begin{align*} (f\circ g)'(a) &= \lim_{h\rightarrow 0}f(g(a+h)-g(a)) \\
+		&= \lim_{h\rightarrow 0} f(g(a)+g'(a)h+\epsilon(h)h) - f(g(a)) && \text{ by replacing } g(a+h) \end{align*}
+		\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}
+		\begin{align*}\text{let $k_h = g'(a)h+\epsilon(h)h$, thus $\lim_{h\rightarrow 0}k_h = 0$}\end{align*}
+		\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}
+		\begin{align*} \Rightarrow (f\circ g)'(a) &= \lim_{h\rightarrow 0} f(g(a)+k_h) - f(g(a)) \\
+		&= \lim_{h\rightarrow 0} f'(g(a))k_h + \eta(k_h)k_h \\
+		&= \lim_{h\rightarrow 0} f'(g(a))(g'(a)h+\epsilon(h)h) + \eta(k_h)(g'(a)h+\epsilon(h)h) \\
+		&= \lim_{h\rightarrow 0} f'(g(a))g'(a)h + [f'(g(a))\epsilon(h) + \eta(k_h)(g'(a)+\epsilon(h))]h, \end{align*}
+		\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}
+		\begin{align*}&\text{where the 2nd term is the infinitesimal of higher order of 1st term } \\ 
+		&\Rightarrow (f\circ g)'(a) = f'(g(a))g'(a) \end{align*}
+		\end{itemize}
+	\item Resulting Rule
+		\begin{itemize}
+		\Item \begin{align*}\frac{d}{dx}\left( \frac{f(x)}{g(x)} \right) &= \frac{d}{dx} \left( f(x)\frac{1}{g(x)} \right) \\
+		&= f'(x)\frac{1}{g(x)} + f(x)\frac{d}{dx}\left(\frac{1}{g(x)}\right) \\
+		&= \frac{f'(x)g(x) - f(x)g'(x)}{g(x)^2} \text{, the quotient rule}\end{align*}
+		\item let function $g(x)$ has an inversed function $f$, thus $f(g(x))=x$ \\
+		$\Rightarrow \frac{d}{dx}f(g(x)) = \frac{df(g(x))}{dg(x)}\cdot \frac{dg(x)}{dx} = 1$ \\
+		let $t=g(x)$: construct a more underlying coord $t$ that generates $x$, by $x=f(t)$ \\
+		$\Rightarrow$ consider derivatives under coord $t$ to have $\frac{df(t)}{dt}\cdot \frac{dg(f(t))}{df(t)}=1$ \\
+		$\Rightarrow f'(t) = \frac{1}{g'(f(t))}$ to express derivative of inverse function $f$ by $g$
+			\begin{itemize}
+			\item with $g(x)=\mathrm e^x, g'(x)=\mathrm e^x$, inverse func $f(x)=\ln x$, thus $f'(x)=\frac{1}{e^{\ln x}} = \frac 1 x$
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\item Multivariate - with Single Independent Variable
+	\begin{itemize}
+	\item Statement
+		\begin{itemize}
+		\item with function $f(g_1(x), ..., g_k(x)), \frac{d}{dx}f(g_1(x), ..., g_k(x))=\sum_{i=1}^k \left( \frac{d}{dx}g_i(x) \right)D_i f(g_1(x), ..., g_k(x))$ \\
+		where $D_if$ the partial derivative of $f(\mathbf z)$ w.r.t its $i$-th argument in $\mathbf z$
+		\end{itemize}
+	\item Derivation
+		\begin{itemize}
+		\item let $\mathbf t=\{t_1,...,t_k\} = \{g_1(x), ..., g_k(x)\}$ \\
+		\phantom{let} $\mathbf a = \{a_1,...,a_k\} = \{g_1(x_0), ...,g_k(x_0)\}$ \\
+		$\displaystyle \Rightarrow f(t_1,...,t_k)=f(a_1,...,a_k)+\sum_{i=1}^k D_if(a_1,...,a_k)(t_i-a_i) + E$, \\
+		where ${\displaystyle \lim_{\mathbf t\rightarrow \mathbf a}} \frac{E}{\sqrt{\sum_{i=1}^k (t_i-a_i)^2}} = 0$, the higher-order error/infinitesimal \\
+		(by the definition of derivatives \& Taylor expansion on multivariate function)
+%		\item $\displaystyle \Rightarrow f(t_1,...,t_k)-f(a_1,...,a_k) = \sum_{i=1}^kD_if(a_1,...,a_k)(t_i-a_i) + E$ \\
+%		$\displaystyle \phantom{\Rightarrow f(t_1,...,t_k)-f(a_1,...,a_k)} = \sum_{i=1}^k D_if(g_1(x_0), ...,g_k(x_0))(g_i(x)-g_i(x_0)) + E$ \\
+%		$\displaystyle \Leftrightarrow \frac{f(g_1(x), ..., g_k(x))-f(g_1(x_0), ...,g_k(x_0))}{x-x_0} = \sum_{i=1}^k\frac{D_if(g_1(x_0), ..., g_k(x_0))}{x-x_0} + \frac{E}{x-x_0}$ \\
+%		$\displaystyle \phantomsection{\Leftrightarrow \frac{f(g_1(x), ..., g_k(x))-f(g_1(x_0), ...,g_k(x_0))}{x-x_0}} =\sum_{i=1}^k\left[ \frac{D_if(g_1(x_0), ..., g_k(x_0))}{g_i(x)-g_i(x_0)}\frac{g_i(x)-g_i(x_0)}{x-x_0} \right] + \frac{E}{x-x_0}$
+		\item $\displaystyle \Rightarrow \frac{f(t_1,...,t_k)-f(a_1,...,a_k)}{x-x_0} = \sum_{i=1}^k D_if(a_1,...,a_k)[\frac{(t_i-a_i)}{x-x_0}] + \frac{E}{x-x_0}$ \\
+		$\displaystyle \Rightarrow (f\circ g)'(x) = \lim_{x\rightarrow x_0}\frac{f(t_1,...,t_k)-f(a_1,...,a_k)}{x-x_0}$ \\ 
+		$\displaystyle \phantom{\Rightarrow (f\circ g)'(x)} = \lim_{x\rightarrow x_0} \sum_{i=1}^k D_if(a_1,...,a_k)[\frac{t_i-a_i}{x-x_0}] + \lim_{x\rightarrow x_0} \frac{E}{x-x_0}$ \\
+		$\displaystyle \phantom{\Rightarrow (f\circ g)'(x)} = \sum_{i=1}^k \left[ D_if(a_1,...,a_k) \lim_{x\rightarrow x_0}\frac{t_i-a_i}{x-x_0} \right]$, by algebraic limit theorem \\
+		$\displaystyle \phantom{\Rightarrow (f\circ g)'(x)} = \sum_{i=1}^k \left[ \frac{\partial f}{\partial g_i}\cdot\frac{d g_i}{dx} \right] + E$, \\
+		with ${\displaystyle\lim_{x\rightarrow x_0}}\frac{E}{\sqrt{\sum_{i=1}^k (t_i-a_i)^2}} = {\displaystyle\lim_{\mathbf t\rightarrow \mathbf a}} \frac{E}{\sqrt{\sum_{i=1}^k (t_i-a_i)^2}} = 0$ by assumption on $g(x)$ at $g(x_0)$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item $g_1(x), ..., g_k(x)$ composite a $k$-dim coord for $f$ \\
+		$\Rightarrow$ irrelevant with $x$ from the perspective of $f$ \\
+		i.e. $D_if$ performed in its own (constructed) $k$-dim coord, but not the $x$ coord
+		\item sum at each variable interpreted as vector sum along that axises \\
+		$\Rightarrow$ solve the gradient under the underlying coord:
+			\begin{itemize}
+			\item solve gradient of $f$ at its immediate coord $y_1=g_1(x_1,...,x_n),...,y_k=g_k(x_1,...,x_n)$
+			\item further solve gradient from $g_1,...,g_k$ at the underlying coord $x_1,...,x_n$ \\
+			(gather at each axis to have the full derivative)
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\item Multivariate - with Multiple Independent Variables
+	\begin{itemize}
+	\item Statement
+%		\begin{itemize}
+%		\item with function $f:\mathbf R^m\rightarrow\mathbf R^k, g:\mathbf R^n\rightarrow\mathbf R^m$, a point $\mathbf a\in \mathbf R^n$ \\
+%		$\Rightarrow$ 
+%		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
 \subsection{Integral}
 \subsubsection{Interchanging Coordinates in Integral}
@@ -937,22 +1043,22 @@
 	\item Derivation
 		\begin{itemize}
 		\item take infinitely small square in $D':$
-		\begin{align*} &M_4'(u,v+\delta v),&&M_3'(u+\delta u, v+\delta v),\\&M_1'(u, v),&&M_2'(u+\delta u, v) \end{align*} \\
+		\begin{align*} &M_4'(u,v+\Delta v),&&M_3'(u+\Delta u, v+\Delta v),\\&M_1'(u, v),&&M_2'(u+\Delta u, v) \end{align*} \\
 		$\Rightarrow$ after transformation to $D:$ 
 		\begin{align*} 
-		&M_4(x(u,v+\delta v),y(u,v+\delta v)),&&M_3(x(u+\delta u, v+\delta v),y(u+\delta u, v+\delta v)),\\&M_1(x(u, v),y(u, v)),&&M_2(x(u+\delta u, v),y(u+\delta u, v)) 
+		&M_4(x(u,v+\Delta v),y(u,v+\Delta v)),&&M_3(x(u+\Delta u, v+\Delta v),y(u+\Delta u, v+\Delta v)),\\&M_1(x(u, v),y(u, v)),&&M_2(x(u+\Delta u, v),y(u+\Delta u, v)) 
 		\end{align*}
 		\begin{align*} 
-		\Rightarrow &x_2 - x_1 = x(u+\delta u, v) - x(u,v) = \frac {\partial x}{\partial u}\rvert_{(u,v)} \delta u \\
-		&x_4 - x_1 = x(u, v+\delta v) - x(u,v) = \frac {\partial x}{\partial v}\rvert_{(u,v)} \delta v \\
-		&y_2 - y_1 = y(u+\delta u, v) - y(u,v) = \frac {\partial y}{\partial u}\rvert_{(u,v)} \delta u \\
-		&y_4 - y_1 = y(u, v+\delta v) - y(u,v) = \frac {\partial y}{\partial v}\rvert_{(u,v)} \delta v
+		\Rightarrow &x_2 - x_1 = x(u+\Delta u, v) - x(u,v) = \frac {\partial x}{\partial u}\rvert_{(u,v)} \Delta u \\
+		&x_4 - x_1 = x(u, v+\Delta v) - x(u,v) = \frac {\partial x}{\partial v}\rvert_{(u,v)} \Delta v \\
+		&y_2 - y_1 = y(u+\Delta u, v) - y(u,v) = \frac {\partial y}{\partial u}\rvert_{(u,v)} \Delta u \\
+		&y_4 - y_1 = y(u, v+\Delta v) - y(u,v) = \frac {\partial y}{\partial v}\rvert_{(u,v)} \Delta v
 		\end{align*} \\
-		as $\delta u, \delta v \rightarrow 0$, curvilinear boundary quadrilateral $M_1M_2M_3M_4 \rightarrow$ parallelogram % ({\kaishu 曲边四边形}) ({\kaishu 平行四边形})
+		as $\Delta u, \Delta v \rightarrow 0$, curvilinear boundary quadrilateral $M_1M_2M_3M_4 \rightarrow$ parallelogram % ({\kaishu 曲边四边形}) ({\kaishu 平行四边形})
 		\begin{align*}
-		\Rightarrow S_{M_1M_2M_3M_4} &= \abs{\overrightarrow{M_1M_2} \times \overrightarrow{M_1M_4}} = \abs{\begin{vmatrix} x_2-x_1 & y_2-y_1 \\ x_4-x_1 & y_4-y_1 \end{vmatrix}} \\&= \abs{ \begin{vmatrix} \frac {\partial x}{\partial u} \delta u & \frac {\partial y}{\partial u} \delta u \\ \frac {\partial x}{\partial v} \delta v & \frac {\partial y}{\partial v} \delta v \end{vmatrix} } = \abs{\begin{vmatrix} \frac {\partial x}{\partial u} & \frac {\partial y}{\partial u} \\ \frac {\partial x}{\partial v} & \frac {\partial y}{\partial v} \end{vmatrix}} \delta u\delta v \\ &= \abs{J(u,v)}\delta u\delta v 
+		\Rightarrow S_{M_1M_2M_3M_4} &= \abs{\overrightarrow{M_1M_2} \times \overrightarrow{M_1M_4}} = \abs{\begin{vmatrix} x_2-x_1 & y_2-y_1 \\ x_4-x_1 & y_4-y_1 \end{vmatrix}} \\&= \abs{ \begin{vmatrix} \frac {\partial x}{\partial u} \Delta u & \frac {\partial y}{\partial u} \Delta u \\ \frac {\partial x}{\partial v} \Delta v & \frac {\partial y}{\partial v} \Delta v \end{vmatrix} } = \abs{\begin{vmatrix} \frac {\partial x}{\partial u} & \frac {\partial y}{\partial u} \\ \frac {\partial x}{\partial v} & \frac {\partial y}{\partial v} \end{vmatrix}} \Delta u\Delta v \\ &= \abs{J(u,v)}\Delta u\Delta v 
 		\end{align*}
-		\Item \begin{align*} &\Rightarrow \text{ infinitely small area } \delta \sigma = dxdy = \abs{J(u,v)}\delta u\delta v \\ &\Rightarrow \int\int_D f(x,y) dxdy = \int\int_{D'} f(x(u,v), y(u,v)) |J(u,v)| dudv \end{align*}
+		\Item \begin{align*} &\Rightarrow \text{ infinitely small area } \Delta \sigma = \D x\D y = \abs{J(u,v)}\Delta u\Delta v \\ &\Rightarrow \int\int_D f(x,y) \D x\D y = \int\int_{D'} f(x(u,v), y(u,v)) |J(u,v)| dudv \end{align*}
 		
 		\end{itemize}
 	\end{itemize}
@@ -960,60 +1066,107 @@
 	\begin{itemize}
 	\item Result
 		\begin{itemize}
-		\item $dxdy = rdrd\theta$
+		\item $\D x\D y = rdrd\theta$
 		\end{itemize}
 	\item Derivation
 		\begin{itemize}
-		\item from general transformation: $x = r\cos(\theta), y = r\sin(\theta)$
-			
-		$\Rightarrow dxdy = \abs{J(r,\theta)} drd\theta = rdrd\theta$
-			
-		\item from direct calculation of infinite small area in polar coordinate 
-		
-		$\Rightarrow d\sigma = \frac 12 (r+dr)^2d\theta - \frac 12 r^2d\theta = rdrd\theta +\frac 12 (dr)^2d\theta$
-			
+		\item from general transformation: $x = r\cos(\theta), y = r\sin(\theta)$ \\
+		$\Rightarrow \D x\D y = \abs{J(r,\theta)} drd\theta = rdrd\theta$
+		\item from direct calculation of infinite small area in polar coordinate \\
+		$\Rightarrow d\sigma = \frac 12 (r+dr)^2d\theta - \frac 12 r^2d\theta = rdrd\theta +\frac 12 (dr)^2d\theta$ \\			
 		$\Rightarrow d\sigma = rdrd\theta, \text{when } dr,d\theta \rightarrow 0$
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Gaussian Integral}
+\subsubsection{Gaussian Integral} \label{MATH_Cal_GaussianInt}
 \begin{itemize}
 \item Gaussian Function
 	\begin{itemize}
-	\item $\displaystyle f(x) = \rm e^{-a(x+b)^2}$
+	\item $\displaystyle f(x) = {\rm e}^{-a(x+b)^2}$
 		\begin{itemize}
-		\item special form: $\displaystyle f(x) = \rm e^{-(x)^2}$
-		\item alternative form: $\displaystyle f(x) = \rm e^{ax^2+bx+c}$
-		\item no indefinite integral $\displaystyle \int_a^b \rm e^{-x^2}$
-		\item only definite integral $\displaystyle \int_{-\infty}^{+\infty} \rm e^{-x^2}$
+		\item special form: $\displaystyle f(x) = {\rm e}^{-(x)^2}$
+		\item alternative form: $\displaystyle f(x) = {\rm e}^{ax^2+bx+c}$
+		\item no indefinite integral $\displaystyle \int_a^b {\rm e}^{-x^2}$
+		\item only definite integral $\displaystyle \int_{-\infty}^{+\infty} {\rm e}^{-x^2}$
 		\end{itemize}
 	\end{itemize}
 \item Direct Integral
 	\begin{itemize}
-	\Item \begin{align*}\displaystyle (\int^{+\infty}_{-\infty} \rm e^{-a(x+b)^2}dx)^2 &= \int^{+\infty}_{-\infty} \rm e^{-a(x+b)^2}dx\int^{+\infty}_{-\infty} \rm e^{-a(y+b)^2}dy \\ &= \int\int^{+\infty}_{-\infty} \rm e^{-a[(x+b)^2  + (y+b)^2]}d(x+b)d(y+b) = \int\int^{+\infty}_{-\infty} \rm e^{-a(x^2+y^2)}dxdy \\ &= \int_0^{2\pi}\int_0^{+\infty} \rm e^{-ar^2}rdrd\theta  \\ &= \frac \pi a \end{align*}
+	\Item \begin{align*}\displaystyle (\int^{+\infty}_{-\infty} {\rm e}^{-a(x+b)^2}\D x)^2 &= \int^{+\infty}_{-\infty} {\rm e}^{-a(x+b)^2}\D x\int^{+\infty}_{-\infty} {\rm e}^{-a(y+b)^2}\D y \\ &= \int\int^{+\infty}_{-\infty} {\rm e}^{-a[(x+b)^2  + (y+b)^2]}d(x+b)d(y+b) = \int\int^{+\infty}_{-\infty} {\rm e}^{-a(x^2+y^2)}\D x\D y \\ &= \int_0^{2\pi}\int_0^{+\infty} {\rm e}^{-ar^2}rdrd\theta  \\ &= \frac \pi a \end{align*}
 	
-	$\displaystyle \Rightarrow \int^{+\infty}_{-\infty} \rm e^{-a(x+b)^2}dx = \sqrt{\frac \pi a}, \text{ alternatively } \int^{+\infty}_{-\infty} \rm e^{ax^2+bx+c}dx = \sqrt{\frac {\pi} {-a}} \cdot \rm e^{\frac {b^2}{4a} + c}$
+	$\displaystyle \Rightarrow \int^{+\infty}_{-\infty} {\rm e}^{-a(x+b)^2}\D x = \sqrt{\frac \pi a}, \text{ alternatively } \int^{+\infty}_{-\infty} {\rm e}^{ax^2+bx+c}\D x = \sqrt{\frac {\pi} {-a}} \cdot {\rm e}^{\frac {b^2}{4a} + c}$
 	\end{itemize}
 
 \item Even Moment of Gaussian Function
 	\begin{itemize}
-	\Item \begin{align*} \displaystyle \int_{-\infty}^{+\infty} x^{2n}\rm{e}^{-ax^2}dx &= (-1)^n\int^{+\infty}_{-\infty} \frac {\partial^n} {\partial a^n} \rm{e}^{-ax^2}dx \\ &= (-1)^n \frac {\partial^n} {\partial a^n} \int_{-\infty}^{+\infty} \rm{e}^{-ax^2}dx && \text{by parameter differeation} \\ &= (-1)^n\sqrt{\pi} \frac {\partial^n} {\partial a^n} a^{-\frac 12} \\ &= \sqrt {\frac {\pi}{a}} \frac {(2n-1)!!}{(2a)^n}, &&\text{where } !! \text{ is double factorial} \end{align*}
+	\Item \begin{align*} \displaystyle \int_{-\infty}^{+\infty} x^{2n}{\rm e}^{-ax^2}\D x &= (-1)^n\int^{+\infty}_{-\infty} \frac {\partial^n} {\partial a^n} {\rm e}^{-ax^2}\D x \\ &= (-1)^n \frac {\partial^n} {\partial a^n} \int_{-\infty}^{+\infty} {\rm e}^{-ax^2}\D x && \text{by parameter differeation} \\ &= (-1)^n\sqrt{\pi} \frac {\partial^n} {\partial a^n} a^{-\frac 12} \\ &= \sqrt {\frac {\pi}{a}} \frac {(2n-1)!!}{(2a)^n}, &&\text{where } !! \text{ is double factorial} \end{align*}
+	\end{itemize}
+\item Error Function
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item $\text{erf}(x) = \int_0^x \frac{2}{\sqrt{\pi}}e^{-t^2}\D t$
+		\end{itemize}
+	\item Properties
+		\begin{itemize}
+		\item
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Calculus of Variations} \label{math_calc_var}
+\begin{itemize}
+\item Euler–Lagrange Equation
+	\begin{itemize}
+	\item Setting
+		\begin{itemize}
+		\item $\displaystyle J[y]=\int_{x_1}^{x_2}L(y, y';x)dx$, where $y(x), y'(x)=\frac{dy}{dx}$ are function of $x$ \\
+		$\Rightarrow J[\cdot]$ functional: a function maps: function $\rightarrow$ value
+		\item $y(x) = f(x) + \varepsilon \eta(x)$, where
+			\begin{itemize}
+			\item $f(x)$ a function where $J[y]$ achieves local minimum
+			\item $\eta(x)$ an arbitrary function with $\eta(x_1)=\eta(x_2)=0$ \\
+			(to ensure $y(x)$ \& $f(x)$ always pass the same ending points)
+			\item $\epsilon$ the coefficient
+			\end{itemize}
+		\item $\Rightarrow \delta f = \varepsilon \eta$ the variation of function $f$
+		\end{itemize}
+	\item Assumption
+		\begin{itemize}
+		\item $L$ is twice continuously differentiable w.r.t. $y, y'$
+		\end{itemize}
+	\item Derivation
+		\begin{itemize}
+		\item view $J[y]$ as function of $\varepsilon: \Phi(\varepsilon) = J[f+\varepsilon\eta] = \int_{x_1}^{x_2}L(f+\varepsilon\eta, f'+\varepsilon\eta';x) \D x$ \\
+		$\displaystyle \Rightarrow \Phi'(0) = \at{\frac{d\Phi}{d\varepsilon}}_{\varepsilon=0} = \int_{x_1}^{x2}\at{\frac{dL}{d\varepsilon}}_{\varepsilon=0} = 0$ \\
+		(as $\Phi(\varepsilon)$ achieves local minimum when $\varepsilon=0$ \& by Leibniz integral rule)
+		\item \abovedisplayskip=2pt\abovedisplayshortskip=2pt~\vspace*{-\baselineskip}
+		\begin{align*}\small \displaystyle \Rightarrow \int_{x_1}^{x_2} \at{\frac{dL}{d\varepsilon}}_{\varepsilon=0} \D x &= \int_{x_1}^{x_2}\left( \frac{\partial L}{\partial y}\frac{\partial y}{\partial \varepsilon} + \frac{\partial L}{\partial y'}\frac{\partial y'}{\partial \varepsilon} \right) \D x, && \text{ by chain rule on multi-variate function} \\
+		&= \int_{x_1}^{x_2}\left( \frac{\partial L}{\partial y}\eta + \frac{\partial L}{\partial y}\eta' \right) \D x \\
+		&= \int_{x_1}^{x_2} \frac{\partial L}{\partial f}\eta \D x + \at{\frac{\partial L}{\partial f'}\eta}_{x_1}^{x_2} - \int_{x_1}^{x_2}\eta \frac{d}{dx} \frac{\partial L}{\partial f'} \D x, && {\small \text{ by } (\frac{\partial L}{\partial f'}\eta)' = \left(\frac{\partial L}{\partial f'}\right)'\eta + \frac{\partial L}{\partial f'}\eta'} \\
+		&= \int_{x_1}^{x_2} \frac{\partial L}{\partial f}\eta - \int_{x_1}^{x_2}\eta \frac{d}{dx} \frac{\partial L}{\partial f'} \D x, && \text{ as } \eta(x_1)=\eta(x_2)=0 \\
+		&= \int_{x_1}^{x_2} \eta \left( \frac{\partial L}{\partial f} - \frac{d}{dx} \frac{\partial L}{\partial f'} \right) \D x \end{align*}
+		\item $\displaystyle \Rightarrow \frac{\partial L}{\partial f} - \frac{d}{dx}\frac{\partial L}{\partial f'} = 0$, the Euler–Lagrange equation, as $\eta$ not guaranteed to be $0$ \\
+		$\displaystyle \Rightarrow \frac{\delta J}{\delta f(x)} = \frac{\partial L}{\partial f} - \frac{d}{dx}\frac{\partial L}{\partial f'}$ the functional derivative of $J[f]$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item variation caused by $\varepsilon\eta$, the movement on $y$-axis on the same $x$ \\
+		v.s. differential caused by $dx$, the movement on $x$-axis (maps to $y$-axis via $y(x)$)
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
- 
 \section{Probability Theory}
 
 \subsection{Introduction}
-
 \subsubsection{Background}
 \begin{itemize}
 \item Measuring Uncertainty
 	\begin{itemize}
 	\item Source of Uncertainty
 		\begin{itemize}
-		\item noise in reality \& observation
+		\item noise in reality \& observation (variability that are themselves unobserved)
 		\item finite size of data (limited information)
 		\end{itemize}
 	\end{itemize}
@@ -1045,347 +1198,96 @@
 	\item $X,Y$: random variable
 	\end{itemize}
 \item Discrete 
-		\begin{itemize}
-		\item $P(X,Y)$: joint probability of $X,Y$ taking their values
-		\item $P(X)$: marginal probability of $X$ taking its value
-		\item $P(X|Y)$: conditional probability of $X$ taking its value given $Y$ observed / determined
+	\begin{itemize}
+	\item $P(X,Y)$: joint probability of $X,Y$ taking their values
+	\item $P(X)$: marginal probability of $X$ taking its value
+	\item $P(X|Y)$: conditional probability of $X$ taking its value given $Y$ observed / determined
 	\end{itemize}
-	\item Continuous
+\item Continuous
+	\begin{itemize}
+	\item $P(x) = P_X(x)$: cumulative probability of value for variable $X < x$
+	\item $p(x)$: probability density,
 		\begin{itemize}
-		\item $P(x) = P_X(x)$: cumulative probability of value for variable $X < x$
-		\item $p(x)$: probability density,
-			\begin{itemize}
-			\item where $\displaystyle \lim_{\delta x \rightarrow 0} P(X\in(x,x+\delta x)) = \lim_{\delta x \rightarrow 0}p(x)\delta x \Rightarrow \displaystyle P(X\in(a,b))=\int_a^b p(x)dx$
-			\item $\displaystyle \Rightarrow p(x )\ge 0 \text{ and } \int^{+\infty}_{-\infty} p(x) = 1$
-			\item $\Rightarrow P(z) = \int_{-\infty}^z p(x)dx$
-			\end{itemize}
+		\item where $\displaystyle \lim_{\Delta x \rightarrow 0} P(X\in(x,x+\Delta x)) = \lim_{\Delta x \rightarrow 0}p(x)\Delta x \Rightarrow \displaystyle P(X\in(a,b))=\int_a^b p(x)\D x$
+		\item $\displaystyle \Rightarrow p(x )\ge 0 \text{ and } \int^{+\infty}_{-\infty} p(x) = 1$
+		\item $\Rightarrow P(z) = \int_{-\infty}^z p(x)\D x$
 		\end{itemize}
+	\end{itemize}
 \item Basic Rules
 	\begin{itemize}
 	\item Sum Rule
 		\begin{itemize}
 		\item $\displaystyle P(X) = \sum_Y P(X,Y)$, where $X,Y$ are discrete
-		\item $\displaystyle P(X) = \int_Y P(X,Y)$, where $X,Y$ are continuous
-		
+		\item $\displaystyle P(X) = \int_Y P(X,Y)$, where $X,Y$ are continuous \\
 		(formal justification requires measure theory)
 		\end{itemize}
 	\item Product Rule
 		\begin{itemize}
 		\item $P(X, Y) = P(Y|X)P(X)$
-		\item $P(X, Y) = P(Y)P(X)$, where $X,Y$ are independent
+		\item $P(X, Y) = P(Y)P(X)$, where $X,Y$ are independent \\
+		i.e. $P(Y|X)=P(Y)$: the conditional distribution is independent with variable $X$
+		\end{itemize}
+	\item Derivation
+		\begin{itemize}
+		\item with $n_{ij}=P(X=x_i, Y=y_j)$ \\
+		\begin{minipage}[r]{.3\linewidth}
+		\includegraphics[width=\linewidth,center]{./Math/"prob-derivation of sum-product rule".png}
+		\end{minipage}
+		\begin{minipage}[l]{.7\linewidth}
+			\begin{itemize}
+			\item $P(X=x_i)=\sum_Y P(X=x_i, Y)=c_i$, \\ 
+			$P(Y=y_j)=\sum_XP(X, Y=y_j)=r_j$
+			\item $P(X=x_i|Y=y_j) = \frac{n_{ij}}{r_j} = \frac{P(X=x_i,Y=y_j)}{P(Y=y_j)}$
+			\end{itemize}
+		\end{minipage}
 		\end{itemize}
 	\item $\Rightarrow$ Bayes' Rule
 		\begin{itemize}
-		\item $\displaystyle P(Y|X) = \frac {P(X|Y)P(Y)} {P(X)} = \frac{P(X|Y)P(Y)}{\sum_YP(X|Y)P(Y)}$, where $Y$ are discrete
-		\item $\displaystyle P(Y|X) = \frac {P(X|Y)P(Y)} {P(X)} = \frac{P(X|Y)P(Y)}{\int_YP(X|Y)P(Y)}$, where $Y$ are continuous
+		\Item \begin{align*}
+		\displaystyle P(Y|X) = \frac {P(X|Y)P(Y)} {P(X)} &= \frac{P(X|Y)P(Y)}{\sum_YP(X|Y)P(Y)} \text{, where } Y \text{ are discrete} \\
+		&=\frac{P(X|Y)P(Y)}{\int_YP(X|Y)P(Y)} \text{, where } Y \text{ are continuous}
+		\end{align*}
+		\item $P(X)=\sum_X / \int_Y P(X|Y)P(Y)$ can be viewed as normalization constraint \\ 
+		i.e. to ensure $P(Y|X)$ is a valid probability
 		\end{itemize}
 	\end{itemize}
-\item Interpretation of Bayes
+\end{itemize}
+ 
+\subsubsection{Bayesian Interpretation of Probability}
+\begin{itemize}
+\item Bayes' Rule
 	\begin{itemize}
-	\item Normalization
-		\begin{itemize}
-		\item the $\sum$, $\int$ can be interpreted as a \textbf{normalization constant}
-		
-		$\Rightarrow \textbf{posterior} \propto \textbf{likelihood} \times \textbf{prior}$
-		\end{itemize}
 	\item Prior
 		\begin{itemize}
-		\item $P(Y)$: available probability of desired variable \textbf{before} anything observed
-		
-		$\Rightarrow Y$ usually model parameters
-		\end{itemize}
-	\item Posterior
-		\begin{itemize}
-		\item $P(Y|X)$: obtained probability of desired variable \textbf{after} observation
-		
-		$\Rightarrow$ if $X,Y$ independent, observation has no effect $\Rightarrow$ prior $=$ posterior
+		\item $P(Y)$: available probability of desired variable \textbf{before} anything observed \\		
+		($Y$ usually the model parameters)
 		\end{itemize}
 	\item Likelihood
 		\begin{itemize}
-		\item $P(X|Y)$: how probable/likely of $X$ being observed under different setting of $Y$
-		
+		\item $P(X|Y)$: how probable/likely of $X$ being observed under different setting of $Y$ \\
+		$\Rightarrow$ the prob to observe $X$ when/given $Y$ is the underlying model \\
+		($X$ usually the data/observation)
+		\end{itemize}
+	\item Posterior
+		\begin{itemize}
+		\item $P(Y|X)$: obtained probability of desired variable \textbf{after} observation \\
+		$\Rightarrow$ if $X,Y$ independent, observation has no effect $\Rightarrow$ prior $=$ posterior
+		\item the $\sum$, $\int$ can be interpreted as a \textbf{normalization constant} \\
+		(if viewing prior \& likelihood as function of $Y$)
+		$\Rightarrow \textbf{posterior} \propto \textbf{likelihood} \times \textbf{prior}$
 		\end{itemize}
 	\item Prior $\rightarrow$ Posterior
 		\begin{itemize}
 		\item a process of incorporating the evidence provided by observation
 		\end{itemize}
 	\end{itemize}
-\end{itemize}
- 
-\subsection{Expectations and Covariances}
-
-\subsubsection{Expectation}
-\begin{itemize}
-\item Definition
-	\begin{itemize}
-	\item Expectation of $f(x)$ under $p(x)$
-		\begin{itemize}
-		\item discrete $x$: $\displaystyle \mathbb{E}_{p}[f] = \sum_xp(x)f(x)$
-		\item continuous $x$: $\displaystyle \mathbb{E}_{p}[f] = \int p(x)f(x)dx$
-		\item approximation with $N$ points drawn from $p(x)$: $\displaystyle \mathbb E_p[f] \simeq \frac 1N \sum_{n=1}^N f(x_n) $
-		
-		(when $N\rightarrow \infty$, $\simeq$ becomes $=$)
-		\end{itemize}
-	\item Multivariate Expectation
-		\begin{itemize}
-		\item Marginal Expectation of $f(x,y)$ on $x$: $\displaystyle \mathbb{E}_x[f(x,y)] = \sum_xp(x)f(x,y)$ 
-		
-		(hence a function of $y$)
-		\item Conditional Expectation $f(x)$ on $p(x|y)$: $\displaystyle \mathbb{E}[f|y] = \sum_x p(x|y)f(x)$
-		\end{itemize}
-	\end{itemize}
-\item Independence
-	\begin{itemize}
-	\item Independent $x,y$
-		\begin{itemize}
-		\item $\displaystyle \mathbb{E}_{xy}[x,y] = \sum_{x,y}p(x,y)xy = \sum_{x,y}p(x)p(y)xy = \mathbb{E}[x]\mathbb{E}[y]$
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Variance}
-\begin{itemize}
-\item Definition
-	\begin{itemize}
-	\item Variance of $f(x)$:
-		\begin{itemize}
-		\Item \begin{align*} \text{var}[f] &= \mathbb{E}[(f(x) - \mathbb{E}[f(x)])^2] \\ &= \mathbb{E}[f(x)^2] - \mathbb{E}[f(x)]^2 \end{align*}
-		\end{itemize}
-	\item Covariance
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Covariance}
-\begin{itemize}
-\item Definition
-	\begin{itemize}
-	\item between Variables $x,y$
-		\begin{itemize}
-		\Item \begin{align*} \text{cov}[x,y] &= \mathbb{E}_{x,y}[(x-\mathbb{E}[x])(y-\mathbb{E}[y])] \\ &= \mathbb{E}_{x,y}[xy] - \mathbb{E}[x]\mathbb{E}[y] \end{align*}
-		\end{itemize}
-	\item between Vectors $\mathbf x, \mathbf y$ (column vectors)
-		\begin{itemize}
-		\Item \begin{align*} \text{cov}[\mathbf x, \mathbf y] &= \mathbb{E}_{\mathbf x,\mathbf y}[(\mathbf x - \mathbb{E}[\mathbf x]) \cdot (\mathbf y^T -\mathbb{E}[\mathbf y^T])] \\ &= \mathbb{E}_{\mathbf x,\mathbf y}[\mathbf{xy}^T] - \mathbb{E}[\mathbf x]\mathbb E[\mathbf y^T] \end{align*}
-		
-		(pairwise covariance between components of $\mathbf x,\mathbf y$)
-		\end{itemize}
-	\item within Vector $\mathbf x$
-		\begin{itemize}
-		\item $\text{cov}[\mathbf x] \equiv \text{conv}[\mathbf x, \mathbf x]$ 
-		
-		(pairwise covariance between its components)
-		\end{itemize}
-	\end{itemize}
-\item Independence Variable
-	\begin{itemize}
-	\item Independent $x,y$
-		\begin{itemize}
-		\item $\text{cov}[x,y] = \mathbb E_{x,y}[xy] -\mathbb{E}[x]\mathbb{E}[y] = 0$
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsection{Transformations of Random Variables}
-
-\subsubsection{Inverse Image}
-\begin{itemize}
-\item Definition
-	\begin{itemize}
-	\item Notation
-		\begin{itemize}
-		\item function $g:\mathbb{R} \rightarrow \mathbb{R}$
-		\item set $A$ in $\mathbb{R}$
-		\end{itemize}
-	\item Inverse Image on Set $A$
-		\begin{itemize}
-		\item $\displaystyle g^{-1}(A) = \{x\in\mathbb{R}|g(x)\in A\}$
-		
-		$\Leftrightarrow x\in g^{-1}(A) \text{ if and only if } g(x) \in A$
-		
-		interpretation: for each element in $A$, get its original value before $g$ applied
-		\end{itemize}
-	\end{itemize}
-\item Properties
-	\begin{itemize}
-	\item $g^{-1}(\mathbb{R}) = \mathbb{R}$, as $g$ is defined on $\mathbb{R}$
-	\item $\forall \text{ set } A, g^{-1}(A^c) = g^{-1}(A)^c$, where $A^c$ is the complement of set $A$
-	\item $\displaystyle \forall \text{ collection of sets } \{A_\lambda | \lambda \in \Lambda\}, g^{-1}\left( \bigcup_\lambda A_\lambda \right) = \bigcup_\lambda g^{-1}(A_\lambda)$
-	\item General Transformation $Y=g(X)$
-		\begin{itemize}
-		\item $P(Y\in A) = P(g(X)\in A) = P(X \in g^{-1}(A))$
-		\end{itemize}
-	\end{itemize}
 	
-\end{itemize}
-
-\subsubsection{Discrete Variable}
-\begin{itemize}
-\item Variable
+\item Contrasting Frequentist Estimator
 	\begin{itemize}
-	\item $X$: random variable with probability mass function $P_X(x)$
-	\item $Y = g(X)$, with probability mass function $P_Y(y)$
-	\end{itemize}
-\item Probability Mass Function
-	\begin{itemize}
-	\item $\displaystyle P_Y(y) = \sum_{x\in g^{-1}(y)} P_X(x)$, as $X=x$ is independent and mutually exclusive	
-	
-	note: $g^{-1}(y)$ denotes $g^{-1}(\{y\})$
-	\item Example
-		\begin{itemize}
-		\item uniform random variable $X$ on $\{-n,...,n\}$ with $Y=|X|$
-		
-		$\Rightarrow P_X(x) = \frac 1 {2n+1}$
-			
-		$\Rightarrow P_Y(y) = \begin{cases} \frac 1 {2n+1}, &x=0, \\ \frac 2 {2n+1}, &x\neq0. \end{cases}$
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Continuous}
-\begin{itemize}
-\item Variable
-	\begin{itemize}
-	\item $X$: random variable with cumulative distribution $P_X(x)$, density $p_X(x)$
-	\item $Y=g(X)$, with cumulative distribution $P_Y(y)$, density $p_Y(y)$
-	\end{itemize}
-
-\item Cumulative Distribution
-	\begin{itemize}
-	\item Strictly Monotone Increasing $g$
-		\begin{itemize}
-		\item $P_Y(y) = P(Y\le y) = P(g(X) \le y) = P(X \le g^{-1}(y)) = P_X(g^{-1}(y))$
-		\end{itemize}
-	\item Strictly Monotone Decreasing $g$
-		\begin{itemize}
-		\item $P_Y(y) = P(Y\le y) = P(g(X) \le y) = P(X \ge g^{-1}(y)) = 1 - P_X(g^{-1}(y))$
-		\end{itemize}
-	\end{itemize}
-
-\item Probability Density
-	\begin{itemize}
-	\item Strictly Monotone $g$ (an one-to-one function)
-		\begin{itemize}
-		\item $\displaystyle p_Y(y) = \frac d {dy} P_Y(y) = \frac {d P_Y(y)}{d\space  g^{-1}(y)} \frac{d \space g^{-1}(y)}{dy} = p_X(g^{-1}(y)) \abs*{\frac{d}{dy} g^{-1}(y)}$, 
-		
-		as $g^{-1}$ has the same monotony as $g$, combined with the sign in $P_Y$ to give the $\abs*\cdot$
-		
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-
-\subsection{Gaussian Distribution}
- 
-\subsubsection{Definition}
-\begin{itemize}
-\item Univariate Gaussian
-	\begin{itemize}
-	\item Variable
-		\begin{itemize}
-		\item mean: $\mu$
-		\item variance: $\sigma^2 \Rightarrow$ reciprocal of the variance $\beta = \frac 1 {\sigma^2}$ (also called precision)
-		\end{itemize}
-	\item Probability Dense Function (PDF)
-		\begin{itemize}
-		\item $\displaystyle \mathcal N(x|\mu, \sigma^2) = \frac 1 {(2\pi \sigma^2)^{1/2}} \exp \left\{ -\frac 1 {2\sigma^2}(x-\mu)^2 \right\}$
-		
-		$\Rightarrow$ satisfying probability axioms: $\displaystyle \mathcal N(x|\mu,\sigma^2)>0 \text{ and } \int_{-\infty}^{+\infty} \mathcal N (x|\mu,\sigma^2) dx = 1$
-		\end{itemize}
-	\item Expectation
-		\begin{itemize}
-		\item $\displaystyle \mathbb{E}[x] = \int_{-\infty}^{+\infty}\mathcal{N}(x|\mu, \sigma^2)xdx=\mu$
-		\begin{align*}
-		\Rightarrow \displaystyle \mathbb E [x^2] &= \int_{-\infty}^{+\infty} \mathcal{N}(x|\mu, \sigma^2)x^2dx \\ 
-		&= \frac 1 {(2\pi \sigma^2)^{1/2}} \int_{-\infty}^{+\infty} x^2 \exp \left\{ -\frac 1 {2\sigma^2}(x-\mu)^2 \right\} dx \\ 
-		&= \pi^{-\frac 12} \int_{-\infty}^{+\infty} (\sqrt{2\sigma^2}x+\mu)^2 \exp(-x^2) dx, \text{ substituting } a=\frac{x-\mu}{\sqrt{2\sigma^2}} \\ 
-		&= \pi^{-\frac 12} (2\sigma^2\int_R x^2\rm{e}^{-x^2}dx + 2\mu\sqrt{2\sigma^2}\int_R x\rm{e}^{-x^2}dx + \mu^2 \int_R \rm{e}^{-x^2}dx ) \\ 
-		&= \pi^{-\frac 12} ( 2\sigma^2\int_R x^2\rm{e}^{-x^2}dx + 2\mu\sqrt{2\sigma^2}\cdot 0 + \mu^2\sqrt\pi ) \\ 
-		&= 2\sigma^2\pi^{-\frac 12}\int_R x^2\rm{e}^{-x^2}dx + \mu^2 \\ 
-		&= \sigma^2 + \mu^2, \text{ by 2nd moment of Guassian or } (x\rm e^{-x^2})' = e^{-x^2}-2x^2\rm e^{-x^2}
-		\end{align*}
-		\end{itemize}
-	\item Variance
-		\begin{itemize}
-		\item $\displaystyle \text{var}[x] = \mathbb E[x^2] - \mathbb E[x]^2 = \sigma^2$
-		\end{itemize}
-	\end{itemize}
-\item Multivariate ($d$-dimensional) Gaussian
-	\begin{itemize}
-	\item Variable
-		\begin{itemize}
-		\item mean: $\mu \in \mathbb R^d$
-		\item covariance matrix: $\Sigma_{d\times d}$
-		\end{itemize}
-	\item Probability Dense Function (PDF)
-		\begin{itemize}
-		\item $\displaystyle \mathcal N_d(\mathbf x|\mathbf{\mu},\mathbf \Sigma) = \frac 1 {(2\pi)^{d/2} |\Sigma|^{1/2}} \exp \left\{ -\frac 1 2 (x-\mu)^T \Sigma^{-1} (x-\mu) \right\} $,
-		
-		noted as $X\sim \mathcal N_d (x|\mu,\Sigma)$
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Multivariate Gaussian}
-\begin{itemize}
-\item Dimensionality
-	\begin{itemize}
-	\item Volume of High Dimensional Sphere
-		\begin{itemize}
-		\item for $n=2k, k\in N^+, V_{2k}(R) = \frac {\pi^k}{k!} R^{2k}$ 
-		\item for $n=2k+1, k\in N, V_{2k}(R) = \frac {2^{k+1}\pi^k}{(2k+1)!!} R^{2k+1}$ 
-		\item $\displaystyle \Rightarrow \lim_{D\rightarrow+\infty} \frac {V_D(1)-V_D(1-\epsilon)}{V_D(1)} = \lim_{D\rightarrow+\infty}1-1(1-\epsilon)^D = 1$
-			$\Rightarrow$ the volume of a $D$-sphere concentrate in a thin shell near the surface! \\
-			(actually, in the corner of a high dimensional cube as shown below)
-		\end{itemize}
-	\item Volume of High Dimensional Cube
-		\begin{itemize}
-		\item 
-		\item $\Rightarrow$ volume ratio of hyper sphere and hyper cube: 
-		$\Rightarrow$ the volume of a $D$-cube concentrates in its corner!
-		$\Rightarrow$ distance function in high dimensional space CAN be useless
-		\end{itemize}
-	\item High Dimensional Distribution
-	\item High Dimensional Gaussian
-		\begin{itemize}
-		\item probability density with respect to radius $r$ for various dimension $D$ \\
-			$\Rightarrow$ most density are in a thin shell at a specific $r$			
-		\end{itemize}
-		\begin{figure}[ht]
-		\includegraphics[width=0.5\linewidth,center]{./Math/"multivariate gaussian-mass of distribution".jpg}
-		\end{figure}
-	\item Facing High Dimensionality
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{}
-\begin{itemize}
-\item Convolution of Gaussian
-	\begin{itemize}
-	\item Integral of Gaussians $\int G_1G_2dx$
-		\begin{itemize}
-		\item $G_1\sim \mathcal N_d(x|a,A), \space G_2 \sim \mathcal N_d(x|b,B)$
-		\end{itemize}
-		\begin{align*} \displaystyle \Rightarrow & \int \mathcal N_d(x|a,A) N_d(x|b,B)dx \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} e^{-\frac 1 2 (x-a)^TA^{-1}(x-a)} \frac 1 {(2\pi)^{d/2}|B|^{1/2}} e^{-\frac 1 2 (x-b)^TB^{-1}(x-b)} dx \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} \frac 1 {(2\pi)^{d/2}|B|^{1/2}} e^{-\frac 12 [(x-a)^TA^{-1}(x-a)+(x-b)^TB^{-1}(x-b)]} \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} \frac 1 {(2\pi)^{d/2}|B|^{1/2}}  e^{-\frac 12 [(x-c)^T (A^{-1}+B^{-1}) (x-c)+(a-b)^TC(a-b)]},\\ & \text{where } c=(A^{-1}+B^{-1})^{-1}(A^{-1}a+B^{-1}b), C=A^{-1}(A^{-1}+B^{-1})^{-1}B^{-1} = (A+B)^{-1} \\ = & \frac {\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} {(2\pi)^{d/2}|A|^{1/2}|B|^{1/2}} e^{-\frac 12 (a-b)^TC(a-b)} \int \frac 1 {(2\pi)^{d/2}\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} e^{-\frac 12 (x-c)^T(A^{-1}+B^{-1}) (x-c)} dx \\ =& \frac {\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} {(2\pi)^{d/2}|A|^{1/2}|B|^{1/2}} e^{-\frac 12 (a-b)^TC(a-b)} \\ =& \frac 1 {(2\pi)^{d/2} (|A||B||A^{-1}+B^{-1}|)^{1/2}} e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |ABA^{-1}+ABB^{-1}|^{1/2}} e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |ABA^{-1}+A| } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |A(B+A)A^{-1}| } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |A+B|^{1/2} } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \end{align*}
-			
-	\item $\Rightarrow$ Convolution of Gaussians $G1* G2$
-		\begin{itemize}
-		\item $G_1\sim \mathcal N_d(a,A),G_2\sim \mathcal N_d(b,B)$
-		\end{itemize}
-		\begin{align*} \displaystyle G_1* G_2 (z) &= \int G_1(x)G_2(z-x)dx \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(z-x|b,B)dx \\ &= \int \mathcal N_d (x|a,A) \cdot \frac 1 {(2\pi)^{d/2} |B|^{1/2}} e^{-\frac 12 (z-x-b)^TB^{-1} (z-x-b)} dx \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(x|z-b,B)dx \\&= \frac 1 {(2\pi)^{d/2}|A+B|^{1/2}} e^{-\frac 12(z-(a+b))^T (A+B)^{-1} (z-(a+b))} \\&= \boldsymbol{\mathcal N_d(z|a+b,A+B)}  
-		\end{align*}
-	\end{itemize}
-\end{itemize}
- 
- 
-\subsection{Bayesian Interpretation of Probability}
-\subsubsection{Contrasting Frequentist Estimator}
-\begin{itemize}
-\item Posterior $\displaystyle p(\mathbf w|\mathcal D) = \frac {p(\mathcal D|\mathbf w)p(\mathbf w)}{p(\mathcal D)}$
-	\begin{itemize}
-	\item Notation
+	\item Setting
  		\begin{itemize}
- 		\item $\mathcal D$ the observed dataset
- 		\item $\mathbf w$ the vector for model parameters
+ 		\item posterior $\displaystyle p(\mathbf w|\mathcal D) = \frac {p(\mathcal D|\mathbf w)p(\mathbf w)}{p(\mathcal D)}$, \\
+ 		where $\mathcal D$ the observed dataset; $\mathbf w$ the vector for model parameters
  		\end{itemize}
 	\item Bayesian
 		\begin{itemize}
@@ -1393,13 +1295,14 @@
  		\item uncertainty expressed as distribution over $\mathbf w$
  		\item model's error: use likelihood / posterior directly (or after taking $\log$)
  		\item pros
- 			\begin{enumerate}
+ 			\begin{itemize}
  			\item naturally incorporating prior knowledge as prior distribution (of $\mathbf w$)
- 			\end{enumerate}
+ 			\end{itemize}
  		\item cons
- 			\begin{enumerate}
- 			\item prior usually selected for mathematic convenience 
- 			\end{enumerate}
+ 			\begin{itemize}
+ 			\item prior usually selected for mathematic convenience \\
+ 			$\Rightarrow$ model with bad prior can give wrong result with high confidence
+ 			\end{itemize}
  		\end{itemize}
  	\item Frequentist Estimator
  		\begin{itemize}
@@ -1422,50 +1325,259 @@
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
- 
-\subsubsection{Parameter Estimation}
+
+\subsection{Expectations and Covariances}
+
+\subsubsection{Expectation}
 \begin{itemize}
-\item Bias vs. Variance
-
-
-\item Taking Logarithm
+\item Definition
 	\begin{itemize}
-	\item Reason
+	\item Expectation of $f(x)$ under $p(x)$
 		\begin{itemize}
-		\item monotonically increasing function $\Rightarrow \arg\max_{\theta}f(x;\theta) = \arg\max_\theta\log f(x;\theta)$
-		\item simplify mathematical analysis $\Rightarrow \prod \rightarrow \sum$
-		\item numerical stability $\Rightarrow \text{ avoid } \prod (\text{small probabilities})$
-		
-		(may otherwise underflow the numerical precision)
+		\item discrete $x$: $\displaystyle \mathbb{E}[f] = \sum_xp(x)f(x)$
+		\item continuous $x$: $\displaystyle \mathbb{E}[f] = \int p(x)f(x)\D x$
+		\item approximation with $N$ points drawn from $p(x)$: $\displaystyle \mathbb E[f] \simeq \frac 1N \sum_{n=1}^N f(x_n)$ \\
+		(when $N\rightarrow \infty$, $\simeq$ becomes $=$)
+		\end{itemize}
+	\item Multivariate Expectation
+		\begin{itemize}
+		\item marginal expectation of $f(x,y)$ on $x$: $\displaystyle \mathbb{E}_x[f(x,y)] = \sum_xp(x)f(x,y)$ \\
+		(hence a function of $y$)
+		\item conditional expectation $f(x)$ on $p(x|y)$: $\displaystyle \mathbb{E}_x[f|y] = \sum_x p(x|y)f(x)$
 		\end{itemize}
 	\end{itemize}
+	\item Independent $x,y$
+		\begin{itemize}
+		\item $\displaystyle \mathbb{E}_{xy}[x,y] = \sum_{x,y}p(x,y)xy = \sum_{x,y}p(x)p(y)xy = \mathbb{E}[x]\mathbb{E}[y]$
+		\end{itemize}
+\end{itemize}
 
-\item Maximum Likelihood Estimation for Gaussian
+\subsubsection{Variance and Covariance}
+\begin{itemize}
+\item Definition
+	\begin{itemize}
+	\item Variance in $f(x)$:
+		\begin{itemize}
+		\Item \begin{align*} \text{var}[f] &= \mathbb{E} \left[ \left(f(x) - \mathbb{E}[f(x)] \right)^2 \right] \\ &= \mathbb{E}[f(x)^2] - \mathbb{E}[f(x)]^2 \end{align*}
+		$\Rightarrow$ measure the variability in $f(x)$ around its mean
+		\item $\text{var}[x]=\mathbb{E}[x^2]-\mathbb{E}[x]^2$ to measure the variance of $x$ itself
+		\end{itemize}
+	\item Covariance between Variables $x,y$
+		\begin{itemize}
+		\Item \begin{align*} \text{cov}[x,y] &= \mathbb{E}_{x,y}[(x-\mathbb{E}[x])(y-\mathbb{E}[y])] \\ &= \mathbb{E}_{x,y}[xy] - \mathbb{E}[x]\mathbb{E}[y] \end{align*}
+		$\Rightarrow$ measure the extent to which $x$ and $y$ vary together
+		\end{itemize}
+	\item Covariance between Vectors $\mathbf x, \mathbf y$ (column vectors)
+		\begin{itemize}
+		\Item \begin{align*} \text{cov}[\mathbf x, \mathbf y] &= \mathbb{E}_{\mathbf x,\mathbf y}[(\mathbf x - \mathbb{E}[\mathbf x]) \cdot (\mathbf y^T -\mathbb{E}[\mathbf y^T])] \\ &= \mathbb{E}_{\mathbf x,\mathbf y}[\mathbf{xy}^T] - \mathbb{E}[\mathbf x]\mathbb E[\mathbf y^T] \end{align*}
+		$\Rightarrow$ a covariance matrix for pairwise covariance between components of $\mathbf x,\mathbf y$
+		\item $\text{cov}[\mathbf x] \equiv \text{cov}[\mathbf x, \mathbf x]$ to measure covariance within vector $\mathbf x$
+		\end{itemize}
+	\end{itemize}
+\item Independence Variable
+	\begin{itemize}
+	\item Independent $x,y$
+		\begin{itemize}
+		\item $\text{cov}[x,y] = \mathbb E_{x,y}[xy] -\mathbb{E}[x]\mathbb{E}[y] = 0$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Transformations of Random Variables}
+
+\subsubsection{Image}
+\begin{itemize}
+\item Definition
 	\begin{itemize}
 	\item Notation
 		\begin{itemize}
-		\item $X=\{x_1,...,x_N\}$: observed $N$ data points
+		\item function $g:\mathbb{R} \rightarrow \mathbb{R}$
+		\item set $A$ in $\mathbb{R}$
 		\end{itemize}
-	\item Assumption
+	\item Image of $A$ under/through $g$
 		\begin{itemize}
-		\item data points are i.i.d. (identically and independently distributed)
-		\item underlying distribution is Gaussian $\mathcal N(\mu, \sigma)$
+		\item $\{g(x), \forall x\in A\}$ 
 		\end{itemize}
-	\item Likelihood
+	\item Inverse Image on Set $A$
 		\begin{itemize}
-		\item $\displaystyle p(X|\mu,\sigma^2) = \prod_{n=1}^N \mathcal N(x_n|\mu,\sigma^2)$
+		\item $\displaystyle g^{-1}(A) = \{x\in\mathbb{R}|g(x)\in A\}$ \\ 
+		$\Leftrightarrow x\in g^{-1}(A) \text{ if and only if } g(x) \in A$ \\
+		interpretation: for each element in $A$, get its original value before $g$ applied \\
+		(treat it as the output of $g$)
+		\end{itemize}
+	\end{itemize}
+\item Properties
+	\begin{itemize}
+	\item $g^{-1}(\mathbb{R}) = \mathbb{R}$, as $g$ is defined on $\mathbb{R}$
+	\item $\forall \text{ set } A, g^{-1}(A^c) = g^{-1}(A)^c$, where $A^c$ is the complement of set $A$
+	\item $\displaystyle \forall \text{ collection of sets } \{A_\lambda | \lambda \in \Lambda\}, g^{-1}\left( \bigcup_\lambda A_\lambda \right) = \bigcup_\lambda g^{-1}(A_\lambda)$
+	\item General Transformation $Y=g(X)$
+		\begin{itemize}
+		\item $P(Y\in A) = P(g(X)\in A) = P(X \in g^{-1}(A))$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Discrete Variable}
+\begin{itemize}
+\item Variable
+	\begin{itemize}
+	\item $X$: random variable with probability mass function $P_X(x)$
+	\item $Y = g(X)$, with probability mass function $P_Y(y)$
+	\end{itemize}
+\item Probability Mass Function
+	\begin{itemize}
+	\item $\displaystyle P_Y(y) = \sum_{x\in g^{-1}(y)} P_X(x)$, as $X=x$ is independent and mutually exclusive, \\
+	where $g^{-1}(y)=g^{-1}(\{y\})$ the inverse image of $\{y\}$ through $g$
+	\item Example
+		\begin{itemize}
+		\item uniform random variable $X$ on $\{-n,...,n\}$ with $Y=|X|$ \\
+		$\Rightarrow P_X(x) = \frac 1 {2n+1}$ \\
+		$\Rightarrow P_Y(y) = \begin{cases} \frac 1 {2n+1}, &x=0, \\ \frac 2 {2n+1}, &x\neq0. \end{cases}$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Continuous}
+\begin{itemize}
+\item Variable
+	\begin{itemize}
+	\item $X$: random variable with cumulative distribution $P_X(x)$, density $p_X(x)$
+	\item $Y=g(X)$, with cumulative distribution $P_Y(y)$, density $p_Y(y)$
+	\end{itemize}
+
+\item Cumulative Distribution
+	\begin{itemize}
+	\item Strictly Monotone Increasing $g$
+		\begin{itemize}
+		\item $P_Y(y) = P(Y\le y) = P(g(X) \le y) = P(X \le g^{-1}(y)) = P_X(g^{-1}(y))$
+		\item $P_X(x) = P(X\le x) = P(g^{-1}(Y) \le x) = P(Y \le g(x)) = P_Y(g(x))$
+		\end{itemize}
+	\item Strictly Monotone Decreasing $g$
+		\begin{itemize}
+		\item $P_Y(y) = P(Y\le y) = P(g(X) \le y) = P(X \ge g^{-1}(y)) = 1 - P_X(g^{-1}(y))$
+		\item $P_X(x) = P(X\le x) = P(g^{-1}(Y) \le x) = P(Y \ge g(x)) = 1 - P_Y(g(x))$
+		\end{itemize}
+	\end{itemize}
+
+\item Probability Density
+	\begin{itemize}
+	\item Strictly Monotone $g$ (an one-to-one function)
+		\begin{itemize}
+		\item $\displaystyle p_Y(y) = \frac d {\D y} P_Y(y) = \frac {d P_Y(y)}{d\space  g^{-1}(y)} \frac{d \space g^{-1}(y)}{\D y} = p_X(g^{-1}(y)) \abs*{\frac{d}{\D y} g^{-1}(y)}$
+		\item $\displaystyle p_X(x) = \frac d {\D x} P_X(x) = \frac {d P_X(x)}{d\space  g(x)} \frac{d \space g(x)}{\D x} = p_Y(g(x)) \abs*{\frac{d}{\D y} g(x)}$ \\
+		(as $g/g^{-1}$ has the same monotony $\Rightarrow\abs*\cdot$ to combined with the sign in $P_X/P_Y$)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item maximum of a probability density is dependent on the choice of variable
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Gaussian Distribution}
+ 
+\subsubsection{Definition}
+\begin{itemize}
+\item Univariate Gaussian
+	\begin{itemize}
+	\item Variable
+		\begin{itemize}
+		\item mean: $\mu$
+		\item variance: $\sigma^2$, with standard deviation = $\sigma$ 
+		\item $\Rightarrow$ precision: $\beta = \frac 1 {\sigma^2}$ (the reciprocal of the variance)
+		\end{itemize}
+	\item Probability Dense Function (PDF)
+		\begin{itemize}
+		\item $\displaystyle \mathcal N(x|\mu, \sigma^2) = \frac 1 {(2\pi \sigma^2)^{1/2}} \exp \left\{ -\frac 1 {2\sigma^2}(x-\mu)^2 \right\}$ \\
+		$\Rightarrow$ satisfying probability axioms: $\displaystyle \mathcal N(x|\mu,\sigma^2)>0 \text{ and } \int_{-\infty}^{+\infty} \mathcal N (x|\mu,\sigma^2) \D x = 1$
+		\end{itemize}
+	\item Expectation
+		\begin{itemize}
+		\item $\displaystyle \mathbb{E}[x] = \int_{-\infty}^{+\infty}\mathcal{N}(x|\mu, \sigma^2)x\D x=\mu$
+		\begin{align*}
+		\Rightarrow \displaystyle \mathbb E [x^2] &= \int_{-\infty}^{+\infty} \mathcal{N}(x|\mu, \sigma^2)x^2\D x \\ 
+		&= \frac 1 {(2\pi \sigma^2)^{1/2}} \int_{-\infty}^{+\infty} x^2 \exp \left\{ -\frac 1 {2\sigma^2}(x-\mu)^2 \right\} \D x \\ 
+		&= \pi^{-\frac 12} \int_{-\infty}^{+\infty} (\sqrt{2\sigma^2}x+\mu)^2 \exp(-x^2) \D x, \text{ substituting } a=\frac{x-\mu}{\sqrt{2\sigma^2}} \\ 
+		&= \pi^{-\frac 12} (2\sigma^2\int_R x^2 {\rm e}^{-x^2}\D x + 2\mu\sqrt{2\sigma^2}\int_R x {\rm e}^{-x^2}\D x + \mu^2 \int_R {\rm e}^{-x^2}\D x ) \\ 
+		&= \pi^{-\frac 12} ( 2\sigma^2\int_R x^2 {\rm e}^{-x^2}\D x + 2\mu\sqrt{2\sigma^2}\cdot 0 + \mu^2\sqrt\pi ) \\ 
+		&= 2\sigma^2\pi^{-\frac 12}\int_R x^2 {\rm e}^{-x^2}\D x + \mu^2 \\ 
+		&= \sigma^2 + \mu^2, \text{ the 2nd moment of Guassian, by } (x {\rm e}^{-x^2})' = e^{-x^2}-2x^2{\rm e}^{-x^2}
+		\end{align*}
+		note: see \hyperref[MATH_Cal_GaussianInt]{Gaussian integral} for $\int_R {\rm e}^{-x^2}\D x$
+		\end{itemize}
+	\item Variance
+		\begin{itemize}
+		\item $\displaystyle \text{var}[x] = \mathbb E[x^2] - \mathbb E[x]^2 = \sigma^2$
+		\end{itemize}
+	\end{itemize}
+\item Multivariate ($d$-dimensional) Gaussian
+	\begin{itemize}
+	\item Variable
+		\begin{itemize}
+		\item mean: $\mu \in \mathbb R^d$
+		\item covariance matrix: $\Sigma_{d\times d}$
+		\end{itemize}
+	\item Probability Dense Function (PDF)
+		\begin{itemize}
+		\item $\displaystyle \mathcal N_d(\mathbf x|\mathbf{\mu},\mathbf \Sigma) = \frac 1 {(2\pi)^{d/2} |\mathbf \Sigma|^{1/2}} \exp \left\{ -\frac 1 2 (\mathbf \mathbf x-\mathbf \mu)^T \mathbf \Sigma^{-1} (\mathbf x-\mathbf \mu) \right\} $, \\
+		noted as $X\sim \mathcal N_d (x|\mu,\Sigma)$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Operation on Gaussian}
+\begin{itemize}
+\item Convolution of Gaussian
+	\begin{itemize}
+	\item Integral of Gaussians $\int G_1G_2\D x$
+		\begin{itemize}
+		\item $G_1\sim \mathcal N_d(x|a,A), \space G_2 \sim \mathcal N_d(x|b,B)$
+		\end{itemize}
+		\begin{align*} \displaystyle \Rightarrow & \int \mathcal N_d(x|a,A) N_d(x|b,B)\D x \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} e^{-\frac 1 2 (x-a)^TA^{-1}(x-a)} \frac 1 {(2\pi)^{d/2}|B|^{1/2}} e^{-\frac 1 2 (x-b)^TB^{-1}(x-b)} \D x \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} \frac 1 {(2\pi)^{d/2}|B|^{1/2}} e^{-\frac 12 [(x-a)^TA^{-1}(x-a)+(x-b)^TB^{-1}(x-b)]} \\ = & \int \frac 1 {(2\pi)^{d/2} |A|^{1/2}} \frac 1 {(2\pi)^{d/2}|B|^{1/2}}  e^{-\frac 12 [(x-c)^T (A^{-1}+B^{-1}) (x-c)+(a-b)^TC(a-b)]},\\ & \text{where } c=(A^{-1}+B^{-1})^{-1}(A^{-1}a+B^{-1}b), C=A^{-1}(A^{-1}+B^{-1})^{-1}B^{-1} = (A+B)^{-1} \\ = & \frac {\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} {(2\pi)^{d/2}|A|^{1/2}|B|^{1/2}} e^{-\frac 12 (a-b)^TC(a-b)} \int \frac 1 {(2\pi)^{d/2}\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} e^{-\frac 12 (x-c)^T(A^{-1}+B^{-1}) (x-c)} \D x \\ =& \frac {\begin{vmatrix}(A^{-1}+B^{-1})^{-1}\end{vmatrix}^{1/2}} {(2\pi)^{d/2}|A|^{1/2}|B|^{1/2}} e^{-\frac 12 (a-b)^TC(a-b)} \\ =& \frac 1 {(2\pi)^{d/2} (|A||B||A^{-1}+B^{-1}|)^{1/2}} e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |ABA^{-1}+ABB^{-1}|^{1/2}} e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |ABA^{-1}+A| } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |A(B+A)A^{-1}| } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \\=& \frac 1 {(2\pi)^{d/2} |A+B|^{1/2} } e^{-\frac 12 (a-b)^T (A+B)^{-1} (a-b)} \end{align*}
+			
+	\item $\Rightarrow$ Convolution of Gaussians $G1* G2$
+		\begin{itemize}
+		\item $G_1\sim \mathcal N_d(a,A),G_2\sim \mathcal N_d(b,B)$
+		\end{itemize}
+		\begin{align*} \displaystyle G_1* G_2 (z) &= \int G_1(x)G_2(z-x)\D x \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(z-x|b,B)\D x \\ &= \int \mathcal N_d (x|a,A) \cdot \frac 1 {(2\pi)^{d/2} |B|^{1/2}} e^{-\frac 12 (z-x-b)^TB^{-1} (z-x-b)} \D x \\ &= \int \mathcal N_d (x|a,A)\mathcal N_d(x|z-b,B)\D x \\&= \frac 1 {(2\pi)^{d/2}|A+B|^{1/2}} e^{-\frac 12(z-(a+b))^T (A+B)^{-1} (z-(a+b))} \\&= \boldsymbol{\mathcal N_d(z|a+b,A+B)}  
+		\end{align*}
+	\end{itemize}
+\end{itemize}
+ 
+ 
+\subsubsection{Parameter Estimation}
+\begin{itemize}
+\item Estimation of Expectation and Variance
+	\begin{itemize}
+	\item Setting
+		\begin{itemize}
+		\item observation $X=\{ x_1, ..., x_N \} \sim \mathcal N(\mu, \sigma^2)$
+		\item i.i.d. assumption: $X$ is independent and identically distributed \\
+		i.e. each $x\in X$ is drawn independently from the identical distribution
+		\end{itemize}
+	\item Joint Distribution
+		\begin{itemize}
+		\item likelihood $p(X|\mu, \sigma^2)=\prod_{n=1}^N\mathcal N(x_n|\mu, \sigma^2)$ due to i.i.d. assumption \\
+		(as model is determined directly by $\mu, \sigma^2$)
+		\end{itemize}
+	\item Maximum Likelihood Estimation
+		\begin{itemize}
 		\item $\displaystyle \Rightarrow \ln p(X|\mu,\sigma) = -\frac 1{2\sigma^2} \sum_{n=1}^N(x_n-\mu)^2 -\frac N2 \ln \sigma^2 -\frac N2 \ln (2\pi)$
 		\end{itemize}
+	\end{itemize}
+\item Maximum Likelihood Estimation
+	\begin{itemize}
 	\item Solution
 		\begin{itemize}
-		\item $\displaystyle \text{let } \frac {\partial}{\partial \mu} \ln p(X|\mu,\sigma^2) = 0 \Rightarrow \mu_{\text{ML}}=\frac 1N \sum_{n=1}^Nx_n $
-		\item $\displaystyle \text{let } \frac {\partial}{\partial \sigma^2} \ln p(X|\mu,\sigma^2)=0 \Rightarrow \sigma_\text{ML}^2 = \frac 1N \sum_{n=1}^N (x_n- \mu_\text{ML})$
+		\item let $\displaystyle \frac {\partial}{\partial \mu} \ln p(X|\mu,\sigma^2) = 0 \Rightarrow \mu_{\text{ML}}=\frac 1N \sum_{n=1}^Nx_n $
+		\item let $\displaystyle \frac {\partial}{\partial \sigma^2} \ln p(X|\mu,\sigma^2)=0 \Rightarrow \sigma_\text{ML}^2 = \frac 1N \sum_{n=1}^N (x_n- \mu_\text{ML})$
 		\end{itemize}
 	\item Analysis
 		\begin{itemize}
 		\Item \begin{align*} \displaystyle \mathbb E[\mu_\text{ML}] = \mathbb E[\frac 1N \sum_{n=1}^Nx_n] = \frac 1N \sum_{n=1}^N \mathbb E[x_n] = \mu \tag{as \(x_1,...,x_N\) i.i.d, drawn from \(\mathcal N(\mu,\sigma^2)\), thus \(\sim \mathcal N(\mu,\sigma^2)\)} \end{align*}
 		$\Rightarrow$ unbiased estimation of mean
-		
 		\Item \begin{align*} \mathbb E[\sigma_\text{ML}^2] &= \mathbb E[\frac 1N \sum_{n=1}^N(x_n-\mu_{\text{ML}})^2] \\
 		&= \mathbb E [ \frac 1N \sum_{n=1}^{N}(x_n^2-2\mu_\text{ML}x_n+\mu_\text{ML}^2) ] \\ 
 		&= \frac 1N \sum_{n=1}^N \mathbb E[x_n^2] - \mathbb E[\frac 1N \sum_{n=1}^N 2x_n \mu_\text{ML}] + \mathbb E[\mu_\text{ML}^2] \\ 
@@ -1476,7 +1588,16 @@
 		$\Rightarrow$ biased variance \textbf{!} \\
 		$\Rightarrow $ unbiased variance $\displaystyle \hat \sigma^2 = \frac N {N-1}\sigma^2_\text{ML} = \frac 1{N-1} \sum_{n=1}^N (x_n-\mu_\text{ML})^2 $ \\
 		interpretation: $N-1$  degree of freedom, \\
-		(as calculating $\sigma^2$ needs $\mu$, which help pin down $x_N$ given $x_1,...,x_{N-1}$) \\
+		(as calculating $\sigma^2$ needs $\mu$, which help pin down $x_N$ given $x_1,...,x_{N-1}$)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item monotonically increasing function: $\arg\max_{\theta}f(x;\theta) = \arg\max_\theta\log f(x;\theta)$ \\
+		$\Rightarrow$ simplify mathematical analysis as $\prod \rightarrow \sum$
+		\item $\Rightarrow$ numerical stability $\Rightarrow \text{ avoid } \prod (\text{small probabilities})$ \\		
+		(may otherwise underflow the numerical precision)
+		\item maximum likelihood would \underline{systematically underestimate} the variance \\
+		(yet, as $N\rightarrow \infty$, such bias becomes negligible)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -1487,13 +1608,13 @@
 	\begin{itemize}
 	\item Notation
 		\begin{itemize}
-		\item $\bf x, \bf t$: vector of data examples and corresponding ground truth
-		\item $\bf w$: model parameters
+		\item $\mathbf x, \mathbf t$: vector of data examples and corresponding ground truth
+		\item $\mathbf w$: model parameters
 		\item $x, t$: new data example for prediction and its ground truth
 		\end{itemize}
 	\item Prediction by Model
 		\begin{itemize}
-		\item $p(t|x, \mathbf{w}')$, where $\mathbf w'$ is the best fit parameters founded
+		\item $p(t|x, \mathbf w')$, where $\mathbf w'$ is the best fit parameters founded
 		\end{itemize}
 	\item Prediction by Data
 		\begin{itemize}

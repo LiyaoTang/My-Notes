@@ -38,13 +38,14 @@
 \setlength{\belowdisplayshortskip}{0pt}
 
 % set up syntax suger math notation
-\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
-\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
-\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
-\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
-
-\makeatletter
-\newcommand{\extp}{\@ifnextchar^\@extp{\@extp^{\,}}} % exterior product
+\DeclarePairedDelimiter\abs{\lvert}{\rvert} % abs |x|
+\DeclarePairedDelimiter\norm{\lVert}{\rVert} % norm ||x||
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil} % ceilling
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor} % flooring
+\newcommand*\D{\mathop{}\!\mathrm{d}} % the "d" in "dx" in a integral 
+\newcommand\at[1]{\left.#1\right|} % auto-scaleed "|" for derivative at a point
+\makeatletter % exterior product
+\newcommand{\extp}{\@ifnextchar^\@extp{\@extp^{\,}}}
 \def\@extp^#1{\mathop{\bigwedge\nolimits^{\!#1}}}
 \makeatother
 
@@ -57,7 +58,6 @@
 \newcommand\Item[1][]{%
   \ifx\relax#1\relax  \item \else \item[#1] \fi
   \abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
-
 
 \title{Machine Learning} 
 \author{Liyao Tang}  

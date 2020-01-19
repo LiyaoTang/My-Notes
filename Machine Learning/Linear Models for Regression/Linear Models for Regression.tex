@@ -1,1 +1,470 @@
-\chapter{Linear Regression}
+\chapter{Linear Model}
+Linear Model: model function is a linear function w.r.t to unknown parameters (weights to be learned)
+
+\section{Linear Regression}
+
+\subsection{Curve Fitting}
+\begin{itemize}
+\item Setting
+	\begin{itemize}
+	\item Observed Data
+		\begin{itemize}
+		\item $X=\{x_1,..,x_N\}$ the observed input data
+		\item $\mathbf t=\{t_1,...,t_N\}$ the corresponding observed output (ground truth)
+		\end{itemize}
+	\item Model
+		\begin{itemize}
+		\item $\displaystyle y(x,\mathbf w)=\sum_{i=0}^{M}\phi_i(x)w_i = \mathbf w^T \phi(\mathbf x)$, \\
+		where $\mathbf w$ the weight vector \\
+		\phantom{where} $\phi(\cdot)$ the basis function to extract feature vector $\mathbf x$ from $x$
+		\end{itemize}
+	\item Assumption
+		\begin{itemize}
+		\item deterministic model with Gaussian observation noise $\Rightarrow t=y(x,w)+\epsilon$, \\
+		where $\epsilon \sim \mathcal N(0,\beta^{-1})$ the Gaussian noise with precision (inverse variance) $\beta$ \\
+		$\Rightarrow$ unimodal distribution $p(t|\mathbf x) \Rightarrow$ extended by conditional mixture model
+		\item model assumed to represent the underlying data generator
+		\item observation is i.i.d.
+		\end{itemize}
+	\end{itemize}
+\item Maximum Likelihood
+	\begin{itemize}
+	\item Solution
+		\begin{itemize}
+		\item likelihood $\displaystyle p(\mathbf t| X,\mathbf w,\beta) = \prod_{n=1}^N \mathcal N(t_n|\mathbf w ^T\phi(\mathbf x_n), \beta^{-1})$ \\ (conditioning on $X$ as noise are introduced after input is given)
+		\item $\Rightarrow \displaystyle \ln p(\mathbf t|X,\mathbf w,\beta) = - \frac \beta 2\sum_{n=1}^N (y(x_n, \mathbf w) - t_n)^2 + \frac N 2\ln\beta - \frac N 2 \ln(2\pi)$
+			\begin{itemize}
+			\item let $\frac {\partial}{\partial \mathbf w}$ log likelihood $= 0$, thus $\frac {\partial}{\partial \mathbf w} \sum_{n=1}^N(y(x_n, \mathbf w)-t_n)^2 =0$
+			\item let $\frac {\partial}{\partial \mathbf \beta}$ log likelihood $= 0$, thus $\frac 1 {\beta_\text{ML}}=\frac 1 N \sum_{n=1}^N(y(x_n, \mathbf w_\text{ML})-t_n)^2$
+			\end{itemize}
+		\end{itemize}
+	\item Prediction
+		\begin{itemize}
+		\item predictive distribution $p(t|x, \mathbf w_\text{ML}, \beta_\text{ML})=\mathcal N(t|y(x, \mathbf w_\text{ML}), \beta^{-1}_\text{ML})$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item \underline{equivalent to minimize the sum-of-square error} w.r.t. $\mathbf w$ \\
+		(as shown in log likelihood)
+		\end{itemize}
+	\end{itemize}
+
+\item Maximum Posterior
+	\begin{itemize}
+	\item Solution
+		\begin{itemize}
+		\item introduce prior $p(\mathbf w|\alpha)= \mathcal{N}(\mathbf w|\mathbf 0,\alpha^{-1}I)$, with $\alpha$ the precision \\
+		$\Rightarrow \alpha$ controls the model params (thus a hyperparameter)
+		\item posterior $p(\mathbf w|X, \mathbf t, \alpha, \beta)\propto p(\mathbf t|X, \mathbf w, \beta)p(\mathbf w|\alpha)$ \\
+		$\displaystyle \Rightarrow \ln p(\mathbf w|X, \mathbf t, \alpha, \beta) \propto -\frac \beta 2 \sum_{n=1}^N (y(x_n, \mathbf w)-t_n)^2 - \frac \alpha 2 \mathbf w^T\mathbf w + const$
+		\end{itemize}
+	\item Prediction
+		\begin{itemize}
+		\item $p(t|x,\mathbf w_\text{MAP}, \beta_\text{MAP}, \alpha) = \mathcal N(t|y(x, \mathbf w_\text{MAP}), \beta^{-1}_\text{MAP})$ \\
+		($\alpha$ involved in solving $\mathbf w$ of linear model \& $\beta$ of noise model)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item \underline{equivalent to minimize the sum-of-square error with regularization} w.r.t. $\mathbf w$ \\
+		(as shown in log posterior)
+		\item regularization term comes from prior \\ 
+		(controlled by $\alpha$ as regularization parameter $\lambda=\alpha/\beta$)
+		\item prior selected for mathematical are of the same distribution
+		\end{itemize}
+	\end{itemize}
+		
+\item Bayesian Estimation $p(y|x,X,Y)$ 
+	\begin{itemize}
+	\item Solution
+		\begin{itemize}
+		\item marginalize the model space ($\mathbf w$) to evaluate predictive distribution $p(t|x, X, \mathbf t)$
+		\item $p(t|x, X, \mathbf t) = \int p(t|x,\mathbf w)p(\mathbf w|X, \mathbf t) \D \mathbf w$, where
+			\begin{itemize}
+			\item $p(t|x,\mathbf w)$ the predictive distribution of a given point estimation of $\mathbf w$
+			\item $p(\mathbf w | X, \mathbf t)$ the posterior (conditioning on $\beta, \alpha$ omitted)
+			\end{itemize}
+		$\Rightarrow$ TODO: solution remained in Section 3.3 of PRML
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item account for possibility of all kinds of model, by marginalization \\
+		(instead of making point estimation of $\mathbf w$, as in ML/MAP) \\
+		$\Rightarrow$ include the uncertainty of model parameters $\mathbf w$
+		\item expected lost = $(bias)^2 + variance + noise$ \\
+		(TODO: detailed in explanation of equation 1.91 in PRML)
+		\end{itemize}
+	\end{itemize}
+
+\item Notation:
+	\begin{itemize}
+	\item $t=y(x,w)+\epsilon,\text{ where } \epsilon \text{ is Gaussian noise}$ 
+	\item $\hat y$ is prediction function to approximate $y=y(x,w)$ 	
+	\end{itemize}
+
+\item Procedure:
+	\begin{itemize}
+	\item $\mathbb E[(t-\hat y)^2] = \mathbb E[t^2-2t\hat y+\hat y^2] \\ = \mathbb E[t^2] +\mathbb E[\hat y^2] -\mathbb E[2t\hat y] \\ = \text{Var}[t]+\mathbb E[t]^2 + \text{Var}[\hat y]+\mathbb E [\hat y]^2 - 2y\mathbb E[\hat y] \\ = \text{Var}[t] + \text{Var}[\hat y] + (y^2 -2y\mathbb E[\hat y] +\mathbb E[\hat y]^2) \\ =  \text{Var}[t] + \text{Var}[\hat y] + (y-\mathbb E[\hat y])^2 \\ =  \text{Var}[t] + \text{Var}[\hat y] + \mathbb E[t-\hat y]^2 \\ = \sigma^2+\text{Var}[\hat y] + \text{Bias}[\hat y]^2$ \\
+	$\text{where } \sigma^2 = \text{Var}[\epsilon] \text{ is the noise}$ \\
+	(formula used: $\text{Var}[x] = \mathbb E[x^2] - \mathbb E[x]^2 \Leftrightarrow \mathbb E[x^2] = \text{Var}[x]+ \mathbb E[x]^2$)
+	\item Matrix inverse can be evil \& avoid inverse operation: \\	
+	$A = U\Lambda U^T$, where $\Lambda$ is diagonal matrix \\
+	$\Rightarrow A^{-1} = U\Lambda^{-1}U^T$ \\
+	but number on the diagonal line of $\lambda$ can be small \\
+	$\Rightarrow$ maybe 0 depending on accuracy of computer
+	\end{itemize}
+\end{itemize}
+
+\section{Bayesian Regression}
+\begin{itemize}
+\item Assumption
+	\begin{itemize}
+	\item $t=y(x,w)+\epsilon,\text{ where } \epsilon \text{ is Gaussian noise}; y(x,w)\text{ approximated by }\phi(x)w$ 
+	\end{itemize}
+\item Bayesian view
+\item Gaussian $\text{Prior}: p(w) = \mathcal N(w|m_0,S_0)$ \\
+$\text{Reason: to be conjugate}$
+\item $\text{Likelihood}: \displaystyle p(\boldsymbol t|w) = \prod_{n=1}^N\mathcal N(t_n|w^T\phi(x_n),\beta^{-1}) = \mathcal N(\boldsymbol t|\Phi w,\beta^{-1}I)$
+\item $\Rightarrow \text{Posterior}: p(w|\boldsymbol t) = \mathcal N(w|m_N,S_N)$ \\
+$\text{where } m_N = S_N(S_0^{-1}m_0+\beta \Phi^T\boldsymbol t),\space S_N^{-1} = S_0^{-1}+\beta \Phi^T\Phi $ 
+\item Maximum Likelihood:
+	\begin{itemize}
+	\item $\text{Likelihood}: \displaystyle p(\boldsymbol t|w) = \prod_{n=1}^N\mathcal N(t_n|\phi(x_n)w,\beta^{-1})$ 
+		\begin{itemize}
+		\item meaning: how probable the observed dataset is w.r.t the model setting (under parameter $w$)
+		\end{itemize}
+	\item $\displaystyle \ln \text{Likelihood} = \sum_{n=1}^N [-\ln \frac {\beta} {\sqrt {2\pi}} - \frac \beta 2 (t_n-\phi(x)w)^2]$ 	
+	\item $\displaystyle \frac {\partial} {\partial w} \ln \text{Likelihood} = \beta \Phi^T(\boldsymbol t-\Phi w)$ 
+	let $\frac {\partial} {\partial w} \ln \text{Likelihood}=0$ \\
+	$\displaystyle \Rightarrow w_{ML} = (\Phi^T\Phi)^{-1} \Phi^T\boldsymbol t $ 
+	\item $\displaystyle \frac {\partial} {\partial \beta} \ln \text{Likelihood} = -N\beta^{\frac 1 2} + \beta^{\frac 3 2}(\boldsymbol t-\Phi w)^T(\boldsymbol t-\Phi w) $ \\
+	let $\frac {\partial} {\partial \beta} \ln \text{Likelihood}=0$ \\
+	$\displaystyle \Rightarrow \beta^{-1}=\frac 1 N (\boldsymbol t-\Phi w)^T(\boldsymbol t-\Phi w)$ \\
+	\(\text{Note: solve $w=w_{ML}$ first}\)
+	\end{itemize}
+
+\item Maximum Posterior:
+	\begin{itemize}
+	\item $\text{Posterior}=p(w|\boldsymbol t), \text{Prior}=p(w), \text{Likelihood} = p(\boldsymbol t|w), \text{Normalization}=p(t) \\ \displaystyle \Rightarrow \text{Posterior}=\frac {\text{Likelihood*Prior}} {\text{Normalization}}$ 
+	
+	$\Rightarrow \text{Posterior} \propto \text{Likelihood*Prior} $  
+	
+	\item $\text{assume Prior } \displaystyle p(w) =  \mathcal{N}(w|m_0,S_0), \\ \small \text{so that Prior \& Likelihood are conjugate} \Rightarrow \text{Gaussian Posterior}$ 
+	
+	\item $\text{Likelihood } \displaystyle p(\boldsymbol t|w) = \prod_{n=1}^N\mathcal N(t_n|\phi(x_n)w,\beta^{-1}) =\mathcal N(\boldsymbol t|\Phi w,\beta^{-1}I )$ 
+	
+	\item $\Rightarrow \text{Posterior } \displaystyle p(w|\boldsymbol t) = \mathcal N(w|m_N,S_N),\\ \text{where } m_N=S_N(S_0^{-1}m_0+\beta\Phi^T \boldsymbol t),\space S_N^{-1}=S_0^{-1} + \beta \Phi^T\Phi$ 
+	
+	$\Rightarrow w_{MAP} = \text{mean of the Gaussian} = m_N$ 
+	
+		$\text{Note: can also get } w_{MAP} \text{ from taking gradient}$ 
+	\end{itemize}
+
+\item Simple Prior:
+
+$\text{Prior } p(w)=\mathcal N(w|0,\alpha^{-1}I)$ 
+
+$\Rightarrow \text{Posterior } \displaystyle p(w|\boldsymbol t) = \mathcal N(w|m_N,S_N),\\ \text{where } \displaystyle m_N=\beta(\alpha I + \beta \Phi^T\Phi)\Phi^T \boldsymbol t,\space S_N^{-1}=\alpha I + \beta \Phi^T\Phi$ 
+
+$ w_{MAP} \rightarrow w_{ML}, \text{ when }\alpha \rightarrow 0 \text{ (most useless Prior)}$ 
+
+\item Maximize $\text{Posterior} \Leftrightarrow$ Minimize $\text{cost function with regularization}$: 
+
+	$ \text{Simple Prior} \Rightarrow \displaystyle \ln p(w|\boldsymbol t) = -\frac \beta 2 (\boldsymbol t-\Phi w)^T (\boldsymbol t-\Phi w)-\frac \alpha 2 w^Tw+const$ 
+
+\item If $\alpha \to 0 \text { (Prior is most useless)}$, maximize $\text{Posterior}$ is equivalent to maximizing likelihood 
+\item Maximize $\text{Posterior}$ equal to minimize sum-of-squares error function with the addition of a quadratic regularization term with $\lambda = \alpha/\beta$ 
+\item Regularization term comes from the $\text{Prior}$ 
+
+\item Predictive Distribution:
+
+\item Assume: $\text{Prior}: p(x|\alpha) = \mathcal N(x|0,\alpha^{-1}I),\space \small\text{ (}m_0=0,S_0=\alpha^{-1}I \text{)}$ 
+
+\item $\displaystyle p(t|x,X,\boldsymbol t) = \int p(t|w,x)p(w|X,\boldsymbol t)dw$ 
+
+\item $\Rightarrow p(t|x,X,\boldsymbol t) = \mathcal N(t|m_N^T\phi(x),\sigma^2_N(x))$ 
+
+	$\text{where } \sigma_N^2(x)=\frac 1 \beta + \phi(x)^TS_N\phi(x);\space m_N, S_N \text{ from Posterior} \small (m_N=w_{MAP})$ 
+
+\item Sequential data:
+
+	\begin{itemize}
+	\item $\text{Posterior}$ from previous data $\Leftrightarrow$ the $\text{Prior}$ for the arriving data
+	\item Sequential data and data in one go is equivalent when finfding the Porsterior
+	\end{itemize}
+
+\item Gradient descent
+
+	\begin{itemize}
+	\item Hypothesis function: 
+		\begin{itemize}
+		\item $h_\theta(x)=x\theta$, $\small\theta = [\theta_0, \theta_1, ..., \theta_n]^T$, $\small x=[x_0, x_1,..., x_n], x_0=1$
+		\end{itemize}
+	
+	\item $x$ is one instance
+	\item Cost function: $\displaystyle J(\theta)=\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^i)-y^i)^2+\frac{\lambda}{2m}\sum^n_{j=1}\theta_j^2$ 
+	\item Update rule: $\forall \theta_j \in \theta, \theta_j := \theta_j-\alpha\large\frac{\partial J(\theta)}{\partial\theta_j}$, $\displaystyle \small\frac{\partial J(\theta)}{\partial\theta_j}=\frac{1}{m}\sum^m_{i=1}[(h_\theta(x^i)-y^i)x_j^i] + \frac\lambda m\theta_j$ 
+	- $\displaystyle \frac {d}{d\theta}J(\theta) = \frac 1m ((X\theta-y)^TX)^T + \frac \lambda m [0,\theta_1,...,\theta_m]^T$ ($\theta_0$ shouldn't be penalized)
+	\item simultaneously for all $\theta_j \in \theta$ 
+	\item Normal equation (mathematical solution)
+		\begin{itemize}
+		\item $\theta = (X^TX)^{-1}X^Ty$  
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\section{Logistic Regression (Classification)}
+
+- Decision Theory:
+
+- classes $C_1,...,C_K$, decision regions $\mathcal {R}_1,...,\mathcal{R}_K$ 
+- Minimze $\displaystyle p(mistake) = \sum_{k=1}^K (\int_{\mathcal {R}_k} \sum_{i \neq k} p(x,C_i)dx)$ $\small \text{(can have weight on each misclassfication though)}$  
+- Maximize $\displaystyle p(correct) = \sum_{k=1}^K \int _{\mathcal {R}_k}p(x,C_k)dx$ 
+
+- Models for Decision Problems:
+
+- Find a discriminant function
+- Discriminative Models: $\text{less powerful, yet less parameter => easier to learn}$ 
+- Infer **posterior** $p(C_k|x)$, $\small \text{$C_k$: $x \in C_k$, $x$ is examples in trainning set}$ 
+- Use decision theory to assign a new $x$ 
+- Generative Models: $\text{more powerful, but computationally expensive}$ 
+- Infer conditional probabilities $p(x|C_k)$ 
+- Infer prior $p(C_k)$ 
+- Find **either** **posterior** $p(C_k|x)$, **or** **joint distribution** $p(x, C_k)$ (using Bayes' theorem)
+- Use decision theory to assign a new $x$ 
+- **=> Able to create synthetic data using $p(x)$** 
+
+- Naive Bayes on Discrete Features:
+
+- Assumption:
+
+- Discrete Features: data point $x\in\{0,1\}^D$ 
+
+- Naive Bayes: all features conditioned on class $C_k$ are independent with each other
+
+$\displaystyle \Rightarrow p(x|C_k)=\prod_{i=1}^D \mu_{ki}^{x_i} \space (1-\mu_{ki})^{1-x_i}$ 
+
+1. Linear Discriminant (Least Squares Approach)
+
+- Prediction:
+
+- $y(x)=xw+w_0 \text{, with bias $=w_0$, where } w = [w_1,...,w_n]^T, x=[x_1,...,x_n]$ 
+- $y(x)>0$: positive confidence to assign $x$ to current class 
+- $-w_0$ called threshold sometimes
+
+- Decision Boundary $y(x)=w^Tx+w_0=0$: 
+
+- $w$ is orthogonal to vectors on the boundary:
+
+	$\text{assume } x_1,x_2 \text{ on the boundary} \\ \Rightarrow 0=y(x_1) - y_(x_2)=(x_1-x_2)w$ 
+
+- Distance from origin to boundary is $-\frac {w_0} {\|w\|}$: 
+
+	$\text{assume distance is } k \\ \Rightarrow k \frac {w}{\|w\|} \text{on boundary, thus } k \frac {w}{\|w\|} w + w_0=0 \\ \Rightarrow k=-\frac {w_0}{\|w\|}$ 
+
+- $y(x)$ is a signed measure of distance from point $x$ to boundary:
+
+	$\text{assume distance is }r \\ \Rightarrow y(x)=\overbrace{(x_\perp+r \frac {w}{\|w\|})}^x w + w_0 = \overbrace{x_\perp w+w_0}^0 + r\|w\| = r\|w\| \\ \Rightarrow r = \frac{y(x)} {\|w\|}$ 
+
+- Multi-class $\small\text{(k-classes)}$:
+
+- prediction: $x$ is of class ${\mathcal C}_k$ if $\forall j \neq k, y_k(x) > y_j(x)$ 
+
+$\Rightarrow y(x)=xW \text{, where } W=[w_1,...,w_k],\forall x_i \in X,x_{i0}=1 {\small\text{ (bias)}}, y(x) \text{ is 1-of-k coding} $ 
+
+- sum-of-squares error: $E_D(W)=\frac 1 2 \text{tr}\{(XW-T)(XW-T)^T\}$ 
+
+$\Rightarrow \text{optimal } W = (X^TX)^{-1}X^TT$ 
+
+	$\small \text{note that } tr\{ AB \} = A^TB^T$ 
+
+2. Fisher’s Linear Discriminant
+
+- Basic idea:
+
+- Take linear classification $y = w^Tx$ as dimensionality reduction (projection onto 1-D)
+- => find a projection (denoted by vector $w$) which maximally preserves the class separation
+- => if $y>-w_0$ then class $C_1$, otherwise $C_2$ 
+
+- Goal:
+
+- Distance within one class is small
+- Distance between classes is large
+
+- Mean \& Variance of Projected Data:
+
+- Mean: $\displaystyle\widetilde m_k = w^Tm_k, \text{ where } m_k = \frac 1 {N_k}\sum_{x\in C_k} x$ 
+- Variance: $\displaystyle \widetilde s_k=\sum_{x\in C_k}(w^Tx-w^Tm_k)^2 =   w^T[\sum_{x\in C_k}(x-m_k)(x-m_k)^T]w$ 
+
+- 2-Classes to 1-D line:
+
+- Maximize Fisher criterion: $\displaystyle J(w) = \frac {|\widetilde m_1 - \widetilde m_2|^2} {{\widetilde s_1}^2+{\widetilde s_2}^2}$ 
+
+- Between-class covariance:  $\displaystyle S_B = (m_1-m_2)(m_1-m_2)^T$ 
+
+- Within-class covariance: $\displaystyle S_k=\sum_{n\in C_k}(x_n-m_k)(x_n-m_k)^T$ 
+
+$\displaystyle\Rightarrow J(w) = \frac {w^TS_B w} {w^T S_W w} $ 
+
+- Lagrangian: $L(w,\lambda) = w^TS_B w + \lambda(1- w^T S_W w)$ 
+
+	$\small \text{fix $w^T S_W w$ to 1 to avoid infinite solution (any multiple of a solution is a solution)}$
+
+$\Rightarrow \displaystyle \frac \partial {\partial w}L = 2S_Bw-2\lambda S_Ww=0 \\ \Rightarrow S_Bw=\lambda S_Ww \\ \Rightarrow ({S_W}^{-1}S_B)w=\lambda w \\ \text{To maximize $J(w)$, $w$ is the largest eigenvector of ${S_W}^{-1}S_B$ if $S_W$ invertible} $ 
+
+- K-classes to a d-D subspace: $\small N_k \text{ is num in class k, $N$ is the total example num}$ 
+
+- Between-class covariance:  $\displaystyle S_B = \sum_{k=1}^K N_k(m_k-m)(m_k-m)^T, \text{where } m=\frac 1 N \sum_{n=1}^N x_n  \\ \small \text{reduce to } (m_1-m_2)(m_1-m_2)^T  \text{ when K=2 (constant ignored)}$ 
+
+- Within-class covariance: $\displaystyle S_W = \sum_{k=1}^KS_k, \small \text{where } S_k=\sum_{n\in C_k}(x_n-m_k)(x_n-m_k)^T, m_k = \frac 1 {N_k} \sum_{n \in C_k}x_n$ 
+
+- Maximize Fisher criterion: $\displaystyle J(w) = \frac {tr\{W^TS_B W\}} {tr\{W^T S_W W\}}$ 
+
+- Lagrangian: 
+
+$\text{Solve for each } w_i\in W \Rightarrow ({S_W}^{-1}S_B)w_i=\lambda_i w_i \\ \Rightarrow W \text{ conosists of the largest d eigenvectors} \\ \small {S_W}^{-1}S_B \text{ is not guaranteed to be symmetric } \Rightarrow W \text{ might not be orthogonal} \\ \small\text{Need to minimize the whole covariance matrix ($J(w)$ as a matrix) $\Rightarrow$ not choosing same eigenvectors twice} $  
+
+- Maximum Possible Projection Directions = $K-1$: 
+
+	$r({S_W}^{-1}S_B) \le \min(r({S_W}^{-1}),r(S_B)) \le r(S_B) \\ r(S_B) \le \displaystyle \sum_K r((m_k-m)(m_k-m)^T) = K \small \text{, as } r(m_k-m)=1 \\ \displaystyle \sum_Km_k = m \Rightarrow r(m_1-m,...,m_K-m)=K-1 \\ \Rightarrow r(S_B)\le K-1 \\ \Rightarrow r({S_W}^{-1}S_B) \le K-1$ 
+
+3. Perceptron Algorithm
+
+- Generalised linear model $y = f(w^T\phi(x))$, where $\phi(x)$ is basis function; $ \phi_0(x) = 1$ 
+
+- Nonlinear activation funtion: $f(a) = \begin{cases} 1,& a \ge0 \\-1,& a<0  \end{cases}$ 
+
+- Target coding: $t = \begin{cases} 1,&\text{if } C_1 \\ -1, &\text{if } C_2 \end{cases}$ 
+
+- Cost function: 
+
+- All correctly classified patterns: $w^T\phi(x_n)t_n>0$ 
+
+- Add the errors for all misclassified patterns (denoted as set $\mathcal{M}$):
+
+$\Rightarrow \displaystyle E_P(w)=-\sum_{n\in \mathcal{M}} w^T \phi(x_n)t_n$ 
+
+- Algorithm: (Aim: minimize total num of misclassified patterns)
+
+- loop 
+
+	choose a traning pair $(x_n, t_n)$ 
+
+	update the weight vector $w$: $w  = w - \eta \nabla E_p(w) = w+\phi_nt_n$ 
+
+		$\text{ where $\eta$=1 because $y=f(\cdot)$ does not depend on $\|w\|$}$ 
+
+- Perceptron Convergence Theorem:
+
+- If the training set is linearly separable, the perceptron algorithm is guaranteed
+to find a solution in a finite number of steps
+
+$\small \text{(Also is the algorithm to find whether the set is linearly separable => Halting Problem)}$ 
+
+4. Maximum Likelihood
+
+- Assumption: 
+- $p(x|C_k) \sim\mathcal{N}(\mu_k,\Sigma), \text{and all } p(x|C_k) \text{ share the same } \Sigma$ 
+- \(p(C_1) = \pi,\space p(C_2)=1-\pi \text{, $\pi$ unknown}\) 
+- Likelihood of whole data set $\boldsymbol{X,t}$, $N$ is the num of data
+- $\displaystyle p(\boldsymbol{X,t}|\pi, \mu_1, \mu_2, \Sigma) = \prod_{n=1}^N[\pi\mathcal{N}(x_n|\mu_1,\Sigma)]^{t_n} \space [(1-\pi)\mathcal{N}(x_n|\mu_2, \Sigma)^{1-t_n}]$ $\space\small\rightarrow\text{when info of label $t$ lost: mixture of Gaussian}$  
+- $\displaystyle \ln (\text{Likelihood}) = \sum_{n=1}^N[t_n(\ln\pi+\ln\mathcal{N}(x_n|\mu_1,\Sigma)) + (1-t_n)(\ln(1-\pi)+\ln\mathcal{N}(x_n|\mu_2, \Sigma))]$ 
+- Parameters when maximum reached:
+- $\displaystyle \pi = \frac {N_1}{N_1+N_2}$, $N_1$ is the num of class $C_1$ 
+- $\displaystyle \mu_1 = \frac 1 {N_1} \sum_{n=1}^Nt_n x_n, \space \mu_2=\frac 1 {N_2}\sum_{n=1}^N(1-t_n)x_n,$ (mean of each class)
+- $\displaystyle \Sigma = \frac {N_1}{N}S_1 + \frac {N_2}NS_2, \text {where } S_k = \frac 1 {N_k}\sum_{n \in C_k}(x_n-\mu_k)(x_n-\mu_k)^T $ 
+
+5. Logistic Regression 
+
+- Sigmoid function: $\displaystyle \sigma(a) = \frac 1 {1+e^{-a}}$ 
+
+- $p(x|C_k) \sim \mathcal{N} \implies p(C_k|x)=\sigma(w^Tx+w_0) \small \text{ (2-classes)}$  (Generative model)
+
+- Assumption:
+
+$p(x|C_k) = \mathcal{N}(\mu_k, \Sigma)$ (can also be a number of other distributions)
+
+$\forall k, p(x|C_k) \text{ shares the same } \Sigma$ 
+
+- \begin{align*} \displaystyle p(C_1|x)=\frac{p(x|C_1)p(C_1)}{p(x|C_1)p(C_1)+p(x|C_2)p(C_2)} = \sigma (a), \\  \text{where } a &=\ln \frac {p(x,C_1)}{p(x,C_2)} \\ &= \ln \frac {p(x|C_1)p(C_1)}{p(x|C_2)p(C_2)} \\ &= \dots \text{(assumption applied)} \\ &= \ln \frac {\text{exp}(\mu_1^T\Sigma^{-1}x - \frac 12 \mu_1^T\Sigma^{-1}\mu_1)}{\text{exp}(\mu_2^T\Sigma^{-1}x - \frac 12 \mu_2^T\Sigma^{-1}\mu_2)} + \ln \frac {p(C_1)}{p(C_2)}  \\ \implies & a = w^Tx+w_0  \text{ where, } \\ &\space w = \Sigma^{-1}(\mu_1-\mu_2)  \\ & \space w_0 = -\frac 12\mu_1^T\Sigma^{-1}\mu_1 + \frac 12 \mu_2^T\Sigma^{-1}\mu_2 + \ln \frac {p(C_1)}{p(C_2)} \end{align*} 
+
+- $\displaystyle \implies p(C_1|x) = \sigma(w^Tx+w_0)$ 
+
+$\Rightarrow$ Find parameters in Gaussian model using Maximal Likelihood Sulotion
+
+	as: $p(C_1|x)\propto p(x|C_1)p(C_1)=p(x,C_1)$ 
+
+- Generalize to $\text{K-classes}$:
+
+$\displaystyle a_k(x) = \ln [p(x|C_k)p(C_k)], \space p(C_k|x) = \frac{\text{exp}(a_k)}{\sum_i \text{exp}(a_i)}$ 
+
+$\Rightarrow \displaystyle a_k(x) = w_k^Tx+w_{k0}, \text{where } w_k=\Sigma^{-1}\mu_k; \space w_{k0} = -\frac 1 2 \mu_k^T\Sigma^{-1}\mu_k + p(C_k)$ 
+
+- $\text{Assume directly } p(C_k|x)=\sigma(w^Tx+w_0) \small \text{ (2-classes)}$ (Discriminative model)
+
+- Assume directly: $p(C_1|w,x) = \sigma(w^Tx), \space x_0 = 1$ 
+
+	$\Rightarrow$ less parameters to fit (compared to Gaussian)
+
+- Likelihood function: 
+
+$\displaystyle p(\boldsymbol{t}|w,X) = \prod_{n=1}^Np_n^{t_n}(1-p_n)^{1-t_n}, \text{ where, } p_n=p(C_1|x_n), \space t_n \text{ is the class of } x_n$  
+
+Define error function :
+
+	$\displaystyle E(w) = -\ln(Likelihood) = - \sum_{n=1}^N [t_n\ln p_n + (1-t_n)\ln(1-p_n)]$ 
+
+$\displaystyle \Rightarrow \nabla E(w)=\sum_{n=1}^N(p_n-t_n)x_n$ 
+
+- Find Posterior $p(w|\boldsymbol{t})$: 
+
+$\text{Likelihood}$ is product of sigmoid
+
+Conjugate $\text{Prior}$ for "sigmoid distribution" is unknown
+
+$\Rightarrow$ Assume $\text{Prior } p(w) = \mathcal{N}(w|m_0, S_0)$ 
+
+$\Rightarrow \displaystyle \ln p(w|\boldsymbol{t}) \propto -\frac 1 2 (w-m_0)^TS_0^{-1}(w-m_0) + \sum_{n=1}^N[t_n\ln p_n + (1-t_n) \ln(1-p_n) ]$ 
+
+	find $w_{MAP}$, calculate $\displaystyle S_N = -\nabla \nabla \ln p(w|\boldsymbol{t}) = S_o^{-1} + \sum_{n=1}^N p_n(1-p_n)\phi_n\phi_n^T$ 
+
+$\Rightarrow p(w|\boldsymbol{t}) \simeq \mathcal{N}(w|w_{MAP}, S_N), \small \text{via Laplace Approximation}$ 
+
+- Laplace Approximation: 
+
+- Fit a guassian to $p(z)$ at its **mode** ( mode of $p(z)$: point where $p'(z)=0$ )
+
+- Assume $p(z) = \frac 1 Z f(z), \text{with normalization } Z = \int f(z)dz$ 
+
+Taylor expansion of $\ln f(z)$ at $z_0$: $\ln f(z) \simeq \ln f(z_0)-\frac 1 2A(z-z_0)^2,$ 
+
+	$\text{where } f'(z_0)=0, A=- \frac {d^2}{dz^2}\ln f(z) |_{z=z_0}$ 
+
+Take its exponentiating: $f(z) \simeq f(z_0)\text{exp{$-\frac A 2 (z-z_0)^2$}}$ 
+
+$\displaystyle \Rightarrow \text{Laplace Approximation} = (\frac A {2\pi})^{1/2} \text{exp{$-\frac A 2 (z-z_0)^2$}} \text{, where }A=\frac 1 {\sigma^2}$ 
+
+- Requirement:
+
+	$f(z)$ differentiable to find a critical point
+
+	$f''(z_0) < 0$ to have a maximum \& so that $\nabla \nabla\ln f(z_0)=A>0$ as $A=\frac1 {\sigma^2}$ 
+
+- In Vector Space: approximate $p(z)$ for $z\in \mathcal{R}^M$ 
+
+Assume $p(z)=\frac 1 Z f(z)$
+
+Taylor expansion: $\ln f(z) \simeq \ln f(z_0) - \frac 1 2 (z-z_0)^TA(z-z_0),$ 
+
+	$\text{Hessian } A = - \nabla \nabla \ln f(z)|_{z=z_0} $ 
+
+\begin{align}  \Rightarrow \text{Laplace approximation}&= \frac {|A|^{1/2}}{(2\pi^{M/2})}\text{exp{$-\frac 1 2 (z-z_0)^TA(z-z_0)$}} \\ &= \mathcal{N}(z|z_0, A^{-1}) \end{align}
+
+- Gradient descent:
+
+- Hypothesis function: $h_\theta(x)=\sigma(x\theta)=\large\frac{1}{1+e^{-x\theta}}$ 
+
+- Cost function: 
+
+$\displaystyle J(\theta)=\frac{1}{m}\sum^m_{i=1}[-y^i \ln (h_\theta(x^i))-(1-y^i) \ln (1-h_\theta(x^i))]+\frac{\lambda}{2m}\sum^n_{j=1}\theta_j^2$ 
+
+- Update rule: $\forall \theta_j \in \theta, \theta_j := \theta_j-\alpha\large\frac{\partial J(\theta)}{\partial\theta_j}$, $\displaystyle \small\frac{\partial J(\theta)}{\partial\theta_j}=\frac{1}{m}\sum^m_{i=1}[(h_\theta(x^i)-y^i)x_j^i] + \frac \lambda m\theta_j$ 
