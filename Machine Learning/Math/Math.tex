@@ -912,6 +912,29 @@
 \end{itemize}
  
 \section{Calculus}
+\subsection{Series and Sequences}
+\subsubsection{Approximation}
+\begin{itemize}
+\item Stirling Approximation
+	\begin{itemize}
+	\item Statement
+		\begin{itemize}
+		\item $n! \sim (2\pi n)^\frac12 n^n e^{-n}$ \\
+		equivalently $\ln n! \sim $
+		\end{itemize}
+	\item Derivation
+		\begin{itemize}
+		\item let $h_n=\ln(n! e^n n^{-n-\frac12})$ \\
+		$\begin{alignedat}{3} &\Rightarrow h_n-h_{n+1} &&= \ln \frac{n! e^n n^{-n-\frac12}}{(n+1)! e^{n+1} (n+1)^{-n-1-\frac12}} = \ln \frac{1}{(n+1)e}(\frac{n}{n+1})^{-n-\frac12}\frac{1}{(n+1)^{-1}} \\
+		& &&= (n+\frac12)\ln \frac{1+\frac1n} - 1
+		\end{alignedat}$
+		\item easy to show for $x>0, 1-x+x^2-x^3 < \frac 1 {x+1} < 1-x+x^2$ \\
+		$\Rightarrow$ thus integrating each parts to have $x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4} < \ln(x+1) < x-\frac{x^2}{2}+\frac{x^3}{3}$
+		\item $\Rightarrow \frac{n^{-2}}{12} - \frac{n^{-3}}{12} - \frac{n^{-4}}{18}< h_n-h_{n+1} < \frac{n^{-2}}{12} + \frac{n^{-3}}{6}$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
 \subsection{Derivative}
 \subsubsection{Chain Rule}
 \begin{itemize}

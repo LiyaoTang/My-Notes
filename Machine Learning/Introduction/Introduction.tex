@@ -60,7 +60,8 @@
 	\begin{itemize}
 	\item Approach
 		\begin{itemize}
-		\item solve $p(\mathbf x|\mathcal C_k)$ to obtain posterior $p(\mathcal C_k|\mathbf x)$
+		\item classification: model $p(x|\mathcal C)$ \& incorporate with prior $p(\mathcal C)$
+		\item regression: model joint distribution $p(x, t)$ and then normalize to have $p(t|x)$
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
@@ -69,6 +70,11 @@
 			\item able to incorporate with prior to reduce bias in skewed dataset
 			\item able to combine other prob model systematically
 			\end{itemize}
+		\item Bayesian treatment performed in
+			\begin{itemize}
+			\item solve $p(t|x) / p(\mathcal C|x)$ via predictive distribution
+			\item making prediction decision using $p(t|x)$ - see \hyperref[Intro_Decision_Stat]{decision for statistical model}
+			\end{itemize} 
 		\item much more compute hungry
 		\end{itemize}
 	\end{itemize}
@@ -76,12 +82,20 @@
 	\begin{itemize}
 	\item Approach
 		\begin{itemize}
-		\item model posterior $p(\mathcal C_k|\mathbf x)$ directly \\ 
-		e.g. directly use function $f(\mathbf x)$ output as posterior
+		\item model $p(\mathcal C|x)$ for classification, $p(t|x)$ for regression, directly
+		e.g. directly use function $f(\mathbf x)$ output as predictive distribution
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
 		\item less flexible yet much more efficient learning
+		\item Bayesian analysis performed on making prediction decision
+		\end{itemize}
+	\end{itemize}
+\item Discriminant
+	\begin{itemize}
+	\item Approaches
+		\begin{itemize}
+		\item find a function $f:x\rightarrow \mathcal C$ or $y$ (not under Bayes framework at all)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -474,7 +488,7 @@
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Decision for Statistical Model}
+\subsubsection{Decision for Statistical Model} \label{Intro_Decision_Stat}
 \begin{itemize}
 \item Formulation
 	\begin{itemize}
@@ -524,13 +538,25 @@
 		$\displaystyle \Rightarrow \frac{\delta\mathbb{E}[L]}{\delta y(x)}=2\int(y(x)-t)p(x,t)\D t = 0$ to find the best $y(x)$ \\
 		(by \hyperref[math_calc_var]{variational calculus - functional derivative}) \\
 		$\displaystyle \Rightarrow y(x) = \frac{\int tp(x, t)\D t}{\int p(x,t)\D t} = \int tp(t|x)\D t = \mathbb{E}_t[t|x]$, the regression function \\
-		i.e. predict using the conditional average of $t$ conditioned on $x$ (with $p(y|x)$ known/solved)
+		i.e. predict using the conditional average of $t$ conditioned on $x$ (as $p(t|x)$ known/solved)
+		\item also, can be derived as: $L=(y(x)-t)^2 = (y(x)-\mathbb E_t[t|x]+\mathbb E_t[t|x]-t)^2$ \\ 
+		\phantom{also, can be derived as: $L$} $= (y-\mathbb E)^2+2(y-\mathbb E)(\mathbb E-t) + (\mathbb E - t)^2$ \\
+		$\displaystyle \begin{alignedat}{2}
+		& \Rightarrow \int L\cdot p(x,t)\D t &&= (y-\mathbb E)^2p(x) + 2(y-\mathbb E)\int(\mathbb E-t)p(x,t)\D t + \int (\mathbb E-t)^2p(x,t)\D t \\
+		& &&= (y-\mathbb E)^2p(x) + \int (\mathbb E-t)^2p(x,t)\D t
+		\end{alignedat}$ \\
+		$\displaystyle \begin{alignedat}{2}
+		&\Rightarrow \mathbb E [L] &&= \int\int L\cdot p(x,t)\D t\D x
+		& &&= \int (y(x)-\mathbb E)^2p(x) \D x + \int \int (\mathbb E-t)^2p(x,t)\D t\D x
+		\end{alignedat}$
+		$\Rightarrow y(x)=\mathbb E = \mathbb E_t[t|x]$ to have minimal $\mathbb E[L]$
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
 		\item minimize expected loss $\Leftrightarrow$ maximize expected utility \\
 		(utility function can be just the negative loss function)
-		\item 
+		\item classification: take the class with largest (potentially weighted) posterior $p(\mathcal C|x)$
+		\item regression: take the expectation of posterior $p(t|x)$, i.e. $\mathbb E_t[t|x]$
 		\end{itemize}
 	\end{itemize}
 \item Reject Option
@@ -556,10 +582,75 @@
 		$\Rightarrow$ reject making decision if new $\mathbf x$ have low probability
 		\end{itemize}
 	\end{itemize}
+\item Approaches
+	\begin{itemize}
+	\item 
+	\end{itemize}
 \end{itemize}
 
 \section{Information Theory}
-\subsection{}
+\subsection{Essence}
+\subsubsection{Entropy}
+\begin{itemize}
+\item Measurement of Information
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item entropy $\displaystyle H[x]=-\sum_xp(x)\log_2p(x)$, where $p(x)$ the probability of observing $x$
+		\end{itemize}
+	\item Derivation - Random Variable
+		\begin{itemize}
+		\item let $h(x)$ the information in the observation of $x$ \\
+		$\Rightarrow$ more information in having rare observation i.e. $x$ with small $p(x)$ has large $h(x)$ \\
+		$\Rightarrow h(x)$ monotonic function negatively related to $p(s)$ s.t. $\lim_{p(x)\rightarrow0}h(x)\rightarrow\infty, \lim_{p(x)\rightarrow\infty}h(x)\rightarrow0$
+		\item observing independent events $x,y$ with $p(x), p(y)$ \\
+		$\Rightarrow \begin{cases} h(x, y) = h(x) + h(y) \\ p(x,y) = p(x)p(y)\end{cases}$ \\
+		$\Rightarrow h(x) = -\log_a p(x)$
+		\item $h(x)=-\log_2p(x)$ to consider 'bits' as units of $h(x)$ \\
+		$h(x)=-\ln p(x)$ to consider 'nats' as units of $h(x)$
+		\item $\Rightarrow$ expectation of information $H[x] = \sum_x p(x)\log_2p(x)$, the entropy
+		\end{itemize}
+	\item Derivation - Permutation
+		\begin{itemize}
+		\item given $N$ identical object, to put $n_i$ objects into $i^\text{th}$ bin s.t. $N=\sum_{i} n_i$ \\
+		$\Rightarrow$ for $i^\text{th}$ bin there are $n_i!$ permutation \\
+		$\Rightarrow$ total permutation = $W\prod_i n_i!=N!$, where $W$ the num of ways of allocation \\
+		$\Rightarrow W=\frac{N!}{\prod n_i!}$, generalized $C_N^n$
+		\item let $H=\frac1N\ln W = \frac1N\ln N!=\frac1N\sum_i\ln n_i!$ \\
+		$\displaystyle \begin{alignedat}{2}
+		&\Rightarrow \lim_{N\rightarrow\infty}H &&= \lim_{N\rightarrow\infty}\frac{1}{N}\ln N! - \frac{1}{N}\sum_i\ln n_i! \\
+		& &&=\lim_{N\rightarrow\infty} \ln N -1 - \frac{1}{N}\sum_i n_i\ln n_i - n_i \\
+		& && \text{ (by stirling approximation } \ln n!\simeq n\ln n - n) \\
+		& &&= -\lim_{N\rightarrow \infty} \sum_i \frac{n_i}{N}\ln \frac{n_i}{N} \\
+		& &&= -\sum_i p_i\ln p_i, 
+		\end{alignedat}$ \\
+		where $p_i$ the probability of an object being put into $i^\text{th}$ bin (approached by frequency in $N\rightarrow\infty$)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item measuring the expectation of information gained by observing a random variable $x$
+		\end{itemize}
+	\end{itemize}
+\item Property
+	\begin{itemize}
+	\item Certainty
+		\begin{itemize}
+		\item $\lim_{p\rightarrow0}p\ln p = 0$, thus define $h(x)=0$ for $x$ with $p(x)=0$
+		\item $1\ln 1 = 0$, thus $h(x)=0$ for $x$ with $p(x)=1$ \\
+		$\Rightarrow$ entropy = 0 for 100\% certainty
+		\end{itemize}
+	\item Largest Entropy
+		\begin{itemize}
+		\item discrete rand variable $X$, with state $x_i$ \\
+		$\Rightarrow$ entropy $H = -\sum_i p(x_i)\ln p(x_i)$ s.t. $p(x_i)\in[0,1]$ and $\sum_i p(x_i)=1$ \\
+		$\Rightarrow$ construct Lagrangian $\tilde H = -\sum_i p(x_i)\ln p(x_i) + \lambda \left( \sum_i p(x_i) - 1 \right)$ \\
+		$\Rightarrow \frac{\partial \tilde{H}}{\partial p_j} = \ln p_j + 1 + \lambda = 0$ i.e. $p_j=e^{\lambda-1}$ \\
+		given $\sum_i p_i = 1$ (or, by $\frac{\partial \tilde{H}}{\partial \lambda}=0$) \\
+		$\Rightarrow p_j = \frac1M$, where $p_j=p(x_j)$
+		\end{itemize}
+	\end{itemize}
+
+\end{itemize}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
