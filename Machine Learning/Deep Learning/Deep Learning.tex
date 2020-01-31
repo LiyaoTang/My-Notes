@@ -6,37 +6,37 @@
 \subsection{Geoffrey Hinton}
 \subsubsection{Knowledge Embedding}
 \begin{itemize}
-	\item BP
+\item BP
 	\begin{itemize}
-		\item psychology view: knowledge in vectors
-		\item semantic AI: knowledge graph
-		\item BP algorithm can interpret \& convert between feature vector and graph representation (with some embedding)
+	\item psychology view: knowledge in vectors
+	\item semantic AI: knowledge graph
+	\item BP algorithm can interpret \& convert between feature vector and graph representation (with some embedding)
 	\end{itemize}
-	\item Boltzmann Machine
+\item Boltzmann Machine
 	\begin{itemize}
 	\item Leaning Algorithm on Density Net
 		\begin{itemize}
 		\item same information in forward \& backward propagation to learn feature embedding
 		\end{itemize}
-	\item Restricted Boltzmann Machine (RBM)
-		\begin{itemize}
-		\item ways of learning in deep dense net with fast inference
-		\item iterative learning (adding layer after the above trained)
-		\item ReLU $\Leftrightarrow$ a stack of sigmoid functions (approximately) in RBM
-		\item ReLU units initialized to identity for efficient learning
-		\end{itemize}
+\item Restricted Boltzmann Machine (RBM)
+	\begin{itemize}
+	\item ways of learning in deep dense net with fast inference
+	\item iterative learning (adding layer after the above trained)
+	\item ReLU $\Leftrightarrow$ a stack of sigmoid functions (approximately) in RBM
+	\item ReLU units initialized to identity for efficient learning
 	\end{itemize}
-	
-	\item EM
-		\begin{itemize}
-		\item EM with Approximate E Step
-		\end{itemize}
-	
-	\item vs. Symbolic AI
-		\begin{itemize}
-		\item Symbolic AI: symbolic logic-like expression to do reasoning
-		\item yet, maybe state vector to represent knowledge
-		\end{itemize}
+\end{itemize}
+
+\item EM
+	\begin{itemize}
+	\item EM with Approximate E Step
+	\end{itemize}
+
+\item vs. Symbolic AI
+	\begin{itemize}
+	\item Symbolic AI: symbolic logic-like expression to do reasoning
+	\item yet, maybe state vector to represent knowledge
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{Brain Science}
@@ -4101,6 +4101,57 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 
 \subsubsection{One-stage Detection}
 \begin{itemize}
+\item Dense Box
+	\begin{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item for $i^\text{th}$ output with location $(x_i, y_i)$ on output volume, output vector $t = \{s, dx_t, dy_t, dx_b, dy_b\}$, \\
+		$\Rightarrow \begin{cases} (x_t, y_t) = (x_i+dx_t, y_i+dy_t), \\ (x_b, y_b) = (x_i+dx_b, y_i+dy_b)$
+		\item $\Rightarrow$ output bbox with top-left point $(x_t, y_t)$ \& bottom-right point $x_b, y_b$ \\ 
+		(with $s$ the confidence score)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item VGG $\rightarrow$ upsample 
+		\item image pyramid at test time
+		\item convert output volume into bbox \& NMS at 0.5 for face detect / 0.75 for car
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item VGG19 based FCN: downsample \& bi-linear upsample (with concat to fuse feature before\&after)
+		\item each head (cls, loc, landmark) consists of two 1x1 conv \\
+		(localization head may use the concat of cls \& landmark output volume as input map)
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item localization (regression) label: project each output vector back to input image
+		$\Rightarrow$ each output vector uses its nearest label bbox center to generate $dx_{t/b}, dy_{t/b}$
+		\item classification label: project each label bbox to output map \\ 
+		$\Rightarrow$ for each box, label its center as positive, with a radius of $r_c$ \\
+		where $r_c = 0.3\times$ box size, the pixel distance on output map \\
+		(with objectness label map initialized to be 0)
+		\item to avoid compute on background: crop patch with label box roughly at the center \\
+		$\Rightarrow$ bbox within 1.25 scale range w.r.t. central box is positive; ignore otherwise \\
+		(leave as 0 on classification label map) \\
+		$\Rightarrow$ ensure each location reponsible for its own central area (with enough receptive fields)
+		\item landmark label: only consider the landmarks of central target
+		\item ignore other samples/predictions on the margin ($\le 2$ pixel distance) of positive label
+		\item pos-neg balance: select all positive labeled location \& keep pos-neg ratio = 1:1 \\
+		$\Rightarrow$ select from not non-ignored \& negative samples (random + hard neg mining)
+		\item $\Rightarrow$ optimization goal $L=\sum_{i}M_i \left( L_\text{cls}^i + \lambda_\text{loc}[y_i>0]L_\text{loc}^i +  \right) + \lambda_\text{landmark} L_\text{landmark}^i$, \\
+		where $M_i$ indicating if the sample ignored, $y_i>0$ indicating if being positive \\
+		with $L_\text{cls}, L_\text{loc}, L_\text{landmark}$ all being L2 loss
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item small network stride (x4) \& select samples only with enough receptive fields \\
+		$\Rightarrow$ able to detect small \& occluded object
+		\item boost from landmark localization (as further constraint on bbox reg)
+		\item anchor free in segmentation fashion
+		\item L2 loss: optimize as 4 independent variables (yet could use IoU score to improve)
+		\end{itemize}
+	\end{itemize}
+
 \item You Only Look Once (YOLO)
 	\begin{itemize}
 	\item Preprocessing
