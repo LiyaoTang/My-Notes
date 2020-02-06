@@ -536,7 +536,7 @@
 		\item with common square root loss: $L(t, y(x))=[t-y(x)]^2$ \\
 		$\displaystyle \Rightarrow \mathbb{E}[L] = \int\int[t-y(x)]^2p(x, t)\D x\D y$ \\
 		$\displaystyle \Rightarrow \frac{\delta\mathbb{E}[L]}{\delta y(x)}=2\int(y(x)-t)p(x,t)\D t = 0$ to find the best $y(x)$ \\
-		(by \hyperref[math_calc_var]{variational calculus - functional derivative}) \\
+		(by \hyperref[Math_Calc_VarCalc]{variational calculus - functional derivative}) \\
 		$\displaystyle \Rightarrow y(x) = \frac{\int tp(x, t)\D t}{\int p(x,t)\D t} = \int tp(t|x)\D t = \mathbb{E}_t[t|x]$, the regression function \\
 		i.e. predict using the conditional average of $t$ conditioned on $x$ (as $p(t|x)$ known/solved)
 		\item also, can be derived as: $L=(y(x)-t)^2 = (y(x)-\mathbb E_t[t|x]+\mathbb E_t[t|x]-t)^2$ \\ 
@@ -592,15 +592,15 @@
 \subsection{Essence}
 \subsubsection{Entropy}
 \begin{itemize}
-\item Measurement of Information
+\item Measuring Information of Events
 	\begin{itemize}
 	\item Definition
 		\begin{itemize}
-		\item entropy $\displaystyle H[x]=-\sum_xp(x)\log_2p(x)$, where $p(x)$ the probability of observing $x$
+		\item entropy $\displaystyle H[x]=-\sum_xp(x)\log_2p(x)$, where $p(x)$ the probability of observing $X=x$
 		\end{itemize}
 	\item Derivation - Random Variable
 		\begin{itemize}
-		\item let $h(x)$ the information in the observation of $x$ \\
+		\item let $h(x)$ the information in the observation of $X=x$ \\
 		$\Rightarrow$ more information in having rare observation i.e. $x$ with small $p(x)$ has large $h(x)$ \\
 		$\Rightarrow h(x)$ monotonic function negatively related to $p(s)$ s.t. $\lim_{p(x)\rightarrow0}h(x)\rightarrow\infty, \lim_{p(x)\rightarrow\infty}h(x)\rightarrow0$
 		\item observing independent events $x,y$ with $p(x), p(y)$ \\
@@ -626,14 +626,7 @@
 		\end{alignedat}$ \\
 		where $p_i$ the probability of an object being put into $i^\text{th}$ bin (approached by frequency in $N\rightarrow\infty$)
 		\end{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item measuring the expectation of information gained by observing a random variable $x$
-		\end{itemize}
-	\end{itemize}
-\item Property
-	\begin{itemize}
-	\item Certainty
+		\item Certainty
 		\begin{itemize}
 		\item $\lim_{p\rightarrow0}p\ln p = 0$, thus define $h(x)=0$ for $x$ with $p(x)=0$
 		\item $1\ln 1 = 0$, thus $h(x)=0$ for $x$ with $p(x)=1$ \\
@@ -641,15 +634,111 @@
 		\end{itemize}
 	\item Largest Entropy
 		\begin{itemize}
-		\item discrete rand variable $X$, with state $x_i$ \\
-		$\Rightarrow$ entropy $H = -\sum_i p(x_i)\ln p(x_i)$ s.t. $p(x_i)\in[0,1]$ and $\sum_i p(x_i)=1$ \\
-		$\Rightarrow$ construct Lagrangian $\tilde H = -\sum_i p(x_i)\ln p(x_i) + \lambda \left( \sum_i p(x_i) - 1 \right)$ \\
-		$\Rightarrow \frac{\partial \tilde{H}}{\partial p_j} = \ln p_j + 1 + \lambda = 0$ i.e. $p_j=e^{\lambda-1}$ \\
+		\item discrete rand variable $X$, with state $x_n$ \\
+		$\Rightarrow$ entropy $H = -\sum_n p(x_n)\ln p(x_n)$ s.t. $p(x_n)\in[0,1]$ and $\sum_n p(x_n)=1$ \\
+		$\Rightarrow$ construct Lagrangian $\tilde H = -\sum_n p(x_n)\ln p(x_n) + \lambda \left( \sum_n p(x_n) - 1 \right)$ \\
+		$\Rightarrow \frac{\partial \tilde{H}}{\partial p_i} = -\ln p_i - 1 + \lambda = 0$ i.e. $p_i=e^{\lambda-1}$ \\
 		given $\sum_i p_i = 1$ (or, by $\frac{\partial \tilde{H}}{\partial \lambda}=0$) \\
-		$\Rightarrow p_j = \frac1M$, where $p_j=p(x_j)$
+		$\Rightarrow p_i = \frac1M$, where $p_i=p(x_i)$ \\
+		$\Rightarrow$ corresponding largest entropy $H=\ln M$
+		\item to verify the stationary is a maximum \\
+		$\frac{\partial \tilde H}{\partial p(x_i) \partial p(x_j)} = \frac{\partial}{\partial p_j} (-\ln p_i -1+\lambda) = -I_{ij}\frac{1}{p_i} \le 0$ \\
+		where $I_{ij}$ the element of identity matrix, thus maximal
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item measuring the expectation of information gained by observing a random variable $x$
 		\end{itemize}
 	\end{itemize}
 
+\item Measuring Information in Continuous Distribution
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item differential entropy $H[x] = -\int p(x)\ln p(x)\D x$
+		\end{itemize}
+	\item Derivation
+		\begin{itemize}
+		\item with small enough $\Delta$, there exists $x_i$ s.t. $\int_{i\Delta}^{(i+1)\Delta}p(x)\D x p(x_i)\Delta$, by mean value theorem \\
+		$\Rightarrow$ quantize the continuous distribution to have $H_\Delta = -\sum_ip(x_i)\Delta \ln (p(x_i) \Delta) = -\sum_i p(x_i)\Delta \ln p(x_i) - \ln \Delta$ \\
+		(as $\sum_i p(x_i)=1$) \\
+		$\begin{alignedat}{2} & \Rightarrow \lim_{\Delta\rightarrow0}H_\Delta &&= -\lim_{\Delta\rightarrow0} \left\{ \sum_i p(x_i)\Delta\ln p(x_i) \right\} - \lim_{\Delta\rightarrow0} \ln\Delta \\
+		& &&= \underbrace{-\int p(x)\ln p(x)\D x}_\text{differential entropy} - \lim_{\Delta\rightarrow0} \ln\Delta \end{alignedat}$
+		\item as $\lim_{\Delta\rightarrow0} \ln\Delta$ diverge: $\Rightarrow$ differential entropy 
+		\end{itemize}
+	\item Largest Entropy
+		\begin{itemize}
+		\item with normlalization constraint and specifying mean \& derivation of distributino to be $\mu,\sigma^2$ \\
+		$\Rightarrow$ construct Lagrangian $\tilde H = -\int p(x)\ln p(x) \D x + \lambda_1 \left( \int p(x)\D x -1 \right)+ \lambda_2\left( \int xp(x)\D x - \mu  \right) + \lambda_3 \left( \int (x-\mu)^2p(x)\D x - \sigma^2 \right)$ \\
+		$\Rightarrow \frac{\delta L}{\delta p(x)} = -1 -\ln p(x)+\lambda_1 + \lambda_2 x + \lambda_3(x-\mu)^2 = 0$, by calculus of Variations \\
+		$\Rightarrow p(x)=\exp \{ -1+\lambda_1+\lambda_2+\lambda_3(x-\mu)^2 \}$
+		\item solving Lagrangian multiplier to have $\lambda_1=1-\frac12\ln(2\pi\sigma^2), \lambda_2=0, \lambda_3=\frac{1}{2\sigma^2}$ \\
+		$\Rightarrow p(x)=\frac{1}{(2\pi\sigma^2)^{1/2}}\exp \{ -\frac{(x-\mu)^2}{2\sigma^2} \} = \mathcal N(x|\mu, \sigma^2)$ \\
+		i.e. Gaussian distribution to maximize differential entropy \\
+		$\Rightarrow$ corresponding largest entropy $H[x] = \frac12 (1+\ln(2\pi\sigma^2))$, which \\
+			\begin{itemize}
+			\item increase as $\sigma^2\uparrow$ (distr gets broader)
+			\item can be negative, when $\sigma^2<\frac{1}{2\pi e}$
+			\end{itemize}
+		\end{itemize}
+	\item Multiple Variable
+		\begin{itemize}
+		\item given joint distribution $p(x, y)$, $H[x,y]=-\int\int p(x, y)\ln p(x, y)$
+		\end{itemize}
+	\end{itemize}
+\item Conditional Entropy
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item discrete variable $H[Y|X] = -\sum_{y, x}p(Y=y, X=x)\ln p(Y=y|X=x)$
+		\item conditional variable $H[y|x] = -\int\int p(y, x)\ln p(y|x) \D y\D x$
+		\end{itemize}
+	\item Derivation
+		\begin{itemize}
+		\item for discrete variable, $H[Y|X] = \sum_x p(x) H[Y|X=x] = -\sum_x p(x)\sum_y p(y|x)\ln p(y|x) = -\sum_{y,x}p(y, x)\ln p(y|x)$
+		\item for continuous variable, $H[y|x] = -\int\int p(y, x)\ln p(y|x) \D y\D x$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item $H[x, y] = H[y|x] + H[x]$, by prob rule
+		\end{itemize}
+	\end{itemize}
+\item Relative Entropy - KL Divergence
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item $D_{KL}(p||q) = -\int p(x)\ln q(x)\D x - (-\int p(x)\ln p(x)\D x) = -\int p(x)\ln \frac{q(x)}{p(x)} \D x$
+		\end{itemize}
+	\item Smallest Divergence
+		\begin{itemize}
+		\item as $-\ln x$ a strictly convex function, by \hyperref[Math_Calc_Jensen]{Jensen's inequality} \\
+		$\Rightarrow KL(p||q) = -\int \ln \frac{q(x)}{p(x)} \D x \ge -\ln\int q(x) \D x = 0$, and equality holds iff $q(x)=p(x)$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item measure the distance between 2 distribution, yet not a symmetrical quantity i.e. $KL(p||q) \not\equiv KL(q||p)$ \\
+		$\Rightarrow$ measure the amount of information lost between estimation $q$ and true distribution $p$
+		\end{itemize}
+	\end{itemize}
+\item Mutual Information
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item $I[x,y] = KL(p(x,y) || p(x)p(y)) = -\int\int p(x,y) \ln \frac{p(x)p(y)}{p(x,y)}$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item if variable $x,y$ are independent, $p(x,y) = p(x)p(y)$ \\
+		$\Rightarrow I[x,y]$ to measure the degree of independence between $x, y$ ($I[x,y]=0$ iff $x,y$ independent)
+		\item related to conditional entropu by $I[x,y] = H[x] - H[x|y] = H[y] - H[y|x]$ \\
+		$\Rightarrow$ represent the reduced uncertainty of $x$ after $y$ observed, where $p(x)$ as prior, $p(x|y)$ as posterior after observation
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Mutual Information}
+\begin{itemize}
+\item
 \end{itemize}
 
 

@@ -31,8 +31,9 @@ Linear Model: model function is a linear function w.r.t to unknown parameters (w
 	\begin{itemize}
 	\item Solution
 		\begin{itemize}
-		\item likelihood $\displaystyle p(\mathbf t| X,\mathbf w,\beta) = \prod_{n=1}^N \mathcal N(t_n|\mathbf w ^T\phi(\mathbf x_n), \beta^{-1})$ \\ (conditioning on $X$ as noise are introduced after input is given)
-		\item $\Rightarrow \displaystyle \ln p(\mathbf t|X,\mathbf w,\beta) = - \frac \beta 2\sum_{n=1}^N (y(x_n, \mathbf w) - t_n)^2 + \frac N 2\ln\beta - \frac N 2 \ln(2\pi)$
+		\item likelihood $\displaystyle p(\mathbf t| X,\mathbf w,\beta) = \prod_{n=1}^N \mathcal N(t_n|\mathbf w ^T\phi(\mathbf x_n), \beta^{-1})$ \\
+		(conditioning on $X$ as noise are introduced after input is given)
+		\item $\Rightarrow \displaystyle \ln p(\mathbf t|X,\mathbf w,\beta) = - \frac \beta 2 \sum_{n=1}^N (y(x_n, \mathbf w) - t_n)^2 + \frac N2 \ln\beta - \frac N 2 \ln(2\pi)$
 			\begin{itemize}
 			\item let $\frac {\partial}{\partial \mathbf w}$ log likelihood $= 0$, thus $\frac {\partial}{\partial \mathbf w} \sum_{n=1}^N(y(x_n, \mathbf w)-t_n)^2 =0$
 			\item let $\frac {\partial}{\partial \mathbf \beta}$ log likelihood $= 0$, thus $\frac 1 {\beta_\text{ML}}=\frac 1 N \sum_{n=1}^N(y(x_n, \mathbf w_\text{ML})-t_n)^2$
@@ -48,7 +49,19 @@ Linear Model: model function is a linear function w.r.t to unknown parameters (w
 		(as shown in log likelihood)
 		\end{itemize}
 	\end{itemize}
-
+\item Minimum KL Divergence
+	\begin{itemize}
+	\item Solution
+		\begin{itemize}
+		\item $KL(p||q) \simeq \sum_{n=1}^N [-\ln q(t_n|\mathbf w) + \ln p(t_n)]$, where $q(t_n|\mathbf w) = \mathcal N(t_n|y(x, \mathbf w), \beta)$ the model \\
+		(approximated by discrete observation due to unknown $p(t)$)
+		\item $\frac{\partial KL}{\partial \mathbf w} = \frac{\partial}{\partial \mathbf w} - $ log likelihood, as $p(t)$ independent with $\mathbf w$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item equivalent to maximize likelihood
+		\end{itemize}
+	\end{itemize}
 \item Maximum Posterior
 	\begin{itemize}
 	\item Solution
@@ -93,25 +106,22 @@ Linear Model: model function is a linear function w.r.t to unknown parameters (w
 		\item expected lost = $(bias)^2 + variance + noise$ \\
 		(TODO: detailed in explanation of equation 1.91 in PRML)
 		\end{itemize}
+	\item Analysis
+		\begin{itemize}
+		\item \begin{align*} \mathbb E[(t- y)^2] &= \mathbb E[t^2-2ty+y^2] \\
+		&= \mathbb E[t^2] +\mathbb E[y^2] -\mathbb E[2ty] \\
+		&= \text{Var}[t]+\mathbb E[t]^2 + \text{Var}[y]+\mathbb E [y]^2 - 2y\mathbb E[y], \text{ as } \text{Var}[x] = \mathbb E[x^2] - \mathbb E[x]^2 \\
+		&= \text{Var}[t] + \text{Var}[y] + (y^2 -2y\mathbb E[y] +\mathbb E[y]^2) \\
+		&= \text{Var}[t] + \text{Var}[y] + (y-\mathbb E[y])^2 \\
+		&= \text{Var}[t] + \text{Var}[y] + \mathbb E[t-y]^2 \\
+		&= \sigma^2+\text{Var}[y] + \text{Bias}[y]^2, \text{where } \sigma^2 = \text{Var}[\epsilon] \text{ is the noise}
+		\end{align*}
+		\item matrix inverse can be evil \& avoid inverse operation: \\	
+		$A = U\Lambda U^T$, where $\Lambda$ is diagonal matrix $\Rightarrow A^{-1} = U\Lambda^{-1}U^T$ \\
+		(yet number in $\lambda$ can be small, maybe 0 depending on accuracy of computer)
+		\end{itemize}
 	\end{itemize}
 
-\item Notation:
-	\begin{itemize}
-	\item $t=y(x,w)+\epsilon,\text{ where } \epsilon \text{ is Gaussian noise}$ 
-	\item $\hat y$ is prediction function to approximate $y=y(x,w)$ 	
-	\end{itemize}
-
-\item Procedure:
-	\begin{itemize}
-	\item $\mathbb E[(t-\hat y)^2] = \mathbb E[t^2-2t\hat y+\hat y^2] \\ = \mathbb E[t^2] +\mathbb E[\hat y^2] -\mathbb E[2t\hat y] \\ = \text{Var}[t]+\mathbb E[t]^2 + \text{Var}[\hat y]+\mathbb E [\hat y]^2 - 2y\mathbb E[\hat y] \\ = \text{Var}[t] + \text{Var}[\hat y] + (y^2 -2y\mathbb E[\hat y] +\mathbb E[\hat y]^2) \\ =  \text{Var}[t] + \text{Var}[\hat y] + (y-\mathbb E[\hat y])^2 \\ =  \text{Var}[t] + \text{Var}[\hat y] + \mathbb E[t-\hat y]^2 \\ = \sigma^2+\text{Var}[\hat y] + \text{Bias}[\hat y]^2$ \\
-	$\text{where } \sigma^2 = \text{Var}[\epsilon] \text{ is the noise}$ \\
-	(formula used: $\text{Var}[x] = \mathbb E[x^2] - \mathbb E[x]^2 \Leftrightarrow \mathbb E[x^2] = \text{Var}[x]+ \mathbb E[x]^2$)
-	\item Matrix inverse can be evil \& avoid inverse operation: \\	
-	$A = U\Lambda U^T$, where $\Lambda$ is diagonal matrix \\
-	$\Rightarrow A^{-1} = U\Lambda^{-1}U^T$ \\
-	but number on the diagonal line of $\lambda$ can be small \\
-	$\Rightarrow$ maybe 0 depending on accuracy of computer
-	\end{itemize}
 \end{itemize}
 
 \section{Bayesian Regression}

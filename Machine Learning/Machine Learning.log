@@ -1,50 +1,48 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.12.19)  21 JAN 2020 17:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.1.30)  6 FEB 2020 13:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **"Machine Learning.tex"
 (./Machine Learning.tex
-LaTeX2e <2016/02/01>
-Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
-(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
-Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo
-File: bk10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+LaTeX2e <2018-12-01>
+(d:/Software/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2018/09/03 v1.4i Standard LaTeX document class
+(d:/Software/texlive/texmf-dist/tex/latex/base/bk10.clo
+File: bk10.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 )
-\c@part=\count79
-\c@chapter=\count80
-\c@section=\count81
-\c@subsection=\count82
-\c@subsubsection=\count83
-\c@paragraph=\count84
-\c@subparagraph=\count85
-\c@figure=\count86
-\c@table=\count87
+\c@part=\count80
+\c@chapter=\count81
+\c@section=\count82
+\c@subsection=\count83
+\c@subsubsection=\count84
+\c@paragraph=\count85
+\c@subparagraph=\count86
+\c@figure=\count87
+\c@table=\count88
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
-Package: geometry 2010/09/12 v5.6 Page Geometry
+(d:/Software/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2018/04/16 v5.8 Page Geometry
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+(d:/Software/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
+(d:/Software/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
 )
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
-Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+(d:/Software/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
-(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+(d:/Software/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count88
-\Gm@cntv=\count89
-\c@Gm@tempcnt=\count90
+\Gm@cnth=\count89
+\Gm@cntv=\count90
+\c@Gm@tempcnt=\count91
 \Gm@bindingoffset=\dimen103
 \Gm@wd@mp=\dimen104
 \Gm@odd@mp=\dimen105
@@ -55,10 +53,10 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen110
 \Gm@dimlist=\toks15
 )
-(/usr/share/texlive/texmf-dist/tex/latex/layouts/layouts.sty
+(d:/Software/texlive/texmf-dist/tex/latex/layouts/layouts.sty
 Package: layouts 2009/09/02 v2.6d graphical depiction of document elements
 \l@ylen=\skip43
-\layoutsbox=\box26
+\layoutsbox=\box27
 \l@youtunitlength=\skip44
 \l@youtlinethick=\skip45
 \l@youtlinethickii=\skip46
@@ -78,56 +76,56 @@ Package: layouts 2009/09/02 v2.6d graphical depiction of document elements
 \l@ypsep=\skip60
 \l@yitmsep=\skip61
 \l@ytok=\toks16
-\l@youtpw=\count91
-\l@youtph=\count92
-\l@youthpi=\count93
-\l@youthpii=\count94
-\l@youthpiii=\count95
-\l@youthpiv=\count96
-\l@youthpv=\count97
-\l@youthpvi=\count98
-\l@youthpvii=\count99
-\l@youtparskip=\count100
-\l@youtvpi=\count101
-\l@youtvpii=\count102
-\l@youtvpiii=\count103
-\l@youtvpiv=\count104
-\l@youtvpv=\count105
-\l@youtvpvi=\count106
-\l@youtvpvii=\count107
-\l@youthdo=\count108
-\l@youthdi=\count109
-\l@youthdii=\count110
-\l@youthdiii=\count111
-\l@youthdiv=\count112
-\l@youthdv=\count113
-\l@youthdvi=\count114
-\l@youthdvii=\count115
-\l@youtvdo=\count116
-\l@youtvdi=\count117
-\l@youtvdii=\count118
-\l@youtvdiii=\count119
-\l@youtvdiv=\count120
-\l@youtvdv=\count121
-\l@youtvdvi=\count122
-\l@youtvdvii=\count123
-\l@youtvdviii=\count124
-\l@youtxci=\count125
-\l@youtxcii=\count126
-\l@youtxciii=\count127
-\l@youtxciv=\count128
-\l@youtxcv=\count129
-\l@youtxcvi=\count130
-\l@youtyci=\count131
-\l@youtycii=\count132
-\l@youtyciii=\count133
-\l@youtyciv=\count134
-\l@youtycv=\count135
-\l@youtycvi=\count136
-\l@youtycvii=\count137
-\l@youtycviii=\count138
-\l@youtxco=\count139
-\l@youtyco=\count140
+\l@youtpw=\count92
+\l@youtph=\count93
+\l@youthpi=\count94
+\l@youthpii=\count95
+\l@youthpiii=\count96
+\l@youthpiv=\count97
+\l@youthpv=\count98
+\l@youthpvi=\count99
+\l@youthpvii=\count100
+\l@youtparskip=\count101
+\l@youtvpi=\count102
+\l@youtvpii=\count103
+\l@youtvpiii=\count104
+\l@youtvpiv=\count105
+\l@youtvpv=\count106
+\l@youtvpvi=\count107
+\l@youtvpvii=\count108
+\l@youthdo=\count109
+\l@youthdi=\count110
+\l@youthdii=\count111
+\l@youthdiii=\count112
+\l@youthdiv=\count113
+\l@youthdv=\count114
+\l@youthdvi=\count115
+\l@youthdvii=\count116
+\l@youtvdo=\count117
+\l@youtvdi=\count118
+\l@youtvdii=\count119
+\l@youtvdiii=\count120
+\l@youtvdiv=\count121
+\l@youtvdv=\count122
+\l@youtvdvi=\count123
+\l@youtvdvii=\count124
+\l@youtvdviii=\count125
+\l@youtxci=\count126
+\l@youtxcii=\count127
+\l@youtxciii=\count128
+\l@youtxciv=\count129
+\l@youtxcv=\count130
+\l@youtxcvi=\count131
+\l@youtyci=\count132
+\l@youtycii=\count133
+\l@youtyciii=\count134
+\l@youtyciv=\count135
+\l@youtycv=\count136
+\l@youtycvi=\count137
+\l@youtycvii=\count138
+\l@youtycviii=\count139
+\l@youtxco=\count140
+\l@youtyco=\count141
 \l@ytempdima=\skip62
 \stockwidth=\skip63
 \stockheight=\skip64
@@ -136,197 +134,194 @@ Package: layouts 2009/09/02 v2.6d graphical depiction of document elements
 \uppermargin=\skip67
 \spinemargin=\skip68
 )
-(/usr/share/texlive/texmf-dist/tex/latex/paralist/paralist.sty
-Package: paralist 2015/12/30 v2.5 Extended list environments
+(d:/Software/texlive/texmf-dist/tex/latex/paralist/paralist.sty
+Package: paralist 2017/01/22 v2.7 Extended list environments
 \pltopsep=\skip69
 \plpartopsep=\skip70
 \plitemsep=\skip71
 \plparsep=\skip72
 \pl@lab=\toks17
 )
-(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
-Package: enumitem 2011/09/28 v3.5.2 Customized lists
+(d:/Software/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/02/04 v3.8 Customized lists
 \labelindent=\skip73
 \enit@outerparindent=\dimen111
 \enit@toks=\toks18
-\enit@inbox=\box27
-\enitdp@description=\count141
+\enit@inbox=\box28
+\enit@count@id=\count142
+\enitdp@description=\count143
 )
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+(d:/Software/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2018/11/30 v6.88e Hypertext links for LaTeX
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
-Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
+(d:/Software/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
 
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
-Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
-Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+(d:/Software/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 Package hobsub Info: Skipping package `ifvtex' (already loaded).
-Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
+Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
 Package hobsub Info: Skipping package `ifpdf' (already loaded).
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
-Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
 )
-Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
-Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
+Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
+Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
 )
 Package hobsub Info: Skipping package `hobsub' (already loaded).
-Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
-Package: hopatch 2012/05/28 v1.2 Wrapper for package hooks (HO)
-Package: xcolor-patch 2011/01/30 xcolor patch
-Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
+Package: letltxmacro 2016/05/16 v1.5 Let assignment for LaTeX macros (HO)
+Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
+Package: xcolor-patch 2016/05/16 xcolor patch
+Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
 Package atveryend Info: \enddocument detected (standard20110627).
-Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
-Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
-Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
-Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+(d:/Software/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+(d:/Software/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
 \@linkdim=\dimen112
-\Hy@linkcounter=\count142
-\Hy@pagecounter=\count143
+\Hy@linkcounter=\count144
+\Hy@pagecounter=\count145
 
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
+(d:/Software/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2018/11/30 v6.88e Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
 )
-\Hy@SavedSpaceFactor=\count144
+\Hy@SavedSpaceFactor=\count146
 
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+(d:/Software/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-Package hyperref Info: Hyper figures OFF on input line 4443.
-Package hyperref Info: Link nesting OFF on input line 4448.
-Package hyperref Info: Hyper index ON on input line 4451.
-Package hyperref Info: Plain pages OFF on input line 4458.
-Package hyperref Info: Backreferencing OFF on input line 4463.
+Package hyperref Info: Hyper figures OFF on input line 4519.
+Package hyperref Info: Link nesting OFF on input line 4524.
+Package hyperref Info: Hyper index ON on input line 4527.
+Package hyperref Info: Plain pages OFF on input line 4534.
+Package hyperref Info: Backreferencing OFF on input line 4539.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4688.
-\c@Hy@tempcnt=\count145
+Package hyperref Info: Bookmarks ON on input line 4772.
+\c@Hy@tempcnt=\count147
 
-(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+(d:/Software/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 5041.
+LaTeX Info: Redefining \url on input line 5125.
 \XeTeXLinkMargin=\dimen113
-\Fld@menulength=\count146
+\Fld@menulength=\count148
 \Field@Width=\dimen114
 \Fld@charsize=\dimen115
-Package hyperref Info: Hyper figures OFF on input line 6295.
-Package hyperref Info: Link nesting OFF on input line 6300.
-Package hyperref Info: Hyper index ON on input line 6303.
-Package hyperref Info: backreferencing OFF on input line 6310.
-Package hyperref Info: Link coloring OFF on input line 6315.
-Package hyperref Info: Link coloring with OCG OFF on input line 6320.
-Package hyperref Info: PDF/A mode OFF on input line 6325.
-LaTeX Info: Redefining \ref on input line 6365.
-LaTeX Info: Redefining \pageref on input line 6369.
-\Hy@abspage=\count147
-\c@Item=\count148
-\c@Hfootnote=\count149
+Package hyperref Info: Hyper figures OFF on input line 6380.
+Package hyperref Info: Link nesting OFF on input line 6385.
+Package hyperref Info: Hyper index ON on input line 6388.
+Package hyperref Info: backreferencing OFF on input line 6395.
+Package hyperref Info: Link coloring OFF on input line 6400.
+Package hyperref Info: Link coloring with OCG OFF on input line 6405.
+Package hyperref Info: PDF/A mode OFF on input line 6410.
+LaTeX Info: Redefining \ref on input line 6450.
+LaTeX Info: Redefining \pageref on input line 6454.
+\Hy@abspage=\count149
+\c@Item=\count150
+\c@Hfootnote=\count151
 )
+Package hyperref Info: Driver (autodetected): hpdftex.
 
-Package hyperref Message: Driver (autodetected): hpdftex.
+(d:/Software/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2018/11/30 v6.88e Hyperref driver for pdfTeX
+\Fld@listcount=\count152
+\c@bookmark@seq@number=\count153
 
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
-\Fld@listcount=\count150
-\c@bookmark@seq@number=\count151
-
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
-Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+(d:/Software/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
 \Hy@SectionHShift=\skip74
 )
-(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+(d:/Software/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
 
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
-File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+(d:/Software/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
 
-(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-\Gread@gobject=\count152
+(d:/Software/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 )
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
-Package xcolor Info: Model `RGB' extended on input line 1353.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 16.
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+(d:/Software/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
+(d:/Software/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+(d:/Software/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+(d:/Software/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 95.
+Package graphics Info: Driver file: pdftex.def on input line 99.
 )
 \Gin@req@height=\dimen116
 \Gin@req@width=\dimen117
 )
-(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjustbox.sty
-Package: adjustbox 2012/05/21 v1.0 Adjusting TeX boxes (trim, clip, ...)
+(d:/Software/texlive/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+Package: adjustbox 2019/01/04 v1.2 Adjusting TeX boxes (trim, clip, ...)
 
-(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(d:/Software/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(d:/Software/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(d:/Software/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
 \XKV@toks=\toks19
 \XKV@tempa@toks=\toks20
 )
-\XKV@depth=\count153
+\XKV@depth=\count154
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjcalc.sty
+(d:/Software/texlive/texmf-dist/tex/latex/adjustbox/adjcalc.sty
 Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
 -ends (calc, etex, pgfmath)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/trimclip.sty
-Package: trimclip 2012/05/16 v1.0 Trim and clip general TeX material
+(d:/Software/texlive/texmf-dist/tex/latex/adjustbox/trimclip.sty
+Package: trimclip 2018/04/08 v1.1 Trim and clip general TeX material
 
-(/usr/share/texlive/texmf-dist/tex/latex/collectbox/collectbox.sty
+(d:/Software/texlive/texmf-dist/tex/latex/collectbox/collectbox.sty
 Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
-\collectedbox=\box28
+\collectedbox=\box29
 )
 \tc@llx=\dimen118
 \tc@lly=\dimen119
@@ -334,104 +329,109 @@ Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
 \tc@ury=\dimen121
 Package trimclip Info: Using driver 'tc-pdftex.def'.
 
-(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
-File: tc-pdftex.def 2012/05/13 v1.0 Clipping driver for pdftex
+(d:/Software/texlive/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
+File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 ))
 \adjbox@Width=\dimen122
 \adjbox@Height=\dimen123
 \adjbox@Depth=\dimen124
 \adjbox@Totalheight=\dimen125
+\adjbox@pwidth=\dimen126
+\adjbox@pheight=\dimen127
+\adjbox@pdepth=\dimen128
+\adjbox@ptotalheight=\dimen129
 
-(/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
-Package: ifoddpage 2011/09/13 v1.0 Conditionals for odd/even page detection
-\c@checkoddpage=\count154
+(d:/Software/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count155
 )
-(/usr/share/texlive/texmf-dist/tex/latex/varwidth/varwidth.sty
+(d:/Software/texlive/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box29
-\sift@deathcycles=\count155
-\@vwid@loff=\dimen126
-\@vwid@roff=\dimen127
+\@vwid@box=\box30
+\sift@deathcycles=\count156
+\@vwid@loff=\dimen130
+\@vwid@roff=\dimen131
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+(d:/Software/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 67.
-\captionmargin=\dimen128
-\captionmargin@=\dimen129
-\captionwidth=\dimen130
-\caption@tempdima=\dimen131
-\caption@indent=\dimen132
-\caption@parindent=\dimen133
-\caption@hangindent=\dimen134
+(d:/Software/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 64.
+\captionmargin=\dimen132
+\captionmargin@=\dimen133
+\captionwidth=\dimen134
+\caption@tempdima=\dimen135
+\caption@indent=\dimen136
+\caption@parindent=\dimen137
+\caption@hangindent=\dimen138
 )
-\c@ContinuedFloat=\count156
+\c@caption@flags=\count157
+\c@ContinuedFloat=\count158
 Package caption Info: hyperref package is loaded.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
-Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
-\c@subfigure=\count157
-\c@subtable=\count158
+(d:/Software/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2018/05/01 v1.1-162 Sub-captions (AR)
+\c@subfigure=\count159
+\c@subtable=\count160
 )
-(/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen135
-\WF@size=\dimen136
-\c@WF@wrappedlines=\count159
-\WF@box=\box30
+(d:/Software/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen139
+\WF@size=\dimen140
+\c@WF@wrappedlines=\count161
+\WF@box=\box31
 \WF@everypar=\toks21
 Package: wrapfig 2003/01/31  v 3.6
 )
-(/usr/share/texlive/texmf-dist/tex/latex/blindtext/blindtext.sty
+(d:/Software/texlive/texmf-dist/tex/latex/blindtext/blindtext.sty
 Package: blindtext 2012/01/06 V2.0 blindtext-Package
 
-(/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
+(d:/Software/texlive/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-\c@blindtext=\count160
-\c@Blindtext=\count161
-\c@blind@countparstart=\count162
-\blind@countxx=\count163
-\blindtext@numBlindtext=\count164
-\blind@countyy=\count165
-\c@blindlist=\count166
-\c@blindlistlevel=\count167
-\c@blindlist@level=\count168
-\blind@listitem=\count169
-\c@blind@listcount=\count170
-\c@blind@levelcount=\count171
-\blind@mathformula=\count172
-\blind@Mathformula=\count173
-\c@blind@randomcount=\count174
-\c@blind@randommax=\count175
-\c@blind@pangramcount=\count176
-\c@blind@pangrammax=\count177
+\c@blindtext=\count162
+\c@Blindtext=\count163
+\c@blind@countparstart=\count164
+\blind@countxx=\count165
+\blindtext@numBlindtext=\count166
+\blind@countyy=\count167
+\c@blindlist=\count168
+\c@blindlistlevel=\count169
+\c@blindlist@level=\count170
+\blind@listitem=\count171
+\c@blind@listcount=\count172
+\c@blind@levelcount=\count173
+\blind@mathformula=\count174
+\blind@Mathformula=\count175
+\c@blind@randomcount=\count176
+\c@blind@randommax=\count177
+\c@blind@pangramcount=\count178
+\c@blind@pangrammax=\count179
 )
-(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
-Package: booktabs 2005/04/14 v1.61803 publication quality tables
-\heavyrulewidth=\dimen137
-\lightrulewidth=\dimen138
-\cmidrulewidth=\dimen139
-\belowrulesep=\dimen140
-\belowbottomsep=\dimen141
-\aboverulesep=\dimen142
-\abovetopsep=\dimen143
-\cmidrulesep=\dimen144
-\cmidrulekern=\dimen145
-\defaultaddspace=\dimen146
-\@cmidla=\count178
-\@cmidlb=\count179
-\@aboverulesep=\dimen147
-\@belowrulesep=\dimen148
-\@thisruleclass=\count180
-\@lastruleclass=\count181
-\@thisrulewidth=\dimen149
+(d:/Software/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2016/04/27 v1.618033 publication quality tables
+\heavyrulewidth=\dimen141
+\lightrulewidth=\dimen142
+\cmidrulewidth=\dimen143
+\belowrulesep=\dimen144
+\belowbottomsep=\dimen145
+\aboverulesep=\dimen146
+\abovetopsep=\dimen147
+\cmidrulesep=\dimen148
+\cmidrulekern=\dimen149
+\defaultaddspace=\dimen150
+\@cmidla=\count180
+\@cmidlb=\count181
+\@aboverulesep=\dimen151
+\@belowrulesep=\dimen152
+\@thisruleclass=\count182
+\@lastruleclass=\count183
+\@thisrulewidth=\dimen153
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(d:/Software/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(d:/Software/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks22
 \symAMSa=\mathgroup4
@@ -439,136 +439,121 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
-Package: mathtools 2015/11/12 v1.18 mathematical typesetting tools
+(d:/Software/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2018/01/08 v1.21 mathematical typesetting tools
 
-(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count182
-\calc@Bcount=\count183
-\calc@Adimen=\dimen150
-\calc@Bdimen=\dimen151
+(d:/Software/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count184
+\calc@Bcount=\count185
+\calc@Adimen=\dimen154
+\calc@Bdimen=\dimen155
 \calc@Askip=\skip75
 \calc@Bskip=\skip76
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count184
+\calc@Ccount=\count186
 \calc@Cskip=\skip77
 )
-(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
-Package: mhsetup 2010/01/21 v1.2a programming setup (MH)
+(d:/Software/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2016/03/03 v2.15a AMS math features
+(d:/Software/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2018/12/01 v2.17b AMS math features
 \@mathmargin=\skip78
 
 For additional information on amsmath, use the `?' option.
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(d:/Software/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01 AMS text
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+(d:/Software/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks23
-\ex@=\dimen152
+\ex@=\dimen156
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+(d:/Software/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen153
+\pmbraise@=\dimen157
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 1999/12/14 v2.01 operator names
+(d:/Software/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count185
-LaTeX Info: Redefining \frac on input line 199.
-\uproot@=\count186
-\leftroot@=\count187
-LaTeX Info: Redefining \overline on input line 297.
-\classnum@=\count188
-\DOTSCASE@=\count189
-LaTeX Info: Redefining \ldots on input line 394.
-LaTeX Info: Redefining \dots on input line 397.
-LaTeX Info: Redefining \cdots on input line 518.
-\Mathstrutbox@=\box31
-\strutbox@=\box32
-\big@size=\dimen154
-LaTeX Font Info:    Redeclaring font encoding OML on input line 630.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 631.
-\macc@depth=\count190
-\c@MaxMatrixCols=\count191
+\inf@bad=\count187
+LaTeX Info: Redefining \frac on input line 223.
+\uproot@=\count188
+\leftroot@=\count189
+LaTeX Info: Redefining \overline on input line 385.
+\classnum@=\count190
+\DOTSCASE@=\count191
+LaTeX Info: Redefining \ldots on input line 482.
+LaTeX Info: Redefining \dots on input line 485.
+LaTeX Info: Redefining \cdots on input line 606.
+\Mathstrutbox@=\box32
+\strutbox@=\box33
+\big@size=\dimen158
+LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
+\macc@depth=\count192
+\c@MaxMatrixCols=\count193
 \dotsspace@=\muskip11
-\c@parentequation=\count192
-\dspbrk@lvl=\count193
+\c@parentequation=\count194
+\dspbrk@lvl=\count195
 \tag@help=\toks24
-\row@=\count194
-\column@=\count195
-\maxfields@=\count196
+\row@=\count196
+\column@=\count197
+\maxfields@=\count198
 \andhelp@=\toks25
-\eqnshift@=\dimen155
-\alignsep@=\dimen156
-\tagshift@=\dimen157
-\tagwidth@=\dimen158
-\totwidth@=\dimen159
-\lineht@=\dimen160
+\eqnshift@=\dimen159
+\alignsep@=\dimen160
+\tagshift@=\dimen161
+\tagwidth@=\dimen162
+\totwidth@=\dimen163
+\lineht@=\dimen164
 \@envbody=\toks26
 \multlinegap=\skip79
 \multlinetaggap=\skip80
 \mathdisplay@stack=\toks27
-LaTeX Info: Redefining \[ on input line 2735.
-LaTeX Info: Redefining \] on input line 2736.
+LaTeX Info: Redefining \[ on input line 2844.
+LaTeX Info: Redefining \] on input line 2845.
 )
 LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
-\g_MT_multlinerow_int=\count197
-\l_MT_multwidth_dim=\dimen161
+\g_MT_multlinerow_int=\count199
+\l_MT_multwidth_dim=\dimen165
 \origjot=\skip81
-\l_MT_shortvdotswithinadjustabove_dim=\dimen162
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen163
-\l_MT_above_intertext_sep=\dimen164
-\l_MT_below_intertext_sep=\dimen165
-\l_MT_above_shortintertext_sep=\dimen166
-\l_MT_below_shortintertext_sep=\dimen167
+\l_MT_shortvdotswithinadjustabove_dim=\dimen166
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen167
+\l_MT_above_intertext_sep=\dimen168
+\l_MT_below_intertext_sep=\dimen169
+\l_MT_above_shortintertext_sep=\dimen170
+\l_MT_below_shortintertext_sep=\dimen171
 )
-(/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty
-(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2016/01/19 v6377 L3 programming layer (loader) 
+(d:/Software/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty
+(d:/Software/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2019-04-06 L3 programming layer (loader) 
 
-(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3-code.tex
-Package: expl3 2016/01/19 v6377 L3 programming layer (code)
-L3 Module: l3bootstrap 2016/01/01 v6339 L3 Bootstrap code
-L3 Module: l3names 2015/12/21 v6328 L3 Namespace for primitives
-L3 Module: l3basics 2015/11/22 v6315 L3 Basic definitions
-L3 Module: l3expan 2015/09/10 v5983 L3 Argument expansion
-L3 Module: l3tl 2015/09/29 v6121 L3 Token lists
-L3 Module: l3str 2016/01/03 v6357 L3 Strings
-L3 Module: l3seq 2015/08/05 v5777 L3 Sequences and stacks
-L3 Module: l3int 2016/01/05 v6366 L3 Integers
-\c_max_int=\count198
-\l_tmpa_int=\count199
-\l_tmpb_int=\count266
-\g_tmpa_int=\count267
-\g_tmpb_int=\count268
-L3 Module: l3quark 2015/08/17 v5855 L3 Quarks
-L3 Module: l3prg 2015/11/01 v6216 L3 Control structures
-\g__prg_map_int=\count269
-L3 Module: l3clist 2015/09/02 v5901 L3 Comma separated lists
-L3 Module: l3token 2015/11/11 v6249 L3 Experimental token manipulation
-L3 Module: l3prop 2016/01/05 v6366 L3 Property lists
-L3 Module: l3msg 2015/09/28 v6113 L3 Messages
-L3 Module: l3file 2015/12/03 v6317 L3 File and I/O operations
-\l_iow_line_count_int=\count270
-\l__iow_target_count_int=\count271
-\l__iow_current_line_int=\count272
-\l__iow_current_word_int=\count273
-\l__iow_current_indentation_int=\count274
-L3 Module: l3skip 2016/01/05 v6366 L3 Dimensions and skips
-\c_zero_dim=\dimen168
-\c_max_dim=\dimen169
-\l_tmpa_dim=\dimen170
-\l_tmpb_dim=\dimen171
-\g_tmpa_dim=\dimen172
-\g_tmpb_dim=\dimen173
+(d:/Software/texlive/texmf-dist/tex/latex/l3kernel/expl3-code.tex
+Package: expl3 2019-04-06 L3 programming layer (code)
+\c_max_int=\count266
+\l_tmpa_int=\count267
+\l_tmpb_int=\count268
+\g_tmpa_int=\count269
+\g_tmpb_int=\count270
+\g__kernel_prg_map_int=\count271
+\c__ior_term_ior=\count272
+\c_log_iow=\count273
+\l_iow_line_count_int=\count274
+\l__iow_line_target_int=\count275
+\l__iow_one_indent_int=\count276
+\l__iow_indent_int=\count277
+\c_zero_dim=\dimen172
+\c_max_dim=\dimen173
+\l_tmpa_dim=\dimen174
+\l_tmpb_dim=\dimen175
+\g_tmpa_dim=\dimen176
+\g_tmpb_dim=\dimen177
 \c_zero_skip=\skip82
 \c_max_skip=\skip83
 \l_tmpa_skip=\skip84
@@ -581,255 +566,197 @@ L3 Module: l3skip 2016/01/05 v6366 L3 Dimensions and skips
 \l_tmpb_muskip=\muskip15
 \g_tmpa_muskip=\muskip16
 \g_tmpb_muskip=\muskip17
-L3 Module: l3keys 2015/11/17 v6284 L3 Key-value interfaces
-\g__keyval_level_int=\count275
-\l_keys_choice_int=\count276
-L3 Module: l3fp 2015/08/25 v5890 L3 Floating points
-\c__fp_leading_shift_int=\count277
-\c__fp_middle_shift_int=\count278
-\c__fp_trailing_shift_int=\count279
-\c__fp_big_leading_shift_int=\count280
-\c__fp_big_middle_shift_int=\count281
-\c__fp_big_trailing_shift_int=\count282
-\c__fp_Bigg_leading_shift_int=\count283
-\c__fp_Bigg_middle_shift_int=\count284
-\c__fp_Bigg_trailing_shift_int=\count285
-L3 Module: l3box 2015/08/09 v5822 L3 Experimental boxes
-\c_empty_box=\box33
-\l_tmpa_box=\box34
-\l_tmpb_box=\box35
-\g_tmpa_box=\box36
-\g_tmpb_box=\box37
-L3 Module: l3coffins 2015/08/06 v5789 L3 Coffin code layer
-\l__coffin_internal_box=\box38
-\l__coffin_internal_dim=\dimen174
-\l__coffin_offset_x_dim=\dimen175
-\l__coffin_offset_y_dim=\dimen176
-\l__coffin_x_dim=\dimen177
-\l__coffin_y_dim=\dimen178
-\l__coffin_x_prime_dim=\dimen179
-\l__coffin_y_prime_dim=\dimen180
-\c_empty_coffin=\box39
-\l__coffin_aligned_coffin=\box40
-\l__coffin_aligned_internal_coffin=\box41
-\l_tmpa_coffin=\box42
-\l_tmpb_coffin=\box43
-\l__coffin_display_coffin=\box44
-\l__coffin_display_coord_coffin=\box45
-\l__coffin_display_pole_coffin=\box46
-\l__coffin_display_offset_dim=\dimen181
-\l__coffin_display_x_dim=\dimen182
-\l__coffin_display_y_dim=\dimen183
-L3 Module: l3color 2014/08/23 v5354 L3 Experimental color support
-L3 Module: l3sys 2015/09/25 v6087 L3 Experimental system/runtime functions
-L3 Module: l3candidates 2016/01/14 v6376 L3 Experimental additions to l3kernel
-\l__box_top_dim=\dimen184
-\l__box_bottom_dim=\dimen185
-\l__box_left_dim=\dimen186
-\l__box_right_dim=\dimen187
-\l__box_top_new_dim=\dimen188
-\l__box_bottom_new_dim=\dimen189
-\l__box_left_new_dim=\dimen190
-\l__box_right_new_dim=\dimen191
-\l__box_internal_box=\box47
-\l__coffin_bounding_shift_dim=\dimen192
-\l__coffin_left_corner_dim=\dimen193
-\l__coffin_right_corner_dim=\dimen194
-\l__coffin_bottom_corner_dim=\dimen195
-\l__coffin_top_corner_dim=\dimen196
-\l__coffin_scaled_total_height_dim=\dimen197
-\l__coffin_scaled_width_dim=\dimen198
-L3 Module: l3luatex 2015/11/11 v6250 L3 Experimental LuaTeX-specific functions
+\l_keys_choice_int=\count278
+\l__intarray_loop_int=\count279
+\c__intarray_sp_dim=\dimen178
+\g__intarray_font_int=\count280
+\c__fp_leading_shift_int=\count281
+\c__fp_middle_shift_int=\count282
+\c__fp_trailing_shift_int=\count283
+\c__fp_big_leading_shift_int=\count284
+\c__fp_big_middle_shift_int=\count285
+\c__fp_big_trailing_shift_int=\count286
+\c__fp_Bigg_leading_shift_int=\count287
+\c__fp_Bigg_middle_shift_int=\count288
+\c__fp_Bigg_trailing_shift_int=\count289
+\c__kernel_randint_max_int=\count290
+\g__fp_array_int=\count291
+\l__fp_array_loop_int=\count292
+\l__sort_length_int=\count293
+\l__sort_min_int=\count294
+\l__sort_top_int=\count295
+\l__sort_max_int=\count296
+\l__sort_true_max_int=\count297
+\l__sort_block_int=\count298
+\l__sort_begin_int=\count299
+\l__sort_end_int=\count300
+\l__sort_A_int=\count301
+\l__sort_B_int=\count302
+\l__sort_C_int=\count303
+\l__tl_analysis_normal_int=\count304
+\l__tl_analysis_index_int=\count305
+\l__tl_analysis_nesting_int=\count306
+\l__tl_analysis_type_int=\count307
+\l__regex_internal_a_int=\count308
+\l__regex_internal_b_int=\count309
+\l__regex_internal_c_int=\count310
+\l__regex_balance_int=\count311
+\l__regex_group_level_int=\count312
+\l__regex_mode_int=\count313
+\c__regex_cs_in_class_mode_int=\count314
+\c__regex_cs_mode_int=\count315
+\l__regex_catcodes_int=\count316
+\l__regex_default_catcodes_int=\count317
+\c__regex_catcode_D_int=\count318
+\c__regex_catcode_S_int=\count319
+\c__regex_catcode_L_int=\count320
+\c__regex_catcode_O_int=\count321
+\c__regex_catcode_A_int=\count322
+\c__regex_all_catcodes_int=\count323
+\l__regex_show_lines_int=\count324
+\l__regex_min_state_int=\count325
+\l__regex_max_state_int=\count326
+\l__regex_left_state_int=\count327
+\l__regex_right_state_int=\count328
+\l__regex_capturing_group_int=\count329
+\l__regex_min_pos_int=\count330
+\l__regex_max_pos_int=\count331
+\l__regex_curr_pos_int=\count332
+\l__regex_start_pos_int=\count333
+\l__regex_success_pos_int=\count334
+\l__regex_curr_char_int=\count335
+\l__regex_curr_catcode_int=\count336
+\l__regex_last_char_int=\count337
+\l__regex_case_changed_char_int=\count338
+\l__regex_curr_state_int=\count339
+\l__regex_step_int=\count340
+\l__regex_min_active_int=\count341
+\l__regex_max_active_int=\count342
+\l__regex_replacement_csnames_int=\count343
+\l__regex_match_count_int=\count344
+\l__regex_min_submatch_int=\count345
+\l__regex_submatch_int=\count346
+\l__regex_zeroth_submatch_int=\count347
+\g__regex_trace_regex_int=\count348
+\c_empty_box=\box34
+\l_tmpa_box=\box35
+\l_tmpb_box=\box36
+\g_tmpa_box=\box37
+\g_tmpb_box=\box38
+\l__box_top_dim=\dimen179
+\l__box_bottom_dim=\dimen180
+\l__box_left_dim=\dimen181
+\l__box_right_dim=\dimen182
+\l__box_top_new_dim=\dimen183
+\l__box_bottom_new_dim=\dimen184
+\l__box_left_new_dim=\dimen185
+\l__box_right_new_dim=\dimen186
+\l__box_internal_box=\box39
+\l__coffin_internal_box=\box40
+\l__coffin_internal_dim=\dimen187
+\l__coffin_offset_x_dim=\dimen188
+\l__coffin_offset_y_dim=\dimen189
+\l__coffin_x_dim=\dimen190
+\l__coffin_y_dim=\dimen191
+\l__coffin_x_prime_dim=\dimen192
+\l__coffin_y_prime_dim=\dimen193
+\c_empty_coffin=\box41
+\l__coffin_aligned_coffin=\box42
+\l__coffin_aligned_internal_coffin=\box43
+\l_tmpa_coffin=\box44
+\l_tmpb_coffin=\box45
+\g_tmpa_coffin=\box46
+\g_tmpb_coffin=\box47
+\l__coffin_bounding_shift_dim=\dimen194
+\l__coffin_left_corner_dim=\dimen195
+\l__coffin_right_corner_dim=\dimen196
+\l__coffin_bottom_corner_dim=\dimen197
+\l__coffin_top_corner_dim=\dimen198
+\l__coffin_scaled_total_height_dim=\dimen199
+\l__coffin_scaled_width_dim=\dimen256
+\c__coffin_empty_coffin=\box48
+\l__coffin_display_coffin=\box49
+\l__coffin_display_coord_coffin=\box50
+\l__coffin_display_pole_coffin=\box51
+\l__coffin_display_offset_dim=\dimen257
+\l__coffin_display_x_dim=\dimen258
+\l__coffin_display_y_dim=\dimen259
+\g__file_internal_ior=\read1
+\l__seq_internal_a_int=\count349
+\l__seq_internal_b_int=\count350
+\c__deprecation_minus_one=\count351
 )
-(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
-File: l3pdfmode.def 2015/11/11 v6250 L3 Experimental driver: PDF mode
-\l__driver_color_stack_int=\count286
+(d:/Software/texlive/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
+File: l3pdfmode.def 2019-04-06 v L3 Experimental driver: PDF mode
+\l__driver_color_stack_int=\count352
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-Package: xparse 2016/01/19 v6377 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count287
-\l__xparse_m_args_int=\count288
-\l__xparse_mandatory_args_int=\count289
-\l__xparse_processor_int=\count290
-\l__xparse_v_nesting_int=\count291
+(d:/Software/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2019-03-05 L3 Experimental document command parser
+\l__xparse_current_arg_int=\count353
+\g__xparse_grabber_int=\count354
+\l__xparse_m_args_int=\count355
+\l__xparse_v_nesting_int=\count356
 )
-Package: siunitx 2016/03/01 v2.6q A comprehensive (SI) units package
+Package: siunitx 2018/05/17 v2.7s A comprehensive (SI) units package
 
-(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
-Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
-\col@sep=\dimen199
-\extrarowheight=\dimen256
+(d:/Software/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2018/12/30 v2.4k Tabular extension package (FMi)
+\col@sep=\dimen260
+\ar@mcellbox=\box52
+\extrarowheight=\dimen261
 \NC@list=\toks28
 \extratabsurround=\skip88
 \backup@length=\skip89
+\ar@cellbox=\box53
 )
-(/usr/share/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
-Package: l3keys2e 2016/01/19 v6377 LaTeX2e option processing using LaTeX3 keys
+(d:/Software/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+Package: l3keys2e 2019-03-05 LaTeX2e option processing using LaTeX3 keys
 )
-\l__siunitx_tmp_box=\box48
-\l__siunitx_tmp_dim=\dimen257
-\l__siunitx_tmp_int=\count292
-\l__siunitx_number_mantissa_length_int=\count293
-\l__siunitx_number_uncert_length_int=\count294
-\l__siunitx_round_int=\count295
-\l__siunitx_process_decimal_int=\count296
-\l__siunitx_process_uncertainty_int=\count297
-\l__siunitx_process_fixed_int=\count298
-\l__siunitx_process_integer_min_int=\count299
-\l__siunitx_process_precision_int=\count300
-\l__siunitx_group_min_int=\count301
-\l__siunitx_angle_marker_box=\box49
-\l__siunitx_angle_unit_box=\box50
-\l__siunitx_angle_marker_dim=\dimen258
-\l__siunitx_angle_unit_dim=\dimen259
-\l__siunitx_unit_int=\count302
-\l__siunitx_unit_denominator_int=\count303
-\l__siunitx_unit_numerator_int=\count304
-\l__siunitx_unit_prefix_int=\count305
-\l__siunitx_unit_prefix_base_int=\count306
-\l__siunitx_unit_prefix_gram_int=\count307
-\l__siunitx_number_product_int=\count308
+\l__siunitx_tmp_box=\box54
+\l__siunitx_tmp_dim=\dimen262
+\l__siunitx_tmp_int=\count357
+\l__siunitx_number_mantissa_length_int=\count358
+\l__siunitx_number_uncert_length_int=\count359
+\l__siunitx_round_int=\count360
+\l__siunitx_process_decimal_int=\count361
+\l__siunitx_process_uncertainty_int=\count362
+\l__siunitx_process_fixed_int=\count363
+\l__siunitx_process_integer_min_int=\count364
+\l__siunitx_process_precision_int=\count365
+\l__siunitx_group_min_int=\count366
+\l__siunitx_angle_marker_box=\box55
+\l__siunitx_angle_unit_box=\box56
+\l__siunitx_angle_marker_dim=\dimen263
+\l__siunitx_angle_unit_dim=\dimen264
+\l__siunitx_unit_int=\count367
+\l__siunitx_unit_denominator_int=\count368
+\l__siunitx_unit_numerator_int=\count369
+\l__siunitx_unit_prefix_int=\count370
+\l__siunitx_unit_prefix_base_int=\count371
+\l__siunitx_unit_prefix_gram_int=\count372
+\l__siunitx_number_product_int=\count373
 \c__siunitx_one_fill_skip=\skip90
 \l__siunitx_table_unit_align_skip=\skip91
-\l__siunitx_table_exponent_dim=\dimen260
-\l__siunitx_table_integer_dim=\dimen261
-\l__siunitx_table_mantissa_dim=\dimen262
-\l__siunitx_table_marker_dim=\dimen263
-\l__siunitx_table_result_dim=\dimen264
-\l__siunitx_table_uncert_dim=\dimen265
-\l__siunitx_table_fill_pre_dim=\dimen266
-\l__siunitx_table_fill_post_dim=\dimen267
-\l__siunitx_table_fill_mid_dim=\dimen268
-\l__siunitx_table_pre_box=\box51
-\l__siunitx_table_post_box=\box52
-\l__siunitx_table_mantissa_box=\box53
-\l__siunitx_table_result_box=\box54
+\l__siunitx_table_exponent_dim=\dimen265
+\l__siunitx_table_integer_dim=\dimen266
+\l__siunitx_table_mantissa_dim=\dimen267
+\l__siunitx_table_marker_dim=\dimen268
+\l__siunitx_table_result_dim=\dimen269
+\l__siunitx_table_uncert_dim=\dimen270
+\l__siunitx_table_fill_pre_dim=\dimen271
+\l__siunitx_table_fill_post_dim=\dimen272
+\l__siunitx_table_fill_mid_dim=\dimen273
+\l__siunitx_table_pre_box=\box57
+\l__siunitx_table_post_box=\box58
+\l__siunitx_table_mantissa_box=\box59
+\l__siunitx_table_result_box=\box60
 \l__siunitx_table_number_align_skip=\skip92
 \l__siunitx_table_text_align_skip=\skip93
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \DeclareBinaryPrefix with sig. 'mmm' on line 7218.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \DeclareSIPostPower with sig. 'mm' on line 7221.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \DeclareSIPrefix with sig. 'mmm' on line 7224.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \DeclareSIPrePower with sig. 'mm' on line 7227.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \DeclareSIQualifier with sig. 'mm' on line 7230.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \DeclareSIUnit with sig. 'O{}mm' on line 7233.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \DeclareSIUnitWithOptions with sig. 'mmm' on line 7236.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \ang with sig. 'o>{\SplitArgument {2}{;}}m' on line 7251.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \num with sig. 'om' on line 7260.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \numlist with sig. 'o>{\SplitList {;}}m' on line 7269.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \numrange with sig. 'omm' on line 7278.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \SIlist with sig. 'o>{\SplitList {;}}mm' on line 7290.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \SIrange with sig. 'ommm' on line 7302.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \SI with sig. 'omom' on line 7314.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \sisetup with sig. 'm' on line 7317.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \tablenum with sig. 'om' on line 7332.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \si with sig. 'om' on line 7344.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \__siunitx_bookmark_num:w with sig. 'om' on line 7391.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \__siunitx_bookmark_numrange:w with sig. 'omm' on line
-. 7393.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \__siunitx_bookmark_SI:w with sig. 'omom' on line 7395.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \__siunitx_bookmark_SIlist:w with sig. 'omm' on line 7397.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \__siunitx_bookmark_SIrange:w with sig. 'ommm' on line
-. 7399.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \__siunitx_bookmark_si:w with sig. 'om' on line 7400.
-.................................................
-\g__file_internal_ior=\read1
 
-(/usr/share/texlive/texmf-dist/tex/latex/beamer/translator/translator.sty
-Package: translator 2010/06/12 ver 1.10
-
-(/usr/share/texlive/texmf-dist/tex/latex/beamer/translator/translator-language-
-mappings.tex))) (./Machine Learning.aux)
+(d:/Software/texlive/texmf-dist/tex/latex/translator/translator.sty
+Package: translator 2018/01/04 v1.12 Easy translation of strings in LaTeX
+))
+(./Machine Learning.aux)
 \openout1 = `"Machine Learning.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
@@ -884,19 +811,19 @@ LaTeX Font Info:    ... okay on input line 65.
 
 Package layouts Warning: Layout scale set to 0.5 on input line 65.
 
-\AtBeginShipoutBox=\box55
+\AtBeginShipoutBox=\box61
 
 Package hyperref Warning: Height of page (\stockheight) is invalid (0.0pt),
 (hyperref)                using 11in.
 
 Package hyperref Info: Link coloring ON on input line 65.
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
-Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+(d:/Software/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
-Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+(d:/Software/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count309
+\c@section@level=\count374
 )
 LaTeX Info: Redefining \ref on input line 65.
 LaTeX Info: Redefining \pageref on input line 65.
@@ -907,69 +834,144 @@ LaTeX Info: Redefining \nameref on input line 65.
 \openout3 = `"Machine Learning.out"'.
 
 
-(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+(d:/Software/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count310
-\scratchdimen=\dimen269
-\scratchbox=\box56
-\nofMPsegments=\count311
-\nofMParguments=\count312
+\scratchcounter=\count375
+\scratchdimen=\dimen274
+\scratchbox=\box62
+\nofMPsegments=\count376
+\nofMParguments=\count377
 \everyMPshowfont=\toks29
-\MPscratchCnt=\count313
-\MPscratchDim=\dimen270
-\MPnumerator=\count314
-\makeMPintoPDFobject=\count315
+\MPscratchCnt=\count378
+\MPscratchDim=\dimen275
+\MPnumerator=\count379
+\makeMPintoPDFobject=\count380
 \everyMPtoPDFconversion=\toks30
-) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+) (d:/Software/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+(d:/Software/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 )
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
 Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
+(grfext)             \AppendGraphicsExtensions on input line 456.
 
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+(d:/Software/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
+Now handling font encoding TS1 ...
+... processing UTF-8 mapping file for font encoding TS1
 
-(/usr/share/texlive/texmf-dist/tex/latex/beamer/translator/dicts/translator-bas
-ic-dictionary/translator-basic-dictionary-English.dict
+(d:/Software/texlive/texmf-dist/tex/latex/base/ts1enc.dfu
+File: ts1enc.dfu 2018/10/05 v1.2f UTF-8 support for inputenc
+   defining Unicode char U+00A2 (decimal 162)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00A4 (decimal 164)
+   defining Unicode char U+00A5 (decimal 165)
+   defining Unicode char U+00A6 (decimal 166)
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00A8 (decimal 168)
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AC (decimal 172)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00AF (decimal 175)
+   defining Unicode char U+00B0 (decimal 176)
+   defining Unicode char U+00B1 (decimal 177)
+   defining Unicode char U+00B2 (decimal 178)
+   defining Unicode char U+00B3 (decimal 179)
+   defining Unicode char U+00B4 (decimal 180)
+   defining Unicode char U+00B5 (decimal 181)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+00B9 (decimal 185)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+00BC (decimal 188)
+   defining Unicode char U+00BD (decimal 189)
+   defining Unicode char U+00BE (decimal 190)
+   defining Unicode char U+00D7 (decimal 215)
+   defining Unicode char U+00F7 (decimal 247)
+   defining Unicode char U+0192 (decimal 402)
+   defining Unicode char U+02C7 (decimal 711)
+   defining Unicode char U+02D8 (decimal 728)
+   defining Unicode char U+02DD (decimal 733)
+   defining Unicode char U+0E3F (decimal 3647)
+   defining Unicode char U+2016 (decimal 8214)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+203B (decimal 8251)
+   defining Unicode char U+203D (decimal 8253)
+   defining Unicode char U+2044 (decimal 8260)
+   defining Unicode char U+204E (decimal 8270)
+   defining Unicode char U+2052 (decimal 8274)
+   defining Unicode char U+20A1 (decimal 8353)
+   defining Unicode char U+20A4 (decimal 8356)
+   defining Unicode char U+20A6 (decimal 8358)
+   defining Unicode char U+20A9 (decimal 8361)
+   defining Unicode char U+20AB (decimal 8363)
+   defining Unicode char U+20AC (decimal 8364)
+   defining Unicode char U+20B1 (decimal 8369)
+   defining Unicode char U+2103 (decimal 8451)
+   defining Unicode char U+2116 (decimal 8470)
+   defining Unicode char U+2117 (decimal 8471)
+   defining Unicode char U+211E (decimal 8478)
+   defining Unicode char U+2120 (decimal 8480)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2126 (decimal 8486)
+   defining Unicode char U+2127 (decimal 8487)
+   defining Unicode char U+212E (decimal 8494)
+   defining Unicode char U+2190 (decimal 8592)
+   defining Unicode char U+2191 (decimal 8593)
+   defining Unicode char U+2192 (decimal 8594)
+   defining Unicode char U+2193 (decimal 8595)
+   defining Unicode char U+2329 (decimal 9001)
+   defining Unicode char U+232A (decimal 9002)
+   defining Unicode char U+2422 (decimal 9250)
+   defining Unicode char U+25E6 (decimal 9702)
+   defining Unicode char U+25EF (decimal 9711)
+   defining Unicode char U+266A (decimal 9834)
+   defining Unicode char U+FEFF (decimal 65279)
+)
+(d:/Software/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionar
+y-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 )
-(/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
-File: siunitx-abbreviations.cfg 2016/03/01 v2.6q siunitx: Abbreviated units
+(d:/Software/texlive/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
+File: siunitx-abbreviations.cfg 2017/11/26 v2.7k siunitx: Abbreviated units
 )
-\c__siunitx_mathsf_int=\count316
 LaTeX Font Info:    Try loading font information for U+msa on input line 65.
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+(d:/Software/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 65.
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+(d:/Software/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-\c__siunitx_mathtt_int=\count317
- [1
+) [1
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./Machine Learning.toc [1
+{d:/Software/texlive/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./Machine 
+Learning.toc
+[1
 
 
 ] [2])
 \tf@toc=\write4
 \openout4 = `"Machine Learning.toc"'.
 
- [3]
-(./Machine Learning.lof)
+ [3] (./Machine Learning.lof)
 \tf@lof=\write5
 \openout5 = `"Machine Learning.lof"'.
 
@@ -981,10 +983,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  [5
 
-] (./Math/Math.tex
+]
+(./Math/Math.tex
 Chapter 1.
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 6.
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+(d:/Software/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
@@ -998,13 +1001,13 @@ l.35 		\item d
 
 
 ] [2] [3]
-<./Math/"matrix-performing space transformation".png, id=655, 1634.105pt x 297.
+<./Math/"matrix-performing space transformation".png, id=660, 1634.105pt x 297.
 11pt>
 File: ./Math/"matrix-performing space transformation".png Graphic file (type pn
 g)
- <use ./Math/"matrix-performing space transformation".png>
-Package pdftex.def Info: ./Math/"matrix-performing space transformation".png us
-ed on input line 200.
+<use ./Math/"matrix-performing space transformation".png>
+Package pdftex.def Info: ./Math/"matrix-performing space transformation".png  u
+sed on input line 200.
 (pdftex.def)             Requested size: 174.71286pt x 31.76189pt.
 
 Overfull \hbox (6.65565pt too wide) in paragraph at lines 215--218
@@ -1015,47 +1018,46 @@ m/it/10 L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 e[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/
 10 ; :::; L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 e[]\OT1/cmr/m/n/10 )$ 
  []
 
-
-<"./Math/matrix-composition of transformations".png, id=657, 1568.86125pt x 449
+<"./Math/matrix-composition of transformations".png, id=662, 1568.86125pt x 449
 .68pt>
 File: "./Math/matrix-composition of transformations".png Graphic file (type png
 )
- <use "./Math/matrix-composition of transformations".png>
-Package pdftex.def Info: "./Math/matrix-composition of transformations".png use
-d on input line 235.
+<use "./Math/matrix-composition of transformations".png>
+Package pdftex.def Info: "./Math/matrix-composition of transformations".png  us
+ed on input line 235.
 (pdftex.def)             Requested size: 207.56285pt x 59.48969pt.
- [4 <./Math/matrix-performing space transformation.png>]
+[4 <./Math/matrix-performing space transformation.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 314--315
 
  []
 
 [5 <./Math/matrix-composition of transformations.png>] [6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 483--484
+Underfull \hbox (badness 10000) in paragraph at lines 484--485
 
  []
 
 [8] [9] [10]
-Underfull \hbox (badness 10000) in paragraph at lines 724--725
+Underfull \hbox (badness 10000) in paragraph at lines 725--726
 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 783--787
+Underfull \hbox (badness 10000) in paragraph at lines 784--788
 
  []
 
 [12] [13]
-Underfull \hbox (badness 10000) in paragraph at lines 837--841
+Underfull \hbox (badness 10000) in paragraph at lines 838--842
 
  []
 
 [14]
-Overfull \hbox (19.9546pt too wide) in paragraph at lines 927--931
-[] []$ 
+Overfull \hbox (18.28798pt too wide) in paragraph at lines 928--932
+[][]$ 
  []
 
 [15] [16]
-Overfull \hbox (50.69199pt too wide) in paragraph at lines 1003--1005
+Overfull \hbox (50.69199pt too wide) in paragraph at lines 1029--1031
 []\OT1/cmr/m/n/10 with func-tion $\OML/cmm/m/it/10 f\OT1/cmr/m/n/10 (\OML/cmm/m
 /it/10 g[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 
 ; :::; g[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ))\OML/cmm/m/it/10
@@ -1067,7 +1069,7 @@ OT1/cmr/m/n/10 )) = [][] [] \OML/cmm/m/it/10 D[]f\OT1/cmr/m/n/10 (\OML/cmm/m/it
  []
 
 [17]
-Overfull \hbox (20.42412pt too wide) in paragraph at lines 1032--1033
+Overfull \hbox (20.42412pt too wide) in paragraph at lines 1058--1059
 []\OT1/cmr/m/n/10 solve gra-di-ent of $\OML/cmm/m/it/10 f$ \OT1/cmr/m/n/10 at i
 ts im-me-di-ate co-ord $\OML/cmm/m/it/10 y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10
  g[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; :::; x[]\OT1/cmr/m/n/10 )\OML/cmm/m/
@@ -1076,50 +1078,53 @@ m/m/it/10 x[]; :::; x[]\OT1/cmr/m/n/10 )$
  []
 
 [18] [19]
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ì in font cmr10!
-
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 1171.
-
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 1171.
-
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 1171.
-
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 1171.
-
-
-Overfull \hbox (46.9311pt too wide) in paragraph at lines 1171--1171
-[] 
+Overfull \hbox (40.40054pt too wide) detected at line 1145
+[]
  []
 
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ì in font cmr10!
-[20] [21]
-<./Math/"prob-derivation of sum-product rule".png, id=765, 151.5261pt x 99.3712
+[20]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1197.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1197.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1197.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1197.
+
+
+Overfull \hbox (112.6311pt too wide) detected at line 1197
+[]
+ []
+
+[21]
+<./Math/"prob-derivation of sum-product rule".png, id=770, 151.5261pt x 99.3712
 5pt>
 File: ./Math/"prob-derivation of sum-product rule".png Graphic file (type png)
- <use ./Math/"prob-derivation of sum-product rule".png>
-Package pdftex.def Info: ./Math/"prob-derivation of sum-product rule".png used 
-on input line 1257.
+<use ./Math/"prob-derivation of sum-product rule".png>
+Package pdftex.def Info: ./Math/"prob-derivation of sum-product rule".png  used
+ on input line 1283.
 (pdftex.def)             Requested size: 104.82878pt x 68.74666pt.
 
-Overfull \hbox (2.2222pt too wide) in paragraph at lines 1255--1266
+Overfull \hbox (2.2222pt too wide) in paragraph at lines 1281--1292
 []$ $[]$ 
  []
 
 [22 <./Math/prob-derivation of sum-product rule.png (PNG copy)>] [23] [24]
 [25]
-Overfull \hbox (10.31154pt too wide) in paragraph at lines 1561--1561
-[] 
+Overfull \hbox (2.63464pt too wide) detected at line 1556
+[]
  []
 
-[26] [27] [28]) (./Introduction/Introduction.tex [29]
+[26]
+Overfull \hbox (57.3116pt too wide) detected at line 1587
+[]
+ []
+
+[27] [28]) (./Introduction/Introduction.tex [29]
 Chapter 2.
 [30
 
@@ -1134,13 +1139,13 @@ Underfull \hbox (badness 10000) in alignment at lines 201--206
  []
 
 [32] [33] [34] [35] [36]
-<"./Introduction/decision theory-decision region".jpg, id=857, 261.8583pt x 161
+<"./Introduction/decision theory-decision region".jpg, id=863, 261.8583pt x 161
 .6439pt>
 File: "./Introduction/decision theory-decision region".jpg Graphic file (type j
 pg)
- <use "./Introduction/decision theory-decision region".jpg>
-Package pdftex.def Info: "./Introduction/decision theory-decision region".jpg u
-sed on input line 511.
+<use "./Introduction/decision theory-decision region".jpg>
+Package pdftex.def Info: "./Introduction/decision theory-decision region".jpg  
+used on input line 511.
 (pdftex.def)             Requested size: 174.71286pt x 107.85442pt.
 
 Overfull \hbox (2.22221pt too wide) in paragraph at lines 509--520
@@ -1161,87 +1166,112 @@ ML/cmm/m/it/10 x\OT1/cmr/m/n/10 )$ known/solved)
  []
 
 
-Overfull \hbox (22.08284pt too wide) in paragraph at lines 542--553
-[] []$ 
+Overfull \hbox (20.41621pt too wide) in paragraph at lines 542--553
+[][]$ 
  []
 
 
-Overfull \hbox (8.79704pt too wide) in paragraph at lines 542--553
-[] []$
+Overfull \hbox (7.13042pt too wide) in paragraph at lines 542--553
+[][]$
  []
 
-[38] [39] [40]
-<"./Deep Learning/plot/experiment practice-iterative process".png, id=879, 814.
+[38] [39]
+Overfull \hbox (45.23853pt too wide) in paragraph at lines 671--675
+\OMS/cmsy/m/n/10 )$ \OT1/cmr/m/n/10 con-struct La-grangian $[] = \OMS/cmsy/m/n/
+10 ^^@ [] \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 
+) [] \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) [] 
+ d\OML/cmm/m/it/10 x \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 ^^U[] [] \OT1/cmr/m/n/1
+0 + \OML/cmm/m/it/10 ^^U[] [] \OT1/cmr/m/n/10 +
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 675--680
+
+ []
+
+[40]
+Overfull \hbox (29.70253pt too wide) in paragraph at lines 699--700
+[]\OT1/cmr/m/n/10 for dis-crete vari-able, $\OML/cmm/m/it/10 H\OT1/cmr/m/n/10 [
+\OML/cmm/m/it/10 Y\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ] = [][] 
+\OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )\OML/cmm/
+m/it/10 H\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 Y\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 
+X \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ] = \OMS/cmsy/m/n/10 ^^@ 
+[][] \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) [][
+] \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 y\OMS/cmsy/m/n/10 j\OML/c
+mm/m/it/10 x\OT1/cmr/m/n/10 ) [] \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/
+it/10 y\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) =
+ []
+
+[41] [42]
+<"./Deep Learning/plot/experiment practice-iterative process".png, id=896, 814.
 04124pt x 555.07375pt>
 File: "./Deep Learning/plot/experiment practice-iterative process".png Graphic 
 file (type png)
-
 <use "./Deep Learning/plot/experiment practice-iterative process".png>
 Package pdftex.def Info: "./Deep Learning/plot/experiment practice-iterative pr
-ocess".png used on input line 768.
+ocess".png  used on input line 858.
 (pdftex.def)             Requested size: 124.53897pt x 84.91753pt.
- [41]
-[42 <./Deep Learning/plot/experiment practice-iterative process.png>] [43]
-[44] [45] [46] [47] [48] [49]
-Underfull \hbox (badness 10000) in paragraph at lines 1399--1400
+ [43 <./Deep Learning/plot/experiment practice-iterative process.png>] [44] [45
+] [46] [47] [48] [49] [50] [51]
+Underfull \hbox (badness 10000) in paragraph at lines 1489--1490
 
  []
 
-[50] [51] [52]
+[52] [53] [54]
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 1622.
-
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 1623.
+LaTeX Font Warning: Command \small invalid in math mode on input line 1712.
 
 
-Overfull \hbox (16.87506pt too wide) in paragraph at lines 1625--1626
+LaTeX Font Warning: Command \small invalid in math mode on input line 1713.
+
+
+Overfull \hbox (16.87506pt too wide) in paragraph at lines 1715--1716
 []\OT1/cmr/m/n/10 ![Posiible Pre-ci-sion -Recall curev](../../Machine Learn-ing
 /Statistical 0Ma-chine Learn-ing/Posiible
  []
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 1634.
+LaTeX Font Warning: Command \small invalid in math mode on input line 1724.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 1634.
-
-[53]
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 1676.
+LaTeX Font Warning: Command \small invalid in math mode on input line 1724.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 1681.
+LaTeX Font Warning: Command \small invalid in math mode on input line 1766.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 1687.
+LaTeX Font Warning: Command \small invalid in math mode on input line 1771.
+
+[55]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1777.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 1702.
+LaTeX Font Warning: Command \small invalid in math mode on input line 1792.
 
 
-Overfull \hbox (9.8893pt too wide) in paragraph at lines 1714--1714
-[] 
+Overfull \hbox (9.8893pt too wide) detected at line 1804
+[]
  []
 
-[54]
-Overfull \hbox (58.25821pt too wide) in paragraph at lines 1724--1725
+[56]
+Overfull \hbox (58.25821pt too wide) in paragraph at lines 1814--1815
 \OMS/cmsy/m/n/10 ) [][] 
  []
 
-[55]
-Overfull \hbox (2.54442pt too wide) in paragraph at lines 1794--1800
+[57]
+Overfull \hbox (2.54442pt too wide) in paragraph at lines 1884--1890
 \OML/cmm/m/it/10 VDV[][]$ \OT1/cmr/m/n/10 - $\OMS/cmsy/m/n/10 8\OML/cmm/m/it/10
  n; y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 D[]V[]\OT1/cmr/m/n/10 (\OML/cmm/m/it
 /10 x[] \OMS/cmsy/m/n/10 ^^@ []\OT1/cmr/m/n/10 )[]$ 
  []
 
-[56] [57]
+[58]
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 1930.
+LaTeX Font Warning: Command \large invalid in math mode on input line 2020.
 
 
-Overfull \hbox (39.6678pt too wide) in paragraph at lines 1930--1931
+Overfull \hbox (39.6678pt too wide) in paragraph at lines 2020--2021
 []\OT1/cmr/m/n/10 - Up-date Rule: $\OMS/cmsy/m/n/10 8\OML/cmm/m/it/10 ^^R[] \OM
 S/cmsy/m/n/10 2 \OML/cmm/m/it/10 ^^R[]; ^^R[] \OT1/cmr/m/n/10 := \OML/cmm/m/it/
 10 ^^R[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 []$\OT1/cmr/m/n/10 , $[] = [](\
@@ -1250,62 +1280,61 @@ OML/cmm/m/it/10 x[]^^R[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 y[]\OT1/cmr/m/n/
  []
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 1940.
+LaTeX Font Warning: Command \large invalid in math mode on input line 2030.
+
+[59]
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 2050.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 1960.
+LaTeX Font Warning: Command \large invalid in math mode on input line 2051.
 
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 1961.
-
-[58]
-Underfull \hbox (badness 10000) in paragraph at lines 2051--2054
+[60]
+Underfull \hbox (badness 10000) in paragraph at lines 2141--2144
 
  []
 
-[59]
-<./Math/"multivariate gaussian-mass of distribution".jpg, id=1000, 203.8014pt x
+<./Math/"multivariate gaussian-mass of distribution".jpg, id=1012, 203.8014pt x
  149.5989pt>
 File: ./Math/"multivariate gaussian-mass of distribution".jpg Graphic file (typ
 e jpg)
- <use ./Math/"multivariate gaussian-mass of distribution".jpg>
+<use ./Math/"multivariate gaussian-mass of distribution".jpg>
 Package pdftex.def Info: ./Math/"multivariate gaussian-mass of distribution".jp
-g used on input line 2061.
+g  used on input line 2151.
 (pdftex.def)             Requested size: 184.06284pt x 135.11255pt.
-)
-(./Linear Models for Regression/Linear Models for Regression.tex [60 <./Math/mu
-ltivariate gaussian-mass of distribution.jpg>]
+[61 <./Math/multivariate gaussian-mass of distribution.jpg>])
+(./Linear Models for Regression/Linear Models for Regression.tex [62]
 Chapter 3.
-[61
+[63
 
-] [62]
+] [64]
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 151.
+LaTeX Font Warning: Command \small invalid in math mode on input line 154.
 
-[63]
+[65]
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 180.
-
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 186.
+LaTeX Font Warning: Command \small invalid in math mode on input line 183.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 200.
+LaTeX Font Warning: Command \small invalid in math mode on input line 189.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 200.
+LaTeX Font Warning: Command \small invalid in math mode on input line 203.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 205.
+LaTeX Font Warning: Command \small invalid in math mode on input line 203.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 205.
+LaTeX Font Warning: Command \large invalid in math mode on input line 208.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 220.
+LaTeX Font Warning: Command \small invalid in math mode on input line 208.
 
 
-Overfull \hbox (12.42805pt too wide) in paragraph at lines 219--222
+LaTeX Font Warning: Command \small invalid in math mode on input line 223.
+
+
+Overfull \hbox (12.42805pt too wide) in paragraph at lines 222--225
 []\OT1/cmr/m/n/10 - classes $\OML/cmm/m/it/10 C[]; :::; C[]$\OT1/cmr/m/n/10 , d
 e-ci-sion re-gions $\OMS/cmsy/m/n/10 R[]\OML/cmm/m/it/10 ; :::; \OMS/cmsy/m/n/1
 0 R[]$ \OT1/cmr/m/n/10 - Min-imze $\OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/
@@ -1314,132 +1343,128 @@ m/it/10 mistake\OT1/cmr/m/n/10 ) = []([][] [] \OML/cmm/m/it/10 p\OT1/cmr/m/n/10
 
  []
 
-[64]
+[66]
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 227.
+LaTeX Font Warning: Command \small invalid in math mode on input line 230.
 
 
-Overfull \hbox (61.06946pt too wide) in paragraph at lines 225--235
+Overfull \hbox (61.06946pt too wide) in paragraph at lines 228--238
 []\OT1/cmr/m/n/10 - Find a dis-crim-i-nant func-tion - Dis-crim-i-na-tive Mod-e
 ls: $[]$
  []
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 268.
+LaTeX Font Warning: Command \small invalid in math mode on input line 271.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 272.
+LaTeX Font Warning: Command \small invalid in math mode on input line 275.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 278.
+LaTeX Font Warning: Command \small invalid in math mode on input line 281.
 
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ô in font cmr10!
-[65]
+[67]
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 310.
+LaTeX Font Warning: Command \small invalid in math mode on input line 313.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 314.
+LaTeX Font Warning: Command \small invalid in math mode on input line 317.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 316.
+LaTeX Font Warning: Command \small invalid in math mode on input line 319.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 318.
+LaTeX Font Warning: Command \small invalid in math mode on input line 321.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 324.
+LaTeX Font Warning: Command \small invalid in math mode on input line 327.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 324.
+LaTeX Font Warning: Command \small invalid in math mode on input line 327.
 
 
-Overfull \hbox (17.613pt too wide) in paragraph at lines 324--325
+Overfull \hbox (17.613pt too wide) in paragraph at lines 327--328
 []$ 
  []
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 328.
-
-[66]
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 361.
-
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 369.
-
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 380.
-
-[67]
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 402.
-
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 430.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 464.
+LaTeX Font Warning: Command \small invalid in math mode on input line 331.
 
 [68]
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 470.
+LaTeX Font Warning: Command \small invalid in math mode on input line 364.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 470.
+LaTeX Font Warning: Command \small invalid in math mode on input line 372.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 383.
+
+[69]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 405.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 433.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 467.
+
+[70]
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 473.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 473.
 
 ) (./Linear Models for Classification/Linear Models for Classification.tex
-[69]
+[71]
 Chapter 4.
-) (./Kernel Methods/Kernel Methods.tex [70
+) (./Kernel Methods/Kernel Methods.tex [72
 
 ]
 Chapter 5.
-) (./Graphical Models/Graphical Models.tex [71
+) (./Graphical Models/Graphical Models.tex [73
 
 ]
 Chapter 6.
-) (./Mixture Models and EM/Mixture Models and EM.tex [72
+) (./Mixture Models and EM/Mixture Models and EM.tex [74
 
 ]
 Chapter 7.
-) (./Approximate Inference/Approximate Inference.tex [73
+) (./Approximate Inference/Approximate Inference.tex [75
 
 ]
 Chapter 8.
-) (./Sampling Methods/Sampling Methods.tex [74
+) (./Sampling Methods/Sampling Methods.tex [76
 
 ]
 Chapter 9.
-) (./Continuous Latent Variables/Continuous Latent Variables.tex [75
+) (./Continuous Latent Variables/Continuous Latent Variables.tex [77
 
 ]
 Chapter 10.
-) (./Sequential Data/Sequential Data.tex [76
+) (./Sequential Data/Sequential Data.tex [78
 
 ]
 Chapter 11.
-
-<"./Sequential Data/MC-1st-order markov chain".jpg, id=1075, 213.6783pt x 25.05
+<"./Sequential Data/MC-1st-order markov chain".jpg, id=1091, 213.6783pt x 25.05
 36pt>
 File: "./Sequential Data/MC-1st-order markov chain".jpg Graphic file (type jpg)
 
- <use "./Sequential Data/MC-1st-order markov chain".jpg>
-Package pdftex.def Info: "./Sequential Data/MC-1st-order markov chain".jpg used
- on input line 43.
+<use "./Sequential Data/MC-1st-order markov chain".jpg>
+Package pdftex.def Info: "./Sequential Data/MC-1st-order markov chain".jpg  use
+d on input line 43.
 (pdftex.def)             Requested size: 104.82878pt x 12.29128pt.
- [77
+[79
 
  <./Sequential Data/MC-1st-order markov chain.jpg>]
-<"./Sequential Data/MC-2nd-order markov chain".jpg, id=1081, 217.7736pt x 45.04
+<"./Sequential Data/MC-2nd-order markov chain".jpg, id=1098, 217.7736pt x 45.04
 83pt>
 File: "./Sequential Data/MC-2nd-order markov chain".jpg Graphic file (type jpg)
 
- <use "./Sequential Data/MC-2nd-order markov chain".jpg>
-Package pdftex.def Info: "./Sequential Data/MC-2nd-order markov chain".jpg used
- on input line 66.
+<use "./Sequential Data/MC-2nd-order markov chain".jpg>
+Package pdftex.def Info: "./Sequential Data/MC-2nd-order markov chain".jpg  use
+d on input line 66.
 (pdftex.def)             Requested size: 174.71286pt x 36.14177pt.
 
 Overfull \hbox (84.12904pt too wide) in paragraph at lines 77--78
@@ -1453,50 +1478,45 @@ m/it/10 x[]; :::; x[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^B [] \OML/cmm/m/it/10
 :::; x[]\OT1/cmr/m/n/10 )$ 
  []
 
-
-<"./Sequential Data/HMM-Hidden Markov model".jpg, id=1082, 271.9761pt x 80.2197
+<"./Sequential Data/HMM-Hidden Markov model".jpg, id=1099, 271.9761pt x 80.2197
 pt>
 File: "./Sequential Data/HMM-Hidden Markov model".jpg Graphic file (type jpg)
- <use "./Sequential Data/HMM-Hidden Markov model".jpg>
-Package pdftex.def Info: "./Sequential Data/HMM-Hidden Markov model".jpg used o
-n input line 120.
+<use "./Sequential Data/HMM-Hidden Markov model".jpg>
+Package pdftex.def Info: "./Sequential Data/HMM-Hidden Markov model".jpg  used 
+on input line 120.
 (pdftex.def)             Requested size: 184.06284pt x 54.29039pt.
- [78 <./Sequential Data/MC-2nd-order markov chain.jpg>]
-<"./Sequential Data/HMM-transition diagram".jpg, id=1089, 159.4758pt x 157.5486
+[80 <./Sequential Data/MC-2nd-order markov chain.jpg>]
+<"./Sequential Data/HMM-transition diagram".jpg, id=1106, 159.4758pt x 157.5486
 pt>
 File: "./Sequential Data/HMM-transition diagram".jpg Graphic file (type jpg)
- <use "./Sequential Data/HMM-transition diagram".jpg>
-Package pdftex.def Info: "./Sequential Data/HMM-transition diagram".jpg used on
- input line 149.
+<use "./Sequential Data/HMM-transition diagram".jpg>
+Package pdftex.def Info: "./Sequential Data/HMM-transition diagram".jpg  used o
+n input line 149.
 (pdftex.def)             Requested size: 103.78142pt x 102.53036pt.
-
-<"./Sequential Data/HMM-unfolded transition diagram".jpg, id=1090, 239.9364pt x
+<"./Sequential Data/HMM-unfolded transition diagram".jpg, id=1107, 239.9364pt x
  161.6439pt>
 File: "./Sequential Data/HMM-unfolded transition diagram".jpg Graphic file (typ
 e jpg)
- <use "./Sequential Data/HMM-unfolded transition diagram".jpg>
+<use "./Sequential Data/HMM-unfolded transition diagram".jpg>
 Package pdftex.def Info: "./Sequential Data/HMM-unfolded transition diagram".jp
-g used on input line 152.
+g  used on input line 152.
 (pdftex.def)             Requested size: 103.78142pt x 69.91742pt.
-
-[79 <./Sequential Data/HMM-Hidden Markov model.jpg> <./Sequential Data/HMM-tran
-sition diagram.jpg> <./Sequential Data/HMM-unfolded transition diagram.jpg>]
-<"./Sequential Data/HMM-left-to-right HMM".jpg, id=1097, 139.4811pt x 76.3653pt
+ [81 <./Sequential Data/HMM-Hidden Markov model.jpg> <./Sequential Data/HMM-tra
+nsition diagram.jpg> <./Sequential Data/HMM-unfolded transition diagram.jpg>]
+<"./Sequential Data/HMM-left-to-right HMM".jpg, id=1113, 139.4811pt x 76.3653pt
 >
 File: "./Sequential Data/HMM-left-to-right HMM".jpg Graphic file (type jpg)
- <use "./Sequential Data/HMM-left-to-right HMM".jpg>
-Package pdftex.def Info: "./Sequential Data/HMM-left-to-right HMM".jpg used on 
-input line 175.
+<use "./Sequential Data/HMM-left-to-right HMM".jpg>
+Package pdftex.def Info: "./Sequential Data/HMM-left-to-right HMM".jpg  used on
+ input line 175.
 (pdftex.def)             Requested size: 87.35643pt x 47.82838pt.
-
-<"./Sequential Data/HMM-left-to-right HMM with maximal state change".jpg, id=10
-98, 239.9364pt x 161.6439pt>
+<"./Sequential Data/HMM-left-to-right HMM with maximal state change".jpg, id=11
+14, 239.9364pt x 161.6439pt>
 File: "./Sequential Data/HMM-left-to-right HMM with maximal state change".jpg G
 raphic file (type jpg)
-
 <use "./Sequential Data/HMM-left-to-right HMM with maximal state change".jpg>
 Package pdftex.def Info: "./Sequential Data/HMM-left-to-right HMM with maximal 
-state change".jpg used on input line 179.
+state change".jpg  used on input line 179.
 (pdftex.def)             Requested size: 87.35643pt x 58.85277pt.
 
 Overfull \hbox (9.4212pt too wide) in paragraph at lines 205--206
@@ -1520,7 +1540,7 @@ t/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 ^
 ^^[]\OT1/cmr/m/n/10 )$ 
  []
 
-[80 <./Sequential Data/HMM-left-to-right HMM.jpg> <./Sequential Data/HMM-left-t
+[82 <./Sequential Data/HMM-left-to-right HMM.jpg> <./Sequential Data/HMM-left-t
 o-right HMM with maximal state change.jpg>]
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 207.
@@ -1532,16 +1552,14 @@ Overfull \hbox (16.31012pt too wide) in paragraph at lines 213--214
 
 File: "./Sequential Data/HMM-Hidden Markov model".jpg Graphic file (type jpg)
 <use "./Sequential Data/HMM-Hidden Markov model".jpg>
-Package pdftex.def Info: "./Sequential Data/HMM-Hidden Markov model".jpg used o
-n input line 221.
+Package pdftex.def Info: "./Sequential Data/HMM-Hidden Markov model".jpg  used 
+on input line 221.
 (pdftex.def)             Requested size: 174.71286pt x 51.5326pt.
-
-<"./Sequential Data/HMM-independence".PNG, id=1103, 89.133pt x 59.62276pt>
+<"./Sequential Data/HMM-independence".PNG, id=1119, 89.133pt x 59.62276pt>
 File: "./Sequential Data/HMM-independence".PNG Graphic file (type png)
-
 <use "./Sequential Data/HMM-independence".PNG>
-Package pdftex.def Info: "./Sequential Data/HMM-independence".PNG used on input
- line 227.
+Package pdftex.def Info: "./Sequential Data/HMM-independence".PNG  used on inpu
+t line 227.
 (pdftex.def)             Requested size: 103.78142pt x 69.42717pt.
 
 Overfull \hbox (41.72046pt too wide) in paragraph at lines 235--235
@@ -1554,17 +1572,17 @@ Overfull \hbox (2.2222pt too wide) in paragraph at lines 226--237
 []$[]$ $[]$ 
  []
 
-[81 <./Sequential Data/HMM-independence.PNG>]
+[83 <./Sequential Data/HMM-independence.PNG>]
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 277.
 
-[82] [83] [84]) (./Combining Models/Combining Models.tex)
-(./Deep Learning/Deep Learning.tex [85]
+[84] [85] [86]) (./Combining Models/Combining Models.tex)
+(./Deep Learning/Deep Learning.tex [87]
 Chapter 12.
-[86
+[88
 
-] [87] [88] [89] [90]
-Overfull \hbox (52.47414pt too wide) in paragraph at lines 382--386
+] [89] [90] [91] [92]
+Overfull \hbox (52.47414pt too wide) in paragraph at lines 380--384
 \OMS/cmsy/m/n/10 )$ \OT1/cmr/m/n/10 a ma-trix with $\OML/cmm/m/it/10 n$ \OT1/cm
 r/m/n/10 as row en-try, $\OML/cmm/m/it/10 m$ \OT1/cmr/m/n/10 as col-umn en-try,
  map-ping to both $[] \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Z; X\
@@ -1573,193 +1591,171 @@ cmr/m/n/10 (\OML/cmm/m/it/10 Z\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 ^^R[]; X\OT1/c
 mr/m/n/10 )$
  []
 
-[91] [92] [93] [94] [95]
-Underfull \hbox (badness 10000) in paragraph at lines 650--652
+[93] [94] [95] [96] [97]
+Underfull \hbox (badness 10000) in paragraph at lines 648--650
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 688--691
+Underfull \hbox (badness 10000) in paragraph at lines 686--689
 
  []
 
-[96] [97]
-<"./Deep Learning/plot/background-largedata".png, id=1231, 1866.975pt x 879.285
+[98] [99]
+<"./Deep Learning/plot/background-largedata".png, id=1247, 1866.975pt x 879.285
 pt>
 File: "./Deep Learning/plot/background-largedata".png Graphic file (type png)
- <use "./Deep Learning/plot/background-largedata".png>
-Package pdftex.def Info: "./Deep Learning/plot/background-largedata".png used o
-n input line 808.
+<use "./Deep Learning/plot/background-largedata".png>
+Package pdftex.def Info: "./Deep Learning/plot/background-largedata".png  used 
+on input line 806.
 (pdftex.def)             Requested size: 207.56285pt x 97.75473pt.
- [98 <./Deep Learning/plot/background-largedata.png>]
-Overfull \hbox (7.07492pt too wide) in paragraph at lines 858--860
+ [100 <./Deep Learning/plot/background-largedata.png>]
+Overfull \hbox (7.07492pt too wide) in paragraph at lines 856--858
 []\OT1/cmr/m/n/10 multiple lay-ers to choose & com-bine use-ful in-for-ma-tion 
 (cre-at-ing new fea-ture/basis) 
  []
 
-[99] [100] [101] [102] [103]
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ú in font cmr10!
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ù in font cmr10!
- [104]
-<"./Deep Learning/plot/regularization-dropout".jpeg, id=1280, 616.3025pt x 329.
+[101] [102] [103] [104] [105] [106]
+<"./Deep Learning/plot/regularization-dropout".jpeg, id=1296, 616.3025pt x 329.
 23pt>
 File: "./Deep Learning/plot/regularization-dropout".jpeg Graphic file (type jpg
 )
- <use "./Deep Learning/plot/regularization-dropout".jpeg>
-Package pdftex.def Info: "./Deep Learning/plot/regularization-dropout".jpeg use
-d on input line 1304.
+<use "./Deep Learning/plot/regularization-dropout".jpeg>
+Package pdftex.def Info: "./Deep Learning/plot/regularization-dropout".jpeg  us
+ed on input line 1302.
 (pdftex.def)             Requested size: 207.56285pt x 110.87672pt.
- [105 <./Deep Learning/plot/regularization-dropout.jpeg>]
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ú in font cmr10!
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ù in font cmr10!
- [106] [107] [108] [109]
-Overfull \hbox (10.95439pt too wide) in paragraph at lines 1581--1582
+ [107 <./Deep Learning/plot/regularization-dropout.jpeg>] [108] [109] [110] [11
+1]
+Overfull \hbox (10.95439pt too wide) in paragraph at lines 1579--1580
 []\OT1/cmr/m/n/10 contrasting the hard-max func-tion (non dif-fer-en-tiable): $
 \OML/cmm/m/it/10 a[] \OT1/cmr/m/n/10 = 1[] [] [](\OML/cmm/m/it/10 z\OT1/cmr/m/n
 /10 ); []0$ 
  []
 
-[110]
-<"./Deep Learning/plot/layer-conv1d conv impl".png, id=1314, 419.5675pt x 230.8
+[112]
+<"./Deep Learning/plot/layer-conv1d conv impl".png, id=1330, 419.5675pt x 230.8
 625pt>
 File: "./Deep Learning/plot/layer-conv1d conv impl".png Graphic file (type png)
 
- <use "./Deep Learning/plot/layer-conv1d conv impl".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-conv1d conv impl".png used
- on input line 1668.
+<use "./Deep Learning/plot/layer-conv1d conv impl".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-conv1d conv impl".png  use
+d on input line 1666.
 (pdftex.def)             Requested size: 104.82878pt x 57.68025pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1668--1669
+Underfull \hbox (badness 10000) in paragraph at lines 1666--1667
 
  []
 
 
-Overfull \hbox (10.00299pt too wide) in paragraph at lines 1671--1678
+Overfull \hbox (10.00308pt too wide) in paragraph at lines 1669--1676
 []\OT1/cmr/m/n/10 = [] 
  []
 
-[111 <./Deep Learning/plot/layer-conv1d conv impl.png>]
-<"./Deep Learning/plot/layer-conv2d exp".png, id=1320, 1268.74pt x 713.66624pt>
+[113 <./Deep Learning/plot/layer-conv1d conv impl.png>]
+<"./Deep Learning/plot/layer-conv2d exp".png, id=1336, 1268.74pt x 713.66624pt>
+
 File: "./Deep Learning/plot/layer-conv2d exp".png Graphic file (type png)
 <use "./Deep Learning/plot/layer-conv2d exp".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-conv2d exp".png used on in
-put line 1729.
+Package pdftex.def Info: "./Deep Learning/plot/layer-conv2d exp".png  used on i
+nput line 1727.
 (pdftex.def)             Requested size: 183.4477pt x 103.17949pt.
-
-<"./Deep Learning/plot/layer-conv2d kernel movement".png, id=1321, 327.2225pt x
+<"./Deep Learning/plot/layer-conv2d kernel movement".png, id=1337, 327.2225pt x
  464.73625pt>
 File: "./Deep Learning/plot/layer-conv2d kernel movement".png Graphic file (typ
 e png)
- <use "./Deep Learning/plot/layer-conv2d kernel movement".png>
+<use "./Deep Learning/plot/layer-conv2d kernel movement".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-conv2d kernel movement".pn
-g used on input line 1732.
+g  used on input line 1730.
 (pdftex.def)             Requested size: 52.41438pt x 74.43732pt.
 
-Overfull \hbox (2.2222pt too wide) in paragraph at lines 1727--1734
+Overfull \hbox (2.2222pt too wide) in paragraph at lines 1725--1732
 []$ $[]$ 
  []
 
-
-<"./Deep Learning/plot/layer-conv2d basic".png, id=1322, 346.29375pt x 366.3687
+<"./Deep Learning/plot/layer-conv2d basic".png, id=1338, 346.29375pt x 366.3687
 4pt>
 File: "./Deep Learning/plot/layer-conv2d basic".png Graphic file (type png)
- <use "./Deep Learning/plot/layer-conv2d basic".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-conv2d basic".png used on 
-input line 1751.
+<use "./Deep Learning/plot/layer-conv2d basic".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-conv2d basic".png  used on
+ input line 1749.
 (pdftex.def)             Requested size: 52.41171pt x 55.45047pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1751--1752
+Underfull \hbox (badness 10000) in paragraph at lines 1749--1750
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1754--1761
+Underfull \hbox (badness 10000) in paragraph at lines 1752--1759
 
  []
 
 
-Overfull \hbox (2.2222pt too wide) in paragraph at lines 1748--1762
+Overfull \hbox (2.2222pt too wide) in paragraph at lines 1746--1760
 []$ $[]$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1748--1762
+Underfull \hbox (badness 10000) in paragraph at lines 1746--1760
 
  []
 
-[112 <./Deep Learning/plot/layer-conv2d exp.png> <./Deep Learning/plot/layer-co
+[114 <./Deep Learning/plot/layer-conv2d exp.png> <./Deep Learning/plot/layer-co
 nv2d kernel movement.png (PNG copy)> <./Deep Learning/plot/layer-conv2d basic.p
-ng>] [113]
-Overfull \hbox (81.99692pt too wide) in paragraph at lines 1874--1892
+ng>] [115]
+Overfull \hbox (80.33029pt too wide) in paragraph at lines 1872--1890
 \OMS/cmsy/m/n/10 ) []$ 
  []
 
-
-Overfull \hbox (0.88457pt too wide) in paragraph at lines 1874--1892
-[] []$ 
- []
-
-[114]
+[116]
 File: "./Deep Learning/plot/layer-conv1d conv impl".png Graphic file (type png)
 
- <use "./Deep Learning/plot/layer-conv1d conv impl".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-conv1d conv impl".png used
- on input line 1914.
+<use "./Deep Learning/plot/layer-conv1d conv impl".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-conv1d conv impl".png  use
+d on input line 1912.
 (pdftex.def)             Requested size: 104.82878pt x 57.68025pt.
-
-<"./Deep Learning/plot/layer-conv1d backward".png, id=1337, 328.22626pt x 617.3
+<"./Deep Learning/plot/layer-conv1d backward".png, id=1354, 328.22626pt x 617.3
 0624pt>
 File: "./Deep Learning/plot/layer-conv1d backward".png Graphic file (type png)
- <use "./Deep Learning/plot/layer-conv1d backward".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-conv1d backward".png used 
-on input line 1919.
+<use "./Deep Learning/plot/layer-conv1d backward".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-conv1d backward".png  used
+ on input line 1917.
 (pdftex.def)             Requested size: 69.88406pt x 131.4278pt.
-
 <"./Deep Learning/plot/layer-conv trans conv as fractionally strided conv".png,
- id=1338, 732.7375pt x 617.30624pt>
+ id=1355, 732.7375pt x 617.30624pt>
 File: "./Deep Learning/plot/layer-conv trans conv as fractionally strided conv"
 .png Graphic file (type png)
-
 <use "./Deep Learning/plot/layer-conv trans conv as fractionally strided conv".
 png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-conv trans conv as fractio
-nally strided conv".png used on input line 1924.
+nally strided conv".png  used on input line 1922.
 (pdftex.def)             Requested size: 157.2405pt x 132.46393pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1911--1933
+Underfull \hbox (badness 10000) in paragraph at lines 1909--1931
 
  []
 
 
-Overfull \hbox (35.10274pt too wide) in paragraph at lines 1933--1936
+Overfull \hbox (35.10274pt too wide) in paragraph at lines 1931--1934
 \OT1/cmr/m/n/10 (since ker-nel are learn-able) $\OMS/cmsy/m/n/10 )$ $[]$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1933--1936
+Underfull \hbox (badness 10000) in paragraph at lines 1931--1934
 
  []
 
-[115 <./Deep Learning/plot/layer-conv1d backward.png> <./Deep Learning/plot/lay
+[117 <./Deep Learning/plot/layer-conv1d backward.png> <./Deep Learning/plot/lay
 er-conv trans conv as fractionally strided conv.png>]
-<"./Deep Learning/plot/layer-conv deformable conv".png, id=1346, 1142.2675pt x 
+<"./Deep Learning/plot/layer-conv deformable conv".png, id=1362, 1142.2675pt x 
 719.68875pt>
 File: "./Deep Learning/plot/layer-conv deformable conv".png Graphic file (type 
 png)
- <use "./Deep Learning/plot/layer-conv deformable conv".png>
+<use "./Deep Learning/plot/layer-conv deformable conv".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-conv deformable conv".png 
-used on input line 2004.
+ used on input line 2002.
 (pdftex.def)             Requested size: 174.71286pt x 110.07907pt.
 
-Overfull \hbox (78.60358pt too wide) in paragraph at lines 2002--2005
+Overfull \hbox (78.60358pt too wide) in paragraph at lines 2000--2003
 []\OT1/cmr/m/n/10 deformable conv: $\OT1/cmr/bx/n/10 y\OT1/cmr/m/n/10 (\OT1/cmr
 /bx/n/10 p[]\OT1/cmr/m/n/10 ) = [][] \OT1/cmr/bx/n/10 w\OT1/cmr/m/n/10 (\OT1/cm
 r/bx/n/10 p[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^A \OT1/cmr/bx/n/10 x\OT1/cmr/
@@ -1770,180 +1766,169 @@ p[]\OT1/cmr/m/n/10 )$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2002--2005
+Underfull \hbox (badness 10000) in paragraph at lines 2000--2003
 
  []
 
-
-<"./Deep Learning/plot/layer-conv deformable conv vs normal conv".png, id=1347,
+<"./Deep Learning/plot/layer-conv deformable conv vs normal conv".png, id=1363,
  991.705pt x 523.9575pt>
 File: "./Deep Learning/plot/layer-conv deformable conv vs normal conv".png Grap
 hic file (type png)
-
 <use "./Deep Learning/plot/layer-conv deformable conv vs normal conv".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-conv deformable conv vs no
-rmal conv".png used on input line 2022.
+rmal conv".png  used on input line 2020.
 (pdftex.def)             Requested size: 174.71286pt x 92.30154pt.
-
-<"./Deep Learning/plot/layer-conv deformable conv on cat".png, id=1348, 498.863
+<"./Deep Learning/plot/layer-conv deformable conv on cat".png, id=1364, 498.863
 75pt x 325.215pt>
 File: "./Deep Learning/plot/layer-conv deformable conv on cat".png Graphic file
  (type png)
-
 <use "./Deep Learning/plot/layer-conv deformable conv on cat".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-conv deformable conv on ca
-t".png used on input line 2025.
+t".png  used on input line 2023.
 (pdftex.def)             Requested size: 139.76814pt x 91.11415pt.
- [116 <./Deep Learning/plot/layer-conv deformable conv.png>] [117 <./Deep Learn
-ing/plot/layer-conv deformable conv vs normal conv.png> <./Deep Learning/plot/l
-ayer-conv deformable conv on cat.png>]
-<"./Deep Learning/plot/layer-pooling spp".png, id=1361, 603.0028pt x 368.87813p
+[118 <./Deep Learning/plot/layer-conv deformable conv.png>] [119 <./Deep Learni
+ng/plot/layer-conv deformable conv vs normal conv.png> <./Deep Learning/plot/la
+yer-conv deformable conv on cat.png>]
+<"./Deep Learning/plot/layer-pooling spp".png, id=1377, 603.0028pt x 368.87813p
 t>
 File: "./Deep Learning/plot/layer-pooling spp".png Graphic file (type png)
- <use "./Deep Learning/plot/layer-pooling spp".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-pooling spp".png used on i
-nput line 2099.
+<use "./Deep Learning/plot/layer-pooling spp".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-pooling spp".png  used on 
+input line 2097.
 (pdftex.def)             Requested size: 174.71286pt x 106.87622pt.
- [118 <./Deep Learning/plot/layer-pooling spp.png>]
-<"./Deep Learning/plot/layer-pooling psroi".png, id=1367, 1193.45876pt x 812.03
+ [120 <./Deep Learning/plot/layer-pooling spp.png>]
+<"./Deep Learning/plot/layer-pooling psroi".png, id=1383, 1193.45876pt x 812.03
 375pt>
 File: "./Deep Learning/plot/layer-pooling psroi".png Graphic file (type png)
- <use "./Deep Learning/plot/layer-pooling psroi".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-pooling psroi".png used on
- input line 2159.
+<use "./Deep Learning/plot/layer-pooling psroi".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-pooling psroi".png  used o
+n input line 2157.
 (pdftex.def)             Requested size: 174.71286pt x 118.86322pt.
-
-<"./Deep Learning/plot/layer-pooling roi align".png, id=1368, 567.11874pt x 566
+<"./Deep Learning/plot/layer-pooling roi align".png, id=1384, 567.11874pt x 566
 .115pt>
 File: "./Deep Learning/plot/layer-pooling roi align".png Graphic file (type png
 )
- <use "./Deep Learning/plot/layer-pooling roi align".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-pooling roi align".png use
-d on input line 2187.
+<use "./Deep Learning/plot/layer-pooling roi align".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-pooling roi align".png  us
+ed on input line 2185.
 (pdftex.def)             Requested size: 104.82878pt x 104.64325pt.
- [119 <./Deep Learning/plot/layer-pooling psroi.png> <./Deep Learning/plot/laye
+ [121 <./Deep Learning/plot/layer-pooling psroi.png> <./Deep Learning/plot/laye
 r-pooling roi align.png>]
-<"./Deep Learning/plot/layer-pooling roi pool vs align".png, id=1375, 641.39626
+<"./Deep Learning/plot/layer-pooling roi pool vs align".png, id=1392, 641.39626
 pt x 276.03125pt>
 File: "./Deep Learning/plot/layer-pooling roi pool vs align".png Graphic file (
 type png)
-
 <use "./Deep Learning/plot/layer-pooling roi pool vs align".png>
 Package pdftex.def Info: "./Deep Learning/plot/layer-pooling roi pool vs align"
-.png used on input line 2199.
+.png  used on input line 2197.
 (pdftex.def)             Requested size: 209.65756pt x 90.22714pt.
-
-<"./Deep Learning/plot/layer-rnn unrolled".png, id=1376, 2716.1475pt x 713.6662
+<"./Deep Learning/plot/layer-rnn unrolled".png, id=1393, 2716.1475pt x 713.6662
 4pt>
 File: "./Deep Learning/plot/layer-rnn unrolled".png Graphic file (type png)
- <use "./Deep Learning/plot/layer-rnn unrolled".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-rnn unrolled".png used on 
-input line 2229.
+<use "./Deep Learning/plot/layer-rnn unrolled".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-rnn unrolled".png  used on
+ input line 2227.
 (pdftex.def)             Requested size: 207.56285pt x 54.53539pt.
- [120 <./Deep Learning/plot/layer-pooling roi pool vs align.png> <./Deep Learni
+ [122 <./Deep Learning/plot/layer-pooling roi pool vs align.png> <./Deep Learni
 ng/plot/layer-rnn unrolled.png>]
-<"./Deep Learning/plot/layer-rnn lstm".png, id=1385, 826.08624pt x 844.15375pt>
+<"./Deep Learning/plot/layer-rnn lstm".png, id=1403, 826.08624pt x 844.15375pt>
+
 File: "./Deep Learning/plot/layer-rnn lstm".png Graphic file (type png)
 <use "./Deep Learning/plot/layer-rnn lstm".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-rnn lstm".png used on inpu
-t line 2294.
+Package pdftex.def Info: "./Deep Learning/plot/layer-rnn lstm".png  used on inp
+ut line 2292.
 (pdftex.def)             Requested size: 184.06284pt x 188.08444pt.
 
-Overfull \hbox (186.28505pt too wide) in paragraph at lines 2293--2303
+Overfull \hbox (186.28505pt too wide) in paragraph at lines 2291--2301
 $[]$ $[]$ 
  []
 
-[121]
-<"./Deep Learning/plot/layer-rnn gru".png, id=1391, 840.13875pt x 565.11125pt>
+[123]
+<"./Deep Learning/plot/layer-rnn gru".png, id=1408, 840.13875pt x 565.11125pt>
 File: "./Deep Learning/plot/layer-rnn gru".png Graphic file (type png)
-
 <use "./Deep Learning/plot/layer-rnn gru".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-rnn gru".png used on input
- line 2340.
+Package pdftex.def Info: "./Deep Learning/plot/layer-rnn gru".png  used on inpu
+t line 2338.
 (pdftex.def)             Requested size: 184.06284pt x 123.80748pt.
 
-Overfull \hbox (186.28505pt too wide) in paragraph at lines 2339--2348
+Overfull \hbox (186.28505pt too wide) in paragraph at lines 2337--2346
 []$[]$ $[]$ 
  []
 
-[122 <./Deep Learning/plot/layer-rnn lstm.png> <./Deep Learning/plot/layer-rnn 
+[124 <./Deep Learning/plot/layer-rnn lstm.png> <./Deep Learning/plot/layer-rnn 
 gru.png>]
-<"./Deep Learning/plot/layer-rnn bidirection".png, id=1398, 1639.12375pt x 777.
+<"./Deep Learning/plot/layer-rnn bidirection".png, id=1415, 1639.12375pt x 777.
 90625pt>
 File: "./Deep Learning/plot/layer-rnn bidirection".png Graphic file (type png)
- <use "./Deep Learning/plot/layer-rnn bidirection".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-rnn bidirection".png used 
-on input line 2377.
+<use "./Deep Learning/plot/layer-rnn bidirection".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-rnn bidirection".png  used
+ on input line 2375.
 (pdftex.def)             Requested size: 207.56285pt x 98.49625pt.
- [123 <./Deep Learning/plot/layer-rnn bidirection.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 2449--2455
+ [125 <./Deep Learning/plot/layer-rnn bidirection.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 2447--2453
 
- []
-
-[124]
-Underfull \hbox (badness 10000) in paragraph at lines 2496--2497
-
- []
-
-
-<"./Deep Learning/plot/layer-attention self attention".png, id=1410, 427.5975pt
- x 679.53876pt>
-File: "./Deep Learning/plot/layer-attention self attention".png Graphic file (t
-ype png)
-
-<use "./Deep Learning/plot/layer-attention self attention".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-attention self attention".
-png used on input line 2499.
-(pdftex.def)             Requested size: 32.97534pt x 52.41171pt.
-
-Overfull \hbox (246.81914pt too wide) in paragraph at lines 2491--2501
-[]$ $[]$ 
- []
-
-[125 <./Deep Learning/plot/layer-attention self attention.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 2557--2559
-
- []
-
-
-<"./Deep Learning/plot/layer-attention local self attention as conv".png, id=14
-17, 544.0325pt x 339.2675pt>
-File: "./Deep Learning/plot/layer-attention local self attention as conv".png G
-raphic file (type png)
-
-<use "./Deep Learning/plot/layer-attention local self attention as conv".png>
-Package pdftex.def Info: "./Deep Learning/plot/layer-attention local self atten
-tion as conv".png used on input line 2619.
-(pdftex.def)             Requested size: 174.71286pt x 108.95607pt.
-
-Overfull \hbox (94.77798pt too wide) in paragraph at lines 2618--2620
-[]\OT1/cmr/m/n/10 stand-along at-ten-tion [] 
  []
 
 [126]
-Overfull \hbox (3.9084pt too wide) in paragraph at lines 2623--2625
+Underfull \hbox (badness 10000) in paragraph at lines 2494--2495
+
+ []
+
+<"./Deep Learning/plot/layer-attention self attention".png, id=1426, 427.5975pt
+ x 679.53876pt>
+File: "./Deep Learning/plot/layer-attention self attention".png Graphic file (t
+ype png)
+<use "./Deep Learning/plot/layer-attention self attention".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-attention self attention".
+png  used on input line 2497.
+(pdftex.def)             Requested size: 32.97534pt x 52.41171pt.
+
+Overfull \hbox (246.81914pt too wide) in paragraph at lines 2489--2499
+[]$ $[]$ 
+ []
+
+[127 <./Deep Learning/plot/layer-attention self attention.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 2555--2557
+
+ []
+
+<"./Deep Learning/plot/layer-attention local self attention as conv".png, id=14
+34, 544.0325pt x 339.2675pt>
+File: "./Deep Learning/plot/layer-attention local self attention as conv".png G
+raphic file (type png)
+<use "./Deep Learning/plot/layer-attention local self attention as conv".png>
+Package pdftex.def Info: "./Deep Learning/plot/layer-attention local self atten
+tion as conv".png  used on input line 2617.
+(pdftex.def)             Requested size: 174.71286pt x 108.95607pt.
+
+Overfull \hbox (94.77798pt too wide) in paragraph at lines 2616--2618
+[]\OT1/cmr/m/n/10 stand-along at-ten-tion [] 
+ []
+
+[128]
+Overfull \hbox (3.9084pt too wide) in paragraph at lines 2621--2623
 \OT1/cmr/m/n/10 (Stand-Alone Self-Attention in Vi-sion Mod-els - https://arxiv.
 org/abs/1906.05909) 
  []
 
 
-Overfull \hbox (33.09111pt too wide) in paragraph at lines 2640--2647
-[] []$ 
+Overfull \hbox (31.42448pt too wide) in paragraph at lines 2638--2645
+[][]$ 
  []
 
 
-Overfull \hbox (27.61543pt too wide) in paragraph at lines 2655--2660
-[] []$ 
+Overfull \hbox (25.9488pt too wide) in paragraph at lines 2653--2658
+[][]$ 
  []
 
-[127 <./Deep Learning/plot/layer-attention local self attention as conv.png (PN
+[129 <./Deep Learning/plot/layer-attention local self attention as conv.png (PN
 G copy)>]
-Overfull \hbox (21.1025pt too wide) in paragraph at lines 2683--2691
-[] []$ 
+Overfull \hbox (19.43587pt too wide) in paragraph at lines 2681--2689
+[][]$ 
  []
 
-[128] [129] [130]
-Overfull \hbox (45.13087pt too wide) in paragraph at lines 2925--2926
+[130] [131] [132]
+Overfull \hbox (45.13087pt too wide) in paragraph at lines 2923--2924
 []\OT1/cmr/m/n/10 ([conv64]$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10 2, pool) $\OMS
 /cmsy/m/n/10 !$ \OT1/cmr/m/n/10 ([conv128]$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10
  2, pool) $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 ([conv256]$\OMS/cmsy/m/n/10 ^^B$
@@ -1951,351 +1936,331 @@ Overfull \hbox (45.13087pt too wide) in paragraph at lines 2925--2926
 msy/m/n/10 ^^B$\OT1/cmr/m/n/10 3+pool)$\OMS/cmsy/m/n/10 ^^B$\OT1/cmr/m/n/10 2 
  []
 
-[131] [132] [133] [134] [135]
-<"./Deep Learning/plot/topic-vision sensor camera focal len".jpg, id=1472, 501.
+[133] [134] [135] [136] [137]
+<"./Deep Learning/plot/topic-vision sensor camera focal len".jpg, id=1488, 501.
 875pt x 334.24875pt>
 File: "./Deep Learning/plot/topic-vision sensor camera focal len".jpg Graphic f
 ile (type jpg)
-
 <use "./Deep Learning/plot/topic-vision sensor camera focal len".jpg>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera focal
- len".jpg used on input line 3218.
+ len".jpg  used on input line 3216.
 (pdftex.def)             Requested size: 174.71286pt x 116.36148pt.
-
-<"./Deep Learning/plot/topic-vision sensor camera dof".jpg, id=1473, 501.875pt 
+<"./Deep Learning/plot/topic-vision sensor camera dof".jpg, id=1489, 501.875pt 
 x 251.94125pt>
 File: "./Deep Learning/plot/topic-vision sensor camera dof".jpg Graphic file (t
 ype jpg)
- <use "./Deep Learning/plot/topic-vision sensor camera dof".jpg>
+<use "./Deep Learning/plot/topic-vision sensor camera dof".jpg>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera dof".
-jpg used on input line 3236.
+jpg  used on input line 3234.
 (pdftex.def)             Requested size: 174.71286pt x 87.7079pt.
-
-<"./Deep Learning/plot/topic-vision sensor camera n and dof".png, id=1474, 696.
+<"./Deep Learning/plot/topic-vision sensor camera n and dof".png, id=1490, 696.
 6025pt x 463.7325pt>
 File: "./Deep Learning/plot/topic-vision sensor camera n and dof".png Graphic f
 ile (type png)
-
 <use "./Deep Learning/plot/topic-vision sensor camera n and dof".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera n and
- dof".png used on input line 3241.
+ dof".png  used on input line 3239.
 (pdftex.def)             Requested size: 244.59692pt x 162.82535pt.
- [136 <./Deep Learning/plot/topic-vision sensor camera focal len.jpg> <./Deep L
+ [138 <./Deep Learning/plot/topic-vision sensor camera focal len.jpg> <./Deep L
 earning/plot/topic-vision sensor camera dof.jpg>]
 <"./Deep Learning/plot/topic-vision sensor camera dof and resolution".png, id=1
-479, 696.6025pt x 283.0575pt>
+495, 696.6025pt x 283.0575pt>
 File: "./Deep Learning/plot/topic-vision sensor camera dof and resolution".png 
 Graphic file (type png)
-
 <use "./Deep Learning/plot/topic-vision sensor camera dof and resolution".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera dof a
-nd resolution".png used on input line 3248.
+nd resolution".png  used on input line 3246.
 (pdftex.def)             Requested size: 244.59692pt x 99.38689pt.
-
-<"./Deep Learning/plot/topic-vision sensor camera do focus".png, id=1480, 696.6
+<"./Deep Learning/plot/topic-vision sensor camera do focus".png, id=1496, 696.6
 025pt x 291.0875pt>
 File: "./Deep Learning/plot/topic-vision sensor camera do focus".png Graphic fi
 le (type png)
-
 <use "./Deep Learning/plot/topic-vision sensor camera do focus".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera do fo
-cus".png used on input line 3259.
+cus".png  used on input line 3257.
 (pdftex.def)             Requested size: 244.59692pt x 102.20638pt.
- [137 <./Deep Learning/plot/topic-vision sensor camera n and dof.png> <./Deep L
-earning/plot/topic-vision sensor camera dof and resolution.png> <./Deep Learnin
-g/plot/topic-vision sensor camera do focus.png>]
+
+[139 <./Deep Learning/plot/topic-vision sensor camera n and dof.png> <./Deep Le
+arning/plot/topic-vision sensor camera dof and resolution.png> <./Deep Learning
+/plot/topic-vision sensor camera do focus.png>]
 <"./Deep Learning/plot/topic-vision sensor camera color filter array".png, id=1
-488, 1136.245pt x 462.72874pt>
+505, 1136.245pt x 462.72874pt>
 File: "./Deep Learning/plot/topic-vision sensor camera color filter array".png 
 Graphic file (type png)
-
 <use "./Deep Learning/plot/topic-vision sensor camera color filter array".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-vision sensor camera color
- filter array".png used on input line 3282.
+ filter array".png  used on input line 3280.
 (pdftex.def)             Requested size: 244.59692pt x 99.60477pt.
-
-[138 <./Deep Learning/plot/topic-vision sensor camera color filter array.png>]
-[139]
-Overfull \hbox (0.3805pt too wide) in paragraph at lines 3473--3474
+ [140 <./Deep Learning/plot/topic-vision sensor camera color filter array.png>]
+ [141]
+Overfull \hbox (0.3805pt too wide) in paragraph at lines 3471--3472
 []\OT1/cmr/m/n/10 diverse set-tings: color space, sim-i-lar-ity mea-sure-ment, 
 re-gion ini-tial-iza-tion method 
  []
 
-[140]
-Underfull \hbox (badness 10000) in paragraph at lines 3492--3494
+[142]
+Underfull \hbox (badness 10000) in paragraph at lines 3490--3492
 
  []
 
-[141] [142] [143] [144] [145]
-Underfull \hbox (badness 10000) in paragraph at lines 3793--3795
+[143] [144] [145] [146] [147]
+Underfull \hbox (badness 10000) in paragraph at lines 3791--3793
 
  []
 
-[146] [147] [148]
-<"./Deep Learning/plot/topic-objdet cascade r-cnn".png, id=1544, 1625.07124pt x
+[148] [149] [150]
+<"./Deep Learning/plot/topic-objdet cascade r-cnn".png, id=1560, 1625.07124pt x
  337.26pt>
 File: "./Deep Learning/plot/topic-objdet cascade r-cnn".png Graphic file (type 
 png)
- <use "./Deep Learning/plot/topic-objdet cascade r-cnn".png>
+<use "./Deep Learning/plot/topic-objdet cascade r-cnn".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-objdet cascade r-cnn".png 
-used on input line 3978.
+ used on input line 3976.
 (pdftex.def)             Requested size: 279.54164pt x 58.01273pt.
 
+Overfull \hbox (15.48433pt too wide) detected at line 3990
+[]
+ []
+
 <"./Deep Learning/plot/topic-objdet cascade r-cnn performance-iou plot".png, id
-=1545, 1585.925pt x 615.29875pt>
+=1561, 1585.925pt x 615.29875pt>
 File: "./Deep Learning/plot/topic-objdet cascade r-cnn performance-iou plot".pn
 g Graphic file (type png)
-
 <use "./Deep Learning/plot/topic-objdet cascade r-cnn performance-iou plot".png
 >
 Package pdftex.def Info: "./Deep Learning/plot/topic-objdet cascade r-cnn perfo
-rmance-iou plot".png used on input line 4005.
+rmance-iou plot".png  used on input line 4003.
 (pdftex.def)             Requested size: 279.54164pt x 108.44876pt.
- [149 <./Deep Learning/plot/topic-objdet cascade r-cnn.png>]
+[151 <./Deep Learning/plot/topic-objdet cascade r-cnn.png>]
 <"./Deep Learning/plot/topic-objdet cascade r-cnn distribution at iou thr".png,
- id=1551, 1343.0175pt x 405.515pt>
+ id=1568, 1343.0175pt x 405.515pt>
 File: "./Deep Learning/plot/topic-objdet cascade r-cnn distribution at iou thr"
 .png Graphic file (type png)
-
 <use "./Deep Learning/plot/topic-objdet cascade r-cnn distribution at iou thr".
 png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-objdet cascade r-cnn distr
-ibution at iou thr".png used on input line 4026.
+ibution at iou thr".png  used on input line 4024.
 (pdftex.def)             Requested size: 279.54164pt x 84.40576pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 4053--4055
+Underfull \hbox (badness 10000) in paragraph at lines 4051--4053
 
  []
 
-[150 <./Deep Learning/plot/topic-objdet cascade r-cnn performance-iou plot.png>
+[152 <./Deep Learning/plot/topic-objdet cascade r-cnn performance-iou plot.png>
  <./Deep Learning/plot/topic-objdet cascade r-cnn distribution at iou thr.png>]
-Missing character: There is no Ô in font cmr10!
-Missing character: There is no º in font cmr10!
-Missing character: There is no ö in font cmr10!
-[151] [152] [153]
-Overfull \hbox (40.53342pt too wide) in paragraph at lines 4248--4250
+
+Overfull \hbox (51.15623pt too wide) in paragraph at lines 4106--4108
+[]\OT1/cmr/m/n/10 for $\OML/cmm/m/it/10 i[]$ \OT1/cmr/m/n/10 out-put with lo-ca
+-tion $(\OML/cmm/m/it/10 x[]; y[]\OT1/cmr/m/n/10 )$ on out-put vol-ume, out-put
+ vec-tor $\OML/cmm/m/it/10 t \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OML/cmm/m/it/
+10 s; dx[]; dy[]; dx[]; dy[]\OMS/cmsy/m/n/10 g$\OT1/cmr/m/n/10 , 
+ []
+
+[153] [154] [155] [156]
+Overfull \hbox (40.53342pt too wide) in paragraph at lines 4297--4299
 []\OT1/cmr/m/n/10 for each cell, $\OML/cmm/m/it/10 N[]$ \OT1/cmr/m/n/10 bound-i
 ng boxes: $[[][\OML/cmm/m/it/10 t[]; t[]; t[]; t[]\OT1/cmr/m/n/10 ]\OML/cmm/m/i
 t/10 ; []\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 p[]; :::; p[]\OT1/cmr/m/n/10 ]]$ 
  []
 
-[154]
-<"./Deep Learning/plot/topic-objdet onestage yolov3 architecture".png, id=1579,
+[157]
+<"./Deep Learning/plot/topic-objdet onestage yolov3 architecture".png, id=1600,
  1204.5pt x 669.50125pt>
 File: "./Deep Learning/plot/topic-objdet onestage yolov3 architecture".png Grap
 hic file (type png)
-
 <use "./Deep Learning/plot/topic-objdet onestage yolov3 architecture".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-objdet onestage yolov3 arc
-hitecture".png used on input line 4334.
+hitecture".png  used on input line 4383.
 (pdftex.def)             Requested size: 373.61061pt x 207.66583pt.
-
-[155 <./Deep Learning/plot/topic-objdet onestage yolov3 architecture.png>]
-[156] [157]
-Underfull \hbox (badness 10000) in paragraph at lines 4499--4504
+ [158 <./Deep Learning/plot/topic-objdet onestage yolov3 architecture.png>] [15
+9] [160]
+Underfull \hbox (badness 10000) in paragraph at lines 4548--4553
 
  []
 
-[158] [159] [160] [161] [162] [163]
-Overfull \hbox (14.686pt too wide) in paragraph at lines 4878--4880
+[161] [162] [163] [164] [165] [166]
+Overfull \hbox (14.686pt too wide) in paragraph at lines 4927--4929
 []\OT1/cmr/m/n/10 meta-learning / oneshot de-tec-tion: pre-dict the last ker-ne
 l for re-gres-sion/classification 
  []
 
-[164]
-Overfull \hbox (23.18599pt too wide) in paragraph at lines 4952--4954
+[167]
+Overfull \hbox (23.18599pt too wide) in paragraph at lines 5001--5003
 []\OT1/cmr/m/n/10 long-term track-ing by re-detecting: use model ob-ject-ness t
 o de-note tar-get lost/recovery 
  []
 
-
-<"./Deep Learning/plot/topic-obj track DaSiamRPN".png, id=1630, 1195.46625pt x 
+<"./Deep Learning/plot/topic-obj track DaSiamRPN".png, id=1650, 1195.46625pt x 
 295.1025pt>
 File: "./Deep Learning/plot/topic-obj track DaSiamRPN".png Graphic file (type p
 ng)
- <use "./Deep Learning/plot/topic-obj track DaSiamRPN".png>
-Package pdftex.def Info: "./Deep Learning/plot/topic-obj track DaSiamRPN".png u
-sed on input line 4960.
+<use "./Deep Learning/plot/topic-obj track DaSiamRPN".png>
+Package pdftex.def Info: "./Deep Learning/plot/topic-obj track DaSiamRPN".png  
+used on input line 5009.
 (pdftex.def)             Requested size: 209.65756pt x 51.75177pt.
- [165 <./Deep Learning/plot/topic-obj track DaSiamRPN.png>] [166]
-Underfull \hbox (badness 10000) in paragraph at lines 5049--5050
+[168 <./Deep Learning/plot/topic-obj track DaSiamRPN.png>] [169]
+Underfull \hbox (badness 10000) in paragraph at lines 5098--5099
 
  []
 
-
 <"./Deep Learning/plot/topic-obj track triplet loss vs logistic loss".png, id=1
-640, 889.3225pt x 514.92375pt>
+661, 889.3225pt x 514.92375pt>
 File: "./Deep Learning/plot/topic-obj track triplet loss vs logistic loss".png 
 Graphic file (type png)
-
 <use "./Deep Learning/plot/topic-obj track triplet loss vs logistic loss".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track triplet loss vs 
-logistic loss".png used on input line 5060.
+logistic loss".png  used on input line 5109.
 (pdftex.def)             Requested size: 209.65756pt x 121.39209pt.
-
-[167 <./Deep Learning/plot/topic-obj track triplet loss vs logistic loss.png>]
-[168]
+[170 <./Deep Learning/plot/topic-obj track triplet loss vs logistic loss.png>]
+[171]
 <"./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr".png, 
-id=1650, 962.59625pt x 579.16376pt>
+id=1671, 962.59625pt x 579.16376pt>
 File: "./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr".
 png Graphic file (type png)
-
 <use "./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr".p
 ng>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track rpn++ semantic i
-n depthwise xcorr".png used on input line 5137.
+n depthwise xcorr".png  used on input line 5186.
 (pdftex.def)             Requested size: 209.65756pt x 126.14384pt.
-
 <"./Deep Learning/plot/topic-obj track siamDW central bias with-without crop".p
-ng, id=1651, 1428.33624pt x 544.0325pt>
+ng, id=1672, 1428.33624pt x 544.0325pt>
 File: "./Deep Learning/plot/topic-obj track siamDW central bias with-without cr
 op".png Graphic file (type png)
-
 <use "./Deep Learning/plot/topic-obj track siamDW central bias with-without cro
 p".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW central b
-ias with-without crop".png used on input line 5174.
+ias with-without crop".png  used on input line 5223.
 (pdftex.def)             Requested size: 349.42572pt x 133.08574pt.
- [169 <./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr.p
+ [172 <./Deep Learning/plot/topic-obj track rpn++ semantic in depthwise xcorr.p
 ng>]
-<"./Deep Learning/plot/topic-obj track siamDW cir unit".png, id=1658, 841.1425p
+<"./Deep Learning/plot/topic-obj track siamDW cir unit".png, id=1678, 841.1425p
 t x 726.715pt>
 File: "./Deep Learning/plot/topic-obj track siamDW cir unit".png Graphic file (
 type png)
-
 <use "./Deep Learning/plot/topic-obj track siamDW cir unit".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW cir unit"
-.png used on input line 5179.
+.png  used on input line 5228.
 (pdftex.def)             Requested size: 174.71286pt x 150.94025pt.
-
-<"./Deep Learning/plot/topic-obj track siamDW cir downsample".png, id=1659, 101
+<"./Deep Learning/plot/topic-obj track siamDW cir downsample".png, id=1679, 101
 5.795pt x 788.9475pt>
 File: "./Deep Learning/plot/topic-obj track siamDW cir downsample".png Graphic 
 file (type png)
-
 <use "./Deep Learning/plot/topic-obj track siamDW cir downsample".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW cir downs
-ample".png used on input line 5181.
+ample".png  used on input line 5230.
 (pdftex.def)             Requested size: 174.71286pt x 135.69632pt.
-
-<"./Deep Learning/plot/topic-obj track siamDW cir wider".png, id=1660, 1325.953
+<"./Deep Learning/plot/topic-obj track siamDW cir wider".png, id=1680, 1325.953
 75pt x 778.91pt>
 File: "./Deep Learning/plot/topic-obj track siamDW cir wider".png Graphic file 
 (type png)
-
 <use "./Deep Learning/plot/topic-obj track siamDW cir wider".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-obj track siamDW cir wider
-".png used on input line 5187.
+".png  used on input line 5236.
 (pdftex.def)             Requested size: 174.71286pt x 102.62865pt.
- [170 <./Deep Learning/plot/topic-obj track siamDW central bias with-without cr
+ [173 <./Deep Learning/plot/topic-obj track siamDW central bias with-without cr
 op.png> <./Deep Learning/plot/topic-obj track siamDW cir unit.png> <./Deep Lear
 ning/plot/topic-obj track siamDW cir downsample.png> <./Deep Learning/plot/topi
-c-obj track siamDW cir wider.png>] [171] [172] [173] [174] [175]
-Underfull \hbox (badness 10000) in paragraph at lines 5559--5560
+c-obj track siamDW cir wider.png>] [174] [175] [176] [177] [178]
+Underfull \hbox (badness 10000) in paragraph at lines 5608--5609
 
  []
 
-[176] [177] [178] [179] [180] [181] [182] [183] [184]
-Overfull \hbox (3.72078pt too wide) in paragraph at lines 6168--6170
+[179] [180] [181] [182] [183] [184] [185] [186] [187]
+Overfull \hbox (3.72078pt too wide) in paragraph at lines 6217--6219
 \OT1/cmr/m/n/10 (small $\OML/cmm/m/it/10 p$\OT1/cmr/m/n/10 : just global fea-tu
 re, large $\OML/cmm/m/it/10 p$\OT1/cmr/m/n/10 : some re-dun-dant parts be-ing r
 e-peated/empty) 
  []
 
-
 <"./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency".png, id=17
-43, 744.7825pt x 391.4625pt>
+64, 744.7825pt x 391.4625pt>
 File: "./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency".png G
 raphic file (type png)
-
 <use "./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-reid pcb-rpp within-part i
-nconsistency".png used on input line 6173.
+nconsistency".png  used on input line 6222.
 (pdftex.def)             Requested size: 174.71286pt x 91.82645pt.
 
-Overfull \hbox (176.93507pt too wide) in paragraph at lines 6170--6182
+Overfull \hbox (176.93507pt too wide) in paragraph at lines 6219--6231
 []$ $[]$ 
  []
 
-[185]
-<"./Deep Learning/plot/topic-reid PGN".png, id=1749, 1351.0475pt x 844.15375pt>
+[188]
+<"./Deep Learning/plot/topic-reid PGN".png, id=1770, 1351.0475pt x 844.15375pt>
+
 File: "./Deep Learning/plot/topic-reid PGN".png Graphic file (type png)
 <use "./Deep Learning/plot/topic-reid PGN".png>
-Package pdftex.def Info: "./Deep Learning/plot/topic-reid PGN".png used on inpu
-t line 6209.
+Package pdftex.def Info: "./Deep Learning/plot/topic-reid PGN".png  used on inp
+ut line 6258.
 (pdftex.def)             Requested size: 174.71286pt x 109.15132pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 6212--6217
+Underfull \hbox (badness 10000) in paragraph at lines 6261--6266
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6212--6217
+Underfull \hbox (badness 10000) in paragraph at lines 6261--6266
 
  []
 
 
-Overfull \hbox (176.93507pt too wide) in paragraph at lines 6205--6218
+Overfull \hbox (176.93507pt too wide) in paragraph at lines 6254--6267
 []$ $[]$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6222--6223
+Underfull \hbox (badness 10000) in paragraph at lines 6271--6272
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6228--6231
+Underfull \hbox (badness 10000) in paragraph at lines 6277--6280
 
  []
 
-[186 <./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency.png> <.
-/Deep Learning/plot/topic-reid PGN.png>] [187]
-<"./Deep Learning/plot/topic-image style transfer nst overview".png, id=1763, 7
+[189 <./Deep Learning/plot/topic-reid pcb-rpp within-part inconsistency.png> <.
+/Deep Learning/plot/topic-reid PGN.png>] [190]
+<"./Deep Learning/plot/topic-image style transfer nst overview".png, id=1783, 7
 32.7375pt x 220.825pt>
 File: "./Deep Learning/plot/topic-image style transfer nst overview".png Graphi
 c file (type png)
-
 <use "./Deep Learning/plot/topic-image style transfer nst overview".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-image style transfer nst o
-verview".png used on input line 6328.
+verview".png  used on input line 6377.
 (pdftex.def)             Requested size: 207.56285pt x 62.55165pt.
-
-[188 <./Deep Learning/plot/topic-image style transfer nst overview.png (PNG cop
-y)>]
-<"./Deep Learning/plot/topic-image style transfer nst style matrix".png, id=177
+ [191 <./Deep Learning/plot/topic-image style transfer nst overview.png (PNG co
+py)>]
+<"./Deep Learning/plot/topic-image style transfer nst style matrix".png, id=179
 1, 1606.0pt x 530.98375pt>
 File: "./Deep Learning/plot/topic-image style transfer nst style matrix".png Gr
 aphic file (type png)
-
 <use "./Deep Learning/plot/topic-image style transfer nst style matrix".png>
 Package pdftex.def Info: "./Deep Learning/plot/topic-image style transfer nst s
-tyle matrix".png used on input line 6362.
+tyle matrix".png  used on input line 6411.
 (pdftex.def)             Requested size: 207.56285pt x 68.6252pt.
+ [192 <./Deep Learning/plot/topic-image style transfer nst style matrix.png>] [
+193] [194]
 
-[189 <./Deep Learning/plot/topic-image style transfer nst style matrix.png>]
-[190] [191]
+LaTeX Warning: Hyper reference `' on page 195 undefined on input line 6654.
 
-LaTeX Warning: Hyper reference `' on page 192 undefined on input line 6605.
-
-[192]
-Overfull \hbox (7.40826pt too wide) in paragraph at lines 6649--6650
+[195]
+Overfull \hbox (7.40826pt too wide) in paragraph at lines 6698--6699
 []\OT1/cmr/m/n/10 convs - max pool-ing - di-lated convs - un-pool-ing - branch 
 for re-gres-sion/classification 
  []
 
-[193]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 6750
+[196]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 6799
 .
- (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
+ (d:/Software/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 6750.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 6799.
 
- [194] [195]
-[196]
-Overfull \hbox (3.24109pt too wide) in paragraph at lines 6973--6974
+ [197] [198]
+[199]
+Overfull \hbox (3.24109pt too wide) in paragraph at lines 7022--7023
 []$\OMS/cmsy/m/n/10 )$ \OT1/cmr/m/n/10 se-quence prob-a-bil-ity $\OML/cmm/m/it/
 10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = \OML/cmm
 /m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/1
@@ -2305,83 +2270,84 @@ cmsy/m/n/10 j\OML/cmm/m/it/10 z[]; :::; z[]\OT1/cmr/m/n/10 ) = [] \OML/cmm/m/it
 /10 y[]$ 
  []
 
-[197] [198] [199]
-<"./Deep Learning/plot/topic-nmt transformer".png, id=1843, 2006.49625pt x 1155
+[200] [201] [202]
+<"./Deep Learning/plot/topic-nmt transformer".png, id=1863, 2006.49625pt x 1155
 .31625pt>
 File: "./Deep Learning/plot/topic-nmt transformer".png Graphic file (type png)
- <use "./Deep Learning/plot/topic-nmt transformer".png>
-Package pdftex.def Info: "./Deep Learning/plot/topic-nmt transformer".png used 
-on input line 7111.
+<use "./Deep Learning/plot/topic-nmt transformer".png>
+Package pdftex.def Info: "./Deep Learning/plot/topic-nmt transformer".png  used
+ on input line 7160.
 (pdftex.def)             Requested size: 244.59692pt x 140.83556pt.
- [200 <./Deep Learning/plot/topic-nmt transformer.png>] [201]
-Overfull \hbox (37.54732pt too wide) in paragraph at lines 7228--7229
+ [203 <./Deep Learning/plot/topic-nmt transformer.png>]
+[204]
+Overfull \hbox (37.54732pt too wide) in paragraph at lines 7277--7278
 []\OT1/cmr/m/n/10 encoder scan through au-dio frames & de-coder out-put let-ter
 /punctuation/"blank"/"space" 
  []
 
-[202] [203]
-Overfull \hbox (8.15143pt too wide) in paragraph at lines 7384--7386
+[205] [206]
+Overfull \hbox (8.15143pt too wide) in paragraph at lines 7433--7435
 [] \OMS/cmsy/m/n/10 ^^Y [] [] []$ 
  []
 
-[204] [205] [206] [207] [208] [209] [210] [211]) [212]
+[207] [208] [209] [210] [211] [212] [213] [214]) [215]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 92.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 92.
  (./Machine Learning.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 92.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 92.
 Package rerunfilecheck Info: File `"Machine Learning".out' has not changed.
-(rerunfilecheck)             Checksum: 1043EF362292002D2EBE623C869ACC0E;8052.
+(rerunfilecheck)             Checksum: 3B716F3D6778070881643387CD6817CE;8115.
 
 LaTeX Warning: There were undefined references.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 92.
  ) 
 Here is how much of TeX's memory you used:
- 20658 strings out of 493029
- 391382 string characters out of 6136233
- 445339 words of memory out of 5000000
- 23272 multiletter control sequences out of 15000+600000
- 21322 words of font info for 81 fonts, out of 8000000 for 9000
+ 23574 strings out of 492623
+ 440629 string characters out of 6131410
+ 501562 words of memory out of 5000000
+ 26560 multiletter control sequences out of 15000+600000
+ 550020 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 53i,20n,92p,10424b,1081s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cmextra/cmex7.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cmextra/cmex9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/symbols/msam5.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on "Machine Learning.pdf" (218 pages, 9802034 bytes).
+ 53i,20n,92p,1520b,1084s stack positions out of 5000i,500n,10000p,200000b,80000s
+<d:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><d
+:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><d:/Sof
+tware/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/Software
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb><d:/Software/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><d:/Software/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><d:/Software/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmex10.pfb><d:/Software/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cmextra/cmex7.pfb><d:/Software/texlive/texmf-dist/font
+s/type1/public/amsfonts/cmextra/cmex9.pfb><d:/Software/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi10.pfb><d:/Software/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi5.pfb><d:/Software/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi6.pfb><d:/Software/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi7.pfb><d:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi9.pfb><d:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+ib10.pfb><d:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cm
+mib7.pfb><d:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.p
+fb><d:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:
+/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><d:/Softw
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><d:/Software/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><d:/Software/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/Software/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr9.pfb><d:/Software/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsl10.pfb><d:/Software/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb><d:/Software/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy5.pfb><d:/Software/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy6.pfb><d:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy7.pfb><d:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy9.pfb><d:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.p
+fb><d:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><d
+:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><d
+:/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam5.pfb><d:
+/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><d:
+/Software/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on "Machine Learning.pdf" (221 pages, 9110565 bytes).
 PDF statistics:
- 2165 PDF objects out of 2487 (max. 8388607)
- 1794 compressed objects within 18 object streams
- 586 named destinations out of 1000 (max. 500000)
- 1222 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2187 PDF objects out of 2487 (max. 8388607)
+ 1812 compressed objects within 19 object streams
+ 592 named destinations out of 1000 (max. 500000)
+ 1230 words of extra memory for PDF output out of 10000 (max. 10000000)
 

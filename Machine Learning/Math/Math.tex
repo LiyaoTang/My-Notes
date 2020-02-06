@@ -466,6 +466,7 @@
 	\item Multiplicativity
 	\item Relationship to Invertibility
 	\end{itemize}
+
 \item Measuring Linear Transformation on Volume
 	\begin{itemize}
 	\item Unit Volume
@@ -935,6 +936,30 @@
 	\end{itemize}
 \end{itemize}
 
+\subsection{Function}
+\subsubsection{Type of Function}
+\begin{itemize}
+\item Convex Function
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item for any $x_1=a, x_2=b$, $f(\lambda a + (1-\lambda b)) \le \lambda f(a) + (1-\lambda)f(b)$, where $\lambda \in [0,1]$ \\
+		to be strictly convex: equalty achieved only when $\lambda = 0,1$
+		\item $\Leftrightarrow \forall x, f''(x) \ge 0$ ($f''(x)>0$ to be strictly convex)
+		\end{itemize}
+	\item Jensen’s Inequality \label{Math_Calc_Jensen}
+		\begin{itemize}
+		\item $f(\sum_i \lambda_i x_i ) \le \sum_i \lambda_i f(x_i)$, where $\lambda_i\ge0$ and $\sum_i \lambda_i=1$, proof by induction
+		\item $\Rightarrow f(\mathbb E[x]) \le \mathbb E[f(x)]$, interpreting $\lambda_i$ as discrete probability $p(x=x_i)$
+		\item $\Rightarrow f(\int xp(x) \D x) \le \int f(x)p(x)\D x$, for continuous variable
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item $f(x)$ to be (strictly) concave if $-f(x)$ is (strictly) convex
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
 \subsection{Derivative}
 \subsubsection{Chain Rule}
 \begin{itemize}
@@ -1102,7 +1127,7 @@
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Gaussian Integral} \label{MATH_Cal_GaussianInt}
+\subsubsection{Gaussian Integral} \label{Math_Calc_GaussianInt}
 \begin{itemize}
 \item Gaussian Function
 	\begin{itemize}
@@ -1137,7 +1162,7 @@
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
-\subsubsection{Calculus of Variations} \label{math_calc_var}
+\subsubsection{Calculus of Variations} \label{Math_Calc_VarCalc}
 \begin{itemize}
 \item Euler–Lagrange Equation
 	\begin{itemize}
@@ -1528,7 +1553,7 @@
 		&= 2\sigma^2\pi^{-\frac 12}\int_R x^2 {\rm e}^{-x^2}\D x + \mu^2 \\ 
 		&= \sigma^2 + \mu^2, \text{ the 2nd moment of Guassian, by } (x {\rm e}^{-x^2})' = e^{-x^2}-2x^2{\rm e}^{-x^2}
 		\end{align*}
-		note: see \hyperref[MATH_Cal_GaussianInt]{Gaussian integral} for $\int_R {\rm e}^{-x^2}\D x$
+		note: see \hyperref[Math_Calc_GaussianInt]{Gaussian integral} for $\int_R {\rm e}^{-x^2}\D x$
 		\end{itemize}
 	\item Variance
 		\begin{itemize}

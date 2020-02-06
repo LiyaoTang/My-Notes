@@ -18,6 +18,7 @@
 		\begin{itemize}
 		\item same information in forward \& backward propagation to learn feature embedding
 		\end{itemize}
+	\end{itemize}
 \item Restricted Boltzmann Machine (RBM)
 	\begin{itemize}
 	\item ways of learning in deep dense net with fast inference
@@ -25,13 +26,10 @@
 	\item ReLU $\Leftrightarrow$ a stack of sigmoid functions (approximately) in RBM
 	\item ReLU units initialized to identity for efficient learning
 	\end{itemize}
-\end{itemize}
-
 \item EM
 	\begin{itemize}
 	\item EM with Approximate E Step
 	\end{itemize}
-
 \item vs. Symbolic AI
 	\begin{itemize}
 	\item Symbolic AI: symbolic logic-like expression to do reasoning
@@ -4076,7 +4074,7 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 	\item Inference
 		\begin{itemize}
 		\item backbone (with deformable conv) extracts feature \& RPN predicts proposals
-		\item RoI pooling： sampling location is also augmented by learnt offset \\ 
+		\item RoI pooling: sampling location is also augmented by learnt offset \\ 
 		(similar to \hyperref[DL_Layers_DeformableConv]{deformable conv})
 		\item 2nd-stage produce final pred
 		\end{itemize}
@@ -4106,7 +4104,7 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 	\item Bounding Box Encoding
 		\begin{itemize}
 		\item for $i^\text{th}$ output with location $(x_i, y_i)$ on output volume, output vector $t = \{s, dx_t, dy_t, dx_b, dy_b\}$, \\
-		$\Rightarrow \begin{cases} (x_t, y_t) = (x_i+dx_t, y_i+dy_t), \\ (x_b, y_b) = (x_i+dx_b, y_i+dy_b)$
+		$\Rightarrow \begin{cases} (x_t, y_t) = (x_i+dx_t, y_i+dy_t), \\ (x_b, y_b) = (x_i+dx_b, y_i+dy_b) \end{cases}$
 		\item $\Rightarrow$ output bbox with top-left point $(x_t, y_t)$ \& bottom-right point $x_b, y_b$ \\ 
 		(with $s$ the confidence score)
 		\end{itemize}
