@@ -1207,7 +1207,7 @@
 
 \section{Probability Theory}
 
-\subsection{Introduction}
+\subsection{Essence}
 \subsubsection{Background}
 \begin{itemize}
 \item Measuring Uncertainty
@@ -1329,7 +1329,26 @@
 		\item a process of incorporating the evidence provided by observation
 		\end{itemize}
 	\end{itemize}
-	
+
+\item Predictive Distribution
+	\begin{itemize}
+	\item Notation
+		\begin{itemize}
+		\item $\mathbf x, \mathbf t$: vector of data examples and corresponding ground truth
+		\item $\mathbf w$: model parameters
+		\item $x, t$: new data example for prediction and its ground truth
+		\end{itemize}
+	\item Prediction by Model
+		\begin{itemize}
+		\item $p(t|x, \mathbf w')$, where $\mathbf w'$ is the best fit parameters founded
+		\end{itemize}
+	\item Prediction by Data
+		\begin{itemize}
+		\item $\displaystyle p(t|x,\mathbf{x},\mathbf{t}) = \int p(t|x,\mathbf{w})p(\mathbf{w}|\mathbf{x},\mathbf{t}) d\mathbf w$, where $\bf w$ marginalized over its posterior \\
+		(consider all possible $\mathbf w$)
+		\end{itemize}
+	\end{itemize}
+
 \item Contrasting Frequentist Estimator
 	\begin{itemize}
 	\item Setting
@@ -1374,8 +1393,6 @@
 	\end{itemize}
 \end{itemize}
 
-\subsection{Expectations and Covariances}
-
 \subsubsection{Expectation}
 \begin{itemize}
 \item Definition
@@ -1397,6 +1414,7 @@
 	\item Independent $x,y$
 		\begin{itemize}
 		\item $\displaystyle \mathbb{E}_{xy}[x,y] = \sum_{x,y}p(x,y)xy = \sum_{x,y}p(x)p(y)xy = \mathbb{E}[x]\mathbb{E}[y]$
+		\item $\displaystyle \mathbb{E}_{xy}[x+y] = \mathbb{E}[x] + \mathbb{E}[y]$
 		\end{itemize}
 \end{itemize}
 
@@ -1421,12 +1439,13 @@
 		$\Rightarrow$ a covariance matrix for pairwise covariance between components of $\mathbf x,\mathbf y$
 		\item $\text{cov}[\mathbf x] \equiv \text{cov}[\mathbf x, \mathbf x]$ to measure covariance within vector $\mathbf x$
 		\end{itemize}
-	\end{itemize}
-\item Independence Variable
-	\begin{itemize}
 	\item Independent $x,y$
 		\begin{itemize}
 		\item $\text{cov}[x,y] = \mathbb E_{x,y}[xy] -\mathbb{E}[x]\mathbb{E}[y] = 0$
+		\item \begin{align*}\text{var}[x+y] &= \mathbb E \left[ \left( x+y - \mathbb E_{x,y}[x+y] \right)^2 \right] = \mathbb E \left[ (x-\mathbb E[x] + y-\mathbb E[y])^2 \right] \text{, by expectation of the sum of 2 independent variable} \\
+		&= \mathbb E [(x-\mathbb E[x])^2] + 2\mathbb E[(x-\mathbb E[x])(y-\mathbb E[y])] + \mathbb E [(y-\mathbb E[y])^2] \\
+		&= \text{var}[x] + \text{var}[y] \text{, as conv}[x,y] = 0 \text{ for independent x,y}
+		\end{align*}
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -1523,6 +1542,117 @@
 	\end{itemize}
 \end{itemize}
 
+\subsection{Multinomial Distribution}
+
+\subsubsection{Definition}
+\begin{itemize}
+\item Bernoulli Distribution	
+	\begin{itemize}
+	\item Parameters
+		\begin{itemize}
+		\item mean: $\mu$
+		\end{itemize}
+	\item Probability Mass Function
+		\begin{itemize}
+		\item $p(x|\mu) = \mu^x(1-\mu)^{1-x}$ (a binary variable) \\
+		$\Rightarrow p(x) = \begin{cases} \mu & x=1 \\ 1-\mu & x=0  \end{cases}$
+		\end{itemize}
+	\item Expectation
+		\begin{itemize}
+		\item $\mathbb E [x] = \sum_{x=0,1} p(x) = \mu$
+		\end{itemize}
+	\item Variance
+		\begin{itemize}
+		\item $\text{var} [x] = \mu(1-\mu)$
+		\end{itemize}
+	\end{itemize}
+\item Binomial Distribution
+	\begin{itemize}
+	\item Parameters
+		\begin{itemize}
+		\item mean of the Bernoulli distribution: $\mu$
+		\item num of the observation: $N$
+		\end{itemize}
+	\item Probability Mass Function
+		\begin{itemize}
+		\item $p(n|N, \mu) = \binom{N}{n}\mu^n (1-\mu)^n$, where $ \binom{N}{n} = C_N^n = \frac{N!}{(N-n)!n!}$ \\
+		$\Rightarrow$ probability of having $n$ positive ($x=1$) observations out of $N$ samples i.i.d. from Bernoulli distribution $p(x|\mu)$
+		\end{itemize}
+	\item Normalization
+		\item given that $\binom{N}{n} + \binom{N}{n-1} = \frac{N!}{(N-n)!n!} + \frac{N!}{(N-n+1)!(n-1)!} = \frac{(N-n+1)N! + nN!}{(N-n+1)!(n)!} = \frac{(N+1)!}{(N+1-n)!(n)!} = \binom{N+1}{n}$
+		\item $(1+x)^{N} = \sum_{n=0}^{N} \binom{N}{n}x^n$, as the nature of polynomial expansion, proof by induction: \\
+		$\begin{alignedat}{2} & (1+x)^{N+1} &&= (1+x)\sum_{n=0}^N\binom{N}{n}x^n, \text{ by assumption in induction} \\
+		& &&= \sum_{n=0}^N\binom{N}{n}x^n + \sum_{n=0}^N\binom{N}{n}x^{n+1} = \sum_{n=0}^N\binom{N}{n}x^n + \sum_{n=1}^{N+1}\binom{N}{n-1}x^{n} \\
+		& &&= \binom{N}{0}x^0 + \sum_{n=1}^N [ \binom{N}{n} + \binom{N}{n-1} ] x^n + \binom{N}{N} x^{N+1}, \text{by combining two } \sum \\
+		& &&= \binom{N+1}{0}x^0 + \sum_{n=1}^N \binom{N+1}{n} x^n + \binom{N+1}{N+1} x^{N+1} \\
+		& &&= \sum_{n=0}^{N+1} \binom{N+1}{n} x^n
+		\end{alignedat}$ \\
+		$\Rightarrow$ actually, generalize to $(x + y)^N = \sum_{n=0}^N \binom{N}{n} x^n y^{N-n}$, the binomial theorem
+		\item $\Rightarrow \sum p(n|N,\mu) &= \sum_{n=0}^N \binom{N}{n}\mu^n(1-\mu)^{N-n} = (\mu+ (1-\mu))^N = 1$
+	\item Expectation
+		\begin{itemize}
+		\Item \begin{align*} \Rightarrow \mathbb E[n] &= \sum_{n=0}^N \binom{N}{n}\mu^n(1-\mu)^{N-n}\cdot n \\
+		&= \sum_{n=1}^N\binom{N}{n} \mu^n(1-\mu)^{N-n} \cdot n, \text{ with term multiplied by } n=0 \text{ removed} \\
+		&= N \sum_{n=1}^N\binom{N-1}{n-1} \mu^n(1-\mu)^{N-n}, \text{ as } \binom{N}{n}\cdot n = N\cdot\binom{N-1}{n-1} \\
+		&= N\mu \sum_{n=1}^{N}\binom{N-1}{n-1} \mu^{n-1}(1-\mu)^{(N-1)-(n-1)} \\
+		&= N\mu \sum_{n=0}^{N-1}\binom{N-1}{n} \mu^{n}(1-\mu)^{(N-1)-n} \\
+		&= N\mu (\mu + 1-\mu)^{N-1} = N\mu\end{align*}
+		\item alternatively, as $n=x_1 + ... + x_N$, with $x_1,...,x_N$ are i.i.d. from Bernoulli distr $p(x|\mu)$ \\
+		$\Rightarrow \mathbb E[n] = \mathbb E[x_1 + ... + x_N] = \mathbb E [x_1] + ... \mathbb E [x_N] = N\mu$ \\
+		(by expectation of the sum of independent variable)
+		\end{itemize}
+	\item Variance
+		\begin{itemize}
+		\Item \begin{align*} \mathbb E[n^2] &= \sum_{n=2}^N \binom{N}{n}\mu^n(1-\mu)^{N-n} \cdot n^2 + N\mu^1(1-\mu)^{N-1}, \text{ n=0 term removed} \\
+		&= \sum_{n=2}^N \frac{N!n}{(N-n)!(n-1)!} \mu^n(1-\mu)^{N-n} \mu^n(1-\mu)^{N-n} + N\mu^1(1-\mu)^{N-1}\\
+		&= \sum_{n=2}^N \frac{N!(n-1+1)}{(N-n)!(n-1)!} \mu^n(1-\mu)^{N-n} + N\mu^1(1-\mu)^{N-1} \\
+		&= \sum_{n=2}^N (\frac{N!}{(N-n)!(n-2)!} + \frac{N!}{(N-n)!(n-1)!}) \mu^n(1-\mu)^{N-n} + N\mu^1(1-\mu)^{N-1} \\
+		&= N(N-1)\mu^2 \sum_{n=2}^N \binom{N-2}{n-2}\mu^{n-2}(1-\mu)^{(N-2)-(n-2)} + N\mu sum_{n=1}^N \binom{N-1}{n-1}\mu^{n-1}(1-\mu)^{(N-1)-(n-1)} \\
+		&= N(N-1)\mu^2 + N\mu, \text{ by binomial theorem} \end{align*}
+		$\Rightarrow \text{var}[n] = \mathbb E[n^2] - \mathbb E^2[n] = N\mu(1-\mu)$
+		\item alternatively, as $n=x_1 + ... + x_N$, the sum of $N$ i.i.d. observation \\
+		$\Rightarrow \text{var}[n] = \text{var}[x_1+...+x_N] = \text{var}[x_1] +...+ \text{var}[x_N] = N\mu(1-\mu)$
+		\end{itemize}
+	\end{itemize}
+\item
+	\begin{itemize}
+	\item 
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Density Estimation}
+\begin{itemize}
+\item Bernoulli - Maximum Likelihood
+	\begin{itemize}
+	\item Solution
+		\begin{itemize}
+		\item $p(X|\mu) = \prod_{n=1}^N p(x_n|\mu) = \prod_{n=1}^N \mu^{x_n}(1-\mu)^{1-x_n}$
+		\item let $\frac{\partial}{\partial \mu} p(X|\mu) = 0 \Rightarrow \mu_\text{ML}=\frac1N \sum_{n=1}^N x_n$
+		\end{itemize}
+	\end{itemize}
+
+\end{itemize}
+
+\subsection{Beta Distribution}
+
+\subsubsection{Definition}
+\item Beta Distribution
+	\begin{itemize}
+	\item Parameters
+		\begin{itemize}
+		\item $a, b$
+		\end{itemize}
+	\item Probability Dense Function
+		\begin{itemize}
+		\item $\text{Beta}(\mu|a, b) = \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \mu^{a-1}(1-\mu)^{b-1}$, \\
+		where $\Gamma(x)$ the gamma function
+		\end{itemize}
+	\item 
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\end{itemize}
+
 
 \subsection{Gaussian Distribution}
  
@@ -1530,7 +1660,7 @@
 \begin{itemize}
 \item Univariate Gaussian
 	\begin{itemize}
-	\item Variable
+	\item Parameters
 		\begin{itemize}
 		\item mean: $\mu$
 		\item variance: $\sigma^2$, with standard deviation = $\sigma$ 
@@ -1593,11 +1723,10 @@
 		\end{align*}
 	\end{itemize}
 \end{itemize}
- 
- 
-\subsubsection{Parameter Estimation}
+
+\subsubsection{Density Estimation}
 \begin{itemize}
-\item Estimation of Expectation and Variance
+\item Maximum Likelihood Estimation
 	\begin{itemize}
 	\item Setting
 		\begin{itemize}
@@ -1605,20 +1734,10 @@
 		\item i.i.d. assumption: $X$ is independent and identically distributed \\
 		i.e. each $x\in X$ is drawn independently from the identical distribution
 		\end{itemize}
-	\item Joint Distribution
-		\begin{itemize}
-		\item likelihood $p(X|\mu, \sigma^2)=\prod_{n=1}^N\mathcal N(x_n|\mu, \sigma^2)$ due to i.i.d. assumption \\
-		(as model is determined directly by $\mu, \sigma^2$)
-		\end{itemize}
-	\item Maximum Likelihood Estimation
-		\begin{itemize}
-		\item $\displaystyle \Rightarrow \ln p(X|\mu,\sigma) = -\frac 1{2\sigma^2} \sum_{n=1}^N(x_n-\mu)^2 -\frac N2 \ln \sigma^2 -\frac N2 \ln (2\pi)$
-		\end{itemize}
-	\end{itemize}
-\item Maximum Likelihood Estimation
-	\begin{itemize}
 	\item Solution
 		\begin{itemize}
+		\item likelihood $\displaystyle p(X|\mu, \sigma^2) = \prod_{n=1}^N \mathcal N(x_n | \mu, \sigma^2)$ due to i.i.d. assumption \\
+		$\displaystyle \Rightarrow \ln p(X|\mu,\sigma) = -\frac 1{2\sigma^2} \sum_{n=1}^N(x_n-\mu)^2 -\frac N2 \ln \sigma^2 -\frac N2 \ln (2\pi)$
 		\item let $\displaystyle \frac {\partial}{\partial \mu} \ln p(X|\mu,\sigma^2) = 0 \Rightarrow \mu_{\text{ML}}=\frac 1N \sum_{n=1}^Nx_n $
 		\item let $\displaystyle \frac {\partial}{\partial \sigma^2} \ln p(X|\mu,\sigma^2)=0 \Rightarrow \sigma_\text{ML}^2 = \frac 1N \sum_{n=1}^N (x_n- \mu_\text{ML})$
 		\end{itemize}
@@ -1646,28 +1765,6 @@
 		(may otherwise underflow the numerical precision)
 		\item maximum likelihood would \underline{systematically underestimate} the variance \\
 		(yet, as $N\rightarrow \infty$, such bias becomes negligible)
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Predictive Distribution}
-\begin{itemize}
-\item Probabilistic Prediction
-	\begin{itemize}
-	\item Notation
-		\begin{itemize}
-		\item $\mathbf x, \mathbf t$: vector of data examples and corresponding ground truth
-		\item $\mathbf w$: model parameters
-		\item $x, t$: new data example for prediction and its ground truth
-		\end{itemize}
-	\item Prediction by Model
-		\begin{itemize}
-		\item $p(t|x, \mathbf w')$, where $\mathbf w'$ is the best fit parameters founded
-		\end{itemize}
-	\item Prediction by Data
-		\begin{itemize}
-		\item $\displaystyle p(t|x,\mathbf{x},\mathbf{t}) = \int p(t|x,\mathbf{w})p(\mathbf{w}|\mathbf{x},\mathbf{t}) d\mathbf w$, where $\bf w$ marginalized over its posterior \\
-		(consider all possible $\mathbf w$)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
