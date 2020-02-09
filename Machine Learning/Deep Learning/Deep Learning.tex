@@ -2752,7 +2752,6 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		$\Rightarrow$ more representability
 		\end{itemize}
 	\end{itemize}
-
 \item Xception
 	\begin{itemize}
 	\item 
@@ -2786,7 +2785,6 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 			\end{itemize}
 		\end{itemize}
 	\end{itemize}
-
 \item Bottleneck Structure
 	\begin{itemize}
 	\item Main Path
@@ -2796,7 +2794,6 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\item 1x1 conv to expand the channel
 		\end{itemize}
 	\end{itemize}
-
 \item Understanding
 	\begin{itemize}
 	\item Bottleneck
@@ -2826,6 +2823,20 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		$\Rightarrow$ guaranteed baseline
 		\item makes optimization for deep ($\ge 20$) net possible \& unleash deep power
 		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Spatial Transformer}
+\begin{itemize}
+\item Understanding
+	\begin{itemize}
+	\item conditioned on individual data sample
+	\item dynamic mechanism to spatially transform input feature map \\
+	(v.s. fixed local receptive fields in pooling)
+	\item NOT explicitly modeling transformation (i.e. not restricting transformation)
+	\item NOT requiring additional supervision (i.e. not explicitly taking transformation in input/label)
+	\item spatial attention
+	\item achieve invariant representations
 	\end{itemize}
 \end{itemize}
 
