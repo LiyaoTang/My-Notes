@@ -802,9 +802,7 @@
 \item Larger Maximum Capability
 	\begin{itemize}
 	\item Curve given Amount of Data
-	\begin{figure}[ht]
 	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/background-largedata".png}
-	\end{figure}
 	\item Reasons
 		\begin{itemize}
 		\item the scale of data (labeled)
@@ -6650,7 +6648,71 @@ based on visual and spatial-temporal features
 \begin{itemize}
 \item PointNet
 	\begin{itemize}
-	\item 
+	\item Preprocessing
+		\begin{itemize}
+		\item normalize point cloud (x,y,z) into unit sphere
+		\end{itemize}
+	\item Inference \& Structure \\
+	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/topic-point cloud pointnet structure".png}
+		\begin{itemize}
+		\item input: list of points as unordered set
+		\item mlp: shared dense layer to process each point (1x1 conv on 1D point list) \\
+		$\Rightarrow$ symmetric processing to respect unordered set
+		\item max pooling: summarize global feature
+		\item T-net the simplified transformer to apply spatial transform on points \\
+		$\Rightarrow$ directly regress transformation matrix \& matrix multiplication to apply \\
+		(also consists of 1x1 conv + max pooling)
+		\end{itemize}
+	\item Inference - Detection
+		\begin{itemize}
+		\item inference as segmentation \\ 
+		i.e. concat global feature \& per-point feature to produce per-point pred
+		\item generate bbox for group of connected points of same label (i.e. a post processing)
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item loss = task specific loss + constraint $\norm{I-AA^T}^2$, \\
+		where $A$ the transform matrix pred by T-net \\
+		$\Rightarrow$ avoid info loss in non-orthogonal transform \\
+		(also to have a more stable optimization)
+		\item augmentation: point set rotation \& point jitter
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item respect unorderness via shared (1x1 conv / dense layer) \& symmetric (pooling) function \\
+		$\Rightarrow$ avoid voxel \\
+			\begin{itemize}
+			\item easier to learn transformation invariance (via T-net)
+			\item not constrained by resolution
+			\item not affected by point density in space \\
+			$\Rightarrow$ processing complexity $\mathcal O(n)$, where $n$ the point number
+			\end{itemize}
+		\item max pooling to summarize the point cloud \\
+		$\Rightarrow$ select informative point sparse critical points \\
+		(v.s. avg pooling / attention, which correlates to all the input points)
+			\begin{itemize}
+			\item critical point: point with element activates the max pooling \\
+			(contributes to the global feature) \\
+			$\Rightarrow$ pred will NOT change if critical points not missing
+			\item upper-bound point: point that will not activates the max pooling \\
+			(given a fixed set of critical points) \\
+			$\Rightarrow$ pred will NOT change even if those outlier exist
+			\end{itemize} \\
+		$\Rightarrow$ persist robustness to missing data \& outlier \\
+		(affected by the dimension of max pooling i.e. len of global feature)
+		\item $\Rightarrow$ \underline{efficient \& robust point cloud processing}
+		\item yet, lack of hierarchical local$\rightarrow$global context mining
+		\item still, easy to lose fine geometry detail
+		\end{itemize}
+	\item Analysis
+		\begin{itemize}
+		\item point net able to mine local context by concat [point, global] feature
+			\begin{itemize}
+			\item able to learn point-to-point matching between 2 point cloud \\
+			(corresponding critical point should activate the same location)
+			\item able to predict point normal
+			\end{itemize}
+		\end{itemize}
 	\end{itemize}
 \item VolxelNet
 	\begin{itemize}
