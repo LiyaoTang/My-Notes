@@ -262,14 +262,14 @@
 \contentsline {subsubsection}{}{204}{section*.171}% 
 \contentsline {subsection}{\numberline {12.6.4}Sentiment Classification}{204}{subsection.12.6.4}% 
 \contentsline {subsubsection}{Problem Formulation}{204}{section*.172}% 
-\contentsline {subsubsection}{Classic Approach}{204}{section*.173}% 
+\contentsline {subsubsection}{Classic Approach}{205}{section*.173}% 
 \contentsline {subsection}{\numberline {12.6.5}Neural Machine Translation}{205}{subsection.12.6.5}% 
 \contentsline {subsubsection}{Problem Formulation}{205}{section*.174}% 
 \contentsline {subsubsection}{Approaches}{205}{section*.175}% 
-\contentsline {subsubsection}{Choosing Output Sequence}{206}{section*.176}% 
+\contentsline {subsubsection}{Choosing Output Sequence}{207}{section*.176}% 
 \contentsline {subsection}{\numberline {12.6.6}Speech Recognition}{207}{subsection.12.6.6}% 
 \contentsline {subsubsection}{Problem Formulation}{207}{section*.177}% 
-\contentsline {subsubsection}{Learning Objective}{207}{section*.178}% 
+\contentsline {subsubsection}{Learning Objective}{208}{section*.178}% 
 \contentsline {subsubsection}{Classic Approach}{208}{section*.179}% 
 \contentsline {subsubsection}{Trigger Word Detection}{208}{section*.180}% 
 \contentsline {subsection}{\numberline {12.6.7}Machine Reading Comprehension}{208}{subsection.12.6.7}% 

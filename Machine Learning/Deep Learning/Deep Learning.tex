@@ -6653,7 +6653,7 @@ based on visual and spatial-temporal features
 		\item normalize point cloud (x,y,z) into unit sphere
 		\end{itemize}
 	\item Inference \& Structure \\
-	\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/topic-point cloud pointnet structure".png}
+	\includegraphics[width=0.6\linewidth, left]{"./Deep Learning/plot/topic-point cloud pointnet structure".png}
 		\begin{itemize}
 		\item input: list of points as unordered set
 		\item mlp: shared dense layer to process each point (1x1 conv on 1D point list) \\
@@ -6684,7 +6684,7 @@ based on visual and spatial-temporal features
 			\begin{itemize}
 			\item easier to learn transformation invariance (via T-net)
 			\item not constrained by resolution
-			\item not affected by point density in space \\
+			\item not affected by variable point density in space \\
 			$\Rightarrow$ processing complexity $\mathcal O(n)$, where $n$ the point number
 			\end{itemize}
 		\item max pooling to summarize the point cloud \\
@@ -6701,17 +6701,70 @@ based on visual and spatial-temporal features
 		$\Rightarrow$ persist robustness to missing data \& outlier \\
 		(affected by the dimension of max pooling i.e. len of global feature)
 		\item $\Rightarrow$ \underline{efficient \& robust point cloud processing}
-		\item yet, lack of hierarchical local$\rightarrow$global context mining
-		\item still, easy to lose fine geometry detail
+		\item yet, lack of hierarchical local$\rightarrow$global context mining \\
+		$\Rightarrow$ easy to lose fine/local geometry detail \\
+		(e.g. object/instance level)
 		\end{itemize}
 	\item Analysis
 		\begin{itemize}
-		\item point net able to mine local context by concat [point, global] feature
+		\item point net able to mine semantic info by concat [point, global] feature
 			\begin{itemize}
 			\item able to learn point-to-point matching between 2 point cloud \\
 			(corresponding critical point should activate the same location)
 			\item able to predict point normal
+			\item loc in dense layer output is activated by points in different region \\
+			(by visualization)
 			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\item PointNet++
+	\begin{itemize}
+	\item Preprocessing
+		\begin{itemize}
+		\item normalize all points to be 0-mean \& within unit sphere
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item input: unordered set of points
+		\item multiple downsampling stage to extract local$\rightarrow$global multi-scale info
+		\item for segmentation, upsampling back to generate per-point pred
+		\end{itemize}
+	\item Structure - Downsampling
+		\begin{itemize}
+		\item fartherest point sampling to sample set of centroid points \\
+		(need to have distance measurement between points)
+		\item generate local group for each centroid, by sampling $\le K$ points inside the ball \\
+		(still, based on distance measure)
+		\item shared point net to process each group into a feature vector \\
+		(point feature = $[d, C]$, where $d$ the coord relative to centroid, $C$ the context feature)
+		\item for multi-scale feature inside each group: \\
+		\includegraphics[width=0.6\linewidth, left]{"./Deep Learning/plot/topic-point cloud pointnet++ multi-scale in local group".png}
+			\begin{itemize}
+			\item MSG: use different ball size \& concat all feature Vectors
+			\item MRG: concat [feature from point group, feature from corresponding points of last layer]
+			\end{itemize}
+		$\Rightarrow$ to avoid invalide info from too few points
+		\end{itemize}
+	\item Structure - Upsampling
+		\begin{itemize}
+		\item interpolation context feature based on coord $d$
+		\item for each point, concat [interpolated feature, correponding low-level point feature]
+		\item for each point, multiple shared dense layer (1x1 conv on point list) to refine feature
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item augmentation: 
+		\item random point drop out to learn ability to handle missing data (effective)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item hierarchical point net $\Rightarrow$ able to capture multi-scale context (local$\rightarrow$globa)
+		\item sampling to produce local context for point \\
+		$\Rightarrow$ need to consider which metric space (distance measure) to use
+		\item able to use various metric space to better handle non-rigid object/scene \\
+		$\Rightarrow$ yet, introduce extra engineering effort
+		\item INefficient \& slow, due to too much sampling in a single forward (1 for each downsampling stage)
+		\item still, NOT able to naturally incorporate with tasks that acquire instance info (e.g. detection) 
 		\end{itemize}
 	\end{itemize}
 \item VolxelNet
