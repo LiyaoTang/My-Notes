@@ -6785,37 +6785,48 @@ based on visual and spatial-temporal features
 		\end{itemize}
 	\item Inference
 		\begin{itemize}
-		\item voxel map with raw points as input, output $3$-D classification \& regression map
+		\item voxelization \& sampling: randomize the points \& fill in the voxel \\
+		(each voxel contain at most $T$ points) \\
+		$\Rightarrow$ avoid compute on empty voxel, which can be $ge 90\%$ due to hily variable point density
+		\item use sparse tensor representation: each voxel = $[d, C]$, where d the coord, $C=[p...]$ a list of points \\
+		$\Rightarrow$ parallelize per-voxel feature extraction (avoid empty voxel)
+		\item per-voxel feature extraction \& fill in the 3D space \\
+		$\Rightarrow$ generate feature volume (4D tensor)
+		\item 3D conv for context mining
+		\item project to bird-view by concat the feature volume along the height-axis \\
+		i.e. reshape [64 channel, 2 height, 400 width, 352 depth] $\rightarrow$ [128, 400, 352]
+		\item RPN to predict classification \& regression for 3D bbox
 		\end{itemize}
 	\item Voxel Feature Encoding Layer
 		\begin{itemize}
 		\item voxel $V=\{p_i=[x_i,y_i,z_i,r_i]\in \mathbb R^4 \}_{i=1,...t}, t<T$
 		\item augment each point with its offset to the centroid $(v_x,v_y,v_z)$, the mean of $p\in V$ \\
-		$\Rightarrow p'_i = [x_i,y_i,z_i,r_i,x_i-v_x, y_i-v_y, z_i-v_z]$
-		\item $1\times1$ conv (with batch norm, ReLu) on each feature point: $p'_i\rightarrow f_i$
+		$\Rightarrow p'_i = [x_i,y_i,z_i,r_i,x_i-v_x, y_i-v_y, z_i-v_z]$ \\
+		(only for raw points)
+		\item 1x1 conv (with batch norm, ReLu) on points in voxel: $p'_i\rightarrow f_i$
 		\item element-wise max pooling on $f_i\in V$: voxel-wise feature $\hat f$
 		\item augment each processed feature point with voxel feature: $f_i^\text{out}=[f_i,\hat f]$
 		\end{itemize}
 	\item Structure
 		\begin{itemize}
 		\item stacked voxel feature encoding layer: deep net to extract feature for each voxel
-		\item detection model: \hyperref[]{RPN} modified for $3$-D detection
+		\item 3D conv middel layer (to reduce from 3D feature volume to 2D feature map)
+		\item modified RPN for 3D detection: a downsample \& upsample pipeline
 		\end{itemize}
 	\item Training
 		\begin{itemize}
-		\item per-voxel weighting: balanced according to num of positive example
+		\item normalize pos/neg classification loss (entropy) by their num
 		\item smooth L1 for regression loss
-		\item further up-/down-sample positive/negative voxel in classification loss
-		\item predicted box considered positive, if its IoU with label box $> 0.6$ \& is the highest \\
-		(negative, if its IoU with any label box $<0.45$) \\
-		(not-care, if its IoU with any label box $\in [0.45, 0.6]$)
-		\item data augmentation: box (collision-free) perturbation in location, size, rotation
+		\item augmentation: box (collision-free) perturbation in location, size, rotation
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item range: $[-3,1]\times[-20,20]\times[0,48]$ in height-width-length
 		\item voxel feature extraction: voxel-level PointNet \\ 
-		$\Rightarrow$ able to concat with various detection models (e.g. YOLO, etc.)
+		$\Rightarrow$ able to concat with various detection models
+		\item sampling via voxelization + conv for local context mining \\
+		(instead of repeated sampling in pointnet++)
+		\item generalize 3D point cloud to detection net (RPN), with 3D anchor
+		\item yet, 3D conv too slow, even slower than pointnet++
 		\end{itemize}
 	\end{itemize}
 \item LMNet
