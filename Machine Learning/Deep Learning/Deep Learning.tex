@@ -503,6 +503,10 @@
 		(as YOLOv1 still use dense layer...)
 		\end{itemize}
 	\end{itemize}
+\item Directly Maximize IoU
+	\begin{itemize}
+	\item seems to have been done in some works...
+	\end{itemize}
 \end{itemize}
 
 \subsubsection{Direction - Tracking}
@@ -722,7 +726,26 @@
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Directoin - Referring Seg}
+\subsubsection{Direction - Point Cloud}
+\begin{itemize}
+\item Voxel Grouping + Per-Point Ops
+	\begin{itemize}
+	\item PointNet++: multiple random sampling for local grouping in inference
+	\item VoxelNet: voxelization as one-off grouping \& 3D conv for local context mining
+	\item Voxel-Point:
+		\begin{itemize}
+		\item one-off grouping by voxelization
+		\item local context by concat local max-ppoling \\ 
+		$\Rightarrow$ hierarchical max-pooling, instead of 3D conv / repeated sampling \\
+		(implemented as 3D spp at different stage?)
+		\item after concat local feature, still per-point ops to process
+		\item $\Rightarrow$ faster, better aligned with detection from point cloud? \\
+		(propose/regress box from each point / local feat)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Direction - Referring Seg}
 \begin{itemize}
 \item Integrating Encoder-Decoder Architecture
 	\begin{itemize}
@@ -783,7 +806,7 @@
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
-\subsubsection{Directoin - Tactile Perception}
+\subsubsection{Direction - Tactile Perception}
 \begin{itemize}
 \item Close-range Camera as Tactile Sensor
 	\begin{itemize}
@@ -6646,6 +6669,46 @@ based on visual and spatial-temporal features
 \end{itemize}
 \subsubsection{Point Cloud}
 \begin{itemize}
+\item LMNet
+	\begin{itemize}
+	\item Preprocessing
+		\begin{itemize}
+		\item cylindrical projection to generate feature map from point cloud
+		\end{itemize}
+	\item Bounding Box Encoding
+		\begin{itemize}
+		\item given a pixel (corresponding to a lidar point) $p$ in a bounding box \\ 
+		$\Rightarrow$ encode box under coord originated at $p$ \\
+		$\Rightarrow$ axises: $x$ along radial direction; $y$ parallel with horizontal plane; $z$ accordingly
+		\item encode $8$ corner $\Rightarrow$ $24$ channel encoding for each box
+		\end{itemize}
+	\item Classification Encoding
+		\begin{itemize}
+		\item per-pixel classification (car, pedestrian, cyclist, none)
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item per-pixel regression \& classification $\Rightarrow$ standard CV detection
+		\item non-max suppression as postprocessing \\
+		(score modified to be the num of nearby-box)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item convs - max pooling - dilated convs - unpooling - branch for regression/classification
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item point-wise weighting \\
+		$\Rightarrow$ regression: consider box size for each class \\
+		$\Rightarrow$ classification: downsample background pixel (standard)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item real-time timing due to simple structure with dilated conv \\
+		(though performance hurt...)
+		$\Rightarrow$ enable further fusion with image, pertaining real-time timing
+		\end{itemize}
+	\end{itemize}
 \item PointNet
 	\begin{itemize}
 	\item Preprocessing
@@ -6680,7 +6743,7 @@ based on visual and spatial-temporal features
 	\item Understanding
 		\begin{itemize}
 		\item respect unorderness via shared (1x1 conv / dense layer) \& symmetric (pooling) function \\
-		$\Rightarrow$ avoid voxel \\
+		$\Rightarrow$ avoid voxelization
 			\begin{itemize}
 			\item easier to learn transformation invariance (via T-net)
 			\item not constrained by resolution
@@ -6697,7 +6760,7 @@ based on visual and spatial-temporal features
 			\item upper-bound point: point that will not activates the max pooling \\
 			(given a fixed set of critical points) \\
 			$\Rightarrow$ pred will NOT change even if those outlier exist
-			\end{itemize} \\
+			\end{itemize}
 		$\Rightarrow$ persist robustness to missing data \& outlier \\
 		(affected by the dimension of max pooling i.e. len of global feature)
 		\item $\Rightarrow$ \underline{efficient \& robust point cloud processing}
@@ -6829,46 +6892,6 @@ based on visual and spatial-temporal features
 		\item yet, 3D conv too slow, even slower than pointnet++
 		\end{itemize}
 	\end{itemize}
-\item LMNet
-	\begin{itemize}
-	\item Preprocessing
-		\begin{itemize}
-		\item cylindrical projection
-		\end{itemize}
-	\item Bounding Box Encoding
-		\begin{itemize}
-		\item given a pixel (corresponding to a lidar point) $p$ in a bounding box \\ 
-		$\Rightarrow$ encode box under coord originated at $p$ \\
-		$\Rightarrow$ axises: $x$ along radial direction; $y$ parallel with horizontal plane; $z$ accordingly
-		\item encode $8$ corner $\Rightarrow$ $24$ channel encoding for each box
-		\end{itemize}
-	\item Classification Encoding
-		\begin{itemize}
-		\item per-pixel classification (car, pedestrian, cyclist, none)
-		\end{itemize}
-	\item Inference
-		\begin{itemize}
-		\item per-pixel regression \& classification $\Rightarrow$ standard CV detection
-		\item non-max suppression as postprocessing \\
-		(score modified to be the num of nearby-box)
-		\end{itemize}
-	\item Structure
-		\begin{itemize}
-		\item convs - max pooling - dilated convs - unpooling - branch for regression/classification
-		\end{itemize}
-	\item Training
-		\begin{itemize}
-		\item point-wise weighting \\
-		$\Rightarrow$ regression: consider box size for each class \\
-		$\Rightarrow$ classification: downsample background pixel (standard)
-		\end{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item real-time timing due to simple structure with dilated conv \\
-		(though performance hurt...)
-		$\Rightarrow$ enable further fusion with image, pertaining real-time timing
-		\end{itemize}
-	\end{itemize}
 \end{itemize}
 \subsubsection{Point Cloud + Image Fusion}
 \begin{itemize}
@@ -6895,6 +6918,59 @@ based on visual and spatial-temporal features
 	\item Understanding
 		\begin{itemize}
 		\item 
+		\end{itemize}
+	\end{itemize}
+\item Frustum PointNet
+	\begin{itemize}
+	\item Inference
+		\begin{itemize}
+		\item 2-stage detection pipeline to produce 2D bbox
+		\item project to 3D point cloud $\Rightarrow$ a slice (frustum) of point cloud \\
+		\item rotate axis to be aligned with center line of frustum \\
+		$\Rightarrow$ reduce input pose variance \& improve rotation invariance
+		\item point segmentation to select target-related points \\
+		(provided with object category pred by 2D detector)
+		\item shift origin to be at the central of selected points \\
+		$\Rightarrow$ local coord to reduce variance \\ 
+		(offset to local origin $<<$ offset ot sensor)
+		\item 3D localization to predict object (3D box) center, based on selected points
+		\item further shift origin to the predicted center
+		\item produce 3D box [center, size, orientation] \\
+		(based on selected points under transformed coord)
+		\end{itemize}
+	\item Structure
+		\begin{itemize}
+		\item 2-stage detector: RPN based
+		\item point segmentation: point net (++) based
+		\item center prediction: point net based
+		\item 3D box regression: point net (++) based
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item hybrid classification \& regression loss for prediction box \\
+			\begin{itemize}
+			\item classify the target into predefined size \& orientation
+			\item regress the offset to every anchor size \& orientation
+			\end{itemize}
+		(box center pred by regression)
+		\item additional corner loss: sum of offset of 8 corners between pred \& label box \\
+		$\Rightarrow$ provide joint optimization for center, size, orientation
+		\item smooth L1 loss for reg \& entropy for cls
+		\item augmentation: resample and perturb points
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item detector produce 2D box + point net to translate into 3D box
+		\item instance segmentation on 3D space \\
+		$\Rightarrow$ easier to remove fore-/back- ground clutter \\
+		(as 3D points can be more separated v.s. perspective view in img)
+		\item multiple normalization between sub-nets to reduce input transformation \\
+		(thus easier to learn) \\
+		$\Rightarrow$ canonical \& aligned representation is important
+		\item may fail when multiple same-class object in one frustum \\
+		(as binary segmentation assume only 1 target) \\
+		$\Rightarrow$ improved when combined with proposal from bird-view
+		\item more like an engineering approach: pipeline with multiple steps
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
