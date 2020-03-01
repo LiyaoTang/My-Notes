@@ -67,40 +67,41 @@
 \contentsline {subsubsection}{Entropy}{41}{section*.48}% 
 \contentsline {subsubsection}{Mutual Information}{43}{section*.49}% 
 \contentsline {section}{\numberline {2.4}Recommended Practice}{44}{section.2.4}% 
-\contentsline {subsection}{\numberline {2.4.1}Data}{44}{subsection.2.4.1}% 
-\contentsline {subsubsection}{Data Augmentation}{44}{section*.50}% 
-\contentsline {subsubsection}{Data Preprocessing}{44}{section*.51}% 
-\contentsline {subsection}{\numberline {2.4.2}Dataset}{45}{subsection.2.4.2}% 
-\contentsline {subsubsection}{Train-Val-Test}{45}{section*.52}% 
-\contentsline {subsubsection}{Train-Test}{47}{section*.54}% 
+\contentsline {subsection}{\numberline {2.4.1}Overview}{44}{subsection.2.4.1}% 
+\contentsline {subsubsection}{Development Cycle}{44}{section*.50}% 
+\contentsline {subsection}{\numberline {2.4.2}Data \& Dataset}{44}{subsection.2.4.2}% 
+\contentsline {subsubsection}{Augmentation}{44}{section*.51}% 
+\contentsline {subsubsection}{Preprocessing}{45}{section*.52}% 
+\contentsline {subsubsection}{Train-Val-Test Dataset}{46}{section*.53}% 
+\contentsline {subsubsection}{Train-Test Dataset}{47}{section*.54}% 
 \contentsline {subsection}{\numberline {2.4.3}Orthogonalization Practice}{47}{subsection.2.4.3}% 
 \contentsline {subsubsection}{Definition}{47}{section*.55}% 
-\contentsline {subsubsection}{Practice}{47}{section*.56}% 
+\contentsline {subsubsection}{Practice}{48}{section*.56}% 
 \contentsline {subsubsection}{Orthogonalization}{48}{section*.57}% 
 \contentsline {subsection}{\numberline {2.4.4}Tunning Hyperparameters}{49}{subsection.2.4.4}% 
 \contentsline {subsubsection}{Hyperparameters}{49}{section*.58}% 
-\contentsline {subsubsection}{Systematic Searching}{49}{section*.59}% 
+\contentsline {subsubsection}{Systematic Searching}{50}{section*.59}% 
 \contentsline {subsubsection}{Tunning Practice}{50}{section*.60}% 
-\contentsline {section}{\numberline {2.5}Model Analysis}{50}{section.2.5}% 
-\contentsline {subsection}{\numberline {2.5.1}Measurements of Problem}{50}{subsection.2.5.1}% 
-\contentsline {subsubsection}{Performance Metrics}{50}{section*.61}% 
+\contentsline {section}{\numberline {2.5}Model Analysis}{51}{section.2.5}% 
+\contentsline {subsection}{\numberline {2.5.1}Measurements of Problem}{51}{subsection.2.5.1}% 
+\contentsline {subsubsection}{Performance Metrics}{51}{section*.61}% 
 \contentsline {subsubsection}{Expected Generalization Ability Measurement}{52}{section*.62}% 
 \contentsline {subsection}{\numberline {2.5.2}Model Complexity}{53}{subsection.2.5.2}% 
-\contentsline {subsection}{\numberline {2.5.3}Improving Model}{53}{subsection.2.5.3}% 
-\contentsline {subsubsection}{Bias-Variance Guideline}{53}{section*.63}% 
+\contentsline {subsection}{\numberline {2.5.3}Improving Model}{54}{subsection.2.5.3}% 
+\contentsline {subsubsection}{Bias-Variance Guideline}{54}{section*.63}% 
 \contentsline {subsubsection}{Behavior Detail}{54}{section*.64}% 
-\contentsline {subsubsection}{Error Analysis}{55}{section*.65}% 
+\contentsline {subsubsection}{Error Analysis}{56}{section*.65}% 
 \contentsline {subsubsection}{Approaches Analysis}{56}{section*.66}% 
-\contentsline {subsection}{\numberline {2.5.4}Evaluating Hypothesis}{56}{subsection.2.5.4}% 
+\contentsline {subsection}{\numberline {2.5.4}Evaluating Hypothesis}{57}{subsection.2.5.4}% 
 \contentsline {subsection}{\numberline {2.5.5}Skewed classes}{57}{subsection.2.5.5}% 
 \contentsline {section}{\numberline {2.6}Supervised Learning}{57}{section.2.6}% 
 \contentsline {section}{\numberline {2.7}Latent Variable Analysis}{57}{section.2.7}% 
 \contentsline {subsection}{\numberline {2.7.1}Principal Component Analysis (PCA)}{57}{subsection.2.7.1}% 
 \contentsline {subsection}{\numberline {2.7.2}Independent Component Analysis (ICA)}{60}{subsection.2.7.2}% 
-\contentsline {subsection}{\numberline {2.7.3}t-SNE}{60}{subsection.2.7.3}% 
-\contentsline {subsection}{\numberline {2.7.4}Anomaly Detection}{60}{subsection.2.7.4}% 
+\contentsline {subsection}{\numberline {2.7.3}t-SNE}{61}{subsection.2.7.3}% 
+\contentsline {subsection}{\numberline {2.7.4}Anomaly Detection}{61}{subsection.2.7.4}% 
 \contentsline {subsection}{\numberline {2.7.5}Recommender System}{61}{subsection.2.7.5}% 
-\contentsline {section}{\numberline {2.8}Large Scale Machine Learning}{62}{section.2.8}% 
+\contentsline {section}{\numberline {2.8}Large Scale Machine Learning}{63}{section.2.8}% 
 \contentsline {subsection}{\numberline {2.8.1}Online Learning}{63}{subsection.2.8.1}% 
 \contentsline {subsection}{\numberline {2.8.2}Map-reduce}{63}{subsection.2.8.2}% 
 \contentsline {section}{\numberline {2.9}Challenge}{63}{section.2.9}% 
@@ -161,15 +162,15 @@
 \contentsline {subsubsection}{Large/Big Data}{102}{section*.94}% 
 \contentsline {subsubsection}{Flexibility}{103}{section*.95}% 
 \contentsline {subsubsection}{Power of Depth}{103}{section*.96}% 
-\contentsline {subsection}{\numberline {12.2.2}Problem}{103}{subsection.12.2.2}% 
-\contentsline {subsubsection}{Weight-space Symmetries}{103}{section*.97}% 
+\contentsline {subsection}{\numberline {12.2.2}Problem}{104}{subsection.12.2.2}% 
+\contentsline {subsubsection}{Weight-space Symmetries}{104}{section*.97}% 
 \contentsline {subsubsection}{High-Dimension Search Space}{104}{section*.98}% 
 \contentsline {subsubsection}{Gradient Vanishing/Exploding}{104}{section*.99}% 
 \contentsline {subsection}{\numberline {12.2.3}Learning}{105}{subsection.12.2.3}% 
 \contentsline {subsubsection}{Forward-Backward Propagation}{105}{section*.100}% 
-\contentsline {section}{\numberline {12.3}Operations \& Layers Structure}{105}{section.12.3}% 
-\contentsline {subsection}{\numberline {12.3.1}Operations in Network}{105}{subsection.12.3.1}% 
-\contentsline {subsubsection}{Activations}{105}{section*.101}% 
+\contentsline {section}{\numberline {12.3}Operations \& Layers Structure}{106}{section.12.3}% 
+\contentsline {subsection}{\numberline {12.3.1}Operations in Network}{106}{subsection.12.3.1}% 
+\contentsline {subsubsection}{Activations}{106}{section*.101}% 
 \contentsline {subsubsection}{Normalization in Network}{107}{section*.102}% 
 \contentsline {subsection}{\numberline {12.3.2}Operations on Network}{108}{subsection.12.3.2}% 
 \contentsline {subsubsection}{Initialization}{108}{section*.103}% 
@@ -177,126 +178,132 @@
 \contentsline {subsubsection}{Optimization}{111}{section*.106}% 
 \contentsline {subsection}{\numberline {12.3.3}Loss}{113}{subsection.12.3.3}% 
 \contentsline {subsubsection}{Probabilistic Loss}{113}{section*.107}% 
-\contentsline {subsubsection}{Metric Loss}{113}{section*.108}% 
-\contentsline {subsection}{\numberline {12.3.4}Layers}{113}{subsection.12.3.4}% 
-\contentsline {subsubsection}{Prediction}{113}{section*.109}% 
+\contentsline {subsubsection}{Metric Loss}{114}{section*.108}% 
+\contentsline {subsection}{\numberline {12.3.4}Layers}{114}{subsection.12.3.4}% 
+\contentsline {subsubsection}{Prediction}{114}{section*.109}% 
 \contentsline {subsubsection}{Convolution Layer}{115}{section*.110}% 
-\contentsline {subsubsection}{Pooling Layer}{121}{section*.111}% 
-\contentsline {subsubsection}{RNN Layer}{124}{section*.112}% 
-\contentsline {subsubsection}{Attention}{127}{section*.115}% 
-\contentsline {subsection}{\numberline {12.3.5}Blocks}{133}{subsection.12.3.5}% 
-\contentsline {subsubsection}{Inception Block}{133}{section*.116}% 
+\contentsline {subsubsection}{Pooling Layer}{122}{section*.111}% 
+\contentsline {subsubsection}{RNN Layer}{125}{section*.112}% 
+\contentsline {subsubsection}{Attention}{128}{section*.115}% 
+\contentsline {subsection}{\numberline {12.3.5}Blocks}{134}{subsection.12.3.5}% 
+\contentsline {subsubsection}{Inception Block}{134}{section*.116}% 
 \contentsline {subsubsection}{Residual Block}{134}{section*.117}% 
 \contentsline {subsection}{\numberline {12.3.6}Training}{135}{subsection.12.3.6}% 
-\contentsline {section}{\numberline {12.4}Architectures}{135}{section.12.4}% 
-\contentsline {subsection}{\numberline {12.4.1}Convolutional Networks}{135}{subsection.12.4.1}% 
-\contentsline {subsubsection}{Classic Backbone}{135}{section*.118}% 
-\contentsline {subsubsection}{Fully Convolutional Networks (FCN)}{137}{section*.119}% 
+\contentsline {section}{\numberline {12.4}Architectures}{136}{section.12.4}% 
+\contentsline {subsection}{\numberline {12.4.1}Convolutional Networks}{136}{subsection.12.4.1}% 
+\contentsline {subsubsection}{Classic Backbone}{136}{section*.118}% 
+\contentsline {subsubsection}{Fully Convolutional Networks (FCN)}{138}{section*.119}% 
 \contentsline {subsubsection}{Interpretation and Visualization}{138}{section*.120}% 
-\contentsline {subsection}{\numberline {12.4.2}Recurrent Neural Network}{138}{subsection.12.4.2}% 
-\contentsline {subsubsection}{Classic RNN}{138}{section*.121}% 
+\contentsline {subsection}{\numberline {12.4.2}Recurrent Neural Network}{139}{subsection.12.4.2}% 
+\contentsline {subsubsection}{Classic RNN}{139}{section*.121}% 
 \contentsline {subsubsection}{Attention}{139}{section*.122}% 
 \contentsline {subsection}{\numberline {12.4.3}Encoder-Decoder Architecture}{139}{subsection.12.4.3}% 
 \contentsline {subsubsection}{Basic}{139}{section*.123}% 
-\contentsline {subsubsection}{Extension}{139}{section*.124}% 
+\contentsline {subsubsection}{Extension}{140}{section*.124}% 
 \contentsline {subsection}{\numberline {12.4.4}Generative Network}{140}{subsection.12.4.4}% 
 \contentsline {subsubsection}{Generative Adversarial Network}{140}{section*.125}% 
 \contentsline {section}{\numberline {12.5}Computer Vision}{140}{section.12.5}% 
 \contentsline {subsection}{\numberline {12.5.1}Visual Sensor}{140}{subsection.12.5.1}% 
 \contentsline {subsubsection}{Camera}{140}{section*.126}% 
 \contentsline {subsubsection}{Lidar}{143}{section*.127}% 
-\contentsline {subsubsection}{Radar}{143}{section*.128}% 
+\contentsline {subsubsection}{Radar}{144}{section*.128}% 
 \contentsline {subsection}{\numberline {12.5.2}Objects Detection}{144}{subsection.12.5.2}% 
 \contentsline {subsubsection}{Problem Formulation}{144}{section*.129}% 
-\contentsline {subsubsection}{Common Processing}{144}{section*.130}% 
+\contentsline {subsubsection}{Common Processing}{145}{section*.130}% 
 \contentsline {subsubsection}{Two-Stage Detection}{146}{section*.131}% 
-\contentsline {subsubsection}{One-stage Detection}{155}{section*.132}% 
-\contentsline {subsection}{\numberline {12.5.3}Object Tracking}{161}{subsection.12.5.3}% 
-\contentsline {subsubsection}{Problem Formulation}{161}{section*.134}% 
-\contentsline {subsubsection}{Detection in Tracking}{163}{section*.135}% 
-\contentsline {subsubsection}{Single-Object Tracking}{164}{section*.136}% 
-\contentsline {subsubsection}{Multi-Object Tracking \& Data Association}{176}{section*.137}% 
-\contentsline {subsubsection}{Instance Tracking}{182}{section*.138}% 
-\contentsline {subsection}{\numberline {12.5.4}Instance Segmentation}{183}{subsection.12.5.4}% 
-\contentsline {subsubsection}{Problem Formulation}{183}{section*.139}% 
-\contentsline {subsubsection}{Instance-first}{183}{section*.140}% 
-\contentsline {subsubsection}{Segmentation-first}{184}{section*.141}% 
-\contentsline {subsection}{\numberline {12.5.5}Face Recognition}{184}{subsection.12.5.5}% 
-\contentsline {subsubsection}{Problem Formulation}{184}{section*.142}% 
-\contentsline {subsubsection}{Classic Approach}{185}{section*.143}% 
-\contentsline {subsection}{\numberline {12.5.6}Stereo Vision}{186}{subsection.12.5.6}% 
-\contentsline {subsubsection}{Problem Formulation}{186}{section*.144}% 
-\contentsline {subsubsection}{Unsupervised Learning}{186}{section*.145}% 
-\contentsline {subsection}{\numberline {12.5.7}Recognition at a Distance}{187}{subsection.12.5.7}% 
-\contentsline {subsubsection}{Problem Formulation}{187}{section*.146}% 
-\contentsline {subsubsection}{Stationary Vision}{188}{section*.147}% 
-\contentsline {subsubsection}{3D Imaging}{188}{section*.148}% 
-\contentsline {subsection}{\numberline {12.5.8}Re-Identification}{188}{subsection.12.5.8}% 
-\contentsline {subsubsection}{Problem Formulation}{188}{section*.149}% 
-\contentsline {subsubsection}{Re-Ranking}{189}{section*.150}% 
-\contentsline {subsubsection}{People Re-ID}{190}{section*.151}% 
-\contentsline {subsubsection}{Vehicle Re-ID}{192}{section*.152}% 
-\contentsline {subsection}{\numberline {12.5.9}Image Style Transfer}{193}{subsection.12.5.9}% 
-\contentsline {subsubsection}{Problem Formulation}{193}{section*.153}% 
-\contentsline {subsubsection}{Classic Approach}{193}{section*.155}% 
-\contentsline {subsection}{\numberline {12.5.10}Video Generation}{194}{subsection.12.5.10}% 
-\contentsline {subsubsection}{Problem Formulation}{194}{section*.157}% 
-\contentsline {subsubsection}{Generation from Caption}{195}{section*.158}% 
-\contentsline {subsection}{\numberline {12.5.11}Point Cloud Data Processing}{196}{subsection.12.5.11}% 
-\contentsline {subsubsection}{Problem Formulation}{196}{section*.159}% 
-\contentsline {subsubsection}{Common Preprocessing}{196}{section*.160}% 
-\contentsline {subsubsection}{Point Cloud}{197}{section*.161}% 
-\contentsline {subsubsection}{Point Cloud + Image Fusion}{201}{section*.162}% 
-\contentsline {section}{\numberline {12.6}Natural Language Processing}{202}{section.12.6}% 
-\contentsline {subsection}{\numberline {12.6.1}Language Representation}{202}{subsection.12.6.1}% 
-\contentsline {subsubsection}{Problem Formulation}{202}{section*.163}% 
-\contentsline {subsubsection}{Overview}{203}{section*.164}% 
-\contentsline {subsubsection}{Word2Vec Embedding}{203}{section*.165}% 
-\contentsline {subsubsection}{Global Vector for Word Embedding (GloVe)}{205}{section*.166}% 
-\contentsline {subsubsection}{Addressing Bias in Word Embedding}{205}{section*.167}% 
-\contentsline {subsubsection}{Contextualized Word Embedding}{206}{section*.168}% 
-\contentsline {subsection}{\numberline {12.6.2}Language Modeling}{206}{subsection.12.6.2}% 
-\contentsline {subsubsection}{Problem Formulation}{206}{section*.169}% 
-\contentsline {subsubsection}{Classic Approach}{206}{section*.170}% 
-\contentsline {subsubsection}{Masked Language Model}{207}{section*.171}% 
-\contentsline {subsection}{\numberline {12.6.3}Name-Entity Recognition}{207}{subsection.12.6.3}% 
-\contentsline {subsubsection}{}{207}{section*.172}% 
-\contentsline {subsection}{\numberline {12.6.4}Sentiment Classification}{207}{subsection.12.6.4}% 
-\contentsline {subsubsection}{Problem Formulation}{207}{section*.173}% 
-\contentsline {subsubsection}{Classic Approach}{207}{section*.174}% 
-\contentsline {subsection}{\numberline {12.6.5}Neural Machine Translation}{207}{subsection.12.6.5}% 
-\contentsline {subsubsection}{Problem Formulation}{207}{section*.175}% 
-\contentsline {subsubsection}{Approaches}{207}{section*.176}% 
-\contentsline {subsubsection}{Choosing Output Sequence}{209}{section*.177}% 
-\contentsline {subsection}{\numberline {12.6.6}Speech Recognition}{210}{subsection.12.6.6}% 
-\contentsline {subsubsection}{Problem Formulation}{210}{section*.178}% 
-\contentsline {subsubsection}{Learning Objective}{210}{section*.179}% 
-\contentsline {subsubsection}{Classic Approach}{210}{section*.180}% 
-\contentsline {subsubsection}{Trigger Word Detection}{210}{section*.181}% 
-\contentsline {subsection}{\numberline {12.6.7}Machine Reading Comprehension}{211}{subsection.12.6.7}% 
-\contentsline {subsubsection}{RNN with Attention}{211}{section*.182}% 
-\contentsline {subsubsection}{Convolution with Self-attention - QAnet}{211}{section*.183}% 
-\contentsline {section}{\numberline {12.7}CV \& NLP}{211}{section.12.7}% 
-\contentsline {subsection}{\numberline {12.7.1}Image Caption}{211}{subsection.12.7.1}% 
-\contentsline {subsubsection}{Problem Formulation}{211}{section*.184}% 
-\contentsline {subsubsection}{Approaches}{211}{section*.185}% 
-\contentsline {subsection}{\numberline {12.7.2}Referring Segmentation}{213}{subsection.12.7.2}% 
-\contentsline {subsubsection}{Problem Formulation}{213}{section*.186}% 
-\contentsline {subsubsection}{Baseline Approach \& Previous Work}{214}{section*.187}% 
-\contentsline {subsubsection}{Current State-of-The-Art (early 2019)}{215}{section*.188}% 
-\contentsline {section}{\numberline {12.8}Special Learning}{216}{section.12.8}% 
-\contentsline {subsection}{\numberline {12.8.1}Transfer Learning}{216}{subsection.12.8.1}% 
-\contentsline {subsubsection}{Problem Formulation}{216}{section*.189}% 
-\contentsline {subsubsection}{Standard Baseline}{216}{section*.190}% 
-\contentsline {subsection}{\numberline {12.8.2}Multi-task Learning}{218}{subsection.12.8.2}% 
-\contentsline {subsubsection}{Problem Formulation}{218}{section*.191}% 
-\contentsline {subsubsection}{Standard Baseline}{218}{section*.192}% 
-\contentsline {subsection}{\numberline {12.8.3}K-shot Learning}{218}{subsection.12.8.3}% 
-\contentsline {subsubsection}{Problem Formulation}{218}{section*.193}% 
-\contentsline {section}{\numberline {12.9}Interpretable Machine Learning}{218}{section.12.9}% 
-\contentsline {section}{\numberline {12.10}Tactile Sensing}{218}{section.12.10}% 
-\contentsline {subsection}{\numberline {12.10.1}Tactile Sensor}{218}{subsection.12.10.1}% 
-\contentsline {subsection}{\numberline {12.10.2}Tactile Sensing and Perception}{219}{subsection.12.10.2}% 
-\contentsline {subsubsection}{Problem Formulation}{219}{section*.194}% 
-\contentsline {subsubsection}{Feature Extraction}{219}{section*.195}% 
-\contentsline {subsubsection}{Application in Robot Tasks}{220}{section*.196}% 
+\contentsline {subsubsection}{One-stage Detection}{156}{section*.132}% 
+\contentsline {subsection}{\numberline {12.5.3}Object Tracking}{162}{subsection.12.5.3}% 
+\contentsline {subsubsection}{Problem Formulation}{162}{section*.134}% 
+\contentsline {subsubsection}{Detection in Tracking}{164}{section*.135}% 
+\contentsline {subsubsection}{Single-Object Tracking}{165}{section*.136}% 
+\contentsline {subsubsection}{Multi-Object Tracking \& Data Association}{177}{section*.137}% 
+\contentsline {subsubsection}{Instance Tracking}{183}{section*.138}% 
+\contentsline {subsection}{\numberline {12.5.4}Instance Segmentation}{184}{subsection.12.5.4}% 
+\contentsline {subsubsection}{Problem Formulation}{184}{section*.139}% 
+\contentsline {subsubsection}{Instance-first}{184}{section*.140}% 
+\contentsline {subsubsection}{Segmentation-first}{185}{section*.141}% 
+\contentsline {subsection}{\numberline {12.5.5}Face Recognition}{185}{subsection.12.5.5}% 
+\contentsline {subsubsection}{Problem Formulation}{185}{section*.142}% 
+\contentsline {subsubsection}{Classic Approach}{186}{section*.143}% 
+\contentsline {subsection}{\numberline {12.5.6}Stereo Vision}{187}{subsection.12.5.6}% 
+\contentsline {subsubsection}{Problem Formulation}{187}{section*.144}% 
+\contentsline {subsubsection}{Unsupervised Learning}{187}{section*.145}% 
+\contentsline {subsection}{\numberline {12.5.7}Recognition at a Distance}{188}{subsection.12.5.7}% 
+\contentsline {subsubsection}{Problem Formulation}{188}{section*.146}% 
+\contentsline {subsubsection}{Stationary Vision}{189}{section*.147}% 
+\contentsline {subsubsection}{3D Imaging}{189}{section*.148}% 
+\contentsline {subsection}{\numberline {12.5.8}Re-Identification}{189}{subsection.12.5.8}% 
+\contentsline {subsubsection}{Problem Formulation}{189}{section*.149}% 
+\contentsline {subsubsection}{Re-Ranking}{190}{section*.150}% 
+\contentsline {subsubsection}{People Re-ID}{191}{section*.151}% 
+\contentsline {subsubsection}{Vehicle Re-ID}{193}{section*.152}% 
+\contentsline {subsection}{\numberline {12.5.9}Image Style Transfer}{194}{subsection.12.5.9}% 
+\contentsline {subsubsection}{Problem Formulation}{194}{section*.153}% 
+\contentsline {subsubsection}{Classic Approach}{194}{section*.155}% 
+\contentsline {subsection}{\numberline {12.5.10}Adversarial Attack}{195}{subsection.12.5.10}% 
+\contentsline {subsubsection}{Problem Formulation}{195}{section*.157}% 
+\contentsline {subsection}{\numberline {12.5.11}Generating Adversarial Attack}{196}{subsection.12.5.11}% 
+\contentsline {subsection}{\numberline {12.5.12}Video Generation}{196}{subsection.12.5.12}% 
+\contentsline {subsubsection}{Problem Formulation}{196}{section*.158}% 
+\contentsline {subsubsection}{Generation from Caption}{197}{section*.159}% 
+\contentsline {subsection}{\numberline {12.5.13}Point Cloud Data Processing}{198}{subsection.12.5.13}% 
+\contentsline {subsubsection}{Problem Formulation}{198}{section*.160}% 
+\contentsline {subsubsection}{Common Preprocessing}{198}{section*.161}% 
+\contentsline {subsubsection}{Point Cloud}{199}{section*.162}% 
+\contentsline {subsubsection}{Point Cloud + Image Fusion}{203}{section*.163}% 
+\contentsline {section}{\numberline {12.6}Natural Language Processing}{204}{section.12.6}% 
+\contentsline {subsection}{\numberline {12.6.1}Language Representation}{204}{subsection.12.6.1}% 
+\contentsline {subsubsection}{Problem Formulation}{204}{section*.164}% 
+\contentsline {subsubsection}{Overview}{205}{section*.165}% 
+\contentsline {subsubsection}{Word2Vec Embedding}{206}{section*.166}% 
+\contentsline {subsubsection}{Global Vector for Word Embedding (GloVe)}{207}{section*.167}% 
+\contentsline {subsubsection}{Addressing Bias in Word Embedding}{207}{section*.168}% 
+\contentsline {subsubsection}{Contextualized Word Embedding}{208}{section*.169}% 
+\contentsline {subsection}{\numberline {12.6.2}Language Modeling}{208}{subsection.12.6.2}% 
+\contentsline {subsubsection}{Problem Formulation}{208}{section*.170}% 
+\contentsline {subsubsection}{Classic Approach}{208}{section*.171}% 
+\contentsline {subsubsection}{Masked Language Model}{209}{section*.172}% 
+\contentsline {subsection}{\numberline {12.6.3}Name-Entity Recognition}{209}{subsection.12.6.3}% 
+\contentsline {subsubsection}{}{209}{section*.173}% 
+\contentsline {subsection}{\numberline {12.6.4}Sentiment Classification}{209}{subsection.12.6.4}% 
+\contentsline {subsubsection}{Problem Formulation}{209}{section*.174}% 
+\contentsline {subsubsection}{Classic Approach}{209}{section*.175}% 
+\contentsline {subsection}{\numberline {12.6.5}Neural Machine Translation}{209}{subsection.12.6.5}% 
+\contentsline {subsubsection}{Problem Formulation}{209}{section*.176}% 
+\contentsline {subsubsection}{Approaches}{210}{section*.177}% 
+\contentsline {subsubsection}{Choosing Output Sequence}{211}{section*.178}% 
+\contentsline {subsection}{\numberline {12.6.6}Speech Recognition}{212}{subsection.12.6.6}% 
+\contentsline {subsubsection}{Problem Formulation}{212}{section*.179}% 
+\contentsline {subsubsection}{Learning Objective}{212}{section*.180}% 
+\contentsline {subsubsection}{Classic Approach}{212}{section*.181}% 
+\contentsline {subsubsection}{Trigger Word Detection}{213}{section*.182}% 
+\contentsline {subsection}{\numberline {12.6.7}Machine Reading Comprehension}{213}{subsection.12.6.7}% 
+\contentsline {subsubsection}{RNN with Attention}{213}{section*.183}% 
+\contentsline {subsubsection}{Convolution with Self-attention - QAnet}{213}{section*.184}% 
+\contentsline {section}{\numberline {12.7}CV \& NLP}{213}{section.12.7}% 
+\contentsline {subsection}{\numberline {12.7.1}Image Caption}{213}{subsection.12.7.1}% 
+\contentsline {subsubsection}{Problem Formulation}{213}{section*.185}% 
+\contentsline {subsubsection}{Approaches}{214}{section*.186}% 
+\contentsline {subsection}{\numberline {12.7.2}Referring Segmentation}{216}{subsection.12.7.2}% 
+\contentsline {subsubsection}{Problem Formulation}{216}{section*.187}% 
+\contentsline {subsubsection}{Baseline Approach \& Previous Work}{216}{section*.188}% 
+\contentsline {subsubsection}{Current State-of-The-Art (early 2019)}{217}{section*.189}% 
+\contentsline {section}{\numberline {12.8}Generative Adversarial Network}{218}{section.12.8}% 
+\contentsline {section}{\numberline {12.9}Adversarial Attacks}{218}{section.12.9}% 
+\contentsline {subsection}{\numberline {12.9.1}Generating }{218}{subsection.12.9.1}% 
+\contentsline {section}{\numberline {12.10}Special Learning}{218}{section.12.10}% 
+\contentsline {subsection}{\numberline {12.10.1}Transfer Learning}{218}{subsection.12.10.1}% 
+\contentsline {subsubsection}{Problem Formulation}{218}{section*.190}% 
+\contentsline {subsubsection}{Standard Baseline}{219}{section*.191}% 
+\contentsline {subsection}{\numberline {12.10.2}Multi-task Learning}{220}{subsection.12.10.2}% 
+\contentsline {subsubsection}{Problem Formulation}{220}{section*.192}% 
+\contentsline {subsubsection}{Standard Baseline}{220}{section*.193}% 
+\contentsline {subsection}{\numberline {12.10.3}K-shot Learning}{221}{subsection.12.10.3}% 
+\contentsline {subsubsection}{Problem Formulation}{221}{section*.194}% 
+\contentsline {section}{\numberline {12.11}Interpretable Machine Learning}{221}{section.12.11}% 
+\contentsline {section}{\numberline {12.12}Tactile Sensing}{221}{section.12.12}% 
+\contentsline {subsection}{\numberline {12.12.1}Tactile Sensor}{221}{subsection.12.12.1}% 
+\contentsline {subsection}{\numberline {12.12.2}Tactile Sensing and Perception}{221}{subsection.12.12.2}% 
+\contentsline {subsubsection}{Problem Formulation}{221}{section*.195}% 
+\contentsline {subsubsection}{Feature Extraction}{221}{section*.196}% 
+\contentsline {subsubsection}{Application in Robot Tasks}{222}{section*.197}% 

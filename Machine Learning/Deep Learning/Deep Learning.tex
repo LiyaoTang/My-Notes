@@ -3235,10 +3235,6 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 	\end{itemize}
 \end{itemize}
 
-\subsection{Generative Network}
-\subsubsection{Generative Adversarial Network}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Computer Vision}
 \subsection{Visual Sensor}
@@ -6478,127 +6474,6 @@ based on visual and spatial-temporal features
 	\end{itemize}
 \end{itemize}
 
-\subsection{Video Generation}
-\subsubsection{Problem Formulation}
-\begin{itemize}
-\item Input
-	\begin{itemize}
-	\item Image
-		\begin{itemize}
-		\item as the first frame of the video
-		\end{itemize}
-	\item Caption
-		\begin{itemize}
-		\item specifying the video content
-		\end{itemize}
-	\end{itemize}
-\item Output
-	\begin{itemize}
-	\item a video sequence
-	\end{itemize}
-\item Metrics
-	\begin{itemize}
-	\item Similarity / Distance
-		\begin{itemize}
-		\item between generated \& original video \\
-		(original video usually uniformly sampled \& with its image downsampled)
-		\end{itemize}
-	\item Use Study
-		\begin{itemize}
-		\item unique human answering question \\
-		e.g. which video more realistic / more suitable for the given caption? etc.
-		\end{itemize}
-	\end{itemize}
-\item Challenge
-	\begin{itemize}
-	\item Consistency
-		\begin{itemize}
-		\item consistent scenes between frames
-		\end{itemize}
-	\item Realistic Motion
-		\begin{itemize}
-		\item especially human/animal motion due to their high complexity
-		\end{itemize}
-	\item Conditioning Video Generation
-		\begin{itemize}
-		\item control the content, style, etc. \\
-		(given initial frame: overlap with video prediction realm) \\
-		(while caption provides more control)
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-\subsubsection{Generation from Caption}
-\begin{itemize}
-\item CFT-GAN: Conditional Video Generation Using Action-Appearance Captions
-	\begin{itemize}
-	\item Inference (Generation)
-		\begin{itemize}
-		\item encode caption with randomness: encode the description of subject, action \& background, etc.
-		\item generate optical flow to represent action given $\psi, z_\text{flow}\sim p_z$
-		\end{itemize}
-	\item Caption Encoding
-		\begin{itemize}
-		\item caption feature: $\psi$ by Fisher Vectors with HGLMM
-		\item conditioning augmentation: $\mathbf c = \psi*(1+\epsilon)$, where $*$ element-wise product \\
-		$\Rightarrow$ avoid coarse distribution of $\psi$ by adding noise $\epsilon\sim\mathcal N(0,1)$ \\
-		$\Rightarrow \mathbf c \sim \mathcal N(\psi, 1)$
-		\end{itemize}
-	\item Latent Variables
-		\begin{itemize}
-		\item random variable (vector) $z\sim\mathcal N(0,1)$
-		\end{itemize}
-	\item Motion Generator FlowGAN
-		\begin{itemize}
-		\item input: concat [sampled $\mathbf c=\mathbf c_\text{flow}$, sampled $z=z_\text{flow}$]
-		\item based on VGAN: generate optical flow $\mathbf f = m(z)*f(z)$, ($*$ element-wise product)\\ 
-		where $m(z)$ a mask to fuse foreground $f(z)$ \& background $b(z)=0$ \\
-		($b(z)=0$ due to static camera, as background NOT generating optic flow)
-		\item for each time step, upsampled to $64\times 64$ feature map \& mask \\
-		$\Rightarrow$ 3D conv for volume of $64\times64\times t$
-		\end{itemize}
-	\item Motion Discriminator
-		\begin{itemize}
-		\item concat an input flow \& a corresponding real flow, downsample
-		\item dense layer to compress original caption feature $\psi$ as $\psi'$
-		\item tile $\psi'$ into downsampled feature map \& discriminate if input flow is real or fake \\
-		(further discriminate if flow related to caption)
-		\end{itemize}
-	\item Appearance Generator TextureGAN
-		\begin{itemize}
-		\item input: optic flow $\mathbf f$ \& concat [sampled $\mathbf c=\mathbf c_\text{tex}$, sampled $z=z_\text{tex}$]
-		\item condition variables map $\mathbf f_c$: upsample [$\mathbf c, z$] by 2 upsampling blocks
-		\item $\mathbf f$ as U-net input \& $\mathbf f_c$ concat in downsampling stage \\
-		$\Rightarrow$ retain spatial info: reflect edges in $\mathbf f$ as shape of moving target \\
-		$\Rightarrow$ output both foreground $f$ \& mask $m$ of shape $64\times64\times t$
-		\item background $b$: upsampled from [$\mathbf c, z$] for a single frame \& replicated $t$ times
-		\item fusion: video $v = f*m + (1-m)*b$
-		\end{itemize}
-	\item Video Discriminator
-		\begin{itemize}
-		\item concat input video \& a corresponding real video, downsample
-		\item downsample the optic flow for input video $\mathbf f$ as $\mathbf f'$ \& further downsample
-		\item dense layer compress caption $\psi$ as $\psi'$ \& concat to downsampled feature map \\
-		(also discriminate if video related to caption)
-		\end{itemize}
-	\item Training
-		\begin{itemize}
-		\item textureGAN trained initially using real optic flow calculated from real video \\
-		(until flowGAN more stable \& trained to a extend, to avoid wasted training)
-		\item use existing video dataset \& adding action-appearance caption
-		\end{itemize}
-	\item Understanding
-		\begin{itemize}
-		\item demonstrate ability for finer control on video content \\ 
-		(not only action, but background, appearance) \\ 
-		$\Rightarrow$ two-stage (action + appearance) generation for each frame for realistic complex scene\\
-		$\Rightarrow$ caption for more descriptive control (v.s. initial frame)
-		\item more abstract \& general control \\ 
-		$\Rightarrow$ reflect more variety of complex actions and appearances by captions \\ 
-		(compared to use image as initialization)
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
 \subsection{Point Cloud Data Processing}
 \subsubsection{Problem Formulation}
 \begin{itemize}
@@ -7904,6 +7779,244 @@ based on visual and spatial-temporal features
 	\end{itemize}
 \end{itemize}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\secsection{Adversarial Attack and Defend}
+\subsection{Problem Formulation}
+\begin{itemize}
+\item Input
+	\begin{itemize}
+	\item Images
+		\begin{itemize}
+		\item content image, recognized as class $c$ by human
+		\item label class $l, l\neq c$
+		\end{itemize}
+	\item Network
+		\begin{itemize}
+		\item trained on specific tasks, with params fixed \\
+		(to be attacked)
+		\end{itemize}
+	\end{itemize}
+\item Output
+	\begin{itemize}
+	\item Attacks
+		\begin{itemize}
+		\item a fake image that should be recognized as $c$ but recognized as $l$ by network
+		\end{itemize}
+	\end{itemize}
+\item Overview and Development
+	\begin{itemize}
+	\item Type of Valid Attacks \\
+	\includegraphics[width=0.3\linewidth, left]{"./Deep Learning/plot/topic-vision attack whole image space".png}
+		\begin{itemize}
+		\item unconstrained: as long as network is fooled
+		\item constrained: image need to be realistic, etc.
+		\end{itemize}
+	\item Limits in Generating Attacks
+		\begin{itemize}
+		\item white box: full access to the network \\
+		$\Rightarrow$ optimize input by backprop
+		\item black box: no access to the network, but can query the net \\
+		$\Rightarrow$ numerical gradients by nudging input
+		\item one-time attack: can only make one query \\
+		$\Rightarrow$ find transferable attack
+		\end{itemize}
+	\item Finding Cause of Existence of Attacks
+		\begin{itemize}
+		\item network not understanding data
+		\end{itemize}
+	\item Defends
+		\begin{itemize}
+		\item another guard network to predict if input is qualified
+		\item adversarial training: involve adversarial example in training
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsection{Cause of Existence of Attacks}
+\begin{itemize}
+\item Linearity Cause Vulnerability
+	\begin{itemize}
+	\item Formulation
+		\begin{itemize}
+		\item given input $\mathbf x=[x_1,...]^T$, a linear layer has $y=\mathbf w^T \mathbf x +b$, where $\mathbf w$ a col vec
+		\item $\Rightarrow$ find attack $x^\star \simeq x$ that can have $\hat y$ deviate from $y$ largely
+		\end{itemize}
+	\item Attack Generation
+		\begin{itemize}
+		\item let $\mathbf x^\star=\mathbf x+\epsilon\mathbf w^T$, then $y^\star=\mathbf \mathbf \mathbf w^T \mathbf x^\star + b = y+ \epsilon\mathbf w^T\mathbf w$
+		\item as $\epsilon$ controls magnitude of $\mathbf w$, while $y$ influenced by $\mathbf w^T \mathbf w$\\
+		$\Rightarrow$ can find valid attack with $\epsilon\rightarrow 0$
+		\end{itemize}
+	\item Analysis
+		\begin{itemize}
+		\item more dimension leads to more vulnerable network (as $\mathbf w^T\mathbf w$ grows with dimension)
+		\item trying to linearize network for fast training (e.g. relu, ...) $\Rightarrow$ more vulnerable
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Generative Adversarial Network}
+\subsection{Formulation}
+\begin{itemize}
+\item Input
+	\begin{itemize}
+	\item Encoding 
+		\begin{itemize}
+		\item random vector sampled from a distribution
+		\end{itemize}
+	\end{itemize}
+\item Output
+	\begin{itemize}
+	\item Data
+		\begin{itemize}
+		\item desired data format, e.g. image, video, audio, etc.
+		\end{itemize}
+	\end{itemize}
+\item Training Scheme
+	\begin{itemize}
+	\item Loss Function
+
+	\end{itemize}
+\item Overview and Development
+	\begin{itemize}
+	\item Motivation
+		\begin{itemize}
+		\item construct computer's understanding of the world \\
+		$\Rightarrow$ match real-world distribution from a init distr \\
+		(i.e. density estimation)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Image Generation}
+\subsubsection{Problem Formlulation}
+\begin{itemize}
+\item Input
+\item Output
+\end{itemize}
+
+\subsection{Video Generation}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Input
+	\begin{itemize}
+	\item Image
+		\begin{itemize}
+		\item as the first frame of the video
+		\end{itemize}
+	\item Caption
+		\begin{itemize}
+		\item specifying the video content
+		\end{itemize}
+	\end{itemize}
+\item Output
+	\begin{itemize}
+	\item a video sequence
+	\end{itemize}
+\item Metrics
+	\begin{itemize}
+	\item Similarity / Distance
+		\begin{itemize}
+		\item between generated \& original video \\
+		(original video usually uniformly sampled \& with its image downsampled)
+		\end{itemize}
+	\item Use Study
+		\begin{itemize}
+		\item unique human answering question \\
+		e.g. which video more realistic / more suitable for the given caption? etc.
+		\end{itemize}
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Consistency
+		\begin{itemize}
+		\item consistent scenes between frames
+		\end{itemize}
+	\item Realistic Motion
+		\begin{itemize}
+		\item especially human/animal motion due to their high complexity
+		\end{itemize}
+	\item Conditioning Video Generation
+		\begin{itemize}
+		\item control the content, style, etc. \\
+		(given initial frame: overlap with video prediction realm) \\
+		(while caption provides more control)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Generation from Caption}
+\begin{itemize}
+\item CFT-GAN: Conditional Video Generation Using Action-Appearance Captions
+	\begin{itemize}
+	\item Inference (Generation)
+		\begin{itemize}
+		\item encode caption with randomness: encode the description of subject, action \& background, etc.
+		\item generate optical flow to represent action given $\psi, z_\text{flow}\sim p_z$
+		\end{itemize}
+	\item Caption Encoding
+		\begin{itemize}
+		\item caption feature: $\psi$ by Fisher Vectors with HGLMM
+		\item conditioning augmentation: $\mathbf c = \psi*(1+\epsilon)$, where $*$ element-wise product \\
+		$\Rightarrow$ avoid coarse distribution of $\psi$ by adding noise $\epsilon\sim\mathcal N(0,1)$ \\
+		$\Rightarrow \mathbf c \sim \mathcal N(\psi, 1)$
+		\end{itemize}
+	\item Latent Variables
+		\begin{itemize}
+		\item random variable (vector) $z\sim\mathcal N(0,1)$
+		\end{itemize}
+	\item Motion Generator FlowGAN
+		\begin{itemize}
+		\item input: concat [sampled $\mathbf c=\mathbf c_\text{flow}$, sampled $z=z_\text{flow}$]
+		\item based on VGAN: generate optical flow $\mathbf f = m(z)*f(z)$, ($*$ element-wise product)\\ 
+		where $m(z)$ a mask to fuse foreground $f(z)$ \& background $b(z)=0$ \\
+		($b(z)=0$ due to static camera, as background NOT generating optic flow)
+		\item for each time step, upsampled to $64\times 64$ feature map \& mask \\
+		$\Rightarrow$ 3D conv for volume of $64\times64\times t$
+		\end{itemize}
+	\item Motion Discriminator
+		\begin{itemize}
+		\item concat an input flow \& a corresponding real flow, downsample
+		\item dense layer to compress original caption feature $\psi$ as $\psi'$
+		\item tile $\psi'$ into downsampled feature map \& discriminate if input flow is real or fake \\
+		(further discriminate if flow related to caption)
+		\end{itemize}
+	\item Appearance Generator TextureGAN
+		\begin{itemize}
+		\item input: optic flow $\mathbf f$ \& concat [sampled $\mathbf c=\mathbf c_\text{tex}$, sampled $z=z_\text{tex}$]
+		\item condition variables map $\mathbf f_c$: upsample [$\mathbf c, z$] by 2 upsampling blocks
+		\item $\mathbf f$ as U-net input \& $\mathbf f_c$ concat in downsampling stage \\
+		$\Rightarrow$ retain spatial info: reflect edges in $\mathbf f$ as shape of moving target \\
+		$\Rightarrow$ output both foreground $f$ \& mask $m$ of shape $64\times64\times t$
+		\item background $b$: upsampled from [$\mathbf c, z$] for a single frame \& replicated $t$ times
+		\item fusion: video $v = f*m + (1-m)*b$
+		\end{itemize}
+	\item Video Discriminator
+		\begin{itemize}
+		\item concat input video \& a corresponding real video, downsample
+		\item downsample the optic flow for input video $\mathbf f$ as $\mathbf f'$ \& further downsample
+		\item dense layer compress caption $\psi$ as $\psi'$ \& concat to downsampled feature map \\
+		(also discriminate if video related to caption)
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item textureGAN trained initially using real optic flow calculated from real video \\
+		(until flowGAN more stable \& trained to a extend, to avoid wasted training)
+		\item use existing video dataset \& adding action-appearance caption
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item demonstrate ability for finer control on video content \\ 
+		(not only action, but background, appearance) \\ 
+		$\Rightarrow$ two-stage (action + appearance) generation for each frame for realistic complex scene\\
+		$\Rightarrow$ caption for more descriptive control (v.s. initial frame)
+		\item more abstract \& general control \\ 
+		$\Rightarrow$ reflect more variety of complex actions and appearances by captions \\ 
+		(compared to use image as initialization)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Special Learning}

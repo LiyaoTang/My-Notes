@@ -745,8 +745,48 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Recommended Practice}
 
-\subsection{Data}
-\subsubsection{Data Augmentation}
+\subsection{Overview}
+\subsubsection{Development Cycle}
+\begin{itemize}
+\item Iterative Development
+	\begin{itemize}
+	\item Research Cycle
+		\includegraphics[width=0.3\linewidth, center]{"./Deep Learning/plot/experiment practice-iterative process".png}
+		\begin{itemize}
+		\item intuition usually do NOT transfer across domains (NLP, CV, Search, etc.)
+		\item iterative management (agile) for iterative cycle \\
+		$\Rightarrow$ need feedback from experiment result \\
+		$\Rightarrow$ make sure the feedback is CORRECT and FAST
+		\item start simpler \& save investment \\
+		$\Rightarrow$ collect feedback/evidence for using more complex solution
+		\end{itemize}
+	\item Design Pipeline
+		\begin{itemize}
+		\item determine the scope of the problem \& desired solution's ability \\
+		(defining product)
+		\item $\Rightarrow$ estimate the complexity \\
+		(may by human performance, etc.)
+		\item estimate amount of data required
+		\item input to the network (potential dataset-reality bias?)
+		\item output \& label encoding
+		\item network architecture
+		\item loss \& training
+		\end{itemize}
+	\end{itemize}
+\item Proposing Research Project
+	\begin{itemize}
+	\item Key Properties
+		\begin{itemize}
+		\item interested question/problem
+		\item availability of data and utilities (compute resources etc.)
+		\item combination to domain knowledge
+		\item feasibility of DL solution
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Data \& Dataset}
+\subsubsection{Augmentation}
 \begin{itemize}
 \item Artificial Data Synthesis
 	\begin{itemize}
@@ -785,7 +825,7 @@
 	\item 
 	\end{itemize}
 \end{itemize}
-\subsubsection{Data Preprocessing}
+\subsubsection{Preprocessing}
 \begin{itemize}
 \item Mean Centering
 	\begin{itemize}
@@ -847,28 +887,15 @@
 	\end{itemize}
 \end{itemize}
 
-\subsection{Dataset}
-\subsubsection{Train-Val-Test}
+\subsubsection{Train-Val-Test Dataset}
 \begin{itemize}
-\item Reason
-	\begin{itemize}
-	\item Iterative Process
-		\begin{figure}[!ht]
-		\includegraphics[width=0.3\linewidth, center]{"./Deep Learning/plot/experiment practice-iterative process".png}
-		\end{figure}
-		\begin{itemize}
-		\item intuition usually do NOT transfer across domains (NLP, CV, Search, etc.)
-		\item do NOT hope to have the correct hyperparameters at the first try
-		\end{itemize}
-		$\Rightarrow$ need feedback from experiment result \\
-		$\Rightarrow$ make sure the feedback is CORRECT and FAST
-	\end{itemize}
 \item Recommended Usage
 	\begin{itemize}
 	\item Splitting 
 		\begin{itemize}
 		\item classic split for small dataset $\Rightarrow$ train:val:test $= 60:20:20$, or K-fold
 		\item in big data (e.g. $100$ million) $\Rightarrow$ train:val:test $= 98:1:1$
+		\item $\Rightarrow$ to have least data enough for model analysis in val \& test
 		\end{itemize}
 		(as long as val-test sets cover enough data variance)
 	\item Training Set
@@ -929,7 +956,7 @@
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Train-Test}
+\subsubsection{Train-Test Dataset}
 \begin{itemize}
 \item No Val Set
 	\begin{itemize}
