@@ -829,8 +829,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Basic Neutral Network}
 
-\subsection{Advantages}
-\subsubsection{Large/Big Data}
+\subsection{Overview}
+\subsubsection{Advantages}
 \begin{itemize}
 \item Larger Maximum Capability
 	\begin{itemize}
@@ -843,117 +843,85 @@
 		\item the scale of efficiency: e.g. ReLu, faster parallel algorithm
 		\end{itemize}
 	\end{itemize}
-\end{itemize}
-
-\subsubsection{Flexibility}
-\begin{itemize}
-\item Different Structures for Different Tasks
+\item Flexibility
 	\begin{itemize}
-	\item Same Data \& Task
+	\item Different Structures for Different Tasks
 		\begin{itemize}
 		\item changing settings/structures of deep learning model can make a difference \\
-		(v.s. SVM, etc.)
+		(v.s. SVM, etc.) 
 		\end{itemize}
-	\end{itemize}
-
-\item Ability to Choose Basis Functions
-	\begin{itemize}
-	\item Functional View
+	\item Ability to Choose Basis Functions
 		\begin{itemize}
-		\item $\displaystyle y(\mathbf {x}, \mathbf w)=f(\mathbf w^T\phi(\mathbf x)), \text{ where } \phi \text{ is basis function }, f(\cdot) \text{ is net as a function}$
+		\item functional view: $\displaystyle y(\mathbf {x}, \mathbf w)=f(\mathbf w^T\phi(\mathbf x))$, where $\phi$ the basis function, $f(\cdot)$ the network \\
+		$\Rightarrow$ learn $\phi$ to choose embedding (basis function) \\
+		$\Rightarrow$ learn $\mathbf w$ to choose which feature / basis functions more useful
 		\end{itemize}
-	\item Learning $\phi$: choose embedding $\Rightarrow$ choose basis function
-	\item Learning $\mathbf w$: choose which feature / basis functions more useful
-	\end{itemize}
-	
-\item Solving Bias-Variance Trade-off
-	\begin{itemize}
-	\item Complexity + Data/Regularization
+	\item Solving Bias-Variance Trade-off
 		\begin{itemize}
-		\item easy complexity via depth, size \\
-		$\Rightarrow$ reduce bias, without hurting variance by utilizing big data
+		\item easy complexity via depth, size
+		$\Rightarrow$ reduce bias, without hurting variance by fitting to big data
 		\item easy regularization via L$2$ ant etc.\\ 
 		$\Rightarrow$ prevent high variance without hurting bias much in a deep/big net
 		\end{itemize}
 	\end{itemize}
-\end{itemize}
-
-\subsubsection{Power of Depth}
-\begin{itemize}
-\item Deep Representation
+\item Power of Depth
 	\begin{itemize}
-	\item Low-level $\rightarrow$ High-level
-		\begin{itemize}	
+	\item Deep Representation
+		\begin{itemize}
 		\item multiple layers to choose \& combine useful information (creating new feature/basis) \\
 		$\Rightarrow$ next layer use chosen/combined simple basis to build more complex one
 		\item $\Rightarrow$ an hierarchy from low-level information to high-level information
 		\end{itemize}
-	\end{itemize}
-
-\item Circuit Theory
-	\begin{itemize}
-	\item Power of Combination
+	\item Circuit Theory (Power of Combination)
 		\begin{itemize}
 		\item functions that can be compactly represented by a depth $k$ architecture might require an exponential number of computational nodes using a depth $k-1$ architecture \\
 		(from the perspective of factorization)
+		\item \textbf{Yet, start from the SHALLOW, e.g. logistic regression, before trying the deep} \\
+		(Occam's scissor: prefer simplicity, as it generalizes better)
 		\end{itemize}
 	\end{itemize}
-\textbf{Yet, start from the SHALLOW (logistic regression) before trying the deep}
 \end{itemize}
 
-\subsection{Problem}
+\subsubsection{Challenge}
 ($n$ units in one hidden layer)
-
-\subsubsection{Weight-space Symmetries} 
 \begin{itemize}
-\item Symmetries in Activation Function
+\item Weight-space Symmetries
 	\begin{itemize}
-	\item $\mathcal{O}(2^n)$, e.g. $\arctan(-x) = -\arctan(x) \Rightarrow$ changing signs of all input \& output has the same mapping (reduce effective data)
-	\end{itemize}
-\item Positional Combination in One Layer
-	\begin{itemize}
-	\item $\mathcal{O}(n!)$ exchange unit with each other (together with their input output weights) $\Rightarrow$ mapping stay the same
-	\end{itemize}
-\end{itemize}
-$\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
-
-\subsubsection{High-Dimension Search Space}
-\begin{itemize}
-\item Multiple Critical Points
-	\begin{itemize}
-	\item Symmetries
+	\item Symmetries in Activation Function
 		\begin{itemize}
-		\item at least $\mathcal O (n!2^n)$ critical points ($\nabla E(w) = 0$), where $E(w)$ is error function \\
-		due to weight-space symmetries
+		\item $\mathcal{O}(2^n)$, e.g. $\arctan(-x) = -\arctan(x) \Rightarrow$ changing signs of all input \& output has the same mapping (reduce effective data)
 		\end{itemize}
-	\item Saddle Points
+	\item Positional Combination in One Layer
 		\begin{itemize}
-		\item both the bottom (in one dimension) and the top for another
-		\item due to high-dimension weight space \\ 
-		$\Rightarrow$ more likely to have functions being convey/convex in different dimensions
-		\end{itemize}
-	\item Local Optima
-		\begin{itemize}
-		\item less then saddle points in amount, due to high-dimension weight space \\ 
-		e.g. usually $\ge 10^4$-D for modern deep nets
+		\item $\mathcal{O}(n!)$ exchange unit with each other (together with their input output weights) $\Rightarrow$ mapping stay the same
 		\end{itemize}
 	\end{itemize}
-\item Plateaus
-	\begin{itemize}
-	\item a large flat region where gradient $\rightarrow 0$ \\
-	$\Rightarrow$ gradient descent slowly down the flat surface (before exiting)
-	\item $\Rightarrow$ slow down gradient descent significantly
-	\end{itemize}
-\item Expensive in Finding Critical Point
-	\begin{itemize}
-	\item expensive for even local optima with gradient decent
-	\item as expensive as $\mathcal O(n^3)$ if using Laplace approximation
-	\end{itemize}	
-\end{itemize}
-
-\subsubsection{Gradient Vanishing/Exploding}
-\begin{itemize}
-\item Gradient Vanishing
+	$\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
+	\item High-Dimension Search Space
+		\begin{itemize}
+		\item Multiple Critical Points
+			\begin{itemize}
+			\item symmetries: at least $\mathcal O (n!2^n)$ critical points ($\nabla E(w) = 0$), where $E(w)$ is error function \\
+			due to weight-space symmetries
+			\item saddle points: both the bottom (in one dimension) and the top for another \\
+			$\Rightarrow$ more likely to have functions being convey/convex in different dimensions \\
+			(due to high-dimension weight space)
+			\item local optima: less then saddle points in amount \\ 
+			(due to high-dimension weight space e.g. usually $\ge 10^4$-D for modern deep nets)
+			\end{itemize}
+		\item Plateaus
+			\begin{itemize}
+			\item a large flat region where gradient $\rightarrow 0$ \\
+			$\Rightarrow$ gradient descent slowly down the flat surface (before exiting)
+			\item $\Rightarrow$ slow down gradient descent significantly
+			\end{itemize}
+		\item Expensive in Finding Critical Point
+			\begin{itemize}
+			\item expensive for even local optima with gradient decent
+			\item as expensive as $\mathcal O(n^3)$ if using Laplace approximation
+			\end{itemize}	
+		\end{itemize}
+\item Gradient Vanishing/Exploding
 	\begin{itemize}
 	\item Saturated Function
 		\begin{itemize}
@@ -965,91 +933,19 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow y(\mathbf x, W) \approx \mathbf \mathbf w^L \mathbf w'^{L-1} \mathbf x$, with $\mathbf w'<1$ \\
 		$\Rightarrow$ all the gradient along the way get multiplied by number $<1$ \\
 		$\Rightarrow$ gradient exponentially decayed in back-prop
-		\end{itemize}
-	\end{itemize}
-\item Gradient Exploding
-	\begin{itemize}
-	\item Exponential Effect
-		\begin{itemize}
 		\item similarly, each activation (e.g. ReLU) output $a^l>1$ and weight $\mathbf w^l > 1$ \\
 		$\Rightarrow y(\mathbf x, W) \approx \mathbf \mathbf w^L \mathbf w'^{L-1} \mathbf x$, with $\mathbf w'>1$ \\
 		$\Rightarrow$ all the gradient along the way get multiplied by number $>1$ \\
 		$\Rightarrow$ gradient exponentially augmented in back-prop
 		\end{itemize}
-	\end{itemize}
-\item Possible Solutions
-	\begin{itemize}
-	\item Random Initialization
+	\item Possible Solutions
 		\begin{itemize}
-		\item \hyperref[DL_Init_Xavier]{Xavier Initialization}: for gradient vanishing \& exploding
-		\end{itemize}
-	\item Activation 
-		\begin{itemize}
-		\item \hyperref[DL_Act_ReLU]{ReLU}: for gradient vanishing
-		\end{itemize}
-	\item Skip/Concat Connection
-		\begin{itemize}
-		\item \hyperref[DL_Block_Res]{residual block}
-		\item 
-		\end{itemize}
-	\end{itemize}	
-\end{itemize}
-
-\subsection{Learning}
-\subsubsection{Forward-Backward Propagation}
-\begin{itemize}
-\item Representation
-	\begin{itemize}
-	\item Layers
-		\begin{itemize}
-		\item input layer
-		\item hidden layer(s): layer with NO ground truth (for the associated weights) available \\
-		note: input \& hidden layers have associated biases as well (usually)
-		\item output layer
-		\end{itemize}
-	\item Neuron (Unit)
-		\begin{itemize}
-		\item $s_l$: num of units in layer $l$
-		\item $w^l$: weight matrix of mapping from layer $l$ to $l+1$, with shape of $\left( s_{l+1}, s_l + 1 \right)$
-		\item $h(\cdot)$: activation function (usually shared)
-		\item $a_j^l$: activation output of unit $j$ at layer $l$
-		\item $z_j^l$: output of unit $j$ at layer $l$ \\ 
-		(represent parameterized basis, also the input for layer $l+1$)
-		
-		\end{itemize}
-	\item Intuition
-		\begin{itemize}
-		\item all stacked vertically (vertical vector) \\
-		$\Rightarrow$ horizontally for different examples; vertically for different units
-		\end{itemize}
-	\end{itemize}
-	
-\item Forward Propagation (Inference)
-	\begin{itemize}
-	\item Activation $a^{j+1} = w^j \cdot [z_0^j, ..., z_{s_j}^j]^T, \text{ with } z_0=1$
-	\item Unit Output $z^{j+1} = h(a^{j+1}) = [z_1^{1}, ..., z^{j+1}_{s_{j+1}}]^T$
-	\end{itemize}
-
-\item Backward Propagation
-	\begin{itemize}
-	\item Loss $\mathcal L(W) = $
-	\end{itemize}
-
-\item Practice of Back Prop
-	\begin{itemize}
-	\item Caching Intermediate Result
-		\begin{itemize}
-		\item naturally cached: input $a^0=x$, weights matrix $w$ and bias $b$
-		\item activation input/output $a/z$ \\
-		(since will be used in back-prop)
-		\end{itemize}
-	\item Auto Difference
-		\begin{itemize}
-		\item achievement: calculate the derivatives along the forward prop \textbf{!}
-		\end{itemize}
+		\item initialization: \hyperref[DL_Init_Xavier]{Xavier Initialization}
+		\item activation: \hyperref[DL_Act_ReLU]{ReLU}: for gradient vanishing
+		\item structure: \hyperref[DL_Block_Res]{residual block}
+		\end{itemize}	
 	\end{itemize}
 \end{itemize}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Operations \& Layers Structure}
@@ -1060,20 +956,31 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Pros
 		\begin{itemize}
-		\item mapping to $(0,1)$, with $\sigma(0)=0.5$
+		\item mapping to $(0,1)$, with $\sigma(0)=0.5$ \\
+		$\Rightarrow$ naturally maps into prob
 		\end{itemize}
 	\item Cons
 		\begin{itemize}
 		\item gradient vanishing: $\displaystyle \sigma(z)' = \sigma(z)(1-\sigma(z)) \Rightarrow \lim_{z\rightarrow \pm \infty} \sigma(z)' \rightarrow 0$ \\
 		(as the gradient passed through (via chain rule) $=\frac{a}{z} \frac{z}{w}$)
+		\item NOT zero-centering, but always maps input into positive regime \\
+		$\Rightarrow$ for weights afterawrds, can have only all positive/negative gradient \\
+		$\Rightarrow$ inefficient update
+		\item expensive expotential ops
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item do NOT use in hidden layer, yet can be used for prediction (at last layer)
 		\end{itemize}
 	\end{itemize}
+
 \item Tangent $a=\tanh(z)$
 	\begin{itemize}
 	\item Pros
 		\begin{itemize}
 		\item empirically, almost always better than sigmoid (in hidden layers)
 		\item maps to $(-1,1)$, with $\tan(0)=0 \Rightarrow$ help centering data ($0$-mean) \\ $\Rightarrow$ make the learning of next layer easier
+		\item zero-centering (v.s. sigmoid)
 		\end{itemize}
 	\item Cons
 		\begin{itemize}
@@ -1088,18 +995,20 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Pros
 		\begin{itemize}
-		\item mitigate gradient vanishing: $\forall z>0, a=z \Rightarrow$ learn much faster
+		\item mitigate gradient vanishing: $\forall z>0, a=z \Rightarrow$ converge much faster
+		\item efficient ops
 		\end{itemize}
 		$\Rightarrow$ the default choice!
 	\item Cons
 		\begin{itemize}
 		\item undefined behavior at $x=0$ (actually, gradient becomes the sub-gradient)
-		\item gradient totally vanished for $x<0$
-		\item $\Rightarrow$ dead units: weights learned/initialized to always output negatives \\ 
-		$\Rightarrow$ activation always output $0$ \\
-		$\Rightarrow$ the unit always output $0$
+		\item gradient totally vanished for $x<0$ \\
+		$\Rightarrow$ dead units: weights learned/initialized to always output negatives \\ 
+		(thus the unit always output $0$, due to ReLu)
+		\item again, not zero-centering
 		\end{itemize}		
 	\end{itemize}
+
 \item Leaky Relu $a=\max(\alpha z, z), \alpha \rightarrow 0^+$ (e.g. $\alpha=0.01$)
 	\begin{itemize}
 	\item Pros
@@ -1107,7 +1016,6 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item mitigate the gradient vanishing problem for $(-\infty, +\infty)$
 		\item avoid dead units problem
 		\end{itemize}
-		(yet not that popular as ReLU)
 	\end{itemize}
 
 \item Piecewise Linear Unit (PLU) $a=\max(\alpha(z+\beta)-\beta, \min(\alpha(z-\beta)+\beta, z)$
@@ -1179,7 +1087,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Implementation
 		\begin{itemize}
-		\item preferred to apply batch norm on $z$ (before activation), instead of after it
+		\item preferred to apply batch norm on $z$ (before activation), instead of after it \\
+		$\Rightarrow$ to control the active regime of the activation
 		\item for math stability, $z'_n=\frac {z_n-\mu}{\sigma+\epsilon}$, with $\epsilon\rightarrow 0+$
 		\item (usually) with mini-batch, calculate the mean \& variance from only the mini-batch
 		\item with batch norm, original bias $b$ in calculating $z=wx+b$ becomes pointless \\
@@ -1187,10 +1096,17 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item at test time ($1$ example a time): need an estimation for $\mu, \sigma$ \\
 		$\Rightarrow$ exponentially weighted average over $\beta, \sigma$ in training time
 		\end{itemize}
+	\item Implementation - Conv
+		\begin{itemize}
+		\item one mean \& variance for an entire feature map (before activation) \\
+		$\Rightarrow$ preserve relativity across spatial location
+		\end{itemize}
 	\item Understanding
 		\begin{itemize}
 		\item normalize the intermediate data to have $0$ mean, unit variance \\
-		$\Rightarrow$ to speed up the training from some hidden layers (as normalization does)
+		$\Rightarrow$ equip init network with desired properties \\
+		($0$ mean \& same unit variance for all layers) \\
+		$\Rightarrow$ easier to train
 		\item remain the ability to transfer the data to have other mean \& variance \\
 		(controlled by $\gamma,\beta$)
 		\item control the distribution of data in hidden layer \\ 
@@ -1198,12 +1114,15 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ increase robustness for later layers, against covariate shift \\ 
 		(from both the weight update in early layers and the input data change)
 		\item regularize the net by adding noise to the input data of hidden layer \\ 
-		(due to computing mean/variance only on mini-batch) \\
+		(noise are from computing mean/variance only on mini-batch) \\
 		$\Rightarrow$ enforce robustness against noise, hence unintended slight regularization effect
 		\item $\Rightarrow$ \underline{address gradient exploding \& vanishing} \\
 		(as responses are controlled, thus backward gradients are also regularized accordingly)
 		\end{itemize}
 	\end{itemize}
+\item Compare \\
+\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/ops-norm compare".png}
+
 \end{itemize}
 
 \subsection{Operations on Network}
@@ -1226,6 +1145,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Cons
 		\begin{itemize}
 		\item NOT concern various nets: sampling in a fixed range may not work for all nets
+		\item weights are all sampled from the same distribution with limited variance \\
+		$\Rightarrow$ variance in deep layer output collapse into $0$ \\
+		$\Rightarrow$ symmetric problem
+		\item too small $W$: gradient vanishing, as multiplied by multiple small $W$ in backprop
+		\item too large $W$ (large variance): gradient vanishing due to saturation (tanh, etc.)
 		\end{itemize}
 	\end{itemize}
 
@@ -1245,7 +1169,11 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Pros
 		\begin{itemize}
 		\item theoretically justified to initialized weights to be around $\pm 1$ \\
-		$\Rightarrow$ mitigate gradient vanishing\& exploding problem statistically 
+		$\Rightarrow$ mitigate gradient vanishing \& exploding problem statistically 
+		\item scale activation statistics correspondingly \\
+		$\Rightarrow$ expect the output variance to be the same of input variance
+		\item need to compensate for ReLu \\
+		(as half of activation/gradients are mused)
 		\end{itemize}
 	\end{itemize}
 \item Zero Initialization for Bias
@@ -1260,25 +1188,27 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 
 \subsubsection{Regularization}
 \begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Complexity Constraint
+		\begin{itemize}
+		\item measure the model complexity (task dependent) \\
+		$\Rightarrow$ penalize using too complex model (to fit the train set)
+		\item trade-off between ability (complexity) \& generalization (simplicity)
+		\end{itemize}
+	\end{itemize}
 \item $L2$ Regularization
 	\begin{itemize}
 	\item Definition
 		\begin{itemize}
-		\item $\Rightarrow$ also called "weight decay" \\
+		\item $\frac12 \lambda w^2$, also called "weight decay" \\
 		(as in gradient decent, weight is multiplied by a $<1$ number due to L2 term)
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item forcing weights to be smaller
-			\begin{itemize}
-			\item single node has smaller effect
-			\item input of activation closer to $0$ \\
-			$\Rightarrow$ activation becomes more linear-alike (e.g. sigmoid, tanh) \\
-			$\Rightarrow$ layers perform more linear-alike transformation
-			\end{itemize}
+		\item makes small number spread over weights (each weight has smaller effect)
 		$\Rightarrow$ simpler network, less able to fit extreme curly decision boundary \\
-		(hence less able to overfit)
-
+		(better generalization)
 		\end{itemize}
 	\end{itemize}
 	
@@ -1286,19 +1216,37 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\begin{itemize}
 	\item Definition
 		\begin{itemize}
-		\item for each weight ww we add the term $\lambda \abs w$ to the objective. It is possible to combine the L1 regularization with the L2 regularization: $\lambda_1 \abs w + \lambda_2 w^2$ (this is called Elastic net regularization). The L1 regularization has the intriguing property that it leads the weight vectors to become sparse during optimization (i.e. very close to exactly zero). In other words, neurons with L1 regularization end up using only a sparse subset of their most important inputs and become nearly invariant to the “noisy” inputs. In comparison, final weight vectors from L2 regularization are usually diffuse, small numbers. In practice, if you are not concerned with explicit feature selection, L2 regularization can be expected to give superior performance over L1.
-		\end{itemize}
-	\item Practice
-		\begin{itemize}
-		\item 
+		\item $+\lambda \abs{w}$
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item 
+		\item encourage sparse weight i.e. very close to 0 \\
+		$\Rightarrow$ end up using a sparse subset of layer input \\
+		$\Rightarrow$ feature selection (recognize \& discard noisy input)
+		\item default to $L2$ if not using explicit feature selection
 		\end{itemize}
-	\item Cons
+	\end{itemize}
+
+\item Elastic Net regularization
+	\begin{itemize}
+	\item Definition
 		\begin{itemize}
-		\item 
+		\item $\lambda_1 \abs w + \lambda_2 w^2$ i.e. combine the L1 and L2 regularization
+		\end{itemize}
+	\end{itemize}
+
+\item Maxnorm Regularization
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item $\norm{w}_2 < \epsilon$ \\
+		i.e. enforce an absolute upper bound on weights (for every neuron) \\
+		$\Rightarrow$ clamp the weight to have $\norm{w}_2<\epsilon$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item bounded update to avoid exploding weight \\
+		(even under improper learning rate)
 		\end{itemize}
 	\end{itemize}
 
@@ -1319,8 +1267,9 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item $\Rightarrow$ activation becomes $0$ for dropped units in $\mathbf d$
 		\item scaling up by dividing the keep prob: $\mathbf d / k$ \\
 		$\Rightarrow$ so that expected output value of each activation remains the same
-		\item test time: no dropout $\Rightarrow$ no random output \& consider all robust features learned\\
-		(randomness in training, mitigated by big data)
+		\item test time: no dropout: no random output \& consider all robust features learned \\
+		(randomness in training, mitigated by big data) \\
+		yet, scale each activation by drop out rate $\Rightarrow$ match the expectation
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
@@ -1422,7 +1371,9 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ preferred choice
 	\item Cons
 		\begin{itemize}
-		\item observing noisy loss: not monotonically decreasing (but overall decreasing)
+		\item observing noisy loss: not monotonically decreasing (but overall decreasing) \\
+		$\Rightarrow$ slow converge
+		\item saddle point \& plateau region
 		\end{itemize}
 	\end{itemize}
 	
@@ -1431,8 +1382,9 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 	\item Definition: exponentially weighted average
 		\begin{itemize}
 		\item calculate the gradient for weight update: $dW'_t = \beta dW'_{t-1} + (1-\beta) dW_t$, \\ 
-		where $dW$ the original gradient
-		\item $\Rightarrow$ average over past gradients with exponentially decaying weight, \\
+		where $dW$ the original gradient \\
+		$\Rightarrow$ update with $dW't$: momentum $dW'_{t-1}$ + current gradient $d W_t$
+		\item i.e. average over past gradients with exponentially decaying weight, \\
 		$\Rightarrow$ for past $k\in[0,K]$ gradient, coefficient becomes $\beta(1-\beta)^k$ \\ 
 		(with $k=0$ denoting current gradient)
 		\item bias correction: avoid slow start \\
@@ -1453,15 +1405,28 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
+		\item use momentum $dW'$ to update
 		\item averaging/smoothing out the regular oscillation in stochastic gradient descent \\
-		$\Rightarrow \beta$ popularly chosen to be $0.9$ (averaging over last $10$ gradients) 
-		\end{itemize}
-	\item Pros
-		\begin{itemize}
-		\item avoid some regular oscillation (slowing down the training \& not true randomness)
+		$\Rightarrow \beta$ popularly chosen to be $0.9$ (averaging over last $10$ gradients) \\
+		$\Rightarrow$ faster training \& hopefully overcome saddle and local minima
 		\end{itemize}
 	\end{itemize}
-	
+
+\item Nesterov Momentum
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item gradient for update $dW'_{t} = \beta dW'_{t-1} + (1-\beta)d(W_{t-1}-\beta dW'_{t-1})$, \\
+		where $d(W_{t-1}-\beta dW'_{t-1})$ the gradient of network $W_{t-1}-\beta dW'_{t-1}$ \\
+		i.e. update the network using purely last momentum \& calc the gradient of that \\
+		$\Rightarrow$ adjust the current momentum
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item look ahead: account for momentum \& correct the gradient
+		\end{itemize}
+	\end{itemize}
+
 \item Root Mean Square Propagation (RMS prop)
 	\begin{itemize}
 	\item Definition
@@ -1482,12 +1447,15 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ weighted less, hence stabilized (as it should be noisy \& taking smaller step)
 		\item for gradients with small variance \\ 
 		$\Rightarrow$ weighted more, encouraged (as it should be on the "trend" towards optimum)
+		\item modulate the learning rate for each weight based on its gradient magnitude \\
+		$\Rightarrow$ equalizing the update scale
 		\end{itemize}
 	\item Pros
 		\begin{itemize}
 		\item recognize trend from noise via variance of their gradient $\Rightarrow$ speedup training
 		\item auto-fixing learning rate for each weight given the recorded behavior \\ 
 		(protect learning process from a too large learning rate)
+		\item align the pace of optimization along each axis (normalized by sqrt)
 		\end{itemize}
 	\end{itemize}
 	
@@ -1512,7 +1480,8 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\Rightarrow$ for each weight
 			\begin{itemize}
 			\item smooth out regular oscillation
-			\item encourage the trend \& adapt learning rate given history record
+			\item encourage the trend \& adapt learning rate given history record \\
+			(equalizing the update scale)
 			\end{itemize}
 		\end{itemize}
 	\item Pros
@@ -1540,6 +1509,33 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\begin{itemize}
 		\item fast learning at the beginning, more cautious when approaching the optimum \\ 
 		$\Rightarrow$ in order to finally converge
+		\item used mostly with RMS/momentum; usually not with Adam \\
+		(should consider search ing good learning rate first)
+		\end{itemize}
+	\end{itemize}
+	
+\item Second-Order Optimization (Vanilla)
+	\begin{itemize}
+	\item Definition
+		\begin{itemize}
+		\item second-order Taylor expansion $J(W) \approx J(W_0) + (W-W_0)^T \nabla J(W_0) + \frac12 (W-W_0)^TH(W-W_0)$, \\
+		where $H$ the Hessian matrix \\
+		$\Rightarrow$ update as $W_{t}=W_{t-1}-H^{-1}J(W_{t-1})$
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item no learning rate to tune
+		\item computing $H$ is $\mathcal O(n^2)$; $H^{-1}$ is $\mathcal O(n^3)$
+		\end{itemize}
+	\end{itemize}
+\item Quasi-Newton (BFGS)
+\item Limited-memory BFGS (L-BFGS)
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item NOT account for stochastic approach (mini-batch) \\
+		$\Rightarrow$ require full-batch
+		\item NOT good on non-convex problem
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -1570,16 +1566,30 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 \subsubsection{Metric Loss}
 \begin{itemize}
 \item Triplet Loss
-\item 
+\item Soft Label
+	\begin{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item contain more information than hard label \\
+		$\Rightarrow$ involve similarity info: tips for generalization \\
+		$\Rightarrow$ enable distillation
+		\item as regularization
+		\end{itemize}
+	\item Practice
+		\begin{itemize}
+		\item train net specialized on one sub-task \\
+		(e.g. recognize only one class)
+		\item ensemble all specialized net to create soft label
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
-
 
 \subsection{Layers}
 
 \subsubsection{Prediction}
 \begin{itemize}
 \item Sigmoid
-
+z`
 \item Softmax
 	\begin{itemize}
 	\item Input
@@ -1614,6 +1624,9 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		\item for maximum likelihood loss, only the gap with true class generate gradients \\ 
 		(due to one-hot encoding) \\ 
 		$\Rightarrow$ trying to predict the class true with higher probability
+		\item always make the correct pred prob to be larger \\
+		$\Rightarrow$ push the logits for correct/wrong pred to $+/-\infty$ \\
+		(compared with hinge loss)
 		\end{itemize}
 	\end{itemize}
 
@@ -1722,8 +1735,7 @@ $\Rightarrow \mathcal O(n!2^n)$ overall weight-space symmetries
 		$\frac{\partial L}{\partial C} =$\resizebox{0.12\hsize}{!}{$\begin{bmatrix} \text{---}& \frac{\partial L}{\partial\mathbf y}[1]\cdot\mathbf x^T&\text{---} \\ &\vdots& \\ \text{---}&\frac{\partial L}{\partial\mathbf y}[5]\cdot\mathbf x^T&\text{---} \end{bmatrix}$} \\
 		$\Rightarrow$ equivalent to $\frac{\partial L}{\partial\mathbf y} \cdot \mathbf x^T$, as $\frac{\partial L}{\partial\mathbf y}$ a col vec as $\mathbf y$ \\
 		(still, needs to sum up grad for the same weights)
-		\item to backprop: $\frac{\partial}{\partial \mathbf x} L = \frac{\partial L}{\partial \mathbf y} \frac{\partial \mathbf y}{\partial \mathbf x} = C^T \cdot \frac{\partial L}{\partial \mathbf y}$ \\
-		as $\frac{\mathbf y_i}{\mathbf x_j} = C_{i,j}$
+		\item to backprop: $\frac{\partial}{\partial \mathbf x} L = \frac{\partial L}{\partial \mathbf y} \frac{\partial \mathbf y}{\partial \mathbf x} = C^T \cdot \frac{\partial L}{\partial \mathbf y}$, as $\frac{\partial \mathbf y_i}{\partial \mathbf x_j} = C_{i,j}$
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
@@ -1801,6 +1813,9 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		$\Rightarrow$ ensure border feature get convoluted by the same times as central feature
 		\item YET, may introduce noise if using large kernel \\
 		(as need to pad a lot \& introduce overwhelming useless info, e.g. $0$s)
+		\item can also introduce location info to network \\
+		(no more translation invariance after several padded conv layer) \\
+		$\Rightarrow$ perform localization tasks
 		\item convention: $0$-padding on both directions of an axis
 		\item padding style:
 			\begin{itemize}
@@ -1810,9 +1825,13 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 			\item full padding: $p=k-1$ to account all possible overlaps of kernel \& feature map
 			\end{itemize}
 		\end{itemize}
-	\item Understanding - Kernel Size
+	\item Understanding - Kernel
 		\begin{itemize}
-		\item 
+		\item pattern matching on input as a linear classifier (activation afterwards) \\
+		$\Rightarrow$ learn a spatially shared pattern
+		\item each kernel/filter = a set of single-channel filter producing 1 output channel
+		\item 3-layer 3x3 conv = 1-layer 7x7 conv regarding receptive fields \\
+		(but less params, more non-linearity, more available pattern combination)
 		\end{itemize}
 	\item Understanding - Stride
 		\begin{itemize}
@@ -1925,7 +1944,7 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\item recover the original output $o_{s=1}=i+a+2p-k+1$
 			\begin{itemize}
 			\item stride $s$ as subsampling on $o_{s=1} \Rightarrow f=s-1$
-			\item $a\le l-1$ as skipped input at the tail of an axis/dim of $o_{s=1} \Rightarrow a'=a$
+			\item $a\le s-1$ as skipped input at the tail of an axis/dim of $o_{s=1} \Rightarrow a'=a$
 			\end{itemize}
 		(besides, $o_{s=1}=o+(s-1)(o-1)+a$)
 		\item $\Rightarrow$ then, could have $s=1$ assumption
@@ -1934,9 +1953,10 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		(while the border location recovers $\floor{\frac{p'+1}{s'}}=p'+1$ location via trans conv) \\
 		$\Rightarrow$ $p'+1=k-p$, i.e. $p'+p=k-1$
 		\end{itemize}
-	\item Implementation
+	\item Implementation - Conv Backward
 		\begin{itemize}
-		\item using the backward of a conv: transposed conv via $C^T$
+		\item using the backward of a conv: transposed conv via $C^T$, \\
+		where $C$ the constructed matrix
 		\item given direct conv, where $x=i, y=o$ \\
 		$\Rightarrow$ have its backward \& transposed conv with $x'=y, y'=x$ (in shape \& location) \\
 		\begin{minipage}[l]{.3\linewidth}
@@ -1959,9 +1979,23 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		&\text{gray in } y' \text{ the places to be cropped,} \\ 
 		&\text{gray in } x'^T \text{ the compensated location \& padding} 
 		\end{alignedat}$ \\
-		\item $\Rightarrow$ each transposed conv equivalent to a conv backward (after a kernel re-arrange) \\
-		(since kernel are learnable)
+		\item $\Rightarrow$ each transposed conv equivalent to a conv backward \\
+		(after a kernel re-arrange, actually a flip) \\
 		$\Rightarrow$ \underline{implement as swapping back/forward-prop of normal conv} \\
+		(as kernel is learnable)
+		\end{itemize}
+	\item Implementation - Conv Forward
+		\begin{itemize}
+		\item $r^d$-channel normal conv to perform single-channel transposed conv \\
+		where $r$ the upsampling rate, $d$ the data dimension (2 for img) \\
+		\includegraphics[width=0.5\linewidth, center]{"./Deep Learning/plot/layer-conv trans conv as normal conv".png} \\ 
+			\begin{itemize}
+			\item weights are divided into classes by color i.e. yellow, purple, gree, blue
+			\item weights within each class are activated at the same time
+			\item weights between classes will NOT activated at the same time $\Rightarrow$ independent
+			\end{itemize}
+		\item able to restruct independent weights into stack of kernels \\
+		$\Rightarrow$ obtain the same result by reconstruct the output feature map from normal conv
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
@@ -1969,6 +2003,12 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		$\Rightarrow$ to \underline{maintain the correspondence} between original input \& output \\
 		$\Rightarrow$ also, to recover the shape of the original input of the direct conv \\
 		(yet, not recovers the content, but learning a new mapping)
+		\item can be viewed as scaling kernel on each output position by the weight, \\
+		where output position = kernel position (region) in the original conv \\
+		(sum on the overlapped region) \\
+		$\Rightarrow$ inverse \& maintain the original correspondence
+		\item checkerboard effect due to the overlapped kernel \\
+		$\Rightarrow$ use trans conv corresponding to original non-overlap conv
 		\end{itemize}
 	\end{itemize}
 
@@ -2107,10 +2147,30 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		$\Rightarrow$ if desired features detected anywhere, represent it by local max/average \\
 		$\Rightarrow$ summarize subregions
 		\item invariance to small translations of input
+		\item max ops as gradient router (muse the effect of its negative input) \\
+		$\Rightarrow$ update the maximal part with greater gradient
 		\end{itemize}
 	\end{itemize}
 
 \item Unpooling
+	\begin{itemize}
+	\item Input
+		\begin{itemize}
+		\item feature maps
+		\end{itemize}
+	\item Operation
+		\begin{itemize}
+		\item recover the spatial size before the pooling
+		\item nearest neighbor: for each region, copy the number
+		\item max unpooling: only place the num to its original position before pooling \\
+		$\Rightarrow$ require original location in corresponding feature map in downsampling stage \\
+		i.e. require the corresponding switches (location info used in pooling backprop)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item an upsampling corresponds to the downsample pooling
+		\end{itemize}
+	\end{itemize}
 
 \item Spatial Pyramid Pooling (SPP)
 	\begin{itemize}
@@ -2271,6 +2331,12 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\item for time $\displaystyle t=1,...,T-1, \frac {\partial} {\partial a^t} L = \frac {\partial} {\partial a^t} L^t + \sum_{t'=t+1}^T\frac {\partial L^{t'}} {\partial a^{t+1}} \frac {\partial a^{t+1}} {\partial a^t} = \sum_{t'=t}^T \frac {\partial} {\partial a^t} L^{t'}$
 		\end{itemize}
 	\item Truncated Back Propagation through Time
+		\begin{itemize}
+		\item starting from $t=0$, form a batch $[s_t,...,s_{t+b}]$, with initial state given \\
+		(either the real initial state, or the hidden state from the last batch)
+		\item compute batch gradient while consuming a truncat of the whole input sequence \\
+		$\Rightarrow$ mini-batch sequentially truncated off the sequence
+		\end{itemize}
 	\item Challenge
 		\begin{itemize}
 		\item bad at modeling longterm dependency due to gradient vanishing problem \\
@@ -2283,7 +2349,10 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		(e.g. Car...is fast vs. Cars...are fast)
 		\item easily affect by local dependency (as longterm dependency lost)
 		\item gradient exploding, due to multiple / too many updates on the same weights \\
-		(solved by gradient clipping)
+		(if weight $>1$) \\
+		yet, can be solved by gradient clipping
+		\item gradient vanishing, similar to explosion, but weight $<1$ \\
+		$\Rightarrow$ need LSTM/GRU
 		\item hard to converge, due to fluctuating gradient in an unroll \\ 
 		(noisy intermediate stage) \\
 		$\Rightarrow$ initial short sequence to overcome plateaus, then long sequence for dependency
@@ -2329,14 +2398,20 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 	$h_{t-1},h_t$ the previous/current hidden state; \\ 
 	$f_t, i_t, o_t$ the forget/input/output gate
 	\end{minipage}
-
 	\item Understanding
 		\begin{itemize}
 		\item easy to learn an identity mapping $c^{t-1}\rightarrow c^t$ \\
 		$\Rightarrow$ memory (info) generated early can last for long term \\
 		$\Rightarrow$ better model the long-term dependency
+		\item restricted modification to $c$, as sigmoid $\in (0,1)$m tanh $\in(-1,1)$ \\
+		$\Rightarrow$ overcome the gradient explosion
+		\item ease the gradient vanishing
+			\begin{itemize}
+			\item element-wise add/mul ops, instead of matrix ops
+			\item different $f,i,\widetilde c$ at each step (v.s. same $W$ in vanilla RNN)
+			\end{itemize}
+		$\Rightarrow$ gradient flow (highway) for $c$ (then further pass to $W$)
 		\end{itemize}
-
 	\end{itemize}
 
 \item Gated Recurrent Unit (GRU)
@@ -2809,14 +2884,15 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\end{itemize}
 	\item Understanding
 		\begin{itemize}
-		\item $1\times1$ conv to shrink
-			\begin{itemize}
-			\item less computation for afterwards larger kernel (e.g. $3\times3, 5\times5$)
-			\item prevent output of other ops from being overwhelmed by pooling
-			\end{itemize}
 		\item enable network to learn the desired combination of info \\
 		(instead of predefined hyperparamter) \\
 		$\Rightarrow$ more representability
+		\item $1\times1$ conv to shrink feature map before ops
+			\begin{itemize}
+			\item less computation for afterwards larger kernel (e.g. $3\times3, 5\times5$)
+			\item prevent output of other ops from being overwhelmed by pooling
+			\item expensive block due to the number of ops
+			\end{itemize}
 		\end{itemize}
 	\end{itemize}
 \item Xception
@@ -2867,9 +2943,14 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\begin{itemize}
 		\item to reduce parameters in conv kernel (used in deep net, e.g. Resnet-50, -101)
 		\end{itemize}
+	\item Regularization
+		\begin{itemize}
+		\item align with $L2$ regularization: smaller weights $\rightarrow$ 0 \\
+		(as encourage to learn residual and discard useless layer)
+		\end{itemize}
 	\item Guaranteed Baseline
 		\begin{itemize}
-		\item with ReLU as activation, easy to learn identity function \\ 
+		\item with ReLu \& residual mapping, easy to learn identity function \\ 
 		$\Rightarrow$ layer $l+2$ only need to make $z^{l+2}=0$ (as weights \& bias initialized near $0$)
 		\item $\Rightarrow$ deeper net can easily guarantee to be at least as good as its shallow version \\
 		(then search for luck to surpass baseline)
@@ -2891,9 +2972,95 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\item makes optimization for deep ($\ge 20$) net possible \& unleash deep power
 		\end{itemize}
 	\end{itemize}
+\item Variants
+	\begin{itemize}
+	\item Wide ResNet
+		\begin{itemize}
+		\item increase the num of filter each conv layer \\
+		$\Rightarrow$ achieve same performance as 156-layer ResNet with 50-layer wide ResNet
+		\end{itemize}
+	\item Stochastic Depth
+		\begin{itemize}
+		\item random drop out blocks in the training (replaced with identity mapping)
+		\item use the full deep network at test time
+		\item $\Rightarrow$ dropout on the layer to have shorter network in training \\
+		(better gradient flow)
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsection{Training}
+\subsubsection{Forward-Backward Propagation}
+\begin{itemize}
+\item Representation
+	\begin{itemize}
+	\item Layers
+		\begin{itemize}
+		\item input layer
+		\item hidden layer(s): layer with NO ground truth (for the associated weights) available \\
+		note: input \& hidden layers have associated biases as well (usually)
+		\item output layer
+		\end{itemize}
+	\item Neuron (Unit)
+		\begin{itemize}
+		\item $s_l$: num of units in layer $l$
+		\item $w^l$: weight matrix of mapping from layer $l$ to $l+1$, with shape of $\left( s_{l+1}, s_l + 1 \right)$
+		\item $h(\cdot)$: activation function (usually shared)
+		\item $a_j^l$: activation output of unit $j$ at layer $l$
+		\item $z_j^l$: output of unit $j$ at layer $l$ \\ 
+		(represent parameterized basis, also the input for layer $l+1$)
+		\end{itemize}
+	\item Intuition
+		\begin{itemize}
+		\item all stacked vertically (vertical vector) \\
+		$\Rightarrow$ horizontally for different examples; vertically for different units
+		\end{itemize}
+	\end{itemize}
+	
+\item Forward Propagation (Inference)
+	\begin{itemize}
+	\item Activation $a^{j+1} = w^j \cdot [z_0^j, ..., z_{s_j}^j]^T, \text{ with } z_0=1$
+	\item Unit Output $z^{j+1} = h(a^{j+1}) = [z_1^{1}, ..., z^{j+1}_{s_{j+1}}]^T$
+	\end{itemize}
+
+\item Backward Propagation
+	\begin{itemize}
+	\item Loss $\mathcal L(W) = $
+	\end{itemize}
+
+\item Practice of Back Prop
+	\begin{itemize}
+	\item Caching Intermediate Result
+		\begin{itemize}
+		\item naturally cached: input $a^0=x$, weights matrix $w$ and bias $b$
+		\item activation input/output $a/z$ \\
+		(since will be used in back-prop)
+		\end{itemize}
+	\item Auto Difference
+		\begin{itemize}
+		\item achievement: calculate the derivatives along the forward prop \textbf{!}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Practice}
+\begin{itemize}
+\item Check \& Debug
+	\begin{itemize}
+	\item Overfit Check
+		\begin{itemize}
+		\item sample a small dataset
+		\item check network is able to overfit (0 loss without regularization)
+		\end{itemize}
+	\item Loss Function Check \\
+	\includegraphics[width=0.4\linewidth, left]{"./Deep Learning/plot/train-learningrates".jpeg}
+	\item Converge Check by First-Layer Visualization
+	\includegraphics[width=0.4\linewidth, left]{"./Deep Learning/plot/train-feature visualization".png}
+		\begin{itemize}
+		\item noisy feature (left) indicates unconverged network
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection{Strategy}
 \begin{itemize}
 \item Layer-Wise Fine-Tuning
 	\begin{itemize}
@@ -2920,6 +3087,8 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\begin{itemize}
 		\item optimization goal composes of losses from multiple tasks \\
 		(usually a sum over all losses)
+		\item require weighting across different types of loss \\
+		$\Rightarrow$ avoid dominant loss from one task
 		\end{itemize}
 	\item Understanding
 		\item joint optimization find the shared representation suitable for all tasks \\
@@ -3086,46 +3255,6 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 	\item Use Case
 		\begin{itemize}
 		\item \hyperref[DL_CV_Objdet]{object detection}
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Interpretation and Visualization}
-\begin{itemize}
-\item Activation Testing
-	\item Procedure
-		\begin{itemize}
-		\item use a fixed set of bounding box proposals (with different images)
-		\item treat a single hidden unit in network as a detector/classifier \\
-		$\Rightarrow$ use its activation as scoring
-		\item for detection: after non-max suppression, rank the boxes from highest to lowest activation \\
-		$\Rightarrow$ test out which visual mode the feature is sensing
-	\item Understanding on Network
-		\begin{itemize}
-		\item each feature sensing a different object \\
-		e.g. face, red blob, square objects, light reflectance, array of dots, text (like OCR), etc.
-		\item able to learn: class-specific shape \& abstract attributes \\
-		$\Rightarrow$ construct a \underline{distributed representation} of object \\ 
-		(e.g. shape, color, texture, text, material properties, etc.)
-		\item $\Rightarrow$ later dense layer can model a large range of object \\
-		(as combining different distributed object attributes)
-		\end{itemize}
-	\end{itemize}
-\item Layer Ablation
-	\begin{itemize}
-	\item Procedure
-		\begin{itemize}
-		\item after trained, reduce the num of dense layer, until fully conv \\
-		i.e. using previous layer output as prediction at test time
-		\item on test set: evaluate performance drop \\
-		on other dataset: evaluate generalization ability drop
-		\end{itemize}
-	\item Understanding on Network
-		\begin{itemize}
-		\item CNN ability relies on convolution layer, instead of dense layer \\
-		$\Rightarrow$ \underline{conv layer as feature map extractor} for other domain-model
-		\item fine-tuning improves a lot $\Rightarrow$ fine-tunning the dense layer \\
-		(while conv layer are learned to be quite generic)
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -3432,6 +3561,31 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 	\end{itemize}
 \end{itemize}
 
+\subsection{Objects Classification} \label{DL_CV_Objcls}
+\subsubsection{Problem Formulation}
+\begin{itemize}
+\item Challenges
+	\begin{itemize}
+	\item Semantic Gap
+		\begin{itemize}
+		\item perceive giant matrix of number (img)
+		\item while the goal is to determine the semantic meaning (class)
+		\end{itemize}
+	\item Viewpoint Variation, Illumination and Deformation
+		\begin{itemize}
+		\item mapping completely different matrix of number to the same class
+		\end{itemize}
+	\item Occlusion and Background Clutter
+		\begin{itemize}
+		\item need to distinguish information from noise
+		\end{itemize}
+	\item Inter- and Intra- class Variance
+		\begin{itemize}
+		\item need to distinguish the variance within \& between classes
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
 \subsection{Objects Detection} \label{DL_CV_Objdet}
 \subsubsection{Problem Formulation}
 \begin{itemize}
@@ -3467,6 +3621,16 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 		\item the plot of recall at each IoU threshold, similar to average precision curve
 		\item should use only for diagnosis, instead of performance evaluation \\
 		(as only loosely related to accuracy, etc.)
+		\end{itemize}
+	\end{itemize}
+
+\item Challenge and Development
+	\begin{itemize}
+	\item Varying Targets
+		\begin{itemize}
+		\item variable number of targets $\Rightarrow$ varying number of pred
+		\item proposals: dynamically generated candidate box \& refine the proper one (discard others)
+		\item anchors: fixed list of proposals
 		\end{itemize}
 	\end{itemize}
 
@@ -3571,7 +3735,7 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Two-Stage Detection}
+\subsubsection{Region-based Detection}
 \begin{itemize}
 \item Sliding Window Detection
 	\begin{itemize}
@@ -4157,7 +4321,7 @@ w_{0,0} & w_{0,1} & w_{0,2} & 0       & w_{1,0} & w_{1,1} & w_{1,2} & 0       & 
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{One-stage Detection}
+\subsubsection{Singe-Pass Detection}
 \begin{itemize}
 \item Dense Box
 	\begin{itemize}
@@ -6414,7 +6578,7 @@ based on visual and spatial-temporal features
 	\end{itemize}
 \end{itemize}
 
-\subsection{Image Style Transfer}
+\subsection{Image Styling}
 \subsubsection{Problem Formulation}
 \begin{itemize}
 \item Input Data
@@ -6440,7 +6604,8 @@ based on visual and spatial-temporal features
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Classic Approach}
+\subsubsection{Texture Synthesis}
+\subsubsection{Neural Style Transfer}
 \begin{itemize}
 \item Neural Style Transfer
 	\begin{itemize}
@@ -6472,6 +6637,8 @@ based on visual and spatial-temporal features
 		\end{figure}	
 		\end{itemize}
 	\end{itemize}
+\item Fast Style Transfer
+\item Fast and Multiple Style Transfer
 \end{itemize}
 
 \subsection{Point Cloud Data Processing}
@@ -7781,27 +7948,21 @@ based on visual and spatial-temporal features
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\secsection{Adversarial Attack and Defend}
-\subsection{Problem Formulation}
+\section{Adversarial Attack and Defend}
+\subsection{Attacking CNN}
+\subsubsection{Problem Formulation}
 \begin{itemize}
-\item Input
+\item Attacking Image Classification
 	\begin{itemize}
-	\item Images
+	\item Input
 		\begin{itemize}
 		\item content image, recognized as class $c$ by human
 		\item label class $l, l\neq c$
+		\item network trained on specific tasks, with params fixed (to be attacked)
 		\end{itemize}
-	\item Network
+	\item Output Attack
 		\begin{itemize}
-		\item trained on specific tasks, with params fixed \\
-		(to be attacked)
-		\end{itemize}
-	\end{itemize}
-\item Output
-	\begin{itemize}
-	\item Attacks
-		\begin{itemize}
-		\item a fake image that should be recognized as $c$ but recognized as $l$ by network
+		\item image that should be recognized as $c$ but recognized as $l$ by network
 		\end{itemize}
 	\end{itemize}
 \item Overview and Development
@@ -7823,7 +7984,8 @@ based on visual and spatial-temporal features
 		\end{itemize}
 	\item Finding Cause of Existence of Attacks
 		\begin{itemize}
-		\item network not understanding data
+		\item network not understanding data (underfitting)
+		\item preserve piecewise linearity in input - output mapping
 		\end{itemize}
 	\item Defends
 		\begin{itemize}
@@ -7832,8 +7994,50 @@ based on visual and spatial-temporal features
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
-\subsection{Cause of Existence of Attacks}
+
+\subsubsection{Attack Generation}
 \begin{itemize}
+\item Fast Gradient Sign method
+	\begin{itemize}
+	\item maximize $J(\widetilde x, W) = J(x, W) + (\widetilde x-x)^T\nabla_x J(x)$ s.t. $\norm{\widetilde x - x}_2 < \epsilon$, \\
+	$\Rightarrow$ maxnorm constraint to avoid large change in any pixel \\
+	(i.e. ensure not changing the label of image)
+	\item $\Rightarrow \widetilde x = x+\epsilon \sign(\nabla J(x))$
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Transfering Attack}
+\begin{itemize}
+\item Searchin g the Input Space
+\item Attack on Model Ensembling
+\item Attacking Physical Model
+\end{itemize}
+
+\subsubsection{Hijacking RL System}
+\begin{itemize}
+\item Goal: modify the input to combine the available action into an action serires of another defined target 
+\end{itemize}
+
+\subsection{Cause of Attacks}
+\begin{itemize}
+\item NOT Overfitting
+	\begin{itemize}
+	\item Experiment
+		\begin{itemize}
+		\item test differently trained network \& find attacks \\
+		$\Rightarrow$ similar mistakes on the same attacks \\
+		\item can even use the offset vector (attacks - original input) to attacks other networks \\
+		$\Rightarrow$ systematic effect, not the overfitting (random effect)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item can be underfitting i.e. not capturing true underlying structure, due to being too linear \\
+		as linear model force high confidence on example away from decision plain
+		\item network is non-linear in weight $\rightarrow$ output relation \\
+		(why it is hard to train) \\
+		yet, has piece-wise linear in input $\rightarrow$ output
+		\end{itemize}
+	\end{itemize}
 \item Linearity Cause Vulnerability
 	\begin{itemize}
 	\item Formulation
@@ -7853,12 +8057,76 @@ based on visual and spatial-temporal features
 		\item trying to linearize network for fast training (e.g. relu, ...) $\Rightarrow$ more vulnerable
 		\end{itemize}
 	\end{itemize}
+\item Inter-class \& Intra-class Distance
+\item Not Modeling Posterior Distribution
 \end{itemize}
 
+\subsubsection{Defending Attacks}
+\begin{itemize}
+\item Non-Linear Model
+	\begin{itemize}
+	\item RBF Model
+		\begin{itemize}
+		\item yet, hard to train a deep model due to gradient vanishing, etc.
+		\end{itemize}
+	\end{itemize}
+\item Adversarial Training
+\item Virtual Adversarial Training
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Generative Adversarial Network}
-\subsection{Formulation}
+\section{Generative Networks}
+\subsection{Model Formulation}
+\subsubsection{Explicit Density Estimation}
+\begin{itemize}
+\item Direct Generalization
+	\begin{itemize}
+	\item Derivation
+		\begin{itemize}
+		\item $p(X) = \prod_{n=1}^N p(x_n|x_1,...,x_{n-1})$, where $X$ the input, $x$ the pixel
+		\end{itemize}
+	\item Development
+		\begin{itemize}
+		\item pixelRNN, pixelCNN: pred distribution for each output loc \\
+		e.g. pixel value $0\sim2555$ if generating img
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item inefficient in inference (sequential generation)
+		\end{itemize}
+	\end{itemize}
+
+\item Variational Autoencoder
+	\begin{itemize}
+	\item Inference
+		\begin{itemize}
+		\item assume data (img) $x$ generated from $p(x|z)$, with latent $z$ also sampled from a distrbution
+		\item encoder $q(z|x)$ approximates posterior $p(z|x)$ (Gaussian)
+		\item decoder $p(x|z)$ estimate the likelihood (Gaussian)
+		\end{itemize}
+	\item Derivation
+		\begin{itemize}
+		\Item \begin{align*}\log p(x) &= \mathbb E_{z\sim q(z|x)} [\log p(x) ] \text{, as } z \text{ sampled from } q(z|x) \\
+		&= \mathbb E_z \left[ \log \frac{p(x|z) p(z) \cdot q(z|x)}{p(z|x) \cdot q(z|x)} \right], \text{ bayes'} \\
+		&= \mathbb E\left[ \log p(x|z) \right] + \mathbb E\left[ \log\frac{q(z|x)}{p(z)} \right] + \mathbb E\left[\log\frac{q(z|x)}{p(z|x)} \right] \\
+		&= \underbrace {\mathbb E[ \underbrace {\log p(x|z)}_\text{decoder} ] - D_{KL}(\underbrace {q(z|x)}_\text{Gaussian from encoder} || \underbrace {p(z)}_\text{Guassian prior})}_\text{tractable - loss L} + \underbrace {D_{KL} (q(z|x) || p(z|x))}_{\text{intractable yet }>0} \end{align*}
+		\item $\Rightarrow$ loss $L$ as a lower bound estimation (as $D_{KL}>0$)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item introduce latent variable
+		\item principled under Bayes' framework
+		\item learning to estimate \& sample from parameterized distribution
+		\end{itemize}
+	\item Development
+		\begin{itemize}
+		\item incorporate structural info in latent $z$
+		\item richer approximation ability (e.g. not diagonal var in Gaussian)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Generative Adversarial Networks}
 \begin{itemize}
 \item Input
 	\begin{itemize}
@@ -7876,8 +8144,35 @@ based on visual and spatial-temporal features
 	\end{itemize}
 \item Training Scheme
 	\begin{itemize}
-	\item Loss Function
-
+	\item Unsupervised Training
+		\begin{itemize}
+		\item generator network output/transform the given encoding to desired data
+		\item another discriminator network as the loss on generated data \\
+		$\Rightarrow$ classify if a given data is generated or real \\
+		(checking if the quality matches the real-word data)
+		\end{itemize}
+	\item Loss
+		\begin{itemize}
+		\item $L_D [D(G(z))]$ a binary classification loss for discriminator
+		\item $L_G = -L_D$, trying to maximize the discriminator loss
+		\item minimax objective $\displaystyle \min_{\theta_g}\max_{\theta_d}\left[ \mathbb E_{x\sim p_\text{real data}} \log D(x) + \mathbb E_{z\sim p(z)} \log (1-D(G(z)))\right]$, \\
+		where $\theta_{d} / \theta_g$ the weigh for discriminator $D$ / generator $G$, $z$ encoding 
+		\end{itemize}
+	\item Altering Training
+		\begin{itemize}
+		\item training $D$ for k times and $G$ for 1 time \\
+		$\Rightarrow$ D controls the update direction and the upper bound of the G \\
+		$\Rightarrow$ a more stable guiding for generator
+		\end{itemize}
+	\end{itemize}
+\item Understanding
+	\begin{itemize}
+	\item Sample Approach
+		\begin{itemize}
+		\item mapping a simple distribution to desired one \\
+		(instead of explicit density estimation of output space) \\
+		$\Rightarrow$ focus on sampling
+		\end{itemize}
 	\end{itemize}
 \item Overview and Development
 	\begin{itemize}
@@ -7887,14 +8182,43 @@ based on visual and spatial-temporal features
 		$\Rightarrow$ match real-world distribution from a init distr \\
 		(i.e. density estimation)
 		\end{itemize}
+	\item Better Loss
+		\begin{itemize}
+		\item non-saturating loss: initial generation is far from reality \\
+		$\Rightarrow$ use $-\log(1-x)$ instead of $\log(x)$ \\
+		i.e. larger gradient when $D(G(z))\rightarrow 0$ (when generated data is bad)
+		\end{itemize}
+	\item Better Training
+		\begin{itemize}
+		\item 
+		\end{itemize}
+	\item More Constraint
+		\begin{itemize}
+		\item cycle GAN: two generator able to recover generated data back to original input \\
+		(enforce 1-to-1 mapping between encoding and generated data)
+		\item conditional GAN
+		\end{itemize}
+	\item Encoding Interpretation
+		\begin{itemize}
+		\item linear transformation in encoding space results in non-linear trans in data space \\
+		(similar to word-embedding, but data can be image, etc.)
+		\item altering one loc in encoding $z$ \& observe its effect on generated data
+		\end{itemize}
+	\end{itemize}
+\item Challenge
+	\begin{itemize}
+	\item Hard Training
+		\begin{itemize}
+		\item may compete to be worse, instead of better
+		\item slow \& compute hungry training procedure
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
 \subsection{Image Generation}
-\subsubsection{Problem Formlulation}
+\subsubsection{Problem Formulation}
 \begin{itemize}
-\item Input
-\item Output
+\item 
 \end{itemize}
 
 \subsection{Video Generation}
@@ -8181,6 +8505,297 @@ based on visual and spatial-temporal features
 \end{itemize}
 
 \section{Interpretable Machine Learning}
+
+\subsection{Visualization}
+\subsubsection{Input-Output Correspondence}
+\begin{itemize}
+\item Occlusion Sensitivity
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item slide an occlusion window across the input \& collect network output \\
+		$\Rightarrow$ different output prob for different occlusion location
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item show which component influences network the most
+		$\Rightarrow$ can also show where the background noise lies
+		\end{itemize}
+	\end{itemize}
+\item Class Activation Map
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item add average pooling + softmax layer after the last conv \& fine-tune \\
+		$\Rightarrow$ to retain correspondence between pred and channels in feature map \\
+		(remove dense layer on flatten conv feature, which hides the correspondence)
+		\item given an input \& skip the average pooling \\
+		$\Rightarrow$ weighted sum over channels of feature map $\Rightarrow$ a weighted heatmap for each class pred \\ 
+		(though usually caring only the label class of the input)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item avg pooling + dense layer to fine-tune the weight for weighted sum on feature map channels \\
+		$\Rightarrow$ visualize the activation map to analyze channel sensitivity to specific group of input
+		\item show that CNN has localization ability, even if only trained on classification
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Visualizing Network Inside}
+\begin{itemize}
+\item Weight Visualization
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item directly visualize the weights as is data \\
+		e.g. CNN kernel weights as tiny image
+		\item reveals the pattern that the weight is looking for \\
+		(as inner-product activated the most by itself)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item only meaningful for the first layer \\
+		e.g. first layer in CNN are pattern matching on the input image \\
+		$\Rightarrow$ hard to directly interpret the feature in the middle \\
+		(as operating on intermediate feature maps)
+		\end{itemize}
+	\end{itemize}
+\item Feature Map Visualization
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item for each input visualize the activation of a layer (e.g. feature map)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item visualize which (type/group of) input activates the chosen intermediate layer/channel the most \\
+		$\Rightarrow$ review its desired feature in input
+		\end{itemize}
+	\end{itemize}
+\item Feature Space Interpretation
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item forward the input image through network \& select a layer to use its feature as encoding
+		\item aggregate the features $\Rightarrow$ dataset projected to the feature space
+		\item perform clustering (e.g. KNN) / dimension reduction (t-SNE) \\
+		$\Rightarrow$ visualize the geometry of dataset under the given layer of feature
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item similar to dataset search, yet can understanding the dataset geometry that the network learn \\
+		(instead of the meaning of a single hidden unit)
+		\item usually use the last layer (feature with highest semantic info)
+		\end{itemize}
+	\end{itemize}
+\item Maximally Activated Input (Dataset Search)
+	\item Procedure
+		\begin{itemize}
+		\item treat a single hidden unit / feature map channel in network as a score
+		\item forward all samples in dataset \& rank samples using its activation as score \\
+		$\Rightarrow$ test out which the feature is sensing (by analyzing the high-score samples)
+	\item Understanding
+		\begin{itemize}
+		\item able to reveal which feature in the input highly activate the unit \\
+		(need to consider receptive fields in a CNN)
+		\end{itemize}
+	\item Precedure - Detection Network
+		\begin{itemize}
+		\item use a fixed set of proposals
+		\item rank final output using its activation (pred boxes after NMS) \\
+		$\Rightarrow$ analyze the content inside the bbox, instead of the whole image
+		\end{itemize}
+	\item Understanding on CNN
+		\begin{itemize}
+		\item each feature sensing a different object (done on R-CNN) \\
+		e.g. face, red blob, square objects, light reflectance, array of dots, text (like OCR), etc. \\
+		\item show CNN can learn: class-specific shape \& abstract attributes \\
+		$\Rightarrow$ construct a \underline{distributed representation} of object \\ 
+		(e.g. shape, color, texture, text, material properties, etc.)
+		\item $\Rightarrow$ later dense layer in CNN can model a large range of object \\
+		(as combining different distributed object attributes)
+		\end{itemize}
+	\end{itemize}
+\item Saliency Map - Recover Input from Activation
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item take the derivative of label (or a chose hidden unit) w.r.t the input \\
+		(similar to generating adversarial attacks) \\
+		i.e. $\frac{\partial s_i}{\partial \mathbf x}$, where \\
+		$s_i$ the $i^\text{th}$ loc in score $\mathbf s$ (before softmax layer); $\mathbf x$ the input
+		\item resulting gradient is the same size of $\mathbf x$ i.e. the saliency map \\
+		$\Rightarrow$ reconstruct the input
+		\end{itemize}
+	\item Procedure - Guided Gradient in CNN
+		\begin{itemize}
+		\item reconstruct input by taking inverse operations \\
+		e.g. unpooling, deconv, un-ReLU (which is also ReLu), etc.
+		$\Rightarrow$ construct an inversed network
+		\item assume weights in conv kernel $\mathbf w$ is orthogonal matrix, to have $\mathbf w^T = \mathbf w^{-1}$ \\
+		$\Rightarrow$ use transposed conv with re-arranged kernel as deconv \\
+		(as NOT wanting to train new weights for transposed conv)
+		\item with a chosen activation, set all other loc on feature map to be 0
+		\item run the corresponding inversed net to reconstruct the input img
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item the most influential part receives the largest gradient \\
+		$\Rightarrow$ reveals the image pattern corresponding to specific activation
+		\item softmax introduce cross-label interaction \\ 
+		$\Rightarrow$ pre-softmax score to ensure saliency is related to desired output loc \\
+		(network can minimize score at other location to increase the softmax output at desired loc)
+		\end{itemize}
+	\end{itemize}
+\item Gradianet Accent
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item fix network params \& init a random input (or choose an input) \\
+		$\Rightarrow$ optimize \& update the input for a chosen output (e.g. score for class $k$, or a hidden unit)
+		\item e.g. $L=s_\text{dog}(x) + \lambda \norm{x}$, where regularization is for better visualization \\
+		$\Rightarrow$ to have a smoother image with less abrupt change (can use Gaussian blur as well)
+		\end{itemize}
+	\item Understanding
+		\begin{itemize} 
+		\item again, similar to adversarial attack, but with benign objective \\
+		$\Rightarrow$ generate the input that network thinks to be a chosen output 
+		\end{itemize}
+	\end{itemize}
+\item Deep Dream - Gradient Accent with Strong Prior
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item fix network params \& choose an input and a specific activation
+		\item set the activation score as backward prop for that activation \\
+		$\Rightarrow$ enhance the network pattern of that activation \& update the input
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item similar to gradient accent, but create a enhancing feedback loop \\
+		$\Rightarrow$ pose the pattern of that activation on the input
+		\item become a tool to create art...
+		\end{itemize}
+	\end{itemize}
+\item Feature Inversion
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item given a feature of input (e.f. feature map), reconstruct the input image \\
+		$\Rightarrow$ learn a decoder to decode the selected feature 
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item reconstructed image shows the info retained in the feature \\
+			\begin{itemize}
+			\item almost perfect reconstruction from low level CNN feature
+			\item detail blurred reconstruction from high level CNN feature
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Ablation Study}
+\begin{itemize}
+\item Layer Ablation on Conv Net
+	\begin{itemize}
+	\item Procedure
+		\begin{itemize}
+		\item after trained, reduce the num of dense layer, until fully conv \\
+		i.e. using previous layer output as prediction at test time
+		\item on test set: evaluate performance drop \\
+		on other dataset: evaluate generalization ability drop
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item CNN ability relies on convolution layer, instead of dense layer \\
+		$\Rightarrow$ \underline{conv layer as feature map extractor} for other domain-model
+		\item fine-tuning improves a lot $\Rightarrow$ fine-tunning the dense layer \\
+		(while conv layer are learned to be quite generic)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\section{Acceleration}
+\subsection{Model Reduction}
+\begin{itemize}
+\item Pruning
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item remove connection with too small weights (set weight to 0)
+		\item retrain the net
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item 90\% weights can be redundant
+		\end{itemize}
+	\end{itemize}
+\item Weight Sharing
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item cluster the weight in a layer \& use the centroid for each cluster \\
+		$\Rightarrow$ each layer store a index to the weight table, instead of weight \\
+		(can even use Hoffman tree)
+		\item aggregate the gradient \& update on the value in the table
+		\end{itemize}
+	\item Understanding
+		\begin{itemize}
+		\item can have 4/2-bit index to retain most performance in conv / fully-connected net
+		\end{itemize}
+	\end{itemize}
+\item Quantization
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item gather the statistic of each layer: range of activation, weights, etc. \\
+		$\Rightarrow$ new \& more compact bit representation for the given range \\
+		(static quantization)
+		\item inference with fixed point number \& backprop with normal floating number \\
+		(quantization training)
+		\end{itemize}
+	\end{itemize}
+\item Low-Rank Compression
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item depthewise conv + 1x1 conv to approximate normal conv
+		\item break dense layer into a tree of dense layer, using e.g. SVD
+		\end{itemize}
+	\end{itemize}
+\item Binary Network
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item three weights for inference, a extreme quantization
+		\end{itemize}
+	\end{itemize}
+\item Mixed Precision Training
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item inference \& gradient flow calc on FP16 \\
+		yet, weights update performed with FP32
+		\end{itemize}
+	\end{itemize}
+\item Model Distillation
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item use large \& teacher model to create soft label
+		\item train a simplified student model
+		\end{itemize}
+	\end{itemize}
+\item Fused Ops
+	\begin{itemize}
+	\item Overview
+		\begin{itemize}
+		\item fuse the matrix $\times$ \& $+$ ops into one single clock cycle
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
 \section{Tactile Sensing}
 \subsection{Tactile Sensor}

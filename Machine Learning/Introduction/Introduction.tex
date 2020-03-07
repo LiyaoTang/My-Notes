@@ -99,6 +99,7 @@
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Decision Theory}
 \subsection{Overview}
@@ -783,6 +784,21 @@
 		\item feasibility of DL solution
 		\end{itemize}
 	\end{itemize}
+\item System Design
+	\begin{itemize}
+	\item End-to-End
+		\begin{itemize}
+		\item joint optimization
+		\item can be hard to collect data
+		\item can be hard to diagnose \& correct models error
+		\end{itemize}
+	\item Modular
+		\begin{itemize}
+		\item clear responsible \& decoupled task $\Rightarrow$ reduced complexity
+		\item can have too many engineering design \\
+		(can have unexpected error due to incompleteness in man-made design)
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \subsection{Data \& Dataset}
@@ -836,9 +852,18 @@
 		\item preprocess each $\mathbf x \in X_\text{train}, X_\text{val}, X_\text{test}$ to be $\mathbf x'=\mathbf x -\mu$
 		(all data go through the same process)
 		\end{itemize}
+	\item Practice - Visual Data
+		\begin{itemize}
+		\item may use per-channel mean: one value for each channel \\
+		$\Rightarrow$ avoid prior with location variance
+		\end{itemize}
 	\item Pros
 		\begin{itemize}
 		\item (training) data has a zero mean (statistically, most data close to $0$)
+		\item avoid all positive/negative update, especially when using sigmoid/ReLu activation \\
+		(as they maps always input to positive regime)
+		\item make the loss less sensitive to small weight changes (halves data absolute value) \\
+		$\Rightarrow$ easier to optimize
 		\end{itemize}
 	\item Cons
 		\begin{itemize}

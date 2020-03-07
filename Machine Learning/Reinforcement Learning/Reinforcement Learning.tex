@@ -1,0 +1,436 @@
+\chapter{Reinforcement Learning}
+
+\section{Introduction}
+
+\subsection{Learning Procedure}
+\subsubsection{Overview}
+\includegraphics[width=0.5\linewidth, center]{"./Reinforcement Learning/plot/intro - overall structure".jpg}
+\begin{itemize}
+\item Formulation - Markov Decision Process
+	\begin{itemize}
+	\item Notation
+		\begin{itemize}
+		\item state $s \in \mathcal S$ 
+		\item action $a \in \mathcal A$ 
+		\item reward $r \sim \mathcal R$, the distribution of reward, conditioned on action and state
+		\item $\mathbb P$ the state transition probability \\
+		$\Rightarrow p(s',r|s,a)$ the joint probability of reaching state $s'$ with reward $r$ \\
+		(given taking action $a$ in current state $s$) \\
+		\item return $G_t$, the measurement of future reward sequence $R_{t+1},...,R_T$, \\
+		where $R_t$ the reward gained at time $t$
+			\begin{itemize}
+			\item $G_t = \sum_{k=0}^{T-t} R_{t+1+k}$, where $T$ the final time step
+			\item discounted return $G_t = \sum_{k=0}^\infty \gamma^k R_{t+1+k}$, where $\gamma\in[0,1]$ the discount rate
+			\end{itemize}
+		\item policy $\pi$, a decision making policy \\
+		$\Rightarrow \pi (a|s)$ gives the action $a$ to take in state $s$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Q-Learning}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item learns the utility of performing actions in states
+		\end{itemize}
+	\item Notation
+		\begin{itemize}
+		\item Q table, a matrix for $\mathcal S\times  \mathcal A$, with score $Q(s,a)$ for taking action $a$ in state $s$ \\
+		$\Rightarrow Q_\pi (s,a) = { \mathbb E }_\pi [G_t|S_t=s, A_t=a]$ the expected return \\ 
+		(by taking action $a\in A(s)$ at state $s$ and following policy $\pi$ thereafter)
+		\item $v_\pi(s) = {\mathbb E}_\pi [G_t|S_t=s]$, the expected return \\
+		(starting from state $s$ and following policy $\pi$ thereafter)
+		\end{itemize}
+	\item Bellman Equation - using Markov Decision Process
+		\begin{itemize}
+		\Item \begin{align*} \displaystyle v_\pi(s) &= {\mathbb E}_\pi [G_t|S_t=s] \\
+		&= {\mathbb E}_\pi \left[R_{t+1} + \gamma G_{t+1} \bigg|S_t=s \right] \\
+		&= \sum_{s',r} p(s',r|s) \left[ r + \gamma \mathbb E\left[ G_{t+1} \big| S_{t+1} = s' \right] \right], \text{ where } r\in \mathcal R \text{ the reward received at } R_{t+1} \\
+		&= \sum_{a\in \mathcal A(s)} \pi(a|s) \sum_{s'}\sum_r p(s',r|s,a) \left[ r + \gamma \mathbb E\left[ G_{t+1} \big| S_{t+1} = s' \right] \right] \\
+		&= \sum_a \pi(a|s) \sum_{s',r} p(s', r|s,a) [r + \gamma v_\pi(s')] \end{align*}
+		\Item \begin{align*} \displaystyle Q_\pi(s,a) &= {\mathbb E}_\pi [G_t | S_t=s,A_t=a] \\
+		&= \displaystyle {\mathbb E}_\pi \left[R_{t+1} + \gamma G_{t+1} \bigg|S_t=s, A_t=a \right]  \\
+		&= \displaystyle \sum_{s',r} p (s', r|s, a) \left[ r + \gamma {\mathbb E}_\pi \left[ G_{t+1} \big | S_{t+1} = s' \right] \right] \\
+		&= \displaystyle \sum_{s',r} p(s',r|s,a)[r + \gamma v_\pi(s')] \end{align*}
+		\item $\Rightarrow v_\pi(s) = \sum_a \pi(a|s) Q_\pi(s,a)$
+		\item given an optimal deterministic policy $\pi^\star$, the optimal Q-value $Q^\star$ satisfy \\
+		$\begin{alignedat}{2} &Q^\star(s,a) &&= \max_{\pi}\mathbb E\left[ G_t | S_t=s, A_t=a \right] \\
+		& &&= \mathbb E_{s',r \sim p(s',t|s,a)}\left[r + \gamma \max_{a'}Q^\star(s', a')| s,a\right]
+		\end{alignedat}$
+		\end{itemize}
+	\end{itemize}
+\item Deep Q-Learning
+	\begin{itemize}
+	\item Deep Q-Function
+		\begin{itemize}
+		\item $q_\pi(s,a)$ becomes a deep net \\
+		(instead of a lookup func on pre-computed Q-table) \\
+		\item to reduce input size, network as mapping $s\rightarrow q_\pi(s, a)$ for all $a\in \mathcal A(s)$
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item input state $s$, predict $Q(s, a) \Rightarrow$ let $\pi$ to be $\arg\max_{a} Q(s, a)$ \\ 
+		i.e. simple deterministic policy as choosing the action with the maximal $q$ value
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item loss $L = (y-Q(s, a))^2$, where $y= R_{t+1}(s, a) + \gamma \max_{a'}[Q(s_\text{next}, a')]$ \\
+		$\Rightarrow$ estimating the optimal Q-table using the current network (as a guess) \\
+		$\Rightarrow$ iterative self-training by enforcing Bellman equation
+		\item for more stable training, fix the estimator (a copy of net itself) until loss is small \\
+		(then used the now better network as estimator of $y$)
+		\item i.e. for each episode, loop over time
+			\begin{itemize}
+			\item with current state $s$, predict $Q(s, a)$ from Q-network
+			\item take action $a$ with highest $Q(s,a)$
+			\item observe reward $r$ and reach the next state $s$
+			\item estimate $y$ by network predicting $Q(s', a)$, if $s'$ not terminal state \\
+			(otherwise, let $y=r$ if terminal state reached)
+			\item backprop \& update the network \\
+			(break the episode if in terminal state)
+			\end{itemize}
+		\end{itemize}
+	\item Experience Replay
+		\begin{itemize}
+		\item store experience $<s, a, r, s'>$ that network encounter
+		\item for each step, sample an experience \& use network to continue from that state \\
+		$\Rightarrow$ exploring new states (added to experience set)
+		\item for each update, sample a batch from existing experiences \& update the network
+		\item motivation
+			\begin{itemize}
+			\item re-train on past experience/exploration $\Rightarrow$ enable data reuse \\
+			(as some state may never be visited again due to network update)
+			\item avoid training bias i.e. gradient update biased to one action in a time period \\
+			(leads to unstable training)
+			$\Rightarrow$ de-correlate the successive training updates
+			\item trading between exploration - available computation
+			\end{itemize}
+		\end{itemize}
+	\item Epsilon Greedy Action
+		\begin{itemize}
+		\item set hyper-param $\epsilon$ and draw a random variable $r$ at each step
+		$\Rightarrow$ take $a$ with highest $Q(s, a)$, if $r<\epsilon$ (being greedy); take random action otherwise %$\begin{cases}  \\ \end{cases}$
+		\item motivation: balance the trade-off between exploration - exploitation
+		\end{itemize}
+	\item Challenges
+		\begin{itemize}
+		\item efficient exploration v.s. exploitation
+		\item potential large state-action pairs
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Policy Gradient}
+\begin{itemize}
+\item Overview
+	\begin{itemize}
+	\item Notation
+		\begin{itemize}
+		\item a class of parameterized policies $\Pi = \{ \pi_\theta \}$, where $\theta$ the weights
+		\item let $r(\tau) = (r_0,r_1,...)$, the reward sequence of trajectory $\tau=([s_0,a_0], [s_1, a_1], ...)$
+		\item policy value $J=\mathbb E [ G_t|\pi_\theta ] = \int_\tau r(\tau) p(\tau|\pi_\theta) \D \tau$
+		\end{itemize}
+	\item Inference
+		\begin{itemize}
+		\item sample a trajectory $\tau$ following the current policy $\pi_\theta$
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\Item \begin{align*}\displaystyle \nabla_\theta J(\theta) &= \int_\tau r(\tau) \nabla_\theta p(\tau|\pi_\theta) \D\tau \\
+		&= \int_\tau r(\tau) p(r|\pi_\theta) \nabla_\theta \log p(r|\pi_\theta)  \D\tau, \text{ as } \D y = y\frac{\D y}{y} = y\D (\log y) \\
+		&= \mathbb E_{\tau\sim p(\tau|\pi_\theta)} \left[ r(\tau) \nabla_\theta p(\tau|\pi_\theta) \right]
+		\end{align*}
+		\item inference to sample trajectories $\Rightarrow$ multiple $\tau$ to estimate the expectation
+		\item backprop as a batch of size $\sum_{n=1}^{N} T_n$, \\
+		where $N$ the sampling times, $T_n$ the total step in each sampled $\tau_n$ \\
+		\includegraphics[width=0.7\linewidth, center]{"./Reinforcement Learning/plot/intro - policy gradient structure".png}
+		\item simple strategy: if $r(\tau)$ high, recognize all actions as good \& increase their prob \\
+		(similarly, decrease prop if $r(\tau)$ low) \\
+		$\Rightarrow$ use expectation to averages out \\
+		$\Rightarrow$ suffer from high variation \& large demands on sampling
+		\end{itemize}
+	\item Variance Reduction
+		\begin{itemize}
+		\item use an indicator for each action \\
+		(instead of using $r(\tau)$ over entire sequence to guide the sequence) \\
+		$\Rightarrow$ measured against expected reward $Q(s,a)$ for each $(s,a)$
+		$\Rightarrow$ Actor-Critic Algorithm
+		\end{itemize}
+	\item Challenge
+		\begin{itemize}
+		\item sample efficiency
+		\item credit assignment over the actions (alleviate by using a better indicator)
+		\end{itemize}
+	\end{itemize}
+\item Actor-Critic Algorithm
+	\begin{itemize}
+	\item Motivation
+		\begin{itemize}
+		\item combine policy gradient and Q-learning
+		\item use policy gradient to directly optimize policy (actor)
+		\item use Q-learning to be a more accurate indicator for $(s,a)$ pair (critic)
+		\end{itemize}
+	\item Notation
+		\begin{itemize}
+		\item $A_\pi(s,a) = Q_\pi(s,a)-v(s)$ the advantage function of action $a$ in state $s$
+		\end{itemize}
+	\item Training
+		\begin{itemize}
+		\item optimize $Q$ guided by Bellman equation
+		\item optimize the policy with $A(s,a)$ as indicator for each $(s,a)$ in a trajectory $\tau$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+\subsubsection{Temporal Difference Learning}
+\begin{itemize}
+\item 
+%	\begin{itemize}
+%	\item
+%	\end{itemize}
+% \item 
+%	\begin{itemize}
+%	\item
+%	\end{itemize}
+% \item 
+%	\begin{itemize}
+%	\item
+%	\end{itemize}
+\end{itemize}
+
+\subsection{Multi-Agent Learning}
+\subsubsection{Overview}
+\begin{itemize}
+\item Multi-Agent System
+	\begin{itemize}
+	\item Multiple Agents
+		\begin{itemize}
+		\item asynchronous computation
+		\item internal knowledge
+		\item characterstics (control hierarchy, computability etc.)
+		\end{itemize}
+	\item Envirnment
+		\begin{itemize}
+		\item constraints
+		\item feedback
+		\end{itemize}
+	\item Interaction
+		\begin{itemize}
+		\item between agents
+		\item between agents and environment
+		\end{itemize}
+	\item Learning Types
+		\begin{itemize}
+		\item team learning\item a single learner discovering behaviours for the team
+			\begin{itemize}
+			\item homogeneous\item all agents assigned identical behaviour
+			\item heterogeneous\item agents assigned differently, with speciality concerned
+			\item hybrid\item hierarchy of sub-teams
+			\item pros: focus on team outcome, easily adapted from single agent
+			\item cons: ignore inter-agent credit assignment \& interaction, combinatorial explosion in state space
+			\end{itemize}
+		\item concurrent learning\item multiple learners
+			\begin{itemize}
+			\item different credit assignment methods
+			\item approaches to dynamic environment and co-adaption
+			\item ways to model others (interaction \& collabration between agents)
+			\item pros: reduction of search space (disjoint behviours in agents), more computability
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+\item Credit Assignment
+	\begin{itemize}
+	\item Global Reward
+		\begin{itemize}
+		\item split the team reward equally (same reward for everyone) \\
+		$\Rightarrow$ no sufficient feedback for agent-specific behaviour \\
+		\item also, global reward can somtimes be hard to compute
+		\end{itemize}
+	\item Local Reward
+		\begin{itemize}
+		\item solely based on individual behaviour  $\Rightarrow$ discourages laziness \\
+		(not necessarily better than global reward)
+		\item yet, greedy behaviour is encouraged
+		\end{itemize}
+	\item Social Reinforcement
+		\begin{itemize}
+		\item observational reinforcement: obtained by observing and imitating other agents' behaviour
+		\item vicarious reinforcement: received when target agents are directly rewards 
+		\item $\Rightarrow$ spread rare behaviour to others \& balance between global and local rewards
+		\end{itemize}
+	\item Contribution Reward
+		\begin{itemize}
+		\item agents assume observed reward is the sum of each agent's direct contribution
+		$\Rightarrow$ apportion reward based on the agent's contribution to the global reward
+		\item or, apportion reward based on how team would be disadvantaged had the agent never existed
+		\item claim to be better than both global \& local rewards (balance between them)
+		\end{itemize}
+	\item Non-disconted Reward Averaged over Time
+		\begin{itemize}
+		\item averaging rewards of a sequence of tasks over time
+		\item encourage collaboration \\
+		(relief the problem of not enough rewards for agents not directly achieving the goal)
+		\end{itemize}
+	\end{itemize}
+
+\item Dynamic Environment
+	\begin{itemize}
+	\item Fully Cooperative Scenario
+		\begin{itemize}
+		\item feature
+			\begin{itemize}
+			\item global reward with equal divvy
+			\item increase one agent's reward $\Leftrightarrow$ increase others reaward \\
+			parato optimum agrees with Nash equilibria
+			\end{itemize}
+		\item deterministic repeated games
+			\begin{itemize}
+			\item update by estimating the likely best cooperation possible for agent's action
+			\item update with stochastic sampling with agreed protocol for exploration \& exploitation
+			\end{itemize}
+		\item stochastic (repeated) games
+			\begin{itemize}
+			\item optimal adaptive learning algorithm \\
+			(guaranteed convergence to optimal Nash equilibria under finite actions and states)
+			\end{itemize}
+		\item partially observable markov decision process \\
+		(stochastic game with constraint on agents' ability to observe the state of environment)
+		\end{itemize}
+	\item General Sum Game
+		\begin{itemize}
+		\item feature
+			\begin{itemize}
+			\item a game that has unequal-share credit assignment \& is not zero-sum \\
+			$\Rightarrow$ parato optimum may not agree with Nash equilibria
+			\item may inadvertently cause non-cooperative scenarios
+			\end{itemize}
+		\item stochastic games \\
+			\begin{itemize}
+			\item learn not only its table of Q-values but also table for other agents
+			$\Rightarrow$ other tables used to approximate actions from other
+			\item directly approximate others policies, instead of Q-values
+			\item EXORL algorithm: learn optimal response policies to both adaptive and fixed policies
+			\end{itemize}
+		\end{itemize}
+	\item Competitive Learning
+		\begin{itemize}
+		\item feature
+			\begin{itemize}
+			\item need to not only cooperate but also compete e.g. predator-prey game \\
+			$\Rightarrow$ desirable to learn at similar pace
+			\item loss of gradient problem: always win/lose may occur
+			$\Rightarrow$ insufficient feed back for both sides
+			\item red-queen effect: result of competition can be meaningless 
+			$\Rightarrow$ agents not learning, but degenerate, at different paces \\
+			(cyclic behaviours: comptetitors exchange behaviours, with no actual gain)
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\item Teammate Modeling
+	\begin{itemize}
+	\item Goal
+		\begin{itemize}
+		\item learn other agents in the environment $\Rightarrow$ approximate their expected behaviours
+		\item $\Rightarrow$ cooperate / response accordingly
+		\end{itemize}
+	\item Approches
+		\begin{itemize}
+		\item simple learner (Bayesian) and model for other agents
+		\item learning the others belief, capability, preference etc. (statistical info)
+		$\Rightarrow$ store a set of such model with their probability of being correct given the observation
+		\item communication protocol to exchange model, or subcontract tasks \\
+		(yet, need to model constrainted communication ability)
+		\end{itemize}
+	\end{itemize}
+\item Communication in Learning
+	\begin{itemize}
+	\item Direct Communication
+		\begin{itemize}
+		\item share immediate sensor information \\
+		i.e. inform its state to others, under assumption (prior knowledge)
+		\item share past experience in form of episodes \\
+		e.g. a sequence of <state, action, reward>
+		\item share directly current policies
+		\item can make communication learnable: communication as an action
+		\end{itemize}
+	\item Indirect Communication
+		\begin{itemize}
+		\item actions influence environment $\Rightarrow$ information observable by others
+		\item imitating others 
+		\end{itemize}
+	\end{itemize}
+\item Chanllenges
+	\begin{itemize}
+	\item Scalability
+		\begin{itemize}
+		\item currently multi-agents sys consists of 2~3 agents, limited actions (2~3) \\
+		yet, we need dozens, hundreds...
+		\end{itemize}
+	\item Adaptive Dynamics and Nash Equilibria
+		\begin{itemize}
+		\item affected by credit assugnment scheme 
+		\item usually converge to sub-optimal Nash equilibria
+		\item ways to record level of learning level (ration level)
+		\end{itemize}
+	\item Problem Decomposition
+		\begin{itemize}
+		\item overwhelming state space
+		\item some current approaches...
+			\begin{itemize}
+			\item domain knowledge $\Rightarrow$ smaller yet more powerful set of customised actions
+			\item heuristically \& hierarchically decomposing the problem
+			layered learning: learn basic behaviours, then compose more complex one based on them \\
+			(bottom-up decomposition)
+			\item shaping: gradually change reward function to favour those composed complex behaviours \\
+			(soft layered learning)
+			\item coordination graph: partially decompose joint Q-value based on coordination graph \\
+			$\Rightarrow$ coordinate high-level behaivours \\
+			(balance between full joint utility table and separate independent tables) 
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\item Problem Domains and Applications
+	\begin{itemize}
+	\item Emodied Agents
+		\begin{itemize}
+		\item cooperative navigation
+		\item cooperative target observation
+		\end{itemize}
+	\item Game Theory
+		\begin{itemize}
+		\item social delimma
+		\end{itemize}
+	\item Real-Time Distributed Decision Making
+		\begin{itemize}
+		\item air traffic control
+		\item supply chains (JSP)
+		\item hierarchical multi-agent systems problems
+		\item social interaction modeling
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
