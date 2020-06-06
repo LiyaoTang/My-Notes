@@ -297,6 +297,64 @@
     - look up in pre-implementated cases, `undefined reference` if unforseen usage found
     - $\Rightarrow$ use with macro to make pre-spcialization (fast compilation)
 
+#### CRTP - Curiously Recurring Template Pattern
+
+- Definition
+
+  ```c++
+  template <typename T>
+  struct Utils { // base
+      void scale(double multiplicator);
+      void square();
+  private:
+      // avoid... class T0: public Utils<T1>
+      // => as constructors not accessible by T0, if not using T0 in template
+      Utils(){}
+      friend Utils<T>;
+  };
+  
+  class Number : public Utils<Number> { // derived
+  public:
+      double getValue() const;
+      void setValue(double value);
+      // rest of the Number's rich interface...
+  };
+  
+  template <typename T>
+  struct Utils {
+      // shorthand for static_cast
+      T& underlying() { return static_cast<T&>(*this); }
+      T const& underlying() const { return static_cast<T const&>(*this); }
+      
+      void scale(double multiplicator) {
+          T& underlying = static_cast<T&>(*this);
+          underlying.setValue(underlying.getValue() * multiplicator);
+      }
+      void square() {
+          T& underlying = static_cast<T&>(*this);
+          underlying.setValue(underlying.getValue() * underlying.getValue());
+      }
+  };
+  ```
+
+  - more implementation details: https://www.fluentcpp.com/2017/05/19/crtp-helper/
+
+- Advantages
+
+  - Adding Functionality as Interface
+
+    - base class provides both interface definition \& implementation
+
+      $\Rightarrow$ adding function while not implementing in derived class
+
+      (compared with classic )
+
+    - indeed, derived class becomes an entry to use the functionality in base class
+
+  - Static Virtualization at Compile Time
+
+    - base class binds with the each derived class at initializer call, at compile time
+
 ### Macro
 
 - Capability
@@ -543,6 +601,16 @@
     1. `a[2:4,:]`: create a view on array, on the same memory of `a`
     2. `a[::-1]`: create a reversed view on array `a` 
     3. `a[3,...]`: `...` to set all axises not specified to be `:` 
+
+#### dType
+
+- Specification
+  - type (e.g. `float`), size (in bytes), byte order
+    - `dt = np.dtype('>i4')` $\Rightarrow$
+    - `(dt.byteorder, dt.itemsize, dt.name, dt.type)` == `('>', 4, 'int32', np.int32)` 
+- Structured Data (DataFrame)
+  - specifying cols of arrays as `[(col name, col type), ...]` 
+    - $\Rightarrow$ access cols using the `col name` - just as pandas
 
 ### MatPlotLib
 
