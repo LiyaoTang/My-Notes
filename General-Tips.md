@@ -602,15 +602,18 @@
     2. `a[::-1]`: create a reversed view on array `a` 
     3. `a[3,...]`: `...` to set all axises not specified to be `:` 
 
-#### dType
-
-- Specification
+- dType
   - type (e.g. `float`), size (in bytes), byte order
     - `dt = np.dtype('>i4')` $\Rightarrow$
     - `(dt.byteorder, dt.itemsize, dt.name, dt.type)` == `('>', 4, 'int32', np.int32)` 
-- Structured Data (DataFrame)
-  - specifying cols of arrays as `[(col name, col type), ...]` 
+- Structured Array (DataFrame)
+  - specifying cols of arrays as `[(col_name, col_type), ...]` 
+    
     - $\Rightarrow$ access cols using the `col name` - just as pandas
+    
+      e.g. `col = arr['col_name']`, where `col` an array specified by corresponding `col_type` (in trivial case, an $1$-D array) 
+    
+  - can have nested structure
 
 ### MatPlotLib
 
