@@ -6,6 +6,21 @@
 \subsubsection{Overview}
 \includegraphics[width=0.5\linewidth, center]{"./Reinforcement Learning/plot/intro - overall structure".jpg}
 \begin{itemize}
+\item Learning Representation
+	\begin{itemize}
+	\item Value-based: learn value function \& derive policy from value function
+	\item Policy-based: directly learn policy
+	\item Actor-Critic: learn both policy and value
+	\end{itemize}
+	
+\item World Representation
+	\begin{itemize}
+	\item Model-based: learn state (world) transition probability
+	\item Model-free: 
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
 \item Formulation - Markov Decision Process
 	\begin{itemize}
 	\item Notation
@@ -26,6 +41,14 @@
 		$\Rightarrow \pi (a|s)$ gives the action $a$ to take in state $s$
 		\end{itemize}
 	\end{itemize}
+
+\item Partial Observation MDPs
+	% $\Rightarrow$ predicting the environment
+	% 	\begin{itemize}
+	% 	\item full observation $o =$ state $s = $ (environment state $s^e, $ agent state $s^a$)
+	% 	\item partial observation: need to estimate the state $s=(s^e,s^a)$ from $o$
+	% 	\end{itemize}
+
 \end{itemize}
 
 \subsubsection{Q-Learning}
